@@ -1,0 +1,399 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.1/context",
+    {
+      "@vocab": "http://schema.org/"
+    },
+    {
+      "@base": null
+    },
+    {
+      "Geometry": "http://www.opengis.net/ont/geosparql#Geometry",
+      "asWKT": "http://www.opengis.net/ont/geosparql#asWKT"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "#EPL1",
+      "@type": "IndividualProduct",
+      "URL": "https://en.wikipedia.org/wiki/Olympus_PEN_E-PL1",
+      "description": "Olympus camera with Panasonic 20mm lens",
+      "manufacturer": "Olympus",
+      "model": "EPL 1",
+      "name": "EPL1 Camera",
+      "serialNumber": "B3B505338"
+    },
+    {
+      "@id": "#Panny20mm",
+      "@type": "IndividualProduct",
+      "URL": "https://en.wikipedia.org/wiki/Panasonic_Lumix_20mm_lens",
+      "description": "Panasonic lens",
+      "manufacturer": "Panasonic",
+      "model": "Lumix G 20mm F1.7 Asph.",
+      "name": "Lumix G 20/F1.7 lens",
+      "serialNumber": "01FG3033651"
+    },
+    {
+      "@id": "#Photo1",
+      "@type": "CreateAction",
+      "agent": {
+        "@id": "http://orcid.org/0000-0002-3545-944X"
+      },
+      "description": "Photo snapped on a photo walk on a misty day",
+      "endTime": "2017:06:11T12:56:14+10:00",
+      "instrument": [
+        {
+          "@id": "#EPL1"
+        },
+        {
+          "@id": "#Panny20mm"
+        }
+      ],
+      "name": "Took dog picture",
+      "object": {
+        "@id": "http://www.geonames.org/8152662/catalina-park.html"
+      },
+      "result": {
+        "@id": "pics/2017-06-11 12.56.14.jpg"
+      }
+    },
+    {
+      "@id": "http://orcid.org/0000-0002-3545-944X",
+      "@type": "Person",
+      "affiliation": {
+        "@id": "https://ror.org/0384j8v12"
+      },
+      "contactPoint": "mailto:peter.sefton@uts.edu.au",
+      "email": "pt@ptsefton.com",
+      "familyName": "Sefton",
+      "givenName": "Peter",
+      "name": "Peter Sefton"
+    },
+    {
+      "@id": "http://www.geonames.org/8152662/catalina-park.html",
+      "@type": "Place",
+      "URL": "https://en.wikipedia.org/wiki/Catalina_Park",
+      "address": "Katoomba, NSW",
+      "description": "Catalina Park is a disused motor racing venue, located at Katoomba, in the Blue Mountains, New South Wales, Australia, and is recognised as an Aboriginal Place due to the long association of the local Gundungarra and Darug clans to the area.",
+      "geo": [
+        {
+          "@id": "#Geometry-1"
+        },
+        {
+          "@id": "#Geometry-2"
+        }
+        ],
+      "name": "Catalina Park"
+    },
+    {
+      "@id": "https://ror.org/0384j8v12",
+      "@type": "Organization",
+      "address": "Broadway, 2007, NSW Australia",
+      "description": "",
+      "funder": "",
+      "name": "University of Technology Sydney"
+    },
+    {
+      "@id": "pics/2017-06-11 12.56.14.jpg",
+      "@type": [
+        "File",
+        "ImageObject"
+      ],
+      "contentSize": 5114778,
+      "creator": {
+        "@id": "http://orcid.org/0000-0002-3545-944X"
+      },
+      "dateModified": "2021-04-21T11:27:03+10:00",
+      "description": "Depicts a fence at a disused motor racing venue with the front part of a slightly out of focus black dog in the foreground.",
+      "encodingFormat": [
+        {
+          "@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/645"
+        },
+        "image/jpeg"
+      ],
+      "fileFormat": "http://www.nationalarchives.gov.uk/PRONOM/fmt/645",
+      "name": "pics/2017-06-11 12.56.14.jpg",
+      "thumbnail": {
+        "@id": "pics/thumbs/2017-06-11 12.56.14.png"
+      }
+    },
+    {
+      "@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/645",
+      "@type": "website",
+      "name": "Exchangeable Image File Format (Compressed)"
+    },
+    {
+      "@id": "pics/thumbs/2017-06-11 12.56.14.png",
+      "@type": "File",
+      "contentSize": 20594,
+      "creator": "",
+      "dateModified": "2021-04-21T11:27:03+10:00",
+      "description": "",
+      "encodingFormat": [
+        {
+          "@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/11"
+        },
+        "image/png"
+      ],
+      "fileFormat": "http://www.nationalarchives.gov.uk/PRONOM/fmt/11",
+      "name": "pics/thumbs/2017-06-11 12.56.14.png"
+    },
+    {
+      "@id": "#SepiaConversion",
+      "@type": "CreateAction",
+      "agent": {
+        "@id": "http://orcid.org/0000-0002-3545-944X"
+      },
+      "description": "convert -sepia-tone 80% test_data/sample/pics/2017-06-11\\ 12.56.14.jpg test_data/sample/pics/sepia_fence.jpg",
+      "endTime": "2018:09:19T17:01:07+10:00",
+      "instrument": {
+        "@id": "https://www.imagemagick.org/"
+      },
+      "name": "Converted dog picture to sepia",
+      "object": {
+        "@id": "pics/2017-06-11 12.56.14.jpg"
+      },
+      "result": {
+        "@id": "pics/sepia_fence.jpg"
+      }
+    },
+    {
+      "@id": "https://www.imagemagick.org/",
+      "@type": "SoftwareApplication",
+      "URL": "https://www.imagemagick.org/",
+      "name": "ImageMagick",
+      "version": " ImageMagick 7.0.8-2 Q16 x86_64 2018-06-19"
+    },
+    {
+      "@id": "pics/sepia_fence.jpg",
+      "@type": [
+        "File",
+        "ImageObject"
+      ],
+      "contentSize": 4855037,
+      "creator": {
+        "@id": "http://orcid.org/0000-0002-3545-944X"
+      },
+      "dateModified": "2021-04-21T11:27:03+10:00",
+      "description": "Sepia tone version of my fence/dog pic",
+      "encodingFormat": [
+        {
+          "@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/43"
+        },
+        "image/jpeg"
+      ],
+      "fileFormat": "http://www.nationalarchives.gov.uk/PRONOM/fmt/43",
+      "name": "pics/sepia_fence.jpg",
+      "thumbnail": {
+        "@id": "pics/thumbs/sepia_fence.png"
+      }
+    },
+    {
+      "@id": "pics/thumbs/sepia_fence.png",
+      "@type": "File",
+      "contentSize": 20524,
+      "creator": "",
+      "dateModified": "2021-04-21T11:27:03+10:00",
+      "description": "",
+      "encodingFormat": [
+        {
+          "@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/11"
+        },
+        "image/png"
+      ],
+      "fileFormat": "http://www.nationalarchives.gov.uk/PRONOM/fmt/11",
+      "name": "pics/thumbs/sepia_fence.png"
+    },
+    {
+      "@id": "#picsdistro",
+      "@type": "DataDownload",
+      "path": "http://data.research.uts.edu.au",
+      "name": ""
+    },
+    {
+      "@id": "./",
+      "@type": "Dataset",
+      "author": {
+        "@id": "http://orcid.org/0000-0002-3545-944X"
+      },
+      "citation": {
+        "@id": "http://dx.doi.org/10.1000/123456"
+      },
+      "contactPoint": {
+        "@id": "mailto:peter.sefton@uts.edu.au"
+      },
+      "contentLocation": {
+        "@id": "http://www.geonames.org/8152662/catalina-park.html"
+      },
+      "datePublished": "2017-06-29",
+      "description": "This is a simple dataset for demonstration purposes it contains just one image and a directory full of useless text files.",
+      "funder": [
+        {
+          "@id": "http://ands.org.au"
+        },
+        {
+          "@id": "https://ror.org/0384j8v12"
+        },
+        {
+          "@id": "https://github.com/UTS-eResearch/projects/datacrate"
+        }
+      ],
+      "identifier": "https://dx.doi.org/10.5281/zenodo.1009240",
+      "keywords": "Dogs, Fences, The Gully",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by-nc-sa/3.0/au/"
+      },
+      "name": "Sample dataset for RO-Crate v1.1",
+      "publisher": {
+        "@id": "https://ror.org/0384j8v12"
+      },
+      "temporalCoverage": "2017",
+      "hasPart": [
+        {
+          "@id": "lots_of_little_files/"
+        },
+        {
+          "@id": "pics/"
+        }
+      ],
+      "distribution": {
+        "@id": "https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip"
+      }
+    },
+    {
+      "@id": "http://dx.doi.org/10.1000/123456",
+      "@type": "ScholarlyArticle",
+      "author": {
+        "@id": "http://orcid.org/0000-0002-3545-944X"
+      },
+      "datePublished": "2018",
+      "name": "This is an example publication with a dodgy DOI"
+    },
+    {
+      "@id": "mailto:peter.sefton@uts.edu.au",
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "peter.sefton@uts.edu.au",
+      "name": "Contact Peter Sefton"
+    },
+    {
+      "@id": "http://ands.org.au",
+      "@type": "Organization",
+      "description": "The core purpose of the Australian National Data Service (ANDS) is to make Australia’s research data assets more valuable for researchers, research institutions and the nation.",
+      "name": "Australian National Data Service"
+    },
+    {
+      "@id": "https://github.com/UTS-eResearch/projects/datacrate",
+      "@type": "Organization",
+      "description": "The DataCrate project is to write the spec for DataCrate, of which this is an example. The DataCrate project is part of the University of Technology Sydney's Provisioner project, which was part-funded by the Australian National Data Service (ANDS) - now part of the Australian Research Data Commons (ARDC).",
+      "funder": {
+        "@id": "https://ror.org/0384j8v12"
+      },
+      "name": "DataCrate Project"
+    },
+    {
+      "@id": "https://creativecommons.org/licenses/by-nc-sa/3.0/au/",
+      "@type": "CreativeWork",
+      "description": "This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Australia License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/au/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.",
+      "name": "Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU)"
+    },
+    {
+      "@id": "lots_of_little_files/",
+      "@type": "Dataset",
+      "description": "This directory contains many small files, that we’re not going to describe in detail.",
+      "hasPart": [],
+      "name": "Too many files"
+    },
+    {
+      "@id": "pics/",
+      "@type": "Dataset",
+      "description": "This directory contains the images for the research project",
+      "hasPart": [
+        {
+          "@id": "pics/2017-06-11 12.56.14.jpg"
+        },
+        {
+          "@id": "pics/sepia_fence.jpg"
+        },
+        {
+          "@id": "pics/thumbs/"
+        }
+      ],
+      "name": "Pictures"
+    },
+    {
+      "@id": "https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip",
+      "contentUrl": "https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip",
+      "@type": "DataDownload",
+      "encodingFormat": "zip"
+    },
+    {
+      "@id": "pics/thumbs/",
+      "@type": "Dataset",
+      "description": "",
+      "hasPart": [
+        {
+          "@id": "pics/thumbs/2017-06-11 12.56.14.png"
+        },
+        {
+          "@id": "pics/thumbs/sepia_fence.png"
+        }
+      ],
+      "name": "Thumbnails"
+    },
+    {
+      "@id": "http://eresearch.uts.edu.au/projects/provisioner",
+      "@type": "Organization",
+      "description": "The University of Technology Sydney Provisioner project is ",
+      "funder": [
+        {
+          "@id": "https://ror.org/0384j8v12"
+        },
+        {
+          "@id": "http://ands.org.au"
+        }
+      ],
+      "name": "Provisioner Project"
+    },
+    {
+      "@id": "https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip",
+      "@type": "DataDownload",
+      "path": [
+        "https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip",
+        ""
+      ],
+      "encodingFormat": "zip",
+      "name": ""
+    },
+    {
+      "@id": "https://www.nationalarchives.gov.uk/PRONOM/pronom",
+      "@type": "website",
+      "name": "Plain Text File"
+    },
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "about": {
+        "@id": "./"
+      },
+      "identifier": "ro-crate-metadata.json"
+    },
+    {
+      "@id": "#Geometry-1",
+      "@type": "Geometry",
+      "name": "Geometry-1",
+      "asWKT": "POINT (150.3025258272487 -33.71473918246115)"
+    },
+    {
+      "@id": "#Geometry-2",
+      "@type": "Geometry",
+      "name": "Geometry-2",
+      "asWKT": " POLYGON((129.82 -13.08, 130.608 -13.08, 130.608 -13.67, 129.82 -13.67, 129.82 -13.08))"
+    }
+
+
+
+
+    
+  ]
+}

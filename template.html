@@ -1,0 +1,362 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+      h2.id {
+        text-align: right;
+      }
+      .long {
+         overflow: scroll;
+          max-height: 10em;
+      }
+      .entity {
+        display: none;
+        position: static;
+        top: 10%;
+        width: 80%;
+        min-height: 100%;
+        z-index: 1000;
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .entity:target {
+      display: block;
+    }
+
+
+span.type {
+    background-color: #c8e97c;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 0.8em;
+}
+
+ 
+.button-left, .button-right {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    padding: 5px 10px;
+    border-radius: 0px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.button-left:hover, .button-right:hover {
+    background-color: #e9e9e9;
+}
+
+.button-left::before {
+    content: '↤';
+    font-size: 1.2em;
+}
+
+.button-right::after {
+    content: '↦';
+    font-size: 1.2em;
+}
+
+.button-left a, .button-right a {
+    text-decoration: none;
+    color: #333;
+}
+
+.property-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+
+
+.property-row {
+    display: flex;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.entity-header-row {
+    justify-content: center; /* Center horizontally */
+    align-items: center; 
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(226, 225, 225);
+}
+
+.property-header-row {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; 
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(215, 218, 217);
+}
+.property-row:nth-child(odd) {
+    background-color: #f9fbf9;
+}
+
+.property-row:nth-child(even) {
+    height: 20%;
+    background-color: #f0f0ee;
+}
+
+.property-name {
+    flex: 1;
+    font-weight: bold;
+}
+
+.property-value {
+    flex: 2;
+    gap: 5px;
+    align-items: left;
+
+}
+
+
+
+.property-value button {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.property-value button a {
+    text-decoration: none;
+    color: #333;
+}
+
+.property-value button:hover {
+    background-color: #e9e9e9;
+}
+  </style>
+
+<!-- TODO ONLY LOAD THIS IF THERE ARE MAPS -->
+ <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+ <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const entryPointId = "{{ data.entryPoint | urlencode }}";
+      if (!window.location.hash) {
+        window.location.hash = entryPointId;
+      }
+    });
+  
+  function search(input) {
+    li = input.parentNode.getElementsByTagName("div");
+    filter = input.value.toUpperCase();
+    count = li.length;
+    found = 0;
+      for (i = 0; i < li.length; i++) {
+          txtValue = li[i].textContent.toUpperCase() || "";
+          if (txtValue.indexOf(filter) > -1) {
+              li[i].style.display = "";
+              found ++
+          } else {
+              li[i].style.display = "none";
+          }    
+    }
+    input.parentNode.getElementsByClassName("count")[0].innerText =  `${found} /  ${count}`;
+}
+
+
+</script>
+
+
+
+</head>
+
+
+
+  <body>
+
+{% macro displayProp(prop, propData) %}
+    <div class="property-row">
+
+        <div class="property-name">
+            {{propData.label}}
+            {% if propData.url %}
+            <a href="{{ propData.url }}" target="_blank">?</a>
+            {% endif %}
+        
+        </div>
+        <div class="property-value">
+            {% if propData.fwd.length + propData.rev.length > 9 %}
+                
+            <input class="border" onkeyup="res = search(this)">
+            <span class="count"> ({{ propData.fwd.length + propData.rev.length }} / {{ propData.fwd.length + propData.rev.length }})</span>
+            <div class="long">
+                    
+            {% else %}
+            <div class="short">
+                    
+            {% endif %}
+
+        {% for val in propData.fwd %}
+        <div>   
+
+            {% if val is string %}
+            {{ val }}
+            
+            
+            {% elif val["url"] %}
+            <a href="{{ val["url"] }}"> {{ val["url"]  }}</a>
+            {% else %}
+                {% if val["target_id"] %}
+                <button  class="button-right"><a href="#{{ val["target_id"] | urlencode }}"> {{ val["target_name"] }} </a></button>
+                
+                
+                
+                {% elif val.geoJSON %}
+            
+                {% set mapId = "" | randomId %}
+                  MAP COMING SOON
+                 {% elif val.value %}
+                     {{ val.value }}
+
+                {% else %}
+                WARNING SOMETHING WENT WRONG {{ val | dump }}
+                {% endif %}
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+    
+        {% for val in propData.rev %}
+            
+        <div>
+                {% if val["target_id"] %}
+                <button class="button-left"><a href="#{{ val["target_id"] | urlencode }}">  {{ val["target_name"] }} </a></button>
+                
+                {% else %}
+                WARNING SOMETHING WENT WRONG {{ val | dump }} ⬅
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro display(item) %}
+
+<div class="entity" id="{{item.id | urlencode}}">
+    <div class = "entity-header-row">
+        <h2 class="id">{{ item.id }}</h2>
+        <h2>
+            {% for type in item.type %}
+               <span class="type">{{ type }}</span> {% if not loop.last %}, {% endif %}
+            {% endfor %}
+            : {{ item.props["http://schema.org/name"].fwd[0].value }}
+        </h2> 
+   
+    </div>
+    <div class="property-grid">
+        {% set seenProps = {} %}
+        {% for group in layout %}
+            {% set hasContent = false %}
+            {% for input in group.inputs %}
+                {% if item.props[input] %}
+                    {% set hasContent = true %}
+                    {% set seenProps = seenProps | setProp(input) %}
+                {% endif %}
+            {% endfor %}
+            {% if hasContent %}
+                <div class="property-header-row">{{ group.name }}</div>
+            {% endif %}
+            {% for input in group.inputs %}
+                {% if item.props[input] %}
+                    {{ displayProp(input, item.props[input]) }}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% set hasContent = false %}
+        {% for input, val in item %}
+            {% if not seenProps[input] %}
+                {% set hasContent = true %}
+            {% endif %}
+        {% endfor %}
+
+        {% if hasContent %}
+            <div class="property-header-row">Other properties</div>
+        {% endif %}
+
+        {% for input, val in item.props %}
+           {% if not seenProps[input] %}
+                {{ displayProp(input, item.props[input]) }}
+
+           {% endif %}
+        {% endfor %}
+
+
+
+    </div>
+
+      {% set htmlRegex = r/(\.txt)$|(\.html?)$/i %}
+      {% set audioRegex = r/(\.mp3)|(\.ogg?)|(\.wav)$/i %}
+      {% set imgRegex = r/(\.jpe?g)|(\.png|(\.giff?))$/i   %}
+      {% set vidRegex = r/(\.mp4)|(\.mov)$/i   %}
+
+      {% set pdfRegex = r/pdf$/i %}
+
+      {% if item.type.includes("File") %}
+        {% if   htmlRegex.test(item.id)  %}
+            <iframe src='{{item.id}}' type="text/plain" width='100%' height='500'         loading="lazy"></iframe>
+        {% elif  audioRegex.test(item.id)  %} 
+            <audio controls><source src="{{ item.id }}"/></audio>
+        {% elif  vidRegex.test(item.id)  %} 
+            <video io controls><source src="{{ item.id }}"/></video>
+        {% elif   imgRegex.test(item.id)  %} 
+          <img width='100%' style='object-fit: contain' src="{{ item.id }}" loading="lazy"/>
+        {% elif  pdfRegex.test(item.id) %}
+          <iframe   src="{{ item.id }}" type="application/pdf" width="100%" height="600px" loading="lazy" />
+        {% endif %}
+      {% endif %}
+
+
+     </div> 
+    
+    
+    
+ 
+   
+
+
+</div>
+
+{% endmacro %}
+
+
+
+<a href="{{ home_link }}">🏠 Home</a>
+XXXXXXXXX
+{% for id, entity in data.ids %}
+      {{ display(entity) }}
+ {% endfor %}
+
+
+
+
+
+
+
+
+      
+
+
+</body>
+</html>

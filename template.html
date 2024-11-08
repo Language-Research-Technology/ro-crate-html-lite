@@ -250,7 +250,7 @@ span.type {
         <h2 class="id">{{ item.id }}</h2>
         <h2>
             {% for type in item.type %}
-               <span class="type">{{ type }}</span> {% if not loop.last %}, {% endif %}
+               <span class="type">{{ type }}{% if not loop.last %}, {% endif %}</span>
             {% endfor %}
             : {{ item.props["http://schema.org/name"].fwd[0].value }}
         </h2> 

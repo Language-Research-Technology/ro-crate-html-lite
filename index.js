@@ -4,92 +4,12 @@ const { Command } = require("commander");
 const { ROCrate } = require("ro-crate");
 const nunjucks = require("nunjucks");
 const program = new Command();
-const Terraformer = require('terraformer');
 const WKT = require('terraformer-wkt-parser');
-const puppeteer = require('puppeteer');
 
 
-async function drawMap(geoJSON) {
-    return null;
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    const html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>Map</title>
-            <style>
-                body, html { margin: 0; padding: 0; width: 100%; height: 100%; }
-                #map { width: 100%; height: 100%; }
-            </style>
-            <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
-        </head>
-        <body>
-            <div id="map"></div>
-            <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
-            <script>
-                const geojson = ${JSON.stringify(geoJSON)};
-                const bounds = new maplibregl.LngLatBounds();
 
-                if (geojson.features) {
-                    geojson.features.forEach(function(feature) {
-                        if (feature.geometry && feature.geometry.coordinates) {
-                            feature.geometry.coordinates.forEach(function(coord) {
-                                bounds.extend(coord);
-                            });
-                        }
-                    });
-                }
-
-                const center = bounds.getCenter();
-
-                const map = new maplibregl.Map({
-                    style: 'https://tiles.openfreemap.org/styles/liberty',
-                    center: center.toArray(),
-                    zoom: 9.5,
-                    container: 'map',
-                });
-
-                map.on('load', () => {
-                    map.addSource('geojson', {
-                        'type': 'geojson',
-                        'data': geojson
-                    });
-
-                    map.addLayer({
-                        'id': 'geojson-layer',
-                        'type': 'line',
-                        'source': 'geojson',
-                        'paint': {
-                            'line-color': '#B42222',
-                            'line-width': 2
-                        }
-                    });
-
-                    map.fitBounds(bounds, { padding: 20 });
-
-                    map.once('idle', async () => {
-                        const svg = await map.getCanvas().toDataURL('image/svg+xml');
-                        window.mapSVG = svg;
-                    });
-                });
-            </script>
-        </body>
-        </html>
-    `
-    fs.writeFileSync('map.html', html);
-    await page.setContent(html);
-
-    await page.waitForFunction('window.mapSVG !== undefined');
-    const mapSVG = await page.evaluate(() => window.mapSVG);
-
-    await browser.close();
-    return mapSVG;
-}
-
-async function loadRoCrate(cratePath, layout) {
-  async function expandPropertyValue(property, value) {
+function loadRoCrate(cratePath, layout) {
+  function expandPropertyValue(property, value) {
     vals = [];
     if (property === "@id" || property === "@value") {
       return value;
@@ -101,7 +21,7 @@ async function loadRoCrate(cratePath, layout) {
         target_id: "",
         target_name: "",
         url: "",
-        map: null
+        geoJSON: null
       };
 
       if (val["@id"]) {
@@ -125,11 +45,11 @@ async function loadRoCrate(cratePath, layout) {
         if (property === "asWKT") {
             try {
                 returnVal.geoJSON = WKT.parse(val);
-                returnVal.map = await drawMap(returnVal.geoJSON);
+                console.log(returnVal);
             } catch (error) {
                 console.error(`Error parsing WKT: ${error}`);
                 returnVal.value = val;
-            }
+            } 
         } else {
         returnVal.value = val;
     }

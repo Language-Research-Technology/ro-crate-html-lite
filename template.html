@@ -142,10 +142,6 @@ span.type {
 }
   </style>
 
-<!-- TODO ONLY LOAD THIS IF THERE ARE MAPS -->
- <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
- <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
       const entryPointId = "{{ data.entryPoint | urlencode }}";
@@ -218,11 +214,6 @@ span.type {
                 <button  class="button-right"><a href="#{{ val["target_id"] | urlencode }}"> {{ val["target_name"] }} </a></button>
                 
                 
-                
-                {% elif val.geoJSON %}
-            
-                {% set mapId = "" | randomId %}
-                  MAP COMING SOON
                  {% elif val.value %}
                      {{ val.value }}
 
@@ -343,7 +334,6 @@ span.type {
 
 
 <a href="{{ home_link }}">🏠 Home</a>
-XXXXXXXXX
 {% for id, entity in data.ids %}
       {{ display(entity) }}
  {% endfor %}

@@ -9,6 +9,7 @@
   "author": "Peter Sefton",
   "license": "GPL-3.0",
   "dependencies": {
+    "commander": "^12.1.0",
     "maplibre-gl": "^4.7.1",
     "nunjucks": "^3.2.4",
     "puppeteer": "^23.7.1",

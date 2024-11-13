@@ -6,8 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <style>
+    body{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1vw;
+            margin: 0;
+        }
+
       h2.id {
-        text-align: right;
+        font-size: 0.6em;
+        font-weight:lighter;
       }
       .long {
          overflow: scroll;
@@ -16,13 +23,11 @@
       .entity {
         display: none;
         position: static;
-        top: 10%;
-        width: 80%;
+        top: 0;
+        width: 100%;
         min-height: 100%;
         z-index: 1000;
-        border: 1px solid #ccc;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 0px;
     }
 
     .entity:target {
@@ -31,19 +36,24 @@
 
 
 span.type {
-    background-color: #c8e97c;
     padding: 5px;
     border-radius: 5px;
     margin-right: 5px;
-    font-size: 0.8em;
+    font-size: 0.6em;
+    text-transform: uppercase;
+    font-weight:lighter;
+}
+
+span.type::after  {
+    content:"\a";
+    white-space: pre;
 }
 
  
 .button-left, .button-right {
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    padding: 5px 10px;
-    border-radius: 0px;
+    background-color: #ffffff;
+    padding: 0;
+    border-radius: 50px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -51,55 +61,68 @@ span.type {
 }
 
 .button-left:hover, .button-right:hover {
-    background-color: #e9e9e9;
+    background-color: #000000;
 }
 
 .button-left::before {
-    content: '↤';
+    content: '⏴';
     font-size: 1.2em;
+    color:#fff
 }
 
 .button-right::after {
-    content: '↦';
+    content: '⏵';
     font-size: 1.2em;
+    color:#fff
 }
 
 .button-left a, .button-right a {
     text-decoration: none;
-    color: #333;
+    color: #ffffff;
 }
 
 .property-grid {
+    margin:20px auto;
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 0px;
+    width: 60%;
 }
 
 
 
 .property-row {
     display: flex;
-    padding: 5px;
-    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 50px;
 }
 
 .entity-header-row {
     justify-content: center; /* Center horizontally */
+    width: 100%;
     align-items: center; 
     text-align: center;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: rgb(226, 225, 225);
+    padding: 15px;
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    font-size: 1.75vw;
+    font-weight: bold;
 }
 
 .property-header-row {
     display: flex;
-    justify-content: center; /* Center horizontally */
+    justify-content: left; /* Center horizontally */
     align-items: center; 
     text-align: center;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: rgb(215, 218, 217);
+    padding: 25px 50px;
+    margin-top:20px;
+    border-radius: 10px 10px 0 0;
+    background-color: rgb(0, 0, 0);
+    color:#fff;
+    font-size: 1.5vw;
+    font-weight:bold;
+    text-transform:capitalize;
 }
 .property-row:nth-child(odd) {
     background-color: #f9fbf9;
@@ -114,6 +137,16 @@ span.type {
     flex: 1;
     font-weight: bold;
 }
+.property-name a{
+    color:#747474;
+    text-decoration: none;
+    transition: all .2s ease-in;
+    font-size: 1em;
+}
+
+.property-name a:hover{
+    color: #000000;
+}
 
 .property-value {
     flex: 2;
@@ -125,20 +158,23 @@ span.type {
 
 
 .property-value button {
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    padding: 5px;
-    border-radius: 8px;
+    background-color: #000000;
+    margin-bottom: 5px;
+    padding: 10px;
+    border:none;
+    border-radius: 80px;
     cursor: pointer;
+    transition: all .2s ease-in;
 }
 
 .property-value button a {
     text-decoration: none;
-    color: #333;
+    font-weight: bold;
+    color: #fffafa;
 }
 
 .property-value button:hover {
-    background-color: #e9e9e9;
+    background-color: #333333;
 }
   </style>
 
@@ -184,7 +220,7 @@ span.type {
         <div class="property-name">
             {{propData.label}}
             {% if propData.url %}
-            <a href="{{ propData.url }}" target="_blank">?</a>
+            <a href="{{ propData.url }}" target="_blank">ⓘ</a>
             {% endif %}
         
         </div>
@@ -247,14 +283,14 @@ span.type {
 
 <div class="entity" id="{{item.id | urlencode}}">
     <div class = "entity-header-row">
-        <h2 class="id">{{ item.id }}</h2>
+
         <h2>
             {% for type in item.type %}
                <span class="type">{{ type }}{% if not loop.last %}, {% endif %}</span>
             {% endfor %}
-            : {{ item.props["http://schema.org/name"].fwd[0].value }}
+             {{ item.props["http://schema.org/name"].fwd[0].value }}
         </h2> 
-   
+        <h2 class="id">{{ item.id }}</h2>
     </div>
     <div class="property-grid">
         {% set seenProps = {} %}
@@ -333,10 +369,10 @@ span.type {
 
 
 
-<a href="{{ home_link }}">🏠 Home</a>
+<!-- <a href="{{ home_link }}">🏠 Home</a> -->
 {% for id, entity in data.ids %}
       {{ display(entity) }}
- {% endfor %}
+ {% endfor %} 
 
 
 

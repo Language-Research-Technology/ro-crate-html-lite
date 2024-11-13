@@ -6,8 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <style>
+    body{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1vw;
+            margin: 0;
+        }
+
       h2.id {
-        text-align: right;
+        font-size: 0.6em;
+        font-weight:lighter;
       }
       .long {
          overflow: scroll;
@@ -16,13 +23,11 @@
       .entity {
         display: none;
         position: static;
-        top: 10%;
-        width: 80%;
+        top: 0;
+        width: 100%;
         min-height: 100%;
         z-index: 1000;
-        border: 1px solid #ccc;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 0px;
     }
 
     .entity:target {
@@ -31,19 +36,24 @@
 
 
 span.type {
-    background-color: #c8e97c;
     padding: 5px;
     border-radius: 5px;
     margin-right: 5px;
-    font-size: 0.8em;
+    font-size: 0.6em;
+    text-transform: uppercase;
+    font-weight:lighter;
+}
+
+span.type::after  {
+    content:"\a";
+    white-space: pre;
 }
 
  
 .button-left, .button-right {
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    padding: 5px 10px;
-    border-radius: 0px;
+    background-color: #ffffff;
+    padding: 0;
+    border-radius: 50px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -51,55 +61,68 @@ span.type {
 }
 
 .button-left:hover, .button-right:hover {
-    background-color: #e9e9e9;
+    background-color: #000000;
 }
 
 .button-left::before {
-    content: '↤';
+    content: '⏴';
     font-size: 1.2em;
+    color:#fff
 }
 
 .button-right::after {
-    content: '↦';
+    content: '⏵';
     font-size: 1.2em;
+    color:#fff
 }
 
 .button-left a, .button-right a {
     text-decoration: none;
-    color: #333;
+    color: #ffffff;
 }
 
 .property-grid {
+    margin:20px auto;
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 0px;
+    width: 60%;
 }
 
 
 
 .property-row {
     display: flex;
-    padding: 5px;
-    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 50px;
 }
 
 .entity-header-row {
     justify-content: center; /* Center horizontally */
+    width: 100%;
     align-items: center; 
     text-align: center;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: rgb(226, 225, 225);
+    padding: 15px;
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    font-size: 1.75vw;
+    font-weight: bold;
 }
 
 .property-header-row {
     display: flex;
-    justify-content: center; /* Center horizontally */
+    justify-content: left; /* Center horizontally */
     align-items: center; 
     text-align: center;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: rgb(215, 218, 217);
+    padding: 25px 50px;
+    margin-top:20px;
+    border-radius: 10px 10px 0 0;
+    background-color: rgb(0, 0, 0);
+    color:#fff;
+    font-size: 1.5vw;
+    font-weight:bold;
+    text-transform:capitalize;
 }
 .property-row:nth-child(odd) {
     background-color: #f9fbf9;
@@ -114,6 +137,16 @@ span.type {
     flex: 1;
     font-weight: bold;
 }
+.property-name a{
+    color:#747474;
+    text-decoration: none;
+    transition: all .2s ease-in;
+    font-size: 1em;
+}
+
+.property-name a:hover{
+    color: #000000;
+}
 
 .property-value {
     flex: 2;
@@ -125,20 +158,23 @@ span.type {
 
 
 .property-value button {
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    padding: 5px;
-    border-radius: 8px;
+    background-color: #000000;
+    margin-bottom: 5px;
+    padding: 10px;
+    border:none;
+    border-radius: 80px;
     cursor: pointer;
+    transition: all .2s ease-in;
 }
 
 .property-value button a {
     text-decoration: none;
-    color: #333;
+    font-weight: bold;
+    color: #fffafa;
 }
 
 .property-value button:hover {
-    background-color: #e9e9e9;
+    background-color: #333333;
 }
   </style>
 
@@ -185,20 +221,20 @@ span.type {
 
 
 
-<a href="">🏠 Home</a>
+<!-- <a href="">🏠 Home</a> -->
 
       
 
 <div class="entity" id="%23EPL1">
     <div class = "entity-header-row">
-        <h2 class="id">#EPL1</h2>
+
         <h2>
             
                <span class="type">IndividualProduct</span>
             
-            : EPL1 Camera
+             EPL1 Camera
         </h2> 
-   
+        <h2 class="id">#EPL1</h2>
     </div>
     <div class="property-grid">
         
@@ -260,7 +296,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -302,7 +338,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -454,7 +490,7 @@ span.type {
         <div class="property-name">
             instrument
             
-            <a href="http://schema.org/instrument" target="_blank">?</a>
+            <a href="http://schema.org/instrument" target="_blank">ⓘ</a>
             
         
         </div>
@@ -623,7 +659,7 @@ span.type {
         <div class="property-name">
             URL
             
-            <a href="http://schema.org/URL" target="_blank">?</a>
+            <a href="http://schema.org/URL" target="_blank">ⓘ</a>
             
         
         </div>
@@ -666,7 +702,7 @@ span.type {
         <div class="property-name">
             manufacturer
             
-            <a href="http://schema.org/manufacturer" target="_blank">?</a>
+            <a href="http://schema.org/manufacturer" target="_blank">ⓘ</a>
             
         
         </div>
@@ -705,7 +741,7 @@ span.type {
         <div class="property-name">
             model
             
-            <a href="http://schema.org/model" target="_blank">?</a>
+            <a href="http://schema.org/model" target="_blank">ⓘ</a>
             
         
         </div>
@@ -746,7 +782,7 @@ span.type {
         <div class="property-name">
             serialNumber
             
-            <a href="http://schema.org/serialNumber" target="_blank">?</a>
+            <a href="http://schema.org/serialNumber" target="_blank">ⓘ</a>
             
         
         </div>
@@ -809,14 +845,14 @@ span.type {
 
 <div class="entity" id="%23Panny20mm">
     <div class = "entity-header-row">
-        <h2 class="id">#Panny20mm</h2>
+
         <h2>
             
                <span class="type">IndividualProduct</span>
             
-            : Lumix G 20/F1.7 lens
+             Lumix G 20/F1.7 lens
         </h2> 
-   
+        <h2 class="id">#Panny20mm</h2>
     </div>
     <div class="property-grid">
         
@@ -878,7 +914,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -920,7 +956,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1072,7 +1108,7 @@ span.type {
         <div class="property-name">
             instrument
             
-            <a href="http://schema.org/instrument" target="_blank">?</a>
+            <a href="http://schema.org/instrument" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1241,7 +1277,7 @@ span.type {
         <div class="property-name">
             URL
             
-            <a href="http://schema.org/URL" target="_blank">?</a>
+            <a href="http://schema.org/URL" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1284,7 +1320,7 @@ span.type {
         <div class="property-name">
             manufacturer
             
-            <a href="http://schema.org/manufacturer" target="_blank">?</a>
+            <a href="http://schema.org/manufacturer" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1323,7 +1359,7 @@ span.type {
         <div class="property-name">
             model
             
-            <a href="http://schema.org/model" target="_blank">?</a>
+            <a href="http://schema.org/model" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1364,7 +1400,7 @@ span.type {
         <div class="property-name">
             serialNumber
             
-            <a href="http://schema.org/serialNumber" target="_blank">?</a>
+            <a href="http://schema.org/serialNumber" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1427,14 +1463,14 @@ span.type {
 
 <div class="entity" id="%23Photo1">
     <div class = "entity-header-row">
-        <h2 class="id">#Photo1</h2>
+
         <h2>
             
                <span class="type">CreateAction</span>
             
-            : Took dog picture
+             Took dog picture
         </h2> 
-   
+        <h2 class="id">#Photo1</h2>
     </div>
     <div class="property-grid">
         
@@ -1496,7 +1532,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1538,7 +1574,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1695,7 +1731,7 @@ span.type {
         <div class="property-name">
             agent
             
-            <a href="http://schema.org/agent" target="_blank">?</a>
+            <a href="http://schema.org/agent" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1734,7 +1770,7 @@ span.type {
         <div class="property-name">
             object
             
-            <a href="http://schema.org/object" target="_blank">?</a>
+            <a href="http://schema.org/object" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1773,7 +1809,7 @@ span.type {
         <div class="property-name">
             instrument
             
-            <a href="http://schema.org/instrument" target="_blank">?</a>
+            <a href="http://schema.org/instrument" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1823,7 +1859,7 @@ span.type {
         <div class="property-name">
             result
             
-            <a href="http://schema.org/result" target="_blank">?</a>
+            <a href="http://schema.org/result" target="_blank">ⓘ</a>
             
         
         </div>
@@ -1997,7 +2033,7 @@ span.type {
         <div class="property-name">
             endTime
             
-            <a href="http://schema.org/endTime" target="_blank">?</a>
+            <a href="http://schema.org/endTime" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2068,14 +2104,14 @@ span.type {
 
 <div class="entity" id="http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
     <div class = "entity-header-row">
-        <h2 class="id">http://orcid.org/0000-0002-3545-944X</h2>
+
         <h2>
             
                <span class="type">Person</span>
             
-            : Peter Sefton
+             Peter Sefton
         </h2> 
-   
+        <h2 class="id">http://orcid.org/0000-0002-3545-944X</h2>
     </div>
     <div class="property-grid">
         
@@ -2140,7 +2176,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2178,7 +2214,7 @@ span.type {
         <div class="property-name">
             familyName
             
-            <a href="http://schema.org/familyName" target="_blank">?</a>
+            <a href="http://schema.org/familyName" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2216,7 +2252,7 @@ span.type {
         <div class="property-name">
             givenName
             
-            <a href="http://schema.org/givenName" target="_blank">?</a>
+            <a href="http://schema.org/givenName" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2304,7 +2340,7 @@ span.type {
         <div class="property-name">
             author
             
-            <a href="http://schema.org/author" target="_blank">?</a>
+            <a href="http://schema.org/author" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2348,7 +2384,7 @@ span.type {
         <div class="property-name">
             creator
             
-            <a href="http://schema.org/creator" target="_blank">?</a>
+            <a href="http://schema.org/creator" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2398,7 +2434,7 @@ span.type {
         <div class="property-name">
             affiliation
             
-            <a href="http://schema.org/affiliation" target="_blank">?</a>
+            <a href="http://schema.org/affiliation" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2498,7 +2534,7 @@ span.type {
         <div class="property-name">
             agent
             
-            <a href="http://schema.org/agent" target="_blank">?</a>
+            <a href="http://schema.org/agent" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2687,7 +2723,7 @@ span.type {
         <div class="property-name">
             contactPoint
             
-            <a href="http://schema.org/contactPoint" target="_blank">?</a>
+            <a href="http://schema.org/contactPoint" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2726,7 +2762,7 @@ span.type {
         <div class="property-name">
             email
             
-            <a href="http://schema.org/email" target="_blank">?</a>
+            <a href="http://schema.org/email" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2795,14 +2831,14 @@ span.type {
 
 <div class="entity" id="http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">
     <div class = "entity-header-row">
-        <h2 class="id">http://www.geonames.org/8152662/catalina-park.html</h2>
+
         <h2>
             
                <span class="type">Place</span>
             
-            : Catalina Park
+             Catalina Park
         </h2> 
-   
+        <h2 class="id">http://www.geonames.org/8152662/catalina-park.html</h2>
     </div>
     <div class="property-grid">
         
@@ -2864,7 +2900,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -2906,7 +2942,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3056,7 +3092,7 @@ span.type {
         <div class="property-name">
             object
             
-            <a href="http://schema.org/object" target="_blank">?</a>
+            <a href="http://schema.org/object" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3134,7 +3170,7 @@ span.type {
         <div class="property-name">
             contentLocation
             
-            <a href="http://schema.org/contentLocation" target="_blank">?</a>
+            <a href="http://schema.org/contentLocation" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3172,7 +3208,7 @@ span.type {
         <div class="property-name">
             geo
             
-            <a href="http://schema.org/geo" target="_blank">?</a>
+            <a href="http://schema.org/geo" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3224,7 +3260,7 @@ span.type {
         <div class="property-name">
             address
             
-            <a href="http://schema.org/address" target="_blank">?</a>
+            <a href="http://schema.org/address" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3356,7 +3392,7 @@ span.type {
         <div class="property-name">
             URL
             
-            <a href="http://schema.org/URL" target="_blank">?</a>
+            <a href="http://schema.org/URL" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3431,16 +3467,16 @@ span.type {
 
 <div class="entity" id="pics%2F2017-06-11%2012.56.14.jpg">
     <div class = "entity-header-row">
-        <h2 class="id">pics/2017-06-11 12.56.14.jpg</h2>
+
         <h2>
             
                <span class="type">File, </span>
             
                <span class="type">ImageObject</span>
             
-            : pics/2017-06-11 12.56.14.jpg
+             pics/2017-06-11 12.56.14.jpg
         </h2> 
-   
+        <h2 class="id">pics/2017-06-11 12.56.14.jpg</h2>
     </div>
     <div class="property-grid">
         
@@ -3502,7 +3538,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3544,7 +3580,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3626,7 +3662,7 @@ span.type {
         <div class="property-name">
             creator
             
-            <a href="http://schema.org/creator" target="_blank">?</a>
+            <a href="http://schema.org/creator" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3707,7 +3743,7 @@ span.type {
         <div class="property-name">
             hasPart
             
-            <a href="http://schema.org/hasPart" target="_blank">?</a>
+            <a href="http://schema.org/hasPart" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3778,7 +3814,7 @@ span.type {
         <div class="property-name">
             object
             
-            <a href="http://schema.org/object" target="_blank">?</a>
+            <a href="http://schema.org/object" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3816,7 +3852,7 @@ span.type {
         <div class="property-name">
             result
             
-            <a href="http://schema.org/result" target="_blank">?</a>
+            <a href="http://schema.org/result" target="_blank">ⓘ</a>
             
         
         </div>
@@ -3983,7 +4019,7 @@ span.type {
         <div class="property-name">
             contentSize
             
-            <a href="http://schema.org/contentSize" target="_blank">?</a>
+            <a href="http://schema.org/contentSize" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4030,7 +4066,7 @@ span.type {
         <div class="property-name">
             dateModified
             
-            <a href="http://schema.org/dateModified" target="_blank">?</a>
+            <a href="http://schema.org/dateModified" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4071,7 +4107,7 @@ span.type {
         <div class="property-name">
             encodingFormat
             
-            <a href="http://schema.org/encodingFormat" target="_blank">?</a>
+            <a href="http://schema.org/encodingFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4121,7 +4157,7 @@ span.type {
         <div class="property-name">
             fileFormat
             
-            <a href="http://schema.org/fileFormat" target="_blank">?</a>
+            <a href="http://schema.org/fileFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4162,7 +4198,7 @@ span.type {
         <div class="property-name">
             thumbnail
             
-            <a href="http://schema.org/thumbnail" target="_blank">?</a>
+            <a href="http://schema.org/thumbnail" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4230,14 +4266,14 @@ span.type {
 
 <div class="entity" id="https%3A%2F%2Fror.org%2F0384j8v12">
     <div class = "entity-header-row">
-        <h2 class="id">https://ror.org/0384j8v12</h2>
+
         <h2>
             
                <span class="type">Organization</span>
             
-            : University of Technology Sydney
+             University of Technology Sydney
         </h2> 
-   
+        <h2 class="id">https://ror.org/0384j8v12</h2>
     </div>
     <div class="property-grid">
         
@@ -4299,7 +4335,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4341,7 +4377,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4421,7 +4457,7 @@ span.type {
         <div class="property-name">
             publisher
             
-            <a href="http://schema.org/publisher" target="_blank">?</a>
+            <a href="http://schema.org/publisher" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4459,7 +4495,7 @@ span.type {
         <div class="property-name">
             funder
             
-            <a href="http://schema.org/funder" target="_blank">?</a>
+            <a href="http://schema.org/funder" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4511,7 +4547,7 @@ span.type {
         <div class="property-name">
             affiliation
             
-            <a href="http://schema.org/affiliation" target="_blank">?</a>
+            <a href="http://schema.org/affiliation" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4651,7 +4687,7 @@ span.type {
         <div class="property-name">
             address
             
-            <a href="http://schema.org/address" target="_blank">?</a>
+            <a href="http://schema.org/address" target="_blank">ⓘ</a>
             
         
         </div>
@@ -4819,14 +4855,14 @@ span.type {
 
 <div class="entity" id="%23Geometry-1">
     <div class = "entity-header-row">
-        <h2 class="id">#Geometry-1</h2>
+
         <h2>
             
                <span class="type">Geometry</span>
             
-            : Geometry-1
+             Geometry-1
         </h2> 
-   
+        <h2 class="id">#Geometry-1</h2>
     </div>
     <div class="property-grid">
         
@@ -4885,7 +4921,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -5081,7 +5117,7 @@ span.type {
         <div class="property-name">
             geo
             
-            <a href="http://schema.org/geo" target="_blank">?</a>
+            <a href="http://schema.org/geo" target="_blank">ⓘ</a>
             
         
         </div>
@@ -5117,7 +5153,7 @@ span.type {
         <div class="property-name">
             asWKT
             
-            <a href="http://www.opengis.net/ont/geosparql#asWKT" target="_blank">?</a>
+            <a href="http://www.opengis.net/ont/geosparql#asWKT" target="_blank">ⓘ</a>
             
         
         </div>
@@ -5280,14 +5316,14 @@ span.type {
 
 <div class="entity" id="%23Geometry-2">
     <div class = "entity-header-row">
-        <h2 class="id">#Geometry-2</h2>
+
         <h2>
             
                <span class="type">Geometry</span>
             
-            : Geometry-2
+             Geometry-2
         </h2> 
-   
+        <h2 class="id">#Geometry-2</h2>
     </div>
     <div class="property-grid">
         
@@ -5346,7 +5382,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -5542,7 +5578,7 @@ span.type {
         <div class="property-name">
             geo
             
-            <a href="http://schema.org/geo" target="_blank">?</a>
+            <a href="http://schema.org/geo" target="_blank">ⓘ</a>
             
         
         </div>
@@ -5578,7 +5614,7 @@ span.type {
         <div class="property-name">
             asWKT
             
-            <a href="http://www.opengis.net/ont/geosparql#asWKT" target="_blank">?</a>
+            <a href="http://www.opengis.net/ont/geosparql#asWKT" target="_blank">ⓘ</a>
             
         
         </div>
@@ -5741,14 +5777,14 @@ span.type {
 
 <div class="entity" id="https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645">
     <div class = "entity-header-row">
-        <h2 class="id">https://www.nationalarchives.gov.uk/PRONOM/fmt/645</h2>
+
         <h2>
             
                <span class="type">website</span>
             
-            : Exchangeable Image File Format (Compressed)
+             Exchangeable Image File Format (Compressed)
         </h2> 
-   
+        <h2 class="id">https://www.nationalarchives.gov.uk/PRONOM/fmt/645</h2>
     </div>
     <div class="property-grid">
         
@@ -5807,7 +5843,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6097,7 +6133,7 @@ span.type {
         <div class="property-name">
             encodingFormat
             
-            <a href="http://schema.org/encodingFormat" target="_blank">?</a>
+            <a href="http://schema.org/encodingFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6158,14 +6194,14 @@ span.type {
 
 <div class="entity" id="pics%2Fthumbs%2F2017-06-11%2012.56.14.png">
     <div class = "entity-header-row">
-        <h2 class="id">pics/thumbs/2017-06-11 12.56.14.png</h2>
+
         <h2>
             
                <span class="type">File</span>
             
-            : pics/thumbs/2017-06-11 12.56.14.png
+             pics/thumbs/2017-06-11 12.56.14.png
         </h2> 
-   
+        <h2 class="id">pics/thumbs/2017-06-11 12.56.14.png</h2>
     </div>
     <div class="property-grid">
         
@@ -6227,7 +6263,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6269,7 +6305,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6341,7 +6377,7 @@ span.type {
         <div class="property-name">
             creator
             
-            <a href="http://schema.org/creator" target="_blank">?</a>
+            <a href="http://schema.org/creator" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6411,7 +6447,7 @@ span.type {
         <div class="property-name">
             hasPart
             
-            <a href="http://schema.org/hasPart" target="_blank">?</a>
+            <a href="http://schema.org/hasPart" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6611,7 +6647,7 @@ span.type {
         <div class="property-name">
             contentSize
             
-            <a href="http://schema.org/contentSize" target="_blank">?</a>
+            <a href="http://schema.org/contentSize" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6650,7 +6686,7 @@ span.type {
         <div class="property-name">
             thumbnail
             
-            <a href="http://schema.org/thumbnail" target="_blank">?</a>
+            <a href="http://schema.org/thumbnail" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6691,7 +6727,7 @@ span.type {
         <div class="property-name">
             dateModified
             
-            <a href="http://schema.org/dateModified" target="_blank">?</a>
+            <a href="http://schema.org/dateModified" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6732,7 +6768,7 @@ span.type {
         <div class="property-name">
             encodingFormat
             
-            <a href="http://schema.org/encodingFormat" target="_blank">?</a>
+            <a href="http://schema.org/encodingFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6778,7 +6814,7 @@ span.type {
         <div class="property-name">
             fileFormat
             
-            <a href="http://schema.org/fileFormat" target="_blank">?</a>
+            <a href="http://schema.org/fileFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6847,14 +6883,14 @@ span.type {
 
 <div class="entity" id="%23SepiaConversion">
     <div class = "entity-header-row">
-        <h2 class="id">#SepiaConversion</h2>
+
         <h2>
             
                <span class="type">CreateAction</span>
             
-            : Converted dog picture to sepia
+             Converted dog picture to sepia
         </h2> 
-   
+        <h2 class="id">#SepiaConversion</h2>
     </div>
     <div class="property-grid">
         
@@ -6916,7 +6952,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -6958,7 +6994,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7115,7 +7151,7 @@ span.type {
         <div class="property-name">
             agent
             
-            <a href="http://schema.org/agent" target="_blank">?</a>
+            <a href="http://schema.org/agent" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7154,7 +7190,7 @@ span.type {
         <div class="property-name">
             object
             
-            <a href="http://schema.org/object" target="_blank">?</a>
+            <a href="http://schema.org/object" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7193,7 +7229,7 @@ span.type {
         <div class="property-name">
             instrument
             
-            <a href="http://schema.org/instrument" target="_blank">?</a>
+            <a href="http://schema.org/instrument" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7232,7 +7268,7 @@ span.type {
         <div class="property-name">
             result
             
-            <a href="http://schema.org/result" target="_blank">?</a>
+            <a href="http://schema.org/result" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7406,7 +7442,7 @@ span.type {
         <div class="property-name">
             endTime
             
-            <a href="http://schema.org/endTime" target="_blank">?</a>
+            <a href="http://schema.org/endTime" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7477,14 +7513,14 @@ span.type {
 
 <div class="entity" id="https%3A%2F%2Fwww.imagemagick.org%2F">
     <div class = "entity-header-row">
-        <h2 class="id">https://www.imagemagick.org/</h2>
+
         <h2>
             
                <span class="type">SoftwareApplication</span>
             
-            : ImageMagick
+             ImageMagick
         </h2> 
-   
+        <h2 class="id">https://www.imagemagick.org/</h2>
     </div>
     <div class="property-grid">
         
@@ -7543,7 +7579,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7701,7 +7737,7 @@ span.type {
         <div class="property-name">
             instrument
             
-            <a href="http://schema.org/instrument" target="_blank">?</a>
+            <a href="http://schema.org/instrument" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7870,7 +7906,7 @@ span.type {
         <div class="property-name">
             URL
             
-            <a href="http://schema.org/URL" target="_blank">?</a>
+            <a href="http://schema.org/URL" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7913,7 +7949,7 @@ span.type {
         <div class="property-name">
             version
             
-            <a href="http://schema.org/version" target="_blank">?</a>
+            <a href="http://schema.org/version" target="_blank">ⓘ</a>
             
         
         </div>
@@ -7976,16 +8012,16 @@ span.type {
 
 <div class="entity" id="pics%2Fsepia_fence.jpg">
     <div class = "entity-header-row">
-        <h2 class="id">pics/sepia_fence.jpg</h2>
+
         <h2>
             
                <span class="type">File, </span>
             
                <span class="type">ImageObject</span>
             
-            : pics/sepia_fence.jpg
+             pics/sepia_fence.jpg
         </h2> 
-   
+        <h2 class="id">pics/sepia_fence.jpg</h2>
     </div>
     <div class="property-grid">
         
@@ -8047,7 +8083,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8089,7 +8125,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8171,7 +8207,7 @@ span.type {
         <div class="property-name">
             creator
             
-            <a href="http://schema.org/creator" target="_blank">?</a>
+            <a href="http://schema.org/creator" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8252,7 +8288,7 @@ span.type {
         <div class="property-name">
             hasPart
             
-            <a href="http://schema.org/hasPart" target="_blank">?</a>
+            <a href="http://schema.org/hasPart" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8324,7 +8360,7 @@ span.type {
         <div class="property-name">
             result
             
-            <a href="http://schema.org/result" target="_blank">?</a>
+            <a href="http://schema.org/result" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8491,7 +8527,7 @@ span.type {
         <div class="property-name">
             contentSize
             
-            <a href="http://schema.org/contentSize" target="_blank">?</a>
+            <a href="http://schema.org/contentSize" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8536,7 +8572,7 @@ span.type {
         <div class="property-name">
             dateModified
             
-            <a href="http://schema.org/dateModified" target="_blank">?</a>
+            <a href="http://schema.org/dateModified" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8577,7 +8613,7 @@ span.type {
         <div class="property-name">
             encodingFormat
             
-            <a href="http://schema.org/encodingFormat" target="_blank">?</a>
+            <a href="http://schema.org/encodingFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8623,7 +8659,7 @@ span.type {
         <div class="property-name">
             fileFormat
             
-            <a href="http://schema.org/fileFormat" target="_blank">?</a>
+            <a href="http://schema.org/fileFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8664,7 +8700,7 @@ span.type {
         <div class="property-name">
             thumbnail
             
-            <a href="http://schema.org/thumbnail" target="_blank">?</a>
+            <a href="http://schema.org/thumbnail" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8732,14 +8768,14 @@ span.type {
 
 <div class="entity" id="pics%2Fthumbs%2Fsepia_fence.png">
     <div class = "entity-header-row">
-        <h2 class="id">pics/thumbs/sepia_fence.png</h2>
+
         <h2>
             
                <span class="type">File</span>
             
-            : pics/thumbs/sepia_fence.png
+             pics/thumbs/sepia_fence.png
         </h2> 
-   
+        <h2 class="id">pics/thumbs/sepia_fence.png</h2>
     </div>
     <div class="property-grid">
         
@@ -8801,7 +8837,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8843,7 +8879,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8915,7 +8951,7 @@ span.type {
         <div class="property-name">
             creator
             
-            <a href="http://schema.org/creator" target="_blank">?</a>
+            <a href="http://schema.org/creator" target="_blank">ⓘ</a>
             
         
         </div>
@@ -8985,7 +9021,7 @@ span.type {
         <div class="property-name">
             hasPart
             
-            <a href="http://schema.org/hasPart" target="_blank">?</a>
+            <a href="http://schema.org/hasPart" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9185,7 +9221,7 @@ span.type {
         <div class="property-name">
             contentSize
             
-            <a href="http://schema.org/contentSize" target="_blank">?</a>
+            <a href="http://schema.org/contentSize" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9224,7 +9260,7 @@ span.type {
         <div class="property-name">
             thumbnail
             
-            <a href="http://schema.org/thumbnail" target="_blank">?</a>
+            <a href="http://schema.org/thumbnail" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9265,7 +9301,7 @@ span.type {
         <div class="property-name">
             dateModified
             
-            <a href="http://schema.org/dateModified" target="_blank">?</a>
+            <a href="http://schema.org/dateModified" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9306,7 +9342,7 @@ span.type {
         <div class="property-name">
             encodingFormat
             
-            <a href="http://schema.org/encodingFormat" target="_blank">?</a>
+            <a href="http://schema.org/encodingFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9352,7 +9388,7 @@ span.type {
         <div class="property-name">
             fileFormat
             
-            <a href="http://schema.org/fileFormat" target="_blank">?</a>
+            <a href="http://schema.org/fileFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9421,14 +9457,14 @@ span.type {
 
 <div class="entity" id="%23picsdistro">
     <div class = "entity-header-row">
-        <h2 class="id">#picsdistro</h2>
+
         <h2>
             
                <span class="type">DataDownload</span>
             
-            : 
+             
         </h2> 
-   
+        <h2 class="id">#picsdistro</h2>
     </div>
     <div class="property-grid">
         
@@ -9487,7 +9523,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9765,7 +9801,7 @@ span.type {
         <div class="property-name">
             path
             
-            <a href="http://schema.org/contentUrl" target="_blank">?</a>
+            <a href="http://schema.org/contentUrl" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9830,14 +9866,14 @@ span.type {
 
 <div class="entity" id=".%2F">
     <div class = "entity-header-row">
-        <h2 class="id">./</h2>
+
         <h2>
             
                <span class="type">Dataset</span>
             
-            : Sample dataset for RO-Crate v1.1
+             Sample dataset for RO-Crate v1.1
         </h2> 
-   
+        <h2 class="id">./</h2>
     </div>
     <div class="property-grid">
         
@@ -9908,7 +9944,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9950,7 +9986,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -9990,7 +10026,7 @@ span.type {
         <div class="property-name">
             datePublished
             
-            <a href="http://schema.org/datePublished" target="_blank">?</a>
+            <a href="http://schema.org/datePublished" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10028,7 +10064,7 @@ span.type {
         <div class="property-name">
             license
             
-            <a href="http://schema.org/license" target="_blank">?</a>
+            <a href="http://schema.org/license" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10069,7 +10105,7 @@ span.type {
         <div class="property-name">
             about
             
-            <a href="http://schema.org/about" target="_blank">?</a>
+            <a href="http://schema.org/about" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10138,7 +10174,7 @@ span.type {
         <div class="property-name">
             author
             
-            <a href="http://schema.org/author" target="_blank">?</a>
+            <a href="http://schema.org/author" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10179,7 +10215,7 @@ span.type {
         <div class="property-name">
             publisher
             
-            <a href="http://schema.org/publisher" target="_blank">?</a>
+            <a href="http://schema.org/publisher" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10220,7 +10256,7 @@ span.type {
         <div class="property-name">
             funder
             
-            <a href="http://schema.org/funder" target="_blank">?</a>
+            <a href="http://schema.org/funder" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10283,7 +10319,7 @@ span.type {
         <div class="property-name">
             citation
             
-            <a href="http://schema.org/citation" target="_blank">?</a>
+            <a href="http://schema.org/citation" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10354,7 +10390,7 @@ span.type {
         <div class="property-name">
             hasPart
             
-            <a href="http://schema.org/hasPart" target="_blank">?</a>
+            <a href="http://schema.org/hasPart" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10468,7 +10504,7 @@ span.type {
         <div class="property-name">
             temporalCoverage
             
-            <a href="http://schema.org/temporalCoverage" target="_blank">?</a>
+            <a href="http://schema.org/temporalCoverage" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10508,7 +10544,7 @@ span.type {
         <div class="property-name">
             contentLocation
             
-            <a href="http://schema.org/contentLocation" target="_blank">?</a>
+            <a href="http://schema.org/contentLocation" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10655,7 +10691,7 @@ span.type {
         <div class="property-name">
             contactPoint
             
-            <a href="http://schema.org/contactPoint" target="_blank">?</a>
+            <a href="http://schema.org/contactPoint" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10703,7 +10739,7 @@ span.type {
         <div class="property-name">
             identifier
             
-            <a href="http://schema.org/identifier" target="_blank">?</a>
+            <a href="http://schema.org/identifier" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10742,7 +10778,7 @@ span.type {
         <div class="property-name">
             keywords
             
-            <a href="http://schema.org/keywords" target="_blank">?</a>
+            <a href="http://schema.org/keywords" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10791,7 +10827,7 @@ span.type {
         <div class="property-name">
             distribution
             
-            <a href="http://schema.org/distribution" target="_blank">?</a>
+            <a href="http://schema.org/distribution" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10855,14 +10891,14 @@ span.type {
 
 <div class="entity" id="http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456">
     <div class = "entity-header-row">
-        <h2 class="id">http://dx.doi.org/10.1000/123456</h2>
+
         <h2>
             
                <span class="type">ScholarlyArticle</span>
             
-            : This is an example publication with a dodgy DOI
+             This is an example publication with a dodgy DOI
         </h2> 
-   
+        <h2 class="id">http://dx.doi.org/10.1000/123456</h2>
     </div>
     <div class="property-grid">
         
@@ -10924,7 +10960,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -10970,7 +11006,7 @@ span.type {
         <div class="property-name">
             datePublished
             
-            <a href="http://schema.org/datePublished" target="_blank">?</a>
+            <a href="http://schema.org/datePublished" target="_blank">ⓘ</a>
             
         
         </div>
@@ -11049,7 +11085,7 @@ span.type {
         <div class="property-name">
             author
             
-            <a href="http://schema.org/author" target="_blank">?</a>
+            <a href="http://schema.org/author" target="_blank">ⓘ</a>
             
         
         </div>
@@ -11098,7 +11134,7 @@ span.type {
         <div class="property-name">
             citation
             
-            <a href="http://schema.org/citation" target="_blank">?</a>
+            <a href="http://schema.org/citation" target="_blank">ⓘ</a>
             
         
         </div>
@@ -11359,14 +11395,14 @@ span.type {
 
 <div class="entity" id="mailto%3Apeter.sefton%40uts.edu.au">
     <div class = "entity-header-row">
-        <h2 class="id">mailto:peter.sefton@uts.edu.au</h2>
+
         <h2>
             
                <span class="type">ContactPoint</span>
             
-            : Contact Peter Sefton
+             Contact Peter Sefton
         </h2> 
-   
+        <h2 class="id">mailto:peter.sefton@uts.edu.au</h2>
     </div>
     <div class="property-grid">
         
@@ -11425,7 +11461,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -11713,7 +11749,7 @@ span.type {
         <div class="property-name">
             contactType
             
-            <a href="http://schema.org/contactType" target="_blank">?</a>
+            <a href="http://schema.org/contactType" target="_blank">ⓘ</a>
             
         
         </div>
@@ -11752,7 +11788,7 @@ span.type {
         <div class="property-name">
             contactPoint
             
-            <a href="http://schema.org/contactPoint" target="_blank">?</a>
+            <a href="http://schema.org/contactPoint" target="_blank">ⓘ</a>
             
         
         </div>
@@ -11789,7 +11825,7 @@ span.type {
         <div class="property-name">
             email
             
-            <a href="http://schema.org/email" target="_blank">?</a>
+            <a href="http://schema.org/email" target="_blank">ⓘ</a>
             
         
         </div>
@@ -11854,14 +11890,14 @@ span.type {
 
 <div class="entity" id="http%3A%2F%2Fands.org.au">
     <div class = "entity-header-row">
-        <h2 class="id">http://ands.org.au</h2>
+
         <h2>
             
                <span class="type">Organization</span>
             
-            : Australian National Data Service
+             Australian National Data Service
         </h2> 
-   
+        <h2 class="id">http://ands.org.au</h2>
     </div>
     <div class="property-grid">
         
@@ -11923,7 +11959,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -11965,7 +12001,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -12053,7 +12089,7 @@ span.type {
         <div class="property-name">
             funder
             
-            <a href="http://schema.org/funder" target="_blank">?</a>
+            <a href="http://schema.org/funder" target="_blank">ⓘ</a>
             
         
         </div>
@@ -12324,14 +12360,14 @@ span.type {
 
 <div class="entity" id="https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate">
     <div class = "entity-header-row">
-        <h2 class="id">https://github.com/UTS-eResearch/projects/datacrate</h2>
+
         <h2>
             
                <span class="type">Organization</span>
             
-            : DataCrate Project
+             DataCrate Project
         </h2> 
-   
+        <h2 class="id">https://github.com/UTS-eResearch/projects/datacrate</h2>
     </div>
     <div class="property-grid">
         
@@ -12393,7 +12429,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -12435,7 +12471,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -12523,7 +12559,7 @@ span.type {
         <div class="property-name">
             funder
             
-            <a href="http://schema.org/funder" target="_blank">?</a>
+            <a href="http://schema.org/funder" target="_blank">ⓘ</a>
             
         
         </div>
@@ -12797,14 +12833,14 @@ span.type {
 
 <div class="entity" id="https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2F3.0%2Fau%2F">
     <div class = "entity-header-row">
-        <h2 class="id">https://creativecommons.org/licenses/by-nc-sa/3.0/au/</h2>
+
         <h2>
             
                <span class="type">CreativeWork</span>
             
-            : Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU)
+             Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU)
         </h2> 
-   
+        <h2 class="id">https://creativecommons.org/licenses/by-nc-sa/3.0/au/</h2>
     </div>
     <div class="property-grid">
         
@@ -12869,7 +12905,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -12911,7 +12947,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -12953,7 +12989,7 @@ span.type {
         <div class="property-name">
             license
             
-            <a href="http://schema.org/license" target="_blank">?</a>
+            <a href="http://schema.org/license" target="_blank">ⓘ</a>
             
         
         </div>
@@ -13257,14 +13293,14 @@ span.type {
 
 <div class="entity" id="lots_of_little_files%2F">
     <div class = "entity-header-row">
-        <h2 class="id">lots_of_little_files/</h2>
+
         <h2>
             
                <span class="type">Dataset</span>
             
-            : Too many files
+             Too many files
         </h2> 
-   
+        <h2 class="id">lots_of_little_files/</h2>
     </div>
     <div class="property-grid">
         
@@ -13326,7 +13362,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -13368,7 +13404,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -13489,7 +13525,7 @@ span.type {
         <div class="property-name">
             hasPart
             
-            <a href="http://schema.org/hasPart" target="_blank">?</a>
+            <a href="http://schema.org/hasPart" target="_blank">ⓘ</a>
             
         
         </div>
@@ -13719,14 +13755,14 @@ span.type {
 
 <div class="entity" id="pics%2F">
     <div class = "entity-header-row">
-        <h2 class="id">pics/</h2>
+
         <h2>
             
                <span class="type">Dataset</span>
             
-            : Pictures
+             Pictures
         </h2> 
-   
+        <h2 class="id">pics/</h2>
     </div>
     <div class="property-grid">
         
@@ -13788,7 +13824,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -13830,7 +13866,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -13951,7 +13987,7 @@ span.type {
         <div class="property-name">
             hasPart
             
-            <a href="http://schema.org/hasPart" target="_blank">?</a>
+            <a href="http://schema.org/hasPart" target="_blank">ⓘ</a>
             
         
         </div>
@@ -14214,14 +14250,14 @@ span.type {
 
 <div class="entity" id="https%3A%2F%2Fwww.researchobject.org%2Fexample-ro-sample-image-crate%2Fdownload%2Fsample-crate.zip">
     <div class = "entity-header-row">
-        <h2 class="id">https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip</h2>
+
         <h2>
             
                <span class="type">DataDownload</span>
             
-            : 
+             
         </h2> 
-   
+        <h2 class="id">https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip</h2>
     </div>
     <div class="property-grid">
         
@@ -14527,7 +14563,7 @@ span.type {
         <div class="property-name">
             contentUrl
             
-            <a href="http://schema.org/contentUrl" target="_blank">?</a>
+            <a href="http://schema.org/contentUrl" target="_blank">ⓘ</a>
             
         
         </div>
@@ -14566,7 +14602,7 @@ span.type {
         <div class="property-name">
             distribution
             
-            <a href="http://schema.org/distribution" target="_blank">?</a>
+            <a href="http://schema.org/distribution" target="_blank">ⓘ</a>
             
         
         </div>
@@ -14603,7 +14639,7 @@ span.type {
         <div class="property-name">
             encodingFormat
             
-            <a href="http://schema.org/encodingFormat" target="_blank">?</a>
+            <a href="http://schema.org/encodingFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -14666,14 +14702,14 @@ span.type {
 
 <div class="entity" id="pics%2Fthumbs%2F">
     <div class = "entity-header-row">
-        <h2 class="id">pics/thumbs/</h2>
+
         <h2>
             
                <span class="type">Dataset</span>
             
-            : Thumbnails
+             Thumbnails
         </h2> 
-   
+        <h2 class="id">pics/thumbs/</h2>
     </div>
     <div class="property-grid">
         
@@ -14735,7 +14771,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -14777,7 +14813,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -14888,7 +14924,7 @@ span.type {
         <div class="property-name">
             hasPart
             
-            <a href="http://schema.org/hasPart" target="_blank">?</a>
+            <a href="http://schema.org/hasPart" target="_blank">ⓘ</a>
             
         
         </div>
@@ -15140,14 +15176,14 @@ span.type {
 
 <div class="entity" id="http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">
     <div class = "entity-header-row">
-        <h2 class="id">http://eresearch.uts.edu.au/projects/provisioner</h2>
+
         <h2>
             
                <span class="type">Organization</span>
             
-            : Provisioner Project
+             Provisioner Project
         </h2> 
-   
+        <h2 class="id">http://eresearch.uts.edu.au/projects/provisioner</h2>
     </div>
     <div class="property-grid">
         
@@ -15209,7 +15245,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -15251,7 +15287,7 @@ span.type {
         <div class="property-name">
             description
             
-            <a href="http://schema.org/description" target="_blank">?</a>
+            <a href="http://schema.org/description" target="_blank">ⓘ</a>
             
         
         </div>
@@ -15339,7 +15375,7 @@ span.type {
         <div class="property-name">
             funder
             
-            <a href="http://schema.org/funder" target="_blank">?</a>
+            <a href="http://schema.org/funder" target="_blank">ⓘ</a>
             
         
         </div>
@@ -15616,14 +15652,14 @@ span.type {
 
 <div class="entity" id="https%3A%2F%2Fdata.research.uts.edu.au%2Fexamples%2Fro-crate%2Fexamples%2Fsrc%2Fdownloads%2Fsample.zip">
     <div class = "entity-header-row">
-        <h2 class="id">https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip</h2>
+
         <h2>
             
                <span class="type">DataDownload</span>
             
-            : 
+             
         </h2> 
-   
+        <h2 class="id">https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip</h2>
     </div>
     <div class="property-grid">
         
@@ -15682,7 +15718,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -15960,7 +15996,7 @@ span.type {
         <div class="property-name">
             path
             
-            <a href="http://schema.org/contentUrl" target="_blank">?</a>
+            <a href="http://schema.org/contentUrl" target="_blank">ⓘ</a>
             
         
         </div>
@@ -15999,7 +16035,7 @@ span.type {
         <div class="property-name">
             encodingFormat
             
-            <a href="http://schema.org/encodingFormat" target="_blank">?</a>
+            <a href="http://schema.org/encodingFormat" target="_blank">ⓘ</a>
             
         
         </div>
@@ -16064,14 +16100,14 @@ span.type {
 
 <div class="entity" id="https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Fpronom">
     <div class = "entity-header-row">
-        <h2 class="id">https://www.nationalarchives.gov.uk/PRONOM/pronom</h2>
+
         <h2>
             
                <span class="type">website</span>
             
-            : Plain Text File
+             Plain Text File
         </h2> 
-   
+        <h2 class="id">https://www.nationalarchives.gov.uk/PRONOM/pronom</h2>
     </div>
     <div class="property-grid">
         
@@ -16130,7 +16166,7 @@ span.type {
         <div class="property-name">
             name
             
-            <a href="http://schema.org/name" target="_blank">?</a>
+            <a href="http://schema.org/name" target="_blank">ⓘ</a>
             
         
         </div>
@@ -16444,14 +16480,14 @@ span.type {
 
 <div class="entity" id="ro-crate-metadata.json">
     <div class = "entity-header-row">
-        <h2 class="id">ro-crate-metadata.json</h2>
+
         <h2>
             
                <span class="type">CreativeWork</span>
             
-            : 
+             
         </h2> 
-   
+        <h2 class="id">ro-crate-metadata.json</h2>
     </div>
     <div class="property-grid">
         
@@ -16526,7 +16562,7 @@ span.type {
         <div class="property-name">
             about
             
-            <a href="http://schema.org/about" target="_blank">?</a>
+            <a href="http://schema.org/about" target="_blank">ⓘ</a>
             
         
         </div>
@@ -16801,7 +16837,7 @@ span.type {
         <div class="property-name">
             identifier
             
-            <a href="http://schema.org/identifier" target="_blank">?</a>
+            <a href="http://schema.org/identifier" target="_blank">ⓘ</a>
             
         
         </div>
@@ -16859,7 +16895,7 @@ span.type {
 </div>
 
 
- 
+  
 
 
 

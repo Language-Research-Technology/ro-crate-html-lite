@@ -42,7 +42,7 @@ const renderedHtml = env.renderString(templateContent, {
 });
 
 // Write out the result to ro-crate-preview-builder.html
-const outputFile = path.join(__dirname, 'ro-crate-preview-builder.html');
+const outputFile = path.join(__dirname, 'index.html');
 fs.writeFileSync(outputFile, renderedHtml, 'utf-8');
 
-console.log('ro-crate-preview-builder.html has been generated.');
+console.log('Index.html has been generated.');

@@ -106,15 +106,30 @@ span.type::after  {
 }
 
 .entity-header-row {
-    justify-content: center; /* Center horizontally */
     width: 100%;
-    align-items: center; 
-    text-align: center;
+ 
     padding: 15px;
     background-color: rgb(0, 0, 0);
     color: #fff;
     font-size: 1.75vw;
     font-weight: bold;
+}
+
+.entity-header-row h2 {
+    align-items: center; 
+    text-align: center;
+    justify-content: center; /* Center horizontally */
+}
+
+
+
+.entity-header-row a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: underline dotted 2px;
+    text-underline-offset: 5px;
 }
 
 .property-header-row {
@@ -288,6 +303,7 @@ span.type::after  {
 
 <div class="entity" id="{{item.id | urlencode}}">
     <div class = "entity-header-row">
+        <a href="{{ home_link }}" class="root">Root: {{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value}} </a> 
 
         <h2>
             {% for type in item.type %}
@@ -298,7 +314,7 @@ span.type::after  {
         <h2 class="id">{{ item.id }}</h2>
     </div>
     <div class="property-grid">
-        {% set seenProps = {} %}
+        {% set seenProps = {"@id": true,"@type": true} %}
         {% for group in layout %}
             {% set hasContent = false %}
             {% for input in group.inputs %}
@@ -316,16 +332,20 @@ span.type::after  {
                 {% endif %}
             {% endfor %}
         {% endfor %}
+
+
         {% set hasContent = false %}
-        {% for input, val in item %}
+        {% for input, val in item.props %}
             {% if not seenProps[input] %}
                 {% set hasContent = true %}
+                Stray prop {{ input }}
             {% endif %}
         {% endfor %}
 
         {% if hasContent %}
             <div class="property-header-row">Other properties</div>
         {% endif %}
+
 
         {% for input, val in item.props %}
            {% if not seenProps[input] %}
@@ -374,7 +394,6 @@ span.type::after  {
 
 
 
-<!-- <a href="{{ home_link }}">🏠 Home</a> -->
 {% for id, entity in data.ids %}
       {{ display(entity) }}
  {% endfor %} 

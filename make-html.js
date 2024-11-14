@@ -19,7 +19,7 @@ previewContent = previewContent.replace(/import (.*) from '(.*)';/g, `import $1 
 // Load the template.html file as layout
 const resultTemplateFile = path.join(__dirname, 'template.html');
 const resultTemplateContent = fs.readFileSync(resultTemplateFile, 'utf8').replace(/\n/g, ' ');
-const base64TemplateContent = Buffer.from(resultTemplateContent).toString('base64');
+const base64TemplateContent = Buffer.from(resultTemplateContent, 'utf-8').toString('base64');
 
 const layoutFile = path.join(__dirname, 'lib/default_layout.json');
 const layoutContent = JSON.parse(fs.readFileSync(layoutFile, 'utf8'));

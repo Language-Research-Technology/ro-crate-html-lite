@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RO-Crate Preview Builder</title>
+    <script type="module">
+
+        {{ previewScripts | safe }}
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadButton = document.getElementById('loadButton');
+            const output = document.getElementById('output');
+
+            loadButton.addEventListener('click', async () => {
+                try {
+                    // Show file picker
+                    const [fileHandle] = await window.showOpenFilePicker({
+                        types: [{
+                            description: 'RO-Crate Metadata',
+                            accept: { 'application/json': ['.json'] }
+                        }]
+                    });
+
+                  
+
+                    // Get file contents
+                    const file = await fileHandle.getFile();
+                    const text = await file.text();
+                    const metadata = JSON.parse(text);
+                    const crate = new ROCrate(metadata, { array: true, link: true });
+                    const layout = {{ layout | dump | safe }};
+                    const base64Template = `{{ resultTemplate | safe }}`;
+                    const templateBytes = Uint8Array.from(atob(base64Template), c => c.charCodeAt(0));
+                    const template = new TextDecoder('utf-8').decode(templateBytes);
+                 
+                    const crateLite = roCrateToJSON(metadata, layout);
+                    const renderedHtml = renderTemplate(crateLite, template, layout)
+
+                    output.innerHTML = renderedHtml;
+
+                    // Save the rendered HTML to a file
+                    const newFileHandle = await window.showSaveFilePicker({
+                        suggestedName: 'ro-crate-preview.html',
+                        types: [{
+                            description: 'HTML File',
+                            accept: { 'text/html': ['.html'] }
+                        }]
+                    });
+
+                    const writableStream = await newFileHandle.createWritable();
+                    await writableStream.write(renderedHtml);
+                    await writableStream.close();
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+
+        
+    </script>
+</head>
+<body>
+    <h1>RO-Crate Preview Builder</h1>
+    <button id="loadButton">Load RO-Crate</button>
+    <div id="output"></div>
+    
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 {
   "name": "ro-crate-html-lite",
+  "type": "module",
   "version": "0.0.1",
   "description": "A tool to create static HTML-only ro-crate-preview-html files for an RO-Crate",
   "main": "index.js",

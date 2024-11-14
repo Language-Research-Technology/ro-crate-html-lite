@@ -140,8 +140,16 @@ function renderTemplate(data, template, layout) {
 export { roCrateToJSON, renderTemplate };
 
         document.addEventListener('DOMContentLoaded', () => {
-            const loadButton = document.getElementById('loadButton');
+
             const output = document.getElementById('output');
+            const message = document.getElementById('message');
+
+            if (!window.showOpenFilePicker || !window.showSaveFilePicker) {
+                message.textContent = 'You will need Chrome or MS Edge for this page to work.';
+                return;
+            }
+            const loadButton = document.getElementById('loadButton');
+            loadButton.textContent = 'Load RO-Crate';
 
             loadButton.addEventListener('click', async () => {
                 try {
@@ -192,8 +200,12 @@ export { roCrateToJSON, renderTemplate };
     </script>
 </head>
 <body>
-    <h1>RO-Crate Preview Builder</h1>
-    <button id="loadButton">Load RO-Crate</button>
+    <h1>RO-Crate Preview Builder -- PROTOTYPE</h1>
+    <p>This is a prototype of a tool that allows you generate an ro-crate-html-preview.html file for an RO-Crate on your local machine.</p>
+    <p> See the <a href="https://github.com/Language-Research-Technology/ro-crate-html-lite">RO-Crate HTML Lite project</a></p>
+    <p id="message"></p>
+
+    <button id="loadButton"></button>
     <div id="output"></div>
     
 

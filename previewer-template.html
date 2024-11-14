@@ -30,12 +30,11 @@
                     const crate = new ROCrate(metadata, { array: true, link: true });
                     const layout = {{ layout | dump | safe }};
                     const base64Template = `{{ resultTemplate | safe }}`;
-                    const template = atob(base64Template);
-
-                    console.log("Template", template);
+                    const templateBytes = Uint8Array.from(atob(base64Template), c => c.charCodeAt(0));
+                    const template = new TextDecoder('utf-8').decode(templateBytes);
+                 
                     const crateLite = roCrateToJSON(metadata, layout);
                     const renderedHtml = renderTemplate(crateLite, template, layout)
-
 
                     output.innerHTML = renderedHtml;
 

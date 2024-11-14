@@ -40,7 +40,6 @@ span.type {
     border-radius: 5px;
     margin-right: 5px;
     font-size: 0.6em;
-    text-transform: uppercase;
     font-weight:lighter;
 }
 
@@ -51,34 +50,42 @@ span.type::after  {
 
  
 .button-left, .button-right {
-    background-color: #ffffff;
+    margin-bottom: 10px;
+    padding: 2px 10px;
     padding: 0;
-    border-radius: 50px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    
 }
 
 .button-left:hover, .button-right:hover {
-    background-color: #000000;
+    color: #4e4e4e;
 }
 
-.button-left::before {
-    content: '⏴';
+.button-left a::before {
+    content: '⏴'; 
     font-size: 1.2em;
-    color:#fff
+  
 }
 
-.button-right::after {
+.button-right a::after {
     content: '⏵';
     font-size: 1.2em;
-    color:#fff
+
 }
 
 .button-left a, .button-right a {
-    text-decoration: none;
-    color: #ffffff;
+    text-decoration: underline dotted 2px;
+    line-height: 2em;
+    text-underline-offset: 5px;
+    transition: all .3s ease-in;
+    color: #000000
+}
+
+.button-left a:hover, .button-right a:hover {
+    color: #4e4e4e;
 }
 
 .property-grid {
@@ -86,7 +93,8 @@ span.type::after  {
     display: flex;
     flex-direction: column;
     gap: 0px;
-    width: 60%;
+
+      width: 60%;
 }
 
 
@@ -138,7 +146,7 @@ span.type::after  {
     font-weight: bold;
 }
 .property-name a{
-    color:#747474;
+    color:#000000;
     text-decoration: none;
     transition: all .2s ease-in;
     font-size: 1em;
@@ -155,27 +163,25 @@ span.type::after  {
 
 }
 
-
-
-.property-value button {
-    background-color: #000000;
+/*.property-value button {
     margin-bottom: 5px;
-    padding: 10px;
-    border:none;
-    border-radius: 80px;
+    padding: 2px 10px;
+    border: none;
+    border-bottom: dotted 2px;
     cursor: pointer;
     transition: all .2s ease-in;
+    color: #000000;
 }
 
 .property-value button a {
     text-decoration: none;
     font-weight: bold;
-    color: #fffafa;
+    color: #000000;
 }
 
-.property-value button:hover {
-    background-color: #333333;
-}
+.property-value button a:hover {
+    color: #4e4e4e; 
+} */
   </style>
 
 <script>
@@ -507,7 +513,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23Photo1">  Took dog picture </a></button>
+                <span class="button-left"><a href="#%23Photo1">  Took dog picture </a></span>
                 
                 
             </div>
@@ -1125,7 +1131,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23Photo1">  Took dog picture </a></button>
+                <span class="button-left"><a href="#%23Photo1">  Took dog picture </a></span>
                 
                 
             </div>
@@ -1746,7 +1752,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></span>
                 
                 
                  
@@ -1785,7 +1791,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html"> Catalina Park </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html"> Catalina Park </a></span>
                 
                 
                  
@@ -1824,7 +1830,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#%23EPL1"> EPL1 Camera </a></button>
+                <span class="button-right"><a href="#%23EPL1"> EPL1 Camera </a></span>
                 
                 
                  
@@ -1835,7 +1841,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#%23Panny20mm"> Lumix G 20/F1.7 lens </a></button>
+                <span class="button-right"><a href="#%23Panny20mm"> Lumix G 20/F1.7 lens </a></span>
                 
                 
                  
@@ -1874,7 +1880,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2F2017-06-11%2012.56.14.jpg"> pics/2017-06-11 12.56.14.jpg </a></button>
+                <span class="button-right"><a href="#pics%2F2017-06-11%2012.56.14.jpg"> pics/2017-06-11 12.56.14.jpg </a></span>
                 
                 
                  
@@ -2357,7 +2363,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -2365,7 +2371,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456">  This is an example publication with a dodgy DOI </a></button>
+                <span class="button-left"><a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456">  This is an example publication with a dodgy DOI </a></span>
                 
                 
             </div>
@@ -2401,7 +2407,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2F2017-06-11%2012.56.14.jpg">  pics/2017-06-11 12.56.14.jpg </a></button>
+                <span class="button-left"><a href="#pics%2F2017-06-11%2012.56.14.jpg">  pics/2017-06-11 12.56.14.jpg </a></span>
                 
                 
             </div>
@@ -2409,7 +2415,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2Fsepia_fence.jpg">  pics/sepia_fence.jpg </a></button>
+                <span class="button-left"><a href="#pics%2Fsepia_fence.jpg">  pics/sepia_fence.jpg </a></span>
                 
                 
             </div>
@@ -2449,7 +2455,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></span>
                 
                 
                  
@@ -2551,7 +2557,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23Photo1">  Took dog picture </a></button>
+                <span class="button-left"><a href="#%23Photo1">  Took dog picture </a></span>
                 
                 
             </div>
@@ -2559,7 +2565,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23SepiaConversion">  Converted dog picture to sepia </a></button>
+                <span class="button-left"><a href="#%23SepiaConversion">  Converted dog picture to sepia </a></span>
                 
                 
             </div>
@@ -3109,7 +3115,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23Photo1">  Took dog picture </a></button>
+                <span class="button-left"><a href="#%23Photo1">  Took dog picture </a></span>
                 
                 
             </div>
@@ -3187,7 +3193,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -3223,7 +3229,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#%23Geometry-1"> Geometry-1 </a></button>
+                <span class="button-right"><a href="#%23Geometry-1"> Geometry-1 </a></span>
                 
                 
                  
@@ -3234,7 +3240,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#%23Geometry-2"> Geometry-2 </a></button>
+                <span class="button-right"><a href="#%23Geometry-2"> Geometry-2 </a></span>
                 
                 
                  
@@ -3677,7 +3683,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></span>
                 
                 
                  
@@ -3760,7 +3766,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2F">  Pictures </a></button>
+                <span class="button-left"><a href="#pics%2F">  Pictures </a></span>
                 
                 
             </div>
@@ -3831,7 +3837,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23SepiaConversion">  Converted dog picture to sepia </a></button>
+                <span class="button-left"><a href="#%23SepiaConversion">  Converted dog picture to sepia </a></span>
                 
                 
             </div>
@@ -3869,7 +3875,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23Photo1">  Took dog picture </a></button>
+                <span class="button-left"><a href="#%23Photo1">  Took dog picture </a></span>
                 
                 
             </div>
@@ -4122,7 +4128,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645"> Exchangeable Image File Format (Compressed) </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645"> Exchangeable Image File Format (Compressed) </a></span>
                 
                 
                  
@@ -4213,7 +4219,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png"> pics/thumbs/2017-06-11 12.56.14.png </a></button>
+                <span class="button-right"><a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png"> pics/thumbs/2017-06-11 12.56.14.png </a></span>
                 
                 
                  
@@ -4474,7 +4480,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -4512,7 +4518,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -4520,7 +4526,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate">  DataCrate Project </a></button>
+                <span class="button-left"><a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate">  DataCrate Project </a></span>
                 
                 
             </div>
@@ -4528,7 +4534,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">  Provisioner Project </a></button>
+                <span class="button-left"><a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">  Provisioner Project </a></span>
                 
                 
             </div>
@@ -4564,7 +4570,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">  Peter Sefton </a></button>
+                <span class="button-left"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">  Peter Sefton </a></span>
                 
                 
             </div>
@@ -5134,7 +5140,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">  Catalina Park </a></button>
+                <span class="button-left"><a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">  Catalina Park </a></span>
                 
                 
             </div>
@@ -5595,7 +5601,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">  Catalina Park </a></button>
+                <span class="button-left"><a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">  Catalina Park </a></span>
                 
                 
             </div>
@@ -6150,7 +6156,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2F2017-06-11%2012.56.14.jpg">  pics/2017-06-11 12.56.14.jpg </a></button>
+                <span class="button-left"><a href="#pics%2F2017-06-11%2012.56.14.jpg">  pics/2017-06-11 12.56.14.jpg </a></span>
                 
                 
             </div>
@@ -6464,7 +6470,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2Fthumbs%2F">  Thumbnails </a></button>
+                <span class="button-left"><a href="#pics%2Fthumbs%2F">  Thumbnails </a></span>
                 
                 
             </div>
@@ -6703,7 +6709,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2F2017-06-11%2012.56.14.jpg">  pics/2017-06-11 12.56.14.jpg </a></button>
+                <span class="button-left"><a href="#pics%2F2017-06-11%2012.56.14.jpg">  pics/2017-06-11 12.56.14.jpg </a></span>
                 
                 
             </div>
@@ -7166,7 +7172,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></span>
                 
                 
                  
@@ -7205,7 +7211,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2F2017-06-11%2012.56.14.jpg"> pics/2017-06-11 12.56.14.jpg </a></button>
+                <span class="button-right"><a href="#pics%2F2017-06-11%2012.56.14.jpg"> pics/2017-06-11 12.56.14.jpg </a></span>
                 
                 
                  
@@ -7244,7 +7250,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fwww.imagemagick.org%2F"> ImageMagick </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fwww.imagemagick.org%2F"> ImageMagick </a></span>
                 
                 
                  
@@ -7283,7 +7289,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2Fsepia_fence.jpg"> pics/sepia_fence.jpg </a></button>
+                <span class="button-right"><a href="#pics%2Fsepia_fence.jpg"> pics/sepia_fence.jpg </a></span>
                 
                 
                  
@@ -7754,7 +7760,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23SepiaConversion">  Converted dog picture to sepia </a></button>
+                <span class="button-left"><a href="#%23SepiaConversion">  Converted dog picture to sepia </a></span>
                 
                 
             </div>
@@ -8222,7 +8228,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></span>
                 
                 
                  
@@ -8305,7 +8311,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2F">  Pictures </a></button>
+                <span class="button-left"><a href="#pics%2F">  Pictures </a></span>
                 
                 
             </div>
@@ -8377,7 +8383,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#%23SepiaConversion">  Converted dog picture to sepia </a></button>
+                <span class="button-left"><a href="#%23SepiaConversion">  Converted dog picture to sepia </a></span>
                 
                 
             </div>
@@ -8715,7 +8721,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2Fthumbs%2Fsepia_fence.png"> pics/thumbs/sepia_fence.png </a></button>
+                <span class="button-right"><a href="#pics%2Fthumbs%2Fsepia_fence.png"> pics/thumbs/sepia_fence.png </a></span>
                 
                 
                  
@@ -9038,7 +9044,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2Fthumbs%2F">  Thumbnails </a></button>
+                <span class="button-left"><a href="#pics%2Fthumbs%2F">  Thumbnails </a></span>
                 
                 
             </div>
@@ -9277,7 +9283,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2Fsepia_fence.jpg">  pics/sepia_fence.jpg </a></button>
+                <span class="button-left"><a href="#pics%2Fsepia_fence.jpg">  pics/sepia_fence.jpg </a></span>
                 
                 
             </div>
@@ -10079,7 +10085,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2F3.0%2Fau%2F"> Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU) </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2F3.0%2Fau%2F"> Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU) </a></span>
                 
                 
                  
@@ -10189,7 +10195,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></span>
                 
                 
                  
@@ -10230,7 +10236,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></span>
                 
                 
                  
@@ -10271,7 +10277,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Fands.org.au"> Australian National Data Service </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Fands.org.au"> Australian National Data Service </a></span>
                 
                 
                  
@@ -10282,7 +10288,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></span>
                 
                 
                  
@@ -10293,7 +10299,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate"> DataCrate Project </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate"> DataCrate Project </a></span>
                 
                 
                  
@@ -10334,7 +10340,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456"> This is an example publication with a dodgy DOI </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456"> This is an example publication with a dodgy DOI </a></span>
                 
                 
                  
@@ -10405,7 +10411,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#lots_of_little_files%2F"> Too many files </a></button>
+                <span class="button-right"><a href="#lots_of_little_files%2F"> Too many files </a></span>
                 
                 
                  
@@ -10416,7 +10422,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2F"> Pictures </a></button>
+                <span class="button-right"><a href="#pics%2F"> Pictures </a></span>
                 
                 
                  
@@ -10559,7 +10565,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html"> Catalina Park </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html"> Catalina Park </a></span>
                 
                 
                  
@@ -10706,7 +10712,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#mailto%3Apeter.sefton%40uts.edu.au"> Contact Peter Sefton </a></button>
+                <span class="button-right"><a href="#mailto%3Apeter.sefton%40uts.edu.au"> Contact Peter Sefton </a></span>
                 
                 
                  
@@ -10842,7 +10848,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fwww.researchobject.org%2Fexample-ro-sample-image-crate%2Fdownload%2Fsample-crate.zip"> https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fwww.researchobject.org%2Fexample-ro-sample-image-crate%2Fdownload%2Fsample-crate.zip"> https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip </a></span>
                 
                 
                  
@@ -11100,7 +11106,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X"> Peter Sefton </a></span>
                 
                 
                  
@@ -11151,7 +11157,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -11805,7 +11811,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -12106,7 +12112,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -12114,7 +12120,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">  Provisioner Project </a></button>
+                <span class="button-left"><a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">  Provisioner Project </a></span>
                 
                 
             </div>
@@ -12574,7 +12580,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></span>
                 
                 
                  
@@ -12587,7 +12593,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -13006,7 +13012,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -13542,7 +13548,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -14002,7 +14008,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2F2017-06-11%2012.56.14.jpg"> pics/2017-06-11 12.56.14.jpg </a></button>
+                <span class="button-right"><a href="#pics%2F2017-06-11%2012.56.14.jpg"> pics/2017-06-11 12.56.14.jpg </a></span>
                 
                 
                  
@@ -14013,7 +14019,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2Fsepia_fence.jpg"> pics/sepia_fence.jpg </a></button>
+                <span class="button-right"><a href="#pics%2Fsepia_fence.jpg"> pics/sepia_fence.jpg </a></span>
                 
                 
                  
@@ -14024,7 +14030,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2Fthumbs%2F"> Thumbnails </a></button>
+                <span class="button-right"><a href="#pics%2Fthumbs%2F"> Thumbnails </a></span>
                 
                 
                  
@@ -14037,7 +14043,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -14619,7 +14625,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-left"><a href="#.%2F">  Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
             </div>
@@ -14939,7 +14945,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png"> pics/thumbs/2017-06-11 12.56.14.png </a></button>
+                <span class="button-right"><a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png"> pics/thumbs/2017-06-11 12.56.14.png </a></span>
                 
                 
                  
@@ -14950,7 +14956,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#pics%2Fthumbs%2Fsepia_fence.png"> pics/thumbs/sepia_fence.png </a></button>
+                <span class="button-right"><a href="#pics%2Fthumbs%2Fsepia_fence.png"> pics/thumbs/sepia_fence.png </a></span>
                 
                 
                  
@@ -14963,7 +14969,7 @@ span.type::after  {
             
         <div>
                 
-                <button class="button-left"><a href="#pics%2F">  Pictures </a></button>
+                <span class="button-left"><a href="#pics%2F">  Pictures </a></span>
                 
                 
             </div>
@@ -15390,7 +15396,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></button>
+                <span class="button-right"><a href="#https%3A%2F%2Fror.org%2F0384j8v12"> University of Technology Sydney </a></span>
                 
                 
                  
@@ -15401,7 +15407,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#http%3A%2F%2Fands.org.au"> Australian National Data Service </a></button>
+                <span class="button-right"><a href="#http%3A%2F%2Fands.org.au"> Australian National Data Service </a></span>
                 
                 
                  
@@ -16577,7 +16583,7 @@ span.type::after  {
 
             
                 
-                <button  class="button-right"><a href="#.%2F"> Sample dataset for RO-Crate v1.1 </a></button>
+                <span class="button-right"><a href="#.%2F"> Sample dataset for RO-Crate v1.1 </a></span>
                 
                 
                  

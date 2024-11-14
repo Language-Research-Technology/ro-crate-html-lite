@@ -40,7 +40,6 @@ span.type {
     border-radius: 5px;
     margin-right: 5px;
     font-size: 0.6em;
-    text-transform: uppercase;
     font-weight:lighter;
 }
 
@@ -51,34 +50,42 @@ span.type::after  {
 
  
 .button-left, .button-right {
-    background-color: #ffffff;
+    margin-bottom: 10px;
+    padding: 2px 10px;
     padding: 0;
-    border-radius: 50px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    
 }
 
 .button-left:hover, .button-right:hover {
-    background-color: #000000;
+    color: #4e4e4e;
 }
 
-.button-left::before {
-    content: '⏴';
+.button-left a::before {
+    content: '⏴'; 
     font-size: 1.2em;
-    color:#fff
+  
 }
 
-.button-right::after {
+.button-right a::after {
     content: '⏵';
     font-size: 1.2em;
-    color:#fff
+
 }
 
 .button-left a, .button-right a {
-    text-decoration: none;
-    color: #ffffff;
+    text-decoration: underline dotted 2px;
+    line-height: 2em;
+    text-underline-offset: 5px;
+    transition: all .3s ease-in;
+    color: #000000
+}
+
+.button-left a:hover, .button-right a:hover {
+    color: #4e4e4e;
 }
 
 .property-grid {
@@ -86,7 +93,8 @@ span.type::after  {
     display: flex;
     flex-direction: column;
     gap: 0px;
-    width: 60%;
+
+      width: 60%;
 }
 
 
@@ -138,7 +146,7 @@ span.type::after  {
     font-weight: bold;
 }
 .property-name a{
-    color:#747474;
+    color:#000000;
     text-decoration: none;
     transition: all .2s ease-in;
     font-size: 1em;
@@ -155,27 +163,25 @@ span.type::after  {
 
 }
 
-
-
-.property-value button {
-    background-color: #000000;
+/*.property-value button {
     margin-bottom: 5px;
-    padding: 10px;
-    border:none;
-    border-radius: 80px;
+    padding: 2px 10px;
+    border: none;
+    border-bottom: dotted 2px;
     cursor: pointer;
     transition: all .2s ease-in;
+    color: #000000;
 }
 
 .property-value button a {
     text-decoration: none;
     font-weight: bold;
-    color: #fffafa;
+    color: #000000;
 }
 
-.property-value button:hover {
-    background-color: #333333;
-}
+.property-value button a:hover {
+    color: #4e4e4e; 
+} */
   </style>
 
 <script>
@@ -247,7 +253,7 @@ span.type::after  {
             <a href="{{ val["url"] }}"> {{ val["url"]  }}</a>
             {% else %}
                 {% if val["target_id"] %}
-                <button  class="button-right"><a href="#{{ val["target_id"] | urlencode }}"> {{ val["target_name"] }} </a></button>
+                <span class="button-right"><a href="#{{ val["target_id"] | urlencode }}"> {{ val["target_name"] }} </a></span>
                 
                 
                  {% elif val.value %}
@@ -265,7 +271,7 @@ span.type::after  {
             
         <div>
                 {% if val["target_id"] %}
-                <button class="button-left"><a href="#{{ val["target_id"] | urlencode }}">  {{ val["target_name"] }} </a></button>
+                <span class="button-left"><a href="#{{ val["target_id"] | urlencode }}">  {{ val["target_name"] }} </a></span>
                 
                 {% else %}
                 WARNING SOMETHING WENT WRONG {{ val | dump }} ⬅

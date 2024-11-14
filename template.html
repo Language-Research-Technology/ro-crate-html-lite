@@ -338,7 +338,6 @@ span.type::after  {
         {% for input, val in item.props %}
             {% if not seenProps[input] %}
                 {% set hasContent = true %}
-                Stray prop {{ input }}
             {% endif %}
         {% endfor %}
 

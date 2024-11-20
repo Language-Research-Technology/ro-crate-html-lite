@@ -215,23 +215,11 @@ export { roCrateToJSON, renderTemplate };
                 const crateLite = roCrateToJSON(metadata, layout);
                 const renderedHtml = renderTemplate(crateLite, template, layout);
 
-                // Open the rendered HTML in a new window
-                const blob = new Blob([renderedHtml], { type: 'text/html' });
-                const url = URL.createObjectURL(blob);
-                window.open(url, '_blank');
+              
 
-                // Save the rendered HTML to a file
-                const newFileHandle = await window.showSaveFilePicker({
-                    suggestedName: 'ro-crate-preview.html',
-                    types: [{
-                        description: 'HTML File',
-                        accept: { 'text/html': ['.html'] }
-                    }]
-                });
+                return renderedHtml;
 
-                const writableStream = await newFileHandle.createWritable();
-                await writableStream.write(renderedHtml);
-                await writableStream.close();
+               
             }
 
             if (window.showOpenFilePicker && window.showSaveFilePicker) {
@@ -249,17 +237,41 @@ export { roCrateToJSON, renderTemplate };
                         // Get file contents
                         const file = await fileHandle.getFile();
                         const text = await file.text();
-                        await processROCrate(text);
-                    } catch (error) {
-                        console.error('Error:', error);
-                    }
+                        const renderedHtml = await processROCrate(text);
+                         // Save the rendered HTML to a file
+                        const newFileHandle = await window.showSaveFilePicker({
+                              suggestedName: 'ro-crate-preview.html',
+                          types: [{
+                                   description: 'HTML File',
+                                   accept: { 'text/html': ['.html'] }
+                          }]
+                         });
+
+                        const writableStream = await newFileHandle.createWritable();
+                        await writableStream.write(renderedHtml);
+                        await writableStream.close();
+                            } catch (error) {
+                                console.error('Error:', error);
+                            }
                 });
             } 
 
             generateButton.addEventListener('click', async () => {
                 try {
                     const text = document.getElementById('jsonInput').value;
-                    await processROCrate(text);
+                    const renderedHtml = await processROCrate(text);
+                      // Open the rendered HTML in a new window
+                    const blob = new Blob([renderedHtml], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    window.open(url, '_blank');
+                    // Create a download link and trigger a click event to save the file
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'ro-crate-preview.html';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
                 } catch (error) {
                     console.error('Error:', error);
                 }
@@ -275,7 +287,7 @@ export { roCrateToJSON, renderTemplate };
         <p id="message" class="message"></p>
         <button id="loadButton" style="display: none;">Load RO-Crate from Disk</button>
         <textarea id="jsonInput" rows="10" cols="50" placeholder="Paste your JSON-LD (ro-crate-metadata.json) source here..."></textarea>
-        <button id="generateButton" >Generate HTML from source</button>
+        <button id="generateButton" >Generate HTML from source & Download</button>
         <div id="output" class="output"></div>
         <template id="template"></template>
     </main>

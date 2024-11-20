@@ -4,78 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RO-Crate Preview Builder</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #007acc;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        main {
+            padding: 2em;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 1em;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1em;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 1em;
+        }
+
+        .message {
+            margin-top: 1em;
+            color: #ff0000;
+        }
+
+        .output {
+            margin-top: 2em;
+        }
+    </style>
     <script type="module">
-
         {{ previewScripts | safe }}
+        
         document.addEventListener('DOMContentLoaded', () => {
-
             const output = document.getElementById('output');
             const message = document.getElementById('message');
-
-            if (!window.showOpenFilePicker || !window.showSaveFilePicker) {
-                message.textContent = 'You will need Chrome or MS Edge for this page to work.';
-                return;
-            }
             const loadButton = document.getElementById('loadButton');
-            loadButton.textContent = 'Load RO-Crate';
+            const generateButton = document.getElementById('generateButton');
 
-            loadButton.addEventListener('click', async () => {
+            async function processROCrate(text) {
+                const metadata = JSON.parse(text);
+                const crate = new ROCrate(metadata, { array: true, link: true });
+                const layout = {{ layout | dump | safe }};
+                const base64Template = `{{ resultTemplate | safe }}`;
+                const templateBytes = Uint8Array.from(atob(base64Template), c => c.charCodeAt(0));
+                const template = new TextDecoder('utf-8').decode(templateBytes);
+
+                const crateLite = roCrateToJSON(metadata, layout);
+                const renderedHtml = renderTemplate(crateLite, template, layout);
+
+                // Open the rendered HTML in a new window
+                const blob = new Blob([renderedHtml], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                window.open(url, '_blank');
+
+                // Save the rendered HTML to a file
+                const newFileHandle = await window.showSaveFilePicker({
+                    suggestedName: 'ro-crate-preview.html',
+                    types: [{
+                        description: 'HTML File',
+                        accept: { 'text/html': ['.html'] }
+                    }]
+                });
+
+                const writableStream = await newFileHandle.createWritable();
+                await writableStream.write(renderedHtml);
+                await writableStream.close();
+            }
+
+            if (window.showOpenFilePicker && window.showSaveFilePicker) {
+                loadButton.style.display = 'inline-block';
+                loadButton.addEventListener('click', async () => {
+                    try {
+                        // Show file picker
+                        const [fileHandle] = await window.showOpenFilePicker({
+                            types: [{
+                                description: 'RO-Crate Metadata',
+                                accept: { 'application/json': ['.json'] }
+                            }]
+                        });
+
+                        // Get file contents
+                        const file = await fileHandle.getFile();
+                        const text = await file.text();
+                        await processROCrate(text);
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                });
+            } 
+
+            generateButton.addEventListener('click', async () => {
                 try {
-                    // Show file picker
-                    const [fileHandle] = await window.showOpenFilePicker({
-                        types: [{
-                            description: 'RO-Crate Metadata',
-                            accept: { 'application/json': ['.json'] }
-                        }]
-                    });
-
-                  
-
-                    // Get file contents
-                    const file = await fileHandle.getFile();
-                    const text = await file.text();
-                    const metadata = JSON.parse(text);
-                    const crate = new ROCrate(metadata, { array: true, link: true });
-                    const layout = {{ layout | dump | safe }};
-                    const base64Template = `{{ resultTemplate | safe }}`;
-                    const templateBytes = Uint8Array.from(atob(base64Template), c => c.charCodeAt(0));
-                    const template = new TextDecoder('utf-8').decode(templateBytes);
-                 
-                    const crateLite = roCrateToJSON(metadata, layout);
-                    const renderedHtml = renderTemplate(crateLite, template, layout)
-
-                    output.innerHTML = renderedHtml;
-
-                    // Save the rendered HTML to a file
-                    const newFileHandle = await window.showSaveFilePicker({
-                        suggestedName: 'ro-crate-preview.html',
-                        types: [{
-                            description: 'HTML File',
-                            accept: { 'text/html': ['.html'] }
-                        }]
-                    });
-
-                    const writableStream = await newFileHandle.createWritable();
-                    await writableStream.write(renderedHtml);
-                    await writableStream.close();
+                    const text = document.getElementById('jsonInput').value;
+                    await processROCrate(text);
                 } catch (error) {
                     console.error('Error:', error);
                 }
             });
         });
-
-        
     </script>
 </head>
 <body>
-    <h1>RO-Crate Preview Builder -- PROTOTYPE</h1>
-    <p>This is a prototype of a tool that allows you generate an ro-crate-html-preview.html file for an RO-Crate on your local machine.</p>
-    <p> See the <a href="https://github.com/Language-Research-Technology/ro-crate-html-lite">RO-Crate HTML Lite project</a></p>
-    <p id="message"></p>
-
-    <button id="loadButton"></button>
-    <div id="output"></div>
-    
-
+    <header>
+        <h1>RO-Crate Preview Builder</h1>
+    </header>
+    <main>
+        <p id="message" class="message"></p>
+        <button id="loadButton" style="display: none;">Load RO-Crate from Disk</button>
+        <textarea id="jsonInput" rows="10" cols="50" placeholder="Paste your JSON-LD (ro-crate-metadata.json) source here..."></textarea>
+        <button id="generateButton" >Generate HTML from source</button>
+        <div id="output" class="output"></div>
+        <template id="template">{{ base64Template }}</template>
+    </main>
 </body>
 </html>

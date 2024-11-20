@@ -27,10 +27,23 @@
         min-height: 100%;
         z-index: 1000;
         padding: 0px;
+        margin-bottom: 100vh; /* Adds a whole screen of blank space */
+
+    }
+    .entity:target {
+      display: block;
+      scroll-margin-top: 0; /* Ensures the entity is at the top of the viewport */
+    }
+
+
+    .roots {
+        margin-bottom: 100vh; /* Adds a whole screen of blank space */
     }
 
     .entity:target {
       display: block;
+      scroll-margin-top: 0; /* Ensures the entity is at the top of the viewport */
+
     }
 
 
@@ -280,7 +293,7 @@ span.type::after  {
         </div>
         {% endfor %}
         
-    
+
         {% for val in propData.rev %}
             
         <div>
@@ -299,11 +312,10 @@ span.type::after  {
 {% endmacro %}
 
 
-{% macro display(item) %}
-
-<div class="entity" id="{{item.id | urlencode}}">
+{% macro display(item, class) %}
+<div id="{{item.id | urlencode}}" class="{{class}}">
     <div class = "entity-header-row">
-        <a href="{{ home_link }}" class="root">Root: {{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value}} </a> 
+        <a href="#{{ data.entryPoint | urlencode }}" class="root">Root: {{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value}} </a> 
 
         <h2>
             {% for type in item.type %}
@@ -391,10 +403,13 @@ span.type::after  {
 
 {% endmacro %}
 
+{{ display(data.ids[data.entryPoint], "root") }}
 
 
 {% for id, entity in data.ids %}
-      {{ display(entity) }}
+  {% if id != data.entryPoint %}
+    {{ display(entity, "entity") }}
+  {% endif %}   
  {% endfor %} 
 
 

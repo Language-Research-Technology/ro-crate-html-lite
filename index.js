@@ -19,7 +19,7 @@ program
     path.join(__dirname, "lib", "default_layout.json")
   )
 
-  .action((cratePath, options) => {
+  .action(async (cratePath, options) => {
     if (!fs.existsSync(cratePath) || !fs.lstatSync(cratePath).isDirectory()) {
       console.error(`Error: ${cratePath} is not a valid directory`);
       return;
@@ -35,7 +35,7 @@ program
   const template = fs.readFileSync(templateFile, "utf8");
   const layoutPath = options.layout;
   const layout = JSON.parse(fs.readFileSync(layoutPath, "utf8"));
-  const crateLite = roCrateToJSON(metadata, layout);
+  const crateLite = await roCrateToJSON(metadata, layout);
   const html = renderTemplate(crateLite, template, layout)
     fs.writeFileSync(
       path.join(cratePath, "ro-crate-preview.html"),

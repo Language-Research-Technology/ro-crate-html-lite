@@ -143,10 +143,11 @@ function initializeProp(crate, entityLite, prop){
  }
 
 
-function roCrateToJSON(metadata) {
+async function roCrateToJSON(metadata) {
   
   
   const crate = new ROCrate(metadata, { array: true, link: true });
+  await crate.resolveContext();
   const crateLite = { entryPoint: crate.rootDataset["@id"], ids: {} };
 
 
@@ -212,7 +213,7 @@ export { roCrateToJSON, renderTemplate };
                 const templateBytes = Uint8Array.from(atob(base64Template), c => c.charCodeAt(0));
                 const template = new TextDecoder('utf-8').decode(templateBytes);
 
-                const crateLite = roCrateToJSON(metadata, layout);
+                const crateLite = await roCrateToJSON(metadata, layout);
                 const renderedHtml = renderTemplate(crateLite, template, layout);
 
               

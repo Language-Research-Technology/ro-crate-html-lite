@@ -46,7 +46,7 @@ async function findLayout(crate, TODO) {
 
     // Get the conformsTo dynamically from the input JSON (metadata needs to be defined)
     const conformsToLookup = crate.rootDataset.conformsTo?.[0]?.['@id'];
-    console.log(`conformsTo lookup: ${conformsToLookup}`);
+    console.log(`conformsTo "${conformsToLookup}"`);
 
     // Check if the conformsTo exists in the mapping
     if (conformsToLookup && conformsToMapping.hasOwnProperty(conformsToLookup)) {
@@ -57,16 +57,28 @@ async function findLayout(crate, TODO) {
       
       if (jsonData.inputGroups) {
         const layout = jsonData.inputGroups;
-        // console.log("layoutFile:", layoutFile);
-        console.log("layoutFile found.");
+        console.log(`Fetched layout for "${conformsToLookup}"`);
         return layout
       } else {
         console.log("No 'inputGroups' key found in the JSON file.");
       }}
-      console.log(`conformsTo ${conformsToLookup} not found in the key-value list. Using default layout.`);
-      const layoutFile = path.join(__dirname, 'lib/default_layout.json'); //TODO pass this in instead of path
-      const layout = JSON.parse(fs.readFileSync(layoutFile, "utf8"));
-      return layout
+      console.log(`conformsTo "${conformsToLookup}" not found in the mapping. Using default layout.`);
+
+      const defaultUrl = "https://raw.githubusercontent.com/Language-Research-Technology/crate-o/refs/heads/main/src/lib/components/default_layout.json";
+
+    // Fetch the default layout from GitHub
+    const response = await fetch(defaultUrl);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch default layout: ${response.statusText}`);
+    }
+
+    // Parse the response body as JSON
+    const layout = await response.json();
+    
+    console.log("Fetched default layout.");
+    return layout;
+      
   } catch (error) {
     console.error("Error processing data:", error);
   }
@@ -79,7 +91,7 @@ program
   .option(
     "-l, --layout <layoutPath>",
     "Path to the layout file",
-    path.join(__dirname, "lib", "default_layout.json")
+    "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json"
   )
 
   .action(async (cratePath, options) => {

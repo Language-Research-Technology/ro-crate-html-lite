@@ -35,16 +35,21 @@ async function fetchJsonFromMode(mode) {
   return await response.json();
 }
 
-async function findLayout(crate, TODO) {
+async function findLayout(crate, layoutOption) {
   try {
-    // Fetch the mapping
+    // If layoutOption is provided, override other logic and use that layout
+    if (layoutOption) {
+      console.log(`Using layout "${layoutOption}" from -l option.`);
+      return await loadLayout(layoutOption);
+    }
+    // Fetch the mapping if no -l option provided
     const conformsToMapping = await fetchMapping();
     if (!conformsToMapping) {
       console.log("No mapping data available.");
       return;
     }
 
-    // Get the conformsTo dynamically from the input JSON (metadata needs to be defined)
+    // Get the conformsTo dynamically from the input JSON
     const conformsToLookup = crate.rootDataset.conformsTo?.[0]?.['@id'];
     console.log(`conformsTo "${conformsToLookup}"`);
 
@@ -84,14 +89,57 @@ async function findLayout(crate, TODO) {
   }
 }
 
+// Load layout from a file or URL
+async function loadLayout(layoutOption) {
+  if (layoutOption.startsWith('http://') || layoutOption.startsWith('https://')) {
+    // If it's a URL, fetch the layout from the URL
+    try {
+      const response = await fetch(layoutOption);
+      if (!response.ok) {
+        throw new Error(`Error status: ${response.status}`);
+      }
+      const jsonData = await response.json();  // Parse the response as JSON
+
+      // Check if inputGroups exists and return it
+      if (jsonData.inputGroups) {
+        return jsonData.inputGroups;
+      }
+
+      // If no inputGroups, return the entire JSON
+      return jsonData;
+
+    } catch (error) {
+      console.error('Error fetching layout from URL:', error.message);
+      throw error;
+    }
+  } else {
+    // If it's a file path, read the layout from the file
+    try {
+      const layout = fs.readFileSync(layoutOption, 'utf8');
+      const jsonData = JSON.parse(layout);  // Parse the file as JSON
+
+      // Check if inputGroups exists and return it
+      if (jsonData.inputGroups) {
+        return jsonData.inputGroups;
+      }
+
+      // If no inputGroups, return the entire JSON
+      return jsonData;
+
+    } catch (error) {
+      console.error('Error reading layout from file:', error.message);
+      throw error;
+    }
+  }
+}
+
 program
-  .name("load_ro_crate")
-  .description("Load an RO-Crate from a specified directory")
-  .argument("<path_to_crate_directory>", "Path to the crate directory")
+  .name("html_preview")
+  .description("Load an RO-Crate from a specified directory.")
+  .argument("<path_to_crate_directory>", "Path to the crate directory.")
   .option(
     "-l, --layout <layoutPath>",
-    "Path to the layout file",
-    "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json"
+    "Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use a raw link if the URL is from GitHub. (Default: \"https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json\")",
   )
 
   .action(async (cratePath, options) => {

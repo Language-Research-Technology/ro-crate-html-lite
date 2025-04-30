@@ -141,6 +141,11 @@ program
     "-l, --layout <layoutPath>",
     "Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use a raw link if the URL is from GitHub. (Default: \"https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json\")",
   )
+  .option(
+    "-m, --maps",
+    "Include maps in the generated HTML preview. This will render a map for any geographic data found in the RO-Crate in asWKt properties."
+  )
+  
 
   .action(async (cratePath, options) => {
     if (!fs.existsSync(cratePath) || !fs.lstatSync(cratePath).isDirectory()) {
@@ -158,7 +163,7 @@ program
   const template = fs.readFileSync(templateFile, "utf8");
   const crate = new ROCrate(metadata, { array: true, link: true });
   await crate.resolveContext();
-  const crateLite = roCrateToJSON(crate);
+  const crateLite = await roCrateToJSON(crate, options.maps);
   const layout = await findLayout(crate, options.layout);
   const html = renderTemplate(crateLite, template, layout)
     fs.writeFileSync(

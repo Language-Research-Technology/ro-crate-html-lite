@@ -271,7 +271,7 @@ span.type::after  {
             
             
             {% elif val["url"] %}
-            <a href="{{ val["url"] }}"> {{ val["url"]  }}</a>
+                 <a href="{{ val["url"] }}"> {{ val["url"]  }}</a>
             {% else %}
                 {% if val["target_id"] %}
                 <span class="button-right"><a href="#{{ val["target_id"] }}"> {{ val["target_name"] }} </a></span>
@@ -284,6 +284,9 @@ span.type::after  {
                 WARNING SOMETHING WENT WRONG {{ val | dump }}
                 {% endif %}
             {% endif %}
+            {% if val["mapImage"] %}
+                     <img src="{{ val["mapImage"] }}" alt="Map" style="width: 100%; height: auto;">
+             {% endif %}
         </div>
         {% endfor %}
         

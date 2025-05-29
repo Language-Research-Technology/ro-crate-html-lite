@@ -308,7 +308,10 @@ span.type::after  {
                 {% endif %}
             {% endif %}
             {% if val["mapImage"] %}
-                     <img src="{{ val["mapImage"] }}" alt="Map" style="width: 100%; height: auto;">
+                        <p>Map images:</p>
+                     <img src="{{ val["mapImage"]["world"] }}" alt="World Map" style="width: 100%; height: auto;">
+                     <img src="{{ val["mapImage"]["main"] }}" alt="Localized Map" style="width: 100%; height: auto;">
+
              {% endif %}
         </div>
         {% endfor %}

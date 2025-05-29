@@ -5,7 +5,8 @@
   "description": "A tool to create static HTML-only ro-crate-preview-html files for an RO-Crate",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test-maps": "node test-staticmap.js"
   },
   "author": "Peter Sefton",
   "license": "GPL-3.0",

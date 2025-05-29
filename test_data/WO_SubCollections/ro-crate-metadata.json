@@ -1,0 +1,692 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.1/context",
+    {
+      "@vocab": "http://schema.org/",
+      "ldac": "https://w3id.org/ldac/terms#",
+      "custom": "arcp://name,custom/terms#"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "#Omniglot",
+      "@type": "Organization",
+      "name": "Omniglot"
+    },
+    {
+      "@id": "https://ror.org/00rqy9422",
+      "@type": "Organization",
+      "name": "University of Queensland"
+    },
+    {
+      "@id": "arcp://name,custom/terms#LanguageStatusTerms",
+      "@type": "DefinedTermSet",
+      "name": "Language Status Terms",
+      "description": "The set of expected values forlanguage status."
+    },
+    {
+      "@id": "UDHR_wo_subcollections",
+      "@type": [
+        "Dataset",
+        "RepositoryCollection"
+      ],
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#Collection"
+      },
+      "name": "Test Dataset: UDHR Translations without SubCollections",
+      "description": "Translations of Article 1 of the Universal Declaration of Human Rights from Omniglot.",
+      "ldac:doi": "https://doi.org/10.1000/182",
+      "isRef_license": "",
+      "datePublished": "2025-05-28",
+      "inLanguage": [
+        "Ancient Egyptian",
+        "Danish",
+        "English",
+        "Finnish",
+        "German",
+        "Latin",
+        "Lithuanian",
+        "Mongolian",
+        "Old English",
+        "Scottish Gaelic",
+        "Welsh"
+      ],
+      "ldac:subjectLanguage": [
+        "Ancient Egyptian",
+        "Danish",
+        "English",
+        "Finnish",
+        "German",
+        "Latin",
+        "Lithuanian",
+        "Mongolian",
+        "Old English",
+        "Scottish Gaelic",
+        "Welsh"
+      ],
+      "ldac:metadataIsPublic": "true",
+      "author": {
+        "@id": "#Omniglot"
+      },
+      "publisher": {
+        "@id": "https://ror.org/00rqy9422"
+      },
+      "hasPart": [
+        {
+          "@id": "Licenses/Example.txt"
+        },
+        {
+          "@id": "Images/UDHR_OldEnglish.png"
+        },
+        {
+          "@id": "Images/UDHR_AncientEgyptian.png"
+        },
+        {
+          "@id": "Audio/UDHR_German.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Danish.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Latin.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Icelandic.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Welsh.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_ScottishGaelic.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Finnish.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Mongolian.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Lithuanian.mp3"
+        },
+        {
+          "@id": "Text/UDHR_OldEnglish.txt"
+        },
+        {
+          "@id": "Text/UDHR_ScottishGaelic.txt"
+        },
+        {
+          "@id": "Text/UDHR_German.txt"
+        },
+        {
+          "@id": "Text/UDHR_Latin.txt"
+        },
+        {
+          "@id": "Text/UDHR_English.txt"
+        },
+        {
+          "@id": "Text/UDHR_Icelandic.txt"
+        },
+        {
+          "@id": "Text/UDHR_Welsh.txt"
+        },
+        {
+          "@id": "Text/UDHR_Mongolian.txt"
+        },
+        {
+          "@id": "Text/UDHR_Finnish.txt"
+        },
+        {
+          "@id": "Text/UDHR_Lithuanian.txt"
+        },
+        {
+          "@id": "Text/UDHR_Danish.txt"
+        },
+        {
+          "@id": "ro-crate-metadata-wo-subcollections.xlsx"
+        }
+      ],
+      "pcdm:hasMember": [
+        {
+          "@id": "#Images"
+        },
+        {
+          "@id": "#Audio"
+        },
+        {
+          "@id": "#Text"
+        }
+      ]
+    },
+    {
+      "@id": "https://creativecommons.org/licenses/by/4.0/",
+      "@type": "ldac:DataReuseLicense",
+      "name": "Attribution 4.0 International (CC BY 4.0)",
+      "description": "You are free to: Share — copy and redistribute the material in any medium or format. Adapt — remix, transform, and build upon the material for any purpose, even commercially. This license is acceptable for Free Cultural Works. The licensor cannot revoke these freedoms as long as you follow the license terms.",
+      "ldac:allowTextIndex": "true",
+      "isPartOf": {
+        "@id": "UDHR_wo_subcollections"
+      }
+    },
+    {
+      "@id": "Licenses/Example.txt",
+      "@type": [
+        "ldac:DataReuseLicense",
+        "File"
+      ],
+      "name": "Example Custom License",
+      "description": "This license explains who is allowed to use and possibly redistribute this data, and for what purpose.",
+      "ldac:allowTextIndex": "true",
+      "isPartOf": {
+        "@id": "UDHR_wo_subcollections"
+      }
+    },
+    {
+      "@id": "#Images",
+      "@type": "RepositoryObject",
+      "name": "Images",
+      "description": "Article 1 UDHR Images.",
+      "datePublished": "2025-05-28",
+      "inLanguage": "Danish",
+      "ldac:subjectLanguage": "Danish",
+      "pcdm:memberOf": {
+        "@id": "UDHR_wo_subcollections"
+      },
+      "hasPart": [
+        {
+          "@id": "Images/UDHR_AncientEgyptian.png"
+        },
+        {
+          "@id": "Images/UDHR_OldEnglish.png"
+        }
+      ]
+    },
+    {
+      "@id": "#Audio",
+      "@type": "RepositoryObject",
+      "name": "Audio",
+      "description": "Article 1 UDHR Audio.",
+      "datePublished": "2025-05-28",
+      "inLanguage": "Ancient Egyptian",
+      "ldac:subjectLanguage": "Ancient Egyptian",
+      "pcdm:memberOf": {
+        "@id": "UDHR_wo_subcollections"
+      },
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "hasPart": [
+        {
+          "@id": "Audio/UDHR_Danish.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Finnish.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_German.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Icelandic.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Latin.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Lithuanian.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Mongolian.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_ScottishGaelic.mp3"
+        },
+        {
+          "@id": "Audio/UDHR_Welsh.mp3"
+        }
+      ]
+    },
+    {
+      "@id": "#Text",
+      "@type": "RepositoryObject",
+      "name": "Text",
+      "description": "Article 1 UDHR Text.",
+      "datePublished": "2025-05-28",
+      "inLanguage": "English",
+      "ldac:subjectLanguage": "English",
+      "pcdm:memberOf": {
+        "@id": "UDHR_wo_subcollections"
+      },
+      "license": {
+        "@id": "Licenses/Example.txt"
+      },
+      "hasPart": [
+        {
+          "@id": "Text/UDHR_Danish.txt"
+        },
+        {
+          "@id": "Text/UDHR_English.txt"
+        },
+        {
+          "@id": "Text/UDHR_Finnish.txt"
+        },
+        {
+          "@id": "Text/UDHR_German.txt"
+        },
+        {
+          "@id": "Text/UDHR_Icelandic.txt"
+        },
+        {
+          "@id": "Text/UDHR_Latin.txt"
+        },
+        {
+          "@id": "Text/UDHR_Lithuanian.txt"
+        },
+        {
+          "@id": "Text/UDHR_Mongolian.txt"
+        },
+        {
+          "@id": "Text/UDHR_OldEnglish.txt"
+        },
+        {
+          "@id": "Text/UDHR_ScottishGaelic.txt"
+        },
+        {
+          "@id": "Text/UDHR_Welsh.txt"
+        }
+      ]
+    },
+    {
+      "@id": "Images/UDHR_AncientEgyptian.png",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Images"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Extinct"
+      }
+    },
+    {
+      "@id": "Images/UDHR_OldEnglish.png",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Images"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Extinct"
+      }
+    },
+    {
+      "@id": "arcp://name,custom/terms#Extinct",
+      "@type": "DefinedTerm",
+      "name": "Extinct",
+      "description": "The language is no longer spoken as a first language.",
+      "inDefinedTermSet": {
+        "@id": "arcp://name,custom/terms#LanguageStatusTerms"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_Danish.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#Danish_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_Finnish.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#Finnish_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_German.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#German_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_Icelandic.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#Icelandic_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_Latin.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#Latin_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Extinct"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_Lithuanian.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#Lithuanian_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_Mongolian.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#Mongolian_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_ScottishGaelic.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#ScottishGaelic_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Audio/UDHR_Welsh.mp3",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Audio"
+      },
+      "ldac:speaker": {
+        "@id": "#Welsh_Speaker"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "#Danish_Speaker",
+      "@type": "Person",
+      "name": "Unknown"
+    },
+    {
+      "@id": "arcp://name,custom/terms#Living",
+      "@type": "DefinedTerm",
+      "name": "Living",
+      "description": "The language is spoken as a first language.",
+      "inDefinedTermSet": {
+        "@id": "arcp://name,custom/terms#LanguageStatusTerms"
+      }
+    },
+    {
+      "@id": "Text/UDHR_Danish.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Text/UDHR_English.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Text/UDHR_Finnish.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Text/UDHR_German.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Text/UDHR_Icelandic.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Text/UDHR_Latin.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Extinct"
+      }
+    },
+    {
+      "@id": "Text/UDHR_Lithuanian.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Text/UDHR_Mongolian.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Text/UDHR_OldEnglish.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Extinct"
+      }
+    },
+    {
+      "@id": "Text/UDHR_ScottishGaelic.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "Text/UDHR_Welsh.txt",
+      "@type": [
+        "File",
+        "ldac:PrimaryMaterial"
+      ],
+      "isPartOf": {
+        "@id": "#Text"
+      },
+      "arcp://name,custom/terms#languageStatus": {
+        "@id": "arcp://name,custom/terms#Living"
+      }
+    },
+    {
+      "@id": "#Finnish_Speaker",
+      "@type": "Person",
+      "name": "Unknown"
+    },
+    {
+      "@id": "#German_Speaker",
+      "@type": "Person",
+      "name": "Unknown"
+    },
+    {
+      "@id": "#Icelandic_Speaker",
+      "@type": "Person",
+      "name": "Alexander Jarl"
+    },
+    {
+      "@id": "#Latin_Speaker",
+      "@type": "Person",
+      "name": "Connor Ferguson"
+    },
+    {
+      "@id": "#Lithuanian_Speaker",
+      "@type": "Person",
+      "name": "Augustinas Žemaitis"
+    },
+    {
+      "@id": "#Mongolian_Speaker",
+      "@type": "Person",
+      "name": "Bat-Orgil Myagmardorj"
+    },
+    {
+      "@id": "#ScottishGaelic_Speaker",
+      "@type": "Person",
+      "name": "Frederic (Calum) Bayer"
+    },
+    {
+      "@id": "#Welsh_Speaker",
+      "@type": "Person",
+      "name": "Stephen Turner"
+    },
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "identifier": "ro-crate-metadata.json",
+      "about": {
+        "@id": "UDHR_wo_subcollections"
+      }
+    },
+    {
+      "@id": "arcp://name,custom/terms#languageStatus",
+      "@type": "rdf:Property",
+      "name": "Language Status",
+      "description": "The status of the language, whether living or extinct."
+    },
+    {
+      "@id": "ro-crate-metadata-wo-subcollections.xlsx",
+      "@type": "File"
+    }
+  ]
+}

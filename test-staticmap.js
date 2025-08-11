@@ -39,8 +39,32 @@ const worldPoints = [
 
 // Additional test data: LineString and Polygon examples
 const lineAndPolygon = [
-  { name: 'Sydney-Melbourne-LineString', wkt: 'LINESTRING(151.2093 -33.8688, 144.9631 -37.8136)', zoom: 12 },
-  { name: 'Eastern-Australia-Polygon', wkt: 'POLYGON((153.0 -28.0, 150.0 -37.0, 145.0 -35.0, 148.0 -25.0, 153.0 -28.0))', zoom: 12 }
+  { 
+    name: 'Sydney-Melbourne-LineString', 
+    wkt: 'LINESTRING(151.2093 -33.8688, 144.9631 -37.8136)', 
+    zoom: 7  // This zoom will be auto-adjusted by the algorithm
+  },
+  { 
+    name: 'Eastern-Australia-Polygon', 
+    wkt: 'POLYGON((153.0 -28.0, 150.0 -37.0, 145.0 -35.0, 148.0 -25.0, 153.0 -28.0))', 
+    zoom: 6  // This zoom will be auto-adjusted by the algorithm
+  },
+  { 
+    name: 'Australia-NZ-LineString', 
+    wkt: 'LINESTRING(134.0 -26.0, 172.0 -41.0)', 
+    zoom: 4  // This zoom will be auto-adjusted by the algorithm
+  },
+  { 
+    name: 'North-America-Polygon', 
+    wkt: 'POLYGON((-125.0 49.0, -125.0 25.0, -80.0 25.0, -80.0 49.0, -125.0 49.0))', 
+    zoom: 3  // This zoom will be auto-adjusted by the algorithm
+  },
+
+  { 
+    name: 'Pacific-Ocean-Crossing-Dateline', 
+    wkt: 'POLYGON((145 -10, 170 -15, -175 -20, -150 -25, -130 -10, -120 15, -130 40, -160 50, 170 60, 150 45, 130 20, 145 -10))', 
+    zoom: 2  // The zoom will be adjusted by the algorithm
+  }
 ];
 
 // Helper function to generate an HTML template

@@ -416,7 +416,7 @@ select {
               li[i].style.display = "none";
           }    
     }
-    input.parentNode.getElementsByClassName("count")[0].innerText =  `${found} /  ${count}`;
+    input.parentNode.getElementsByClassName("count")[0].innerText =  `${found - 1} /  ${count - 1}`;
 }
 
 
@@ -603,10 +603,17 @@ select {
 <div id="{{item.id}}" class="{{class}}">
     <div class = "entity-header-row">
         {{ root () }}
-        <h2>{{ item.props["http://schema.org/name"].fwd[0].value }}</h2> 
-                    {% for type in item.type %}
-               <span class="type">{{ showType(type)}}</span>{% if not loop.last %}<p>|</p>{% endif %}
-            {% endfor %}
+        <h2>
+            {% if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
+                {{ item.props["http://schema.org/name"].fwd[0].value }}
+            {% else %} <!-- Use ID if name isn't available, e.g. files -->
+                {{ item.id }}
+            {% endif %}
+        </h2>
+        <br>
+        {% for type in item.type %}
+            <span class="type">{{ showType(type) }}</span>{% if not loop.last %}<p>|</p>{% endif %}
+        {% endfor %}
 
         <h3> Identifier</h3>
         <h2 class="id">{{ item.id }}</h2>

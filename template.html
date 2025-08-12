@@ -13,7 +13,7 @@
     h3{
         font-size: 0.6em;
         line-height: 0;
-        margin-bottom:0;
+        margin-bottom:4px;
         margin-top:2em;
 
     }
@@ -74,7 +74,6 @@
 
 span.type {
     padding: 0px 5px;
-    margin-top:10px;
     margin-right: 5px;
     font-size: 0.6em;
     font-weight:lighter;
@@ -177,8 +176,8 @@ span.info a{
 .entity-header-row h2 {
     align-items: center; 
     text-align: center;
-    line-height: 0;
-    margin-bottom:10px;
+    line-height: 1.1em;
+    margin-bottom:0px;
     justify-content: center; /* Center horizontally */
 }
 
@@ -551,6 +550,7 @@ select {
 
 {% macro schemaElements() %}
 {% if data.types["DefinedTerm"] or data.types["rdf:Property"] or  data.types["rdfs:Class"] %}  
+<h3> Custom schema elements </h3>
 {% if data.types["rdf:Property"] %}
         <a href="#types_rdf:Property">Properties</a>
     {% endif %}
@@ -610,7 +610,6 @@ select {
                 {{ item.id }}
             {% endif %}
         </h2>
-        <br>
         {% for type in item.type %}
             <span class="type">{{ showType(type) }}</span>{% if not loop.last %}<p>|</p>{% endif %}
         {% endfor %}
@@ -618,7 +617,6 @@ select {
         <h3> Identifier</h3>
         <h2 class="id">{{ item.id }}</h2>
 
-        <h3> Custom schema elements </h3>
         {{ schemaElements() }}
 
     </div>

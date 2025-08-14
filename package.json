@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/test-bounding-box.js",
-    "visualize": "node test/test-bounding-box.js"
+    "visualize": "node test/test-bounding-box.js",
+    "dev": "node --no-warnings dev.js"
   },
   "author": "Peter Sefton",
   "license": "GPL-3.0",

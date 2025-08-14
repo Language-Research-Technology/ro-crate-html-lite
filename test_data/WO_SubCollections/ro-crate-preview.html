@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <!-- Prevent some browsers from requesting favicon -->
+    <link rel="icon" href="data:;base64,=">
     <style>
     body{
             font-family: Arial, Helvetica, sans-serif;
@@ -418,7 +420,9 @@ select {
     input.parentNode.getElementsByClassName("count")[0].innerText =  `${found - 1} /  ${count - 1}`;
 }
 
-
+if (window.location.hostname === "localhost") {
+  import("/script/simple-live-reload.js");
+}
 </script>
 
 

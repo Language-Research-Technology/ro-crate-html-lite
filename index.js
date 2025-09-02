@@ -160,7 +160,7 @@ program
   const template = fs.readFileSync(templateFile, "utf8");
   const crate = new ROCrate(metadata, { array: true, link: true });
   await crate.resolveContext();
-  const crateLite = await roCrateToJSON(crate;
+  const crateLite = await roCrateToJSON(crate);
   const layout = await findLayout(crate, options.layout);
   const html = renderTemplate(crateLite, template, layout)
     fs.writeFileSync(

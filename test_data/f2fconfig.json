@@ -1,0 +1,9 @@
+{
+    "types": {
+      "RepositoryObject": {"template": "test_data/f2f-subobject-template.html"},
+      "RepositoryCollection": {"template": "test_data/f2f-subobject-template.html"},
+
+      "Person": {"template": "test_data/f2f-subobject-template.html"}
+    },
+    "root" : {"template": "test_data/f2f-root-template.html"}
+}

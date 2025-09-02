@@ -143,7 +143,7 @@ program
     "Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use a raw link if the URL is from GitHub. (Default: \"https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json\")",
   )
   .option(
-   "-m", "--multipage-config <configPath>",
+   "-m --multipage-config <configPath>",
    "Filepath or URL to a multipage configuration file in JSON format."
   )
  
@@ -154,32 +154,79 @@ program
       console.error(`Error: ${cratePath} is not a valid directory`);
       return;
     }
+    
     const metadataFile = path.join(cratePath, "ro-crate-metadata.json");
-  if (!fs.existsSync(metadataFile)) {
-    console.error(`Error: Metadata file not found in ${cratePath}`);
-    return;
-  }
-  if (options.multipageConfig) {
-     configFile = options.multipageConfig;
-     console.log(`Using multipage configuration from ${configFile}`);
-     const configData = fs.readFileSync(configFile, "utf8");
-  }
+    if (!fs.existsSync(metadataFile)) {
+      console.error(`Error: Metadata file not found in ${cratePath}`);
+      return;
+    }
+    
+    // Fix the multipage config handling
+    let configData = null;
+    if (options.multipageConfig) {
+      const configFile = options.multipageConfig;
+      console.log(`Using multipage configuration from ${configFile}`);
+      
+      if (!fs.existsSync(configFile)) {
+        console.error(`Error: Config file not found: ${configFile}`);
+        return;
+      }
+      
+      try {
+        const configContent = fs.readFileSync(configFile, "utf8");
+        configData = JSON.parse(configContent); // Parse the JSON content
+      } catch (error) {
+        console.error(`Error reading/parsing config file: ${error.message}`);
+        return;
+      }
+    }
 
-  const metadata = JSON.parse(fs.readFileSync(metadataFile, "utf8"));
-  const templateFile = path.join(__dirname, "template.html");
-  const template = fs.readFileSync(templateFile, "utf8");
-  const crate = new ROCrate(metadata, { array: true, link: true });
-  await crate.resolveContext();
-  const crateLite = await roCrateToJSON(crate);
-  const layout = await findLayout(crate, options.layout);
+    const metadata = JSON.parse(fs.readFileSync(metadataFile, "utf8"));
+    const templateFile = path.join(__dirname, "template.html");
+    var template = fs.readFileSync(templateFile, "utf8");
+    const crate = new ROCrate(metadata, { array: true, link: true });
+    await crate.resolveContext();
+    
+    // Pass the parsed config data, not the raw string
+    const crateLite = await roCrateToJSON(crate, configData);
+    const layout = await findLayout(crate, options.layout);
 
-  const html = renderTemplate(crateLite, template, layout)
+    if (options.multipageConfig) {
+
+      template = fs.readFileSync(configData.root.template, "utf8");
+      for (const [entityId, pageDetails] of Object.entries(crateLite.pages)) {
+        
+        // Create a temporary crateLite with this entity as the entry point
+        const pageData = {
+          ...crateLite,
+          entryPoint: entityId
+        };
+        
+        // For now, use the template file content for all pages
+        // Later you might want to load different templates based on entity type
+        console.log(`Rendering page for entity ${entityId} using template ${pageDetails.template}`);
+        const pageTemplate = fs.readFileSync(pageDetails.template, "utf8");
+
+        const html = renderTemplate(pageData, pageTemplate, layout);
+
+        const outputPath = path.join(cratePath, pageDetails.path);
+        const outputDir = path.dirname(outputPath);
+        
+        if (!fs.existsSync(outputDir)) {
+          fs.mkdirSync(outputDir, { recursive: true });
+        }
+        
+        fs.writeFileSync(outputPath, html, "utf-8");
+        console.log(`Wrote page for ${entityId} to ${outputPath}`);
+      }
+    } 
+    const html = renderTemplate(crateLite, template, layout);
     fs.writeFileSync(
       path.join(cratePath, "ro-crate-preview.html"),
       html,
       "utf-8"
     );
+    console.log(`Wrote preview to ${path.join(cratePath, "ro-crate-preview.html")}`);
   
-
   });
 program.parse(process.argv);

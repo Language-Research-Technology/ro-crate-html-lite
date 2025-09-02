@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const program = new Command();
 import { fileURLToPath } from 'url';
 import { roCrateToJSON, renderTemplate } from './lib/preview.js';
+import { config } from 'process';
 
 // Fetch the mapping JSON between conformsTo and mode
 async function fetchMapping() {
@@ -141,6 +142,10 @@ program
     "-l, --layout <layoutPath>",
     "Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use a raw link if the URL is from GitHub. (Default: \"https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json\")",
   )
+  .option(
+   "-m", "--multipage-config <configPath>",
+   "Filepath or URL to a multipage configuration file in JSON format."
+  )
  
   
 
@@ -154,6 +159,11 @@ program
     console.error(`Error: Metadata file not found in ${cratePath}`);
     return;
   }
+  if (options.multipageConfig) {
+     configFile = options.multipageConfig;
+     console.log(`Using multipage configuration from ${configFile}`);
+     const configData = fs.readFileSync(configFile, "utf8");
+  }
 
   const metadata = JSON.parse(fs.readFileSync(metadataFile, "utf8"));
   const templateFile = path.join(__dirname, "template.html");
@@ -162,6 +172,7 @@ program
   await crate.resolveContext();
   const crateLite = await roCrateToJSON(crate);
   const layout = await findLayout(crate, options.layout);
+
   const html = renderTemplate(crateLite, template, layout)
     fs.writeFileSync(
       path.join(cratePath, "ro-crate-preview.html"),

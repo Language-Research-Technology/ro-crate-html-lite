@@ -11,6 +11,10 @@ npm install .
 
 ```
 
+## Development/contributing
+
+Run `npm run dev` to start a development server at `http://localhost:8000/`. It will rebuild and reload the preview webpages when changes are made to `template.html`.
+
 ## Usage
 
 ```

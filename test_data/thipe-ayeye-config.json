@@ -1,0 +1,8 @@
+{
+    "types": {
+      "RepositoryObject": {"template": "test_data/thipe-ayeye-subobject-template.html"},
+      "RepositoryCollection": {"template": "test_data/thipe-ayeye-subobject-template.html"},
+      "Person": {"template": "test_data/thipe-ayeye-subobject-template.html"}
+    },
+    "root" : {"template": "test_data/thipe-ayeye-root-template.html"}
+}

@@ -6,9 +6,9 @@
     {# Facebook sharing image (Open Graph) #}
     <meta property="og:url" content="{{ url }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="{{ data.ids[data.entryPoint].props['http://schema.org/name'].fwd[0].value }}" />
-    <meta property="og:description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
-    <meta name="description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
+        <meta property="og:title" content="{{ data.ids[data.entryPoint].props['http://schema.org/name'].fwd[0].value }}" />
+        <meta property="og:description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
+        <meta name="description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
     {% if data.ids[data.entryPoint].props["http://schema.org/hasPart"] %}
         {% for val in data.ids[data.entryPoint].props["http://schema.org/hasPart"].fwd %}
             {% if val.target_name and (val.target_name.endsWith(".jpg") or val.target_name.endsWith(".png")) %}
@@ -303,15 +303,15 @@
 
 
 {% macro showHasPartImage(item) %}
-    {% if item.props["http://schema.org/hasPart"] %}
+    {% if item.props["arcp://name,custom/terms#image"] %}
+        {% set img = item.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
+        <script>
+            console.log("img:", {{ img | dump | safe }});
+        </script>   
         <div class="has-part-list">
-            {% for val in item.props["http://schema.org/hasPart"].fwd %}
-                {% if val.target_name.endsWith(".jpg") or val.target_name.endsWith(".png") %}
-                    <div class="has-part-item">
-                        <img src="../../../../../{{ val.target_name }}" />
-                    </div>
-                {% endif %}
-            {% endfor %}
+            <div class="has-part-item">
+                <img src="../../../../../{{ img }}" />
+            </div>
         </div>
     {% endif %}
 {% endmacro %}
@@ -336,7 +336,11 @@
 
 
 {% macro showHasPartCallAudio(item) %}
-    {% if item.props.callAudio and item.props.callAudio.fwd and item.props.callAudio.fwd[0].value %}
+    {% if item.props["arcp://name,custom/terms#callAudio"] %}
+        {% set callAudio = item.props["arcp://name,custom/terms#callAudio"].fwd[0].target_id %}
+        <script>
+            console.log("call audio:", {{ callAudio | dump | safe }});
+        </script>   
         <button class="audio-play-btn" onclick="event.preventDefault(); var audio = this.nextElementSibling; if(audio.paused){ audio.play(); this.classList.add('playing'); } else { audio.pause(); this.classList.remove('playing'); }">
             <svg width="48" height="48" viewBox="0 0 48 48">
                 <circle cx="24" cy="24" r="22" fill="#222" />
@@ -344,14 +348,18 @@
             </svg>
         </button>
         <audio style="display:none;">
-            <source src="../../../../../{{ item.props.callAudio.fwd[0].value }}" type="audio/mpeg">
+            <source src="../../../../../{{ callAudio }}" type="audio/mpeg">
         </audio>
     {% endif %}
 {% endmacro %}
 
 
 {% macro showHasPartNameAudio(item) %}
-    {% if item.props.nameAudio and item.props.nameAudio.fwd and item.props.nameAudio.fwd[0].value %}
+    {% if item.props["arcp://name,custom/terms#nameAudio"] %}
+        {% set nameAudio = item.props["arcp://name,custom/terms#nameAudio"].fwd[0].target_id %}
+        <script>
+            console.log("name audio:", {{ nameAudio | dump | safe }});
+        </script>   
         <button class="audio-play-btn" onclick="event.preventDefault(); var audio = this.nextElementSibling; if(audio.paused){ audio.play(); this.classList.add('playing'); } else { audio.pause(); this.classList.remove('playing'); }">
             <svg width="48" height="48" viewBox="0 0 48 48">
                 <circle cx="24" cy="24" r="22" fill="#222" />
@@ -359,7 +367,7 @@
             </svg>
         </button>
         <audio style="display:none;">
-            <source src="../../../../../{{ item.props.nameAudio.fwd[0].value }}" type="audio/mpeg">
+            <source src="../../../../../{{ nameAudio }}" type="audio/mpeg">
         </audio>
     {% endif %}
 {% endmacro %}
@@ -367,7 +375,11 @@
 
 
 {% macro showHasPartSentenceAudio(item) %}
-    {% if item.props.sentenceAudio and item.props.sentenceAudio.fwd and item.props.sentenceAudio.fwd[0].value %}
+    {% if item.props["arcp://name,custom/terms#sentenceAudio"] %}
+        {% set sentenceAudio = item.props["arcp://name,custom/terms#sentenceAudio"].fwd[0].target_id %}
+        <script>
+            console.log("sentence audio:", {{ sentenceAudio | dump | safe }});
+        </script>   
         <button class="audio-play-btn" onclick="event.preventDefault(); var audio = this.nextElementSibling; if(audio.paused){ audio.play(); this.classList.add('playing'); } else { audio.pause(); this.classList.remove('playing'); }">
             <svg width="48" height="48" viewBox="0 0 48 48">
                 <circle cx="24" cy="24" r="22" fill="#222" />
@@ -375,7 +387,7 @@
             </svg>
         </button>
         <audio style="display:none;">
-            <source src="../../../../../{{ item.props.sentenceAudio.fwd[0].value }}" type="audio/mpeg">
+            <source src="../../../../../{{ sentenceAudio }}" type="audio/mpeg">
         </audio>
     {% endif %}
 {% endmacro %}
@@ -425,10 +437,10 @@
             <div class="left"></div>
             <div class="right">
                 <p>
-                {{ item.props.translation.fwd[0].value }}
+                    {{ item.props["arcp://name,custom/terms#translation"].fwd[0].value }}
                 </p>
                 <p class="linnaean-name">
-                    {{ item.props.scientificName.fwd[0].value }}
+                    {{ item.props["arcp://name,custom/terms#scientificName"].fwd[0].value }}
                 </p>
             </div>
         </div>
@@ -436,14 +448,14 @@
         <div class="grid">
             <div class="left">{{ showHasPartSentenceAudio(item) }}</div>
             <div class="right">
-                {{ item.props.sentence.fwd[0].value }}
+                {{ item.props["arcp://name,custom/terms#sentence"].fwd[0].value }}
             </div>
         </div>
         <div class="grid">
             <div class="left"></div>
             <div class="right">
                 <span class="translation">
-                    {{ item.props.sentenceTranslation.fwd[0].value }}
+                    {{ item.props["arcp://name,custom/terms#sentenceTranslation"].fwd[0].value }}
                 </span>
             </div>
         </div>

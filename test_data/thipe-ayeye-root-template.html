@@ -103,8 +103,17 @@
         <div class="property-value object-grid">
             {% for val in propData.rev | sort(attribute='target_id') %}
 
+                <script>
+                    console.log("target.props:", {{ target.props | dump | safe }});
+                </script>
+
                 {% set target = data.ids[val.target_id] %}
-                {% set imagePath = target.props["http://schema.org/hasPart"].fwd[0].target_id %}
+                {% set imagePath = target.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
+
+                <script>
+                    console.log("imagePath:", {{ imagePath | dump | safe }});
+                </script>
+
                 {% set targetPath = data.pages[val.target_id].path if val.target_id and data.pages[val.target_id] else '' %}
                   
                     <div class="bird" style="background-image: url('{{ imagePath }}');">

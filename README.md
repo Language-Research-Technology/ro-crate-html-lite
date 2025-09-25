@@ -42,8 +42,3 @@ Farms to freeways -- multipages
 ```
 node index.js  -m test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
 ```
-COOEE:
-
-```
-node index.js test_data/cooee
-```

@@ -23,7 +23,8 @@ path_to_crate_directory     Path to the crate directory.
 
 Options:
 -l, --layout <layoutPath>   Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use raw link if URL is from GitHub. (Default: "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json")
-  -m, --maps                 Include maps in the generated HTML preview. This will render a map for any geographic data found in the RO-Crate in asWKt properties.
+
+-m, --multipage-config <configPath>  Filepath or URL to a multipage configuration file in JSON format.
 
 -h, --help                  Display help for command.
 ```

@@ -1,0 +1,1508 @@
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+    body{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1vw;
+            margin: 0;
+        }
+    h3{
+        font-size: 0.6em;
+        line-height: 0;
+        margin-bottom:4px;
+        margin-top:2em;
+
+    }
+
+      h2.id {
+        font-size: 0.5em;
+        margin-top:1.25em;
+        font-weight:lighter;
+      }
+      .long {
+         overflow: scroll;
+          max-height: 10em;
+      }
+      .entity {
+        display: none;
+        position: static;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 0px;
+        scroll-margin-top: 600px;
+        
+
+    }
+    .entity:target {
+      display: block;
+
+    }
+
+    .entity a{
+    text-decoration: underline dotted 2px;
+    line-height: 2em;
+    text-underline-offset: 5px;
+    color: #000;
+
+    }
+
+    .entity-grid {
+    margin:0px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 100%;
+
+}
+
+
+  /*  .roots {
+        margin-bottom: 100vh; /* Adds a whole screen of blank space 
+    }
+        */
+
+  .entity:target {
+      display: block;
+      scroll-margin-top: 0; /* Ensures the entity is at the top of the viewport */
+
+    }
+
+span.type {
+    padding: 0px 5px;
+    margin-right: 5px;
+    font-size: 0.6em;
+    font-weight:lighter;
+    display: inline-block;
+    
+}
+
+span.type::after  {
+    content:"\a";
+    white-space: pre;
+}
+
+.entity-header-row span.type::after  {
+    content:"";
+}
+
+
+span.info a{
+    text-decoration: none;
+    font-size:0.9em;
+}
+
+ 
+.button-left, .button-right {
+    margin-bottom: 10px;
+    padding: 2px 10px;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    
+}
+
+.button-left:hover, .button-right:hover {
+    color: #4e4e4e;
+}
+
+.button-left a::before {
+    content: '⏴'; 
+    font-size: 1.2em;
+  
+}
+
+.button-right a::after {
+    content: '⏵';
+    font-size: 1.2em;
+
+}
+
+.button-left a, .button-right a {
+    text-decoration: underline dotted 2px;
+    line-height: 2em;
+    text-underline-offset: 5px;
+    transition: all .3s ease-in;
+    color: #000000
+}
+
+.button-left a:hover, .button-right a:hover {
+    color: #4e4e4e;
+}
+
+.property-grid {
+    margin:0px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+
+      width: 60%;
+}
+
+
+
+.property-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 50px;
+}
+
+.property-row a{
+  text-decoration: underline dotted 2px;
+  line-height: 2em;
+  text-underline-offset: 5px;
+  transition: all .3s ease-in;
+  color: #000000;
+}
+
+.entity-header-row {
+    width: 100%;
+    padding: 15px;
+    padding-bottom:25px;
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.entity-header-row h2 {
+    align-items: center; 
+    text-align: center;
+    line-height: 1.1em;
+    margin-bottom:0px;
+    justify-content: center; /* Center horizontally */
+}
+
+.entity-header-row .info{
+    text-decoration:none; 
+    font-size: 0.75em;
+}
+
+
+
+.entity-header-row a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.5em;
+    font-weight: bold;
+    line-height:1.25;
+    margin-top:0;
+    padding-top:0;
+    text-decoration: underline dotted 2px;
+    text-underline-offset: 5px;
+}
+
+.entity-header-row p {
+    font-size: 0.6em;
+    display: inline;
+}
+
+.property-header-row {
+    display: flex;
+    justify-content: left; /* Center horizontally */
+    align-items: center; 
+    text-align: center;
+    padding: 25px 50px;
+    margin-top:20px;
+    border-radius: 10px 10px 0 0;
+    background-color: rgb(0, 0, 0);
+    color:#fff;
+    font-size: 1.5vw;
+    font-weight:bold;
+    text-transform:capitalize;
+}
+.property-row:nth-child(odd) {
+    background-color: #f9fbf9;
+}
+
+.property-row:nth-child(even) {
+    height: 20%;
+    background-color: #f0f0ee;
+}
+
+.property-row:last-child{
+    margin-bottom:25px;
+}
+
+.property-name {
+    flex: 1;
+    font-weight: bold;
+}
+.property-name a{
+    color:#000000;
+    text-decoration: none;
+    transition: all .2s ease-in;
+    font-size: 1em;
+}
+
+.property-name a:hover{
+    color: #000000;
+}
+
+.property-value {
+    flex: 2;
+    gap: 5px;
+    align-items: left;
+
+}
+
+
+.section_head{
+    width:100%;
+    display:flex;
+    padding: 5px 0px;
+    background-color: 6C6A6A;
+}
+
+.section_head h2{
+    width: 60%;
+    margin: 0 auto;
+    font-size: 1.5em;
+    color:#fff;
+}
+
+.browse{
+    display:flex;
+    flex-direction: column;
+    width:60%;
+    margin: 0 auto;
+    justify-content: center;
+    align-items:center;
+    margin-bottom:20px;
+    margin-top:10px;
+}
+.browse nav{
+    width:100%;
+    padding-top:10px;
+}
+
+.browse p{
+    display:inline;
+    margin-left:5px;
+}
+
+.find_button{
+  background-color: #000000;
+  color: white !important;
+  padding: 14px 25px;
+  text-align: center;
+  border-radius:4px;
+  text-decoration: none !important;
+  display: inline-block;
+  margin-left:5px;
+}
+
+.centered-files{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+width: 100vw;
+}
+
+.centered-files a{
+    display:block;
+    margin-top:25px;
+    margin-bottom:25px;
+}
+
+select {
+  all: unset; 
+  max-width: 35%;
+  line-height: 1.5em;
+  padding: 0.5em 3.5em 0.5em 1em;
+  border-bottom: 1px solid #4e4e4e;
+  background-color: #f1f1f1;
+
+ /*This is the arrow */
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgb(111, 111, 111) 50%),
+    linear-gradient(135deg, rgb(111, 111, 111) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(1em + 0px),
+    calc(100% - 15px) calc(1em + 0px),
+    100% 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    2.5em 2.5em;
+  background-repeat: no-repeat;
+}
+
+      .drop-down {
+        display: none;
+        position: static;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 0px;
+        scroll-margin-top: 600px;
+        
+
+    }
+
+        .drop-down:target {
+      display: block;
+
+    }
+
+        .drop-down a{
+    text-decoration: underline dotted 2px;
+    line-height: 2em;
+    text-underline-offset: 5px;
+    color: #000;
+
+    }
+
+    iframe{
+        background-color:#F5F5F5;
+        border: none;
+        padding:35px;
+    }
+
+    .home-link{
+        font-size: 0.5em !important;
+    }
+
+        .home-link a{
+        font-weight: 100 !important;
+        font-size: 14px !important;
+    }
+/*-- this is a test comment*/
+
+/*.property-value button {
+    margin-bottom: 5px;
+    padding: 2px 10px;
+    border: none;
+    border-bottom: dotted 2px;
+    cursor: pointer;
+    transition: all .2s ease-in;
+    color: #000000;
+}
+
+.property-value button a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000000;
+}
+
+.property-value button a:hover {
+    color: #4e4e4e; 
+} */
+  </style>
+
+<script>
+  
+  function search(input) {
+    li = input.parentNode.getElementsByTagName("div");
+    filter = input.value.toUpperCase();
+    count = li.length;
+    found = 0;
+      for (i = 0; i < li.length; i++) {
+          txtValue = li[i].textContent.toUpperCase() || "";
+          if (txtValue.indexOf(filter) > -1) {
+              li[i].style.display = "";
+              found ++
+          } else {
+              li[i].style.display = "none";
+          }    
+    }
+    input.parentNode.getElementsByClassName("count")[0].innerText =  `${found - 1} /  ${count - 1}`;
+}
+
+
+</script>
+
+
+
+</head>
+
+
+
+  <body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Heading Section -->
+<div id="arcp://name,hdl10.4225~35~555d661071c76/collection/marjoryturner" class="root">
+    <div class = "entity-header-row">
+          
+<div class="home-link">
+    <a href="../../../../../ro-crate-preview.html" class="root">
+ <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+</svg> Home
+</p>
+</div>
+
+        <h2>
+            
+                Marjory Turner
+            
+        </h2>
+        
+            <span class="type">
+<!--<a href="#types_Person" class="type"></a>-->
+    Person
+ 
+
+
+   
+       <span class="info"> <a href="http://schema.org/Person" target="_blank">ⓘ</a></span>
+   
+
+
+</span>
+        
+
+        <h3> Identifier</h3>
+        <h2 class="id">arcp://name,hdl10.4225~35~555d661071c76/collection/marjoryturner</h2>
+
+        
+
+
+
+
+
+    </div>
+<!-- Browse Collection section -->
+<div class = "section_head">
+ <h2>Browse collection</h2>
+</div>
+<section class="browse">
+    
+ 
+<div class="nav">
+    <p>Browse by type of entity:</p> 
+
+<select onchange="location.href=this.value">
+    <option value="disabled selected">Select a type</option>
+    
+      <option value="#types_CreativeWork">CreativeWork</option>
+    
+      <option value="#types_Dataset">Dataset</option>
+    
+      <option value="#types_RepositoryCollection">RepositoryCollection</option>
+    
+      <option value="#types_Organization">Organization</option>
+    
+      <option value="#types_ContactPoint">ContactPoint</option>
+    
+      <option value="#types_DataReuseLicense">DataReuseLicense</option>
+    
+      <option value="#types_Person">Person</option>
+    
+      <option value="#types_File">File</option>
+    
+      <option value="#types_DigitalFormat">DigitalFormat</option>
+    
+      <option value="#types_RepositoryObject">RepositoryObject</option>
+    
+      <option value="#types_Place">Place</option>
+    
+      <option value="#types_Geometry">Geometry</option>
+    
+</select>
+
+<p> OR </p>
+
+    <a href="#types_File" class="find_button">Files in this crate</a>
+
+<!--
+
+    -->
+</div>
+
+
+
+
+
+ </section> 
+
+<!-- Properties section -->
+ <div class = "section_head">
+     <h2>Details</h2>
+</div>
+
+    <div class="property-grid">
+        
+        
+            
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    
+                
+            
+                
+                    
+                    
+                
+            
+                
+                    
+                    
+                
+            
+                
+                    
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+                <div class="property-header-row">About</div>
+            
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+    <div class="property-row">
+        <div class="property-name">
+           
+    name
+    
+
+
+   
+       <span class="info"> <a href="http://schema.org/name" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+        <div>   
+            
+                Marjory Turner
+            
+           <br>
+        </div>
+        
+
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+                
+            
+                
+                    
+    <div class="property-row">
+        <div class="property-name">
+           
+    familyName
+    
+
+
+   
+       <span class="info"> <a href="http://schema.org/familyName" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+        <div>   
+            
+                Turner
+            
+           <br>
+        </div>
+        
+
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+                
+            
+                
+                    
+    <div class="property-row">
+        <div class="property-name">
+           
+    givenName
+    
+
+
+   
+       <span class="info"> <a href="http://schema.org/givenName" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+        <div>   
+            
+                Marjory
+            
+           <br>
+        </div>
+        
+
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+                
+            
+                
+                    
+    <div class="property-row">
+        <div class="property-name">
+           
+    description
+    
+
+
+   
+       <span class="info"> <a href="http://schema.org/description" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+        <div>   
+            
+                Marjory Turner was born on the 25th January, 1929, at Penrith. After leaving school at age 15, Marjory worked at Selfridges, Parramatta, and later at a factory in St Marys. Marjory married in 1948 and lived with her husband&#39;s family until the couple built a house of their own at Kingswood, Not long after they finished the house, the land was bought by the Council to build flats and so the house was demolished. Marjory and her husband then purchased another block and built a new house in Kingswood.
+            
+           <br>
+        </div>
+        
+
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+                <div class="property-header-row">Related People, Orgs &amp; Works</div>
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+    <div class="property-row">
+        <div class="property-name">
+           
+    interviewee
+    
+
+
+   
+       <span class="info"> <a href="https://w3id.org/ldac/terms#interviewee" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+
+        
+        <div>
+            
+                <span class="button-left"><a href="../../../../../ro-crate-preview_html/abca7c7e/4a5fdec8/4e6115e2/87a02f4f/index.html">  Photo of Marjory Turner 2 </a></span>
+             
+        </div>
+        
+        <div>
+            
+                <span class="button-left"><a href="../../../../../ro-crate-preview_html/8da284f6/508d90ba/3e9c4bea/1a08b91a/index.html">  Audio recording of interview with Marjory Turner </a></span>
+             
+        </div>
+        
+        <div>
+            
+                <span class="button-left"><a href="../../../../../ro-crate-preview_html/35528428/3c07148a/2c7efc51/63dcad0f/index.html">  Photo of Marjory Turner 1 </a></span>
+             
+        </div>
+        
+        <div>
+            
+                <span class="button-left"><a href="../../../../../ro-crate-preview_html/d58beeb2/d5e388c0/455e4c60/e2f10423/index.html">  Transcript of interview with Marjory Turner </a></span>
+             
+        </div>
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    
+                
+            
+            
+                <div class="property-header-row">Space &amp; Time</div>
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+    <div class="property-row">
+        <div class="property-name">
+           
+    address
+    
+
+
+   
+       <span class="info"> <a href="http://schema.org/address" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+        <div>   
+            
+                Kingswood, Penrith 
+            
+           <br>
+        </div>
+        
+
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+                
+            
+        
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        
+
+
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+                
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+
+        
+            <div class="property-header-row">Other properties</div>
+        
+
+
+        
+           
+        
+           
+        
+           
+        
+           
+        
+           
+                
+    <div class="property-row">
+        <div class="property-name">
+           
+    identifier
+    
+
+
+   
+       <span class="info"> <a href="http://schema.org/identifier" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+        <div>   
+            
+                19 _Person
+            
+           <br>
+        </div>
+        
+
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+
+           
+        
+           
+                
+    <div class="property-row">
+        <div class="property-name">
+           
+    birthDate
+    
+
+
+   
+       <span class="info"> <a href="http://schema.org/birthDate" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+        <div>   
+            
+                1929
+            
+           <br>
+        </div>
+        
+
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+
+           
+        
+           
+                
+    <div class="property-row">
+        <div class="property-name">
+           
+    birthPlace
+    
+
+
+   
+       <span class="info"> <a href="http://schema.org/birthPlace" target="_blank">ⓘ</a></span>
+   
+
+
+
+        </div>
+        <div class="property-value">
+            
+                <div class="short">
+            
+
+        
+        <div>   
+            
+                Penrith
+            
+           <br>
+        </div>
+        
+
+        
+        
+        </div> <!-- Close the long/short div -->
+        </div> <!-- Close property-value div -->
+    </div> <!-- Close property-row div -->
+
+
+           
+        
+           
+        
+           
+        
+
+
+
+    </div>
+
+
+
+     </div> 
+    
+    
+    
+ 
+   
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+      
+
+
+</body>
+</html>

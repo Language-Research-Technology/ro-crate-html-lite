@@ -1,0 +1,3 @@
+# Ignore all files in test_data/thipe-ayeye/data/files except .gitignore
+*
+!.gitignore

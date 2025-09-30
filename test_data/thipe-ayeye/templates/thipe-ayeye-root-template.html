@@ -99,44 +99,7 @@
         }
         </style>
 </head>
-
 <body>
-
-{% macro displayProp(prop, propData) %}
-    <div class="property-row main-container">
-        <div class="property-value object-grid">
-            {% for val in propData.rev | sort(attribute='target_id') %}
-
-                <script>
-                    console.log("target.props:", {{ target.props | dump | safe }});
-                </script>
-
-                {% set target = data.ids[val.target_id] %}
-                {% set imagePath = target.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
-
-                <script>
-                    console.log("imagePath:", {{ imagePath | dump | safe }});
-                </script>
-
-                {% set targetPath = data.pages[val.target_id].path if val.target_id and data.pages[val.target_id] else '' %}
-                  
-                    <div class="bird" style="background-image: url('{{ imagePath }}');">
-                        <a href="{{ targetPath }}">
-    
-                            <div class="bird-name">
-                                {% if val.target_name %}
-                                {{ val.target_name }}
-                                {% else %}
-                                WARNING SOMETHING WENT WRONG {{ val | dump }} ⬅
-                                {% endif %}
-                            </div> 
-                        </a>
-                    </div>
-                </a>
-            {% endfor %}        
-        </div> <!-- Close property-value div -->
-    </div> <!-- Close property-row div -->
-{% endmacro %}
 
 {% macro display(data, class) %}
     {% set item = data.ids[data.entryPoint] %}
@@ -150,23 +113,30 @@
             </h2>
         </div>
 
-        <div class="object-grid">
-            {% for input, val in item.props | dictsort('@id')%}
-                {% if item.props[input] %}
-                    {{ displayProp(input, item.props[input]) }}
-                {% endif %}
+        <div class=object-grid>
+            {% set sorted_ids = data.types.RepositoryObject | sort %}
+            {% for entity_id in sorted_ids %}
+                {% set entity = data.ids[entity_id] %}
+                {% set imagePath = entity.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
+                {% set pagePath= data.pages[entity_id].path if data.pages[entity_id] else '' %}
+
+                <div class="bird" style="background-image: url('{{ imagePath }}');">
+                    <a href="{{ pagePath }}">
+                        <div class="bird-name">
+                            {{ entity.props["http://schema.org/name"].fwd[0].value }}
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
 
         <div class="footer-row main-container">
-            {% for id, entity in data.ids %}
-                {% if entity["type"] and "AboutPage" in entity["type"] %}
-                    <div style="text-align:center; margin: 1em;">
-                        <a href="{{ data.pages[id].path }}" class="about-link"">
-                            About this project
-                        </a>
-                    </div>
-                {% endif %}
+            {% for entity_id in data.types.AboutPage %}
+                <div style="text-align:center; margin: 1em;">
+                    <a href="{{ data.pages[entity_id].path }}" class="about-link">
+                        About this project
+                    </a>
+                </div>
             {% endfor %}
         </div>
              

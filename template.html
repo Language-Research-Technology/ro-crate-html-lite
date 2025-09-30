@@ -404,8 +404,8 @@
 
   <body>
     {% macro infoLink(url) %}
-      {% if url %}
-        {% if data.ids[url] %}
+      {%- if url %}
+        {%- if data.ids[url] %}
           <a
             href="#{{ url }}"
             title="See definiton for {{ url }} in this RO-Crate"
@@ -418,47 +418,47 @@
             target="_blank"
             >ⓘ</a
           >
-        {% endif %}
-      {% endif %}
-    {% endmacro %}
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
 
     {% macro diplayLabel(propData) %}
       {{ propData.label | replace(r/.*:/, "") }}
       {{ infoLink(propData.url) }}
-    {% endmacro %}
+    {%- endmacro %}
 
     {% macro infoLink(url) %}
 
-      {% if url %}
-        {% if data.ids[url] %}
+      {%- if url %}
+        {%- if data.ids[url] %}
           <span class="info"><a href="#{{ url }}">ⓘ</a></span>
         {% else %}
           <span class="info"> <a href="{{ url }}" target="_blank">ⓘ</a></span>
-        {% endif %}
-      {% endif %}
-    {% endmacro %}
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
 
     {% macro displayProp(prop, propData) %}
       <div class="property-row">
         <div class="property-name">{{ diplayLabel(propData) }}</div>
         <div class="property-value">
-          {% set isLong = propData.fwd.length + propData.rev.length > 9 %}
-          {% if isLong %}
+          {%- set isLong = propData.fwd.length + propData.rev.length > 9 %}
+          {%- if isLong %}
             <input class="border" onkeyup="res = search(this)" />
             <span class="count">
               ({{ propData.fwd.length + propData.rev.length }} /
               {{ propData.fwd.length + propData.rev.length }})</span
             >
-          {% endif %}
+          {%- endif %}
           <div class="{{ 'long' if isLong else 'short' }}">
-            {% for val in propData.fwd %}
+            {%- for val in propData.fwd %}
               <div>
-                {% if val is string %}
+                {%- if val is string %}
                   {{ val | urlize | safe }}
                 {% elif val["url"] %}
                   <a href="{{ val["url"] }}"> {{ val["url"] }}</a>
                 {% else %}
-                  {% if val["target_id"] %}
+                  {%- if val["target_id"] %}
                     <span class="button-right"
                       ><a href="#{{ val["target_id"] | urlencode }}">
                         {{ val["target_name"] }}
@@ -468,9 +468,9 @@
                     {{ val.value | urlize | safe }}
                   {% else %}
                     WARNING SOMETHING WENT WRONG {{ val | dump }}
-                  {% endif %}
-                {% endif %}
-                {% if val["mapImage"] %}
+                  {%- endif %}
+                {%- endif %}
+                {%- if val["mapImage"] %}
                   <p>Map images:</p>
                   <img
                     src="{{ val["mapImage"]["world"] }}"
@@ -482,12 +482,12 @@
                     alt="Localized Map"
                     style="width: 100%; height: auto;"
                   />
-                {% endif %}
+                {%- endif %}
               </div>
-            {% endfor %}
-            {% for val in propData.rev %}
+            {%- endfor %}
+            {%- for val in propData.rev %}
               <div>
-                {% if val["target_id"] %}
+                {%- if val["target_id"] %}
                   <span class="button-left"
                     ><a href="#{{ val["target_id"] | urlencode }}">
                       {{ val["target_name"] }}
@@ -495,57 +495,59 @@
                   >
                 {% else %}
                   WARNING SOMETHING WENT WRONG {{ val | dump }} ⬅
-                {% endif %}
+                {%- endif %}
               </div>
-            {% endfor %}
+            {%- endfor %}
           </div>
         </div>
       </div>
-    {% endmacro %}
+    {%- endmacro %}
 
     {% macro typeNav() %}
       <select onchange="location.href=this.value">
         <option value="disabled selected">Select a type</option>
-        {% for type, list in data.types %}
-          <option value="#types_{{ type }}">{{ type }}</option>
-        {% endfor %}
+        {%- for type, list in data.types %}
+          {%- if type != "File" %}
+            <option value="#types_{{ type }}">{{ type }}</option>
+          {%- endif %}
+        {%- endfor %}
       </select>
-    {% endmacro %}
+    {%- endmacro %}
 
     {% macro crateNav() %}
       <div class="nav">
         <p>Browse by type of entity:</p>
         {{ typeNav() }}
         <p>OR</p>
-        {% if data.types["File"] %}
+        {%- if data.types["File"] %}
           <a href="#types_File" class="find_button">Files in this crate</a>
-        {% endif %}
+        {%- endif %}
         <!--
-{% if data.types["Dataset"] and data.types["Dataset"].length > 2 %}
+{%- if data.types["Dataset"] and data.types["Dataset"].length > 2 %}
           <a href="#types_Dataset">Datasets in this crate</a>
-        {% endif %}
+        {%- endif %}
     -->
       </div>
-    {% endmacro %}
+    {%- endmacro %}
 
     {% macro schemaElements() %}
-      {% if data.types["DefinedTerm"] or data.types["rdf:Property"] or  data.types["rdfs:Class"] %}
+      {%- if data.types["DefinedTerm"] or data.types["rdf:Property"] or  data.types["rdfs:Class"] %}
         <h3>Custom schema elements</h3>
-        {% if data.types["rdf:Property"] %}
+        {%- if data.types["rdf:Property"] %}
           <a href="#types_rdf:Property">Properties</a>
-        {% endif %}
+        {%- endif %}
 
-        {% if data.types["rdfs:Class"] %}
+        {%- if data.types["rdfs:Class"] %}
           <p>|</p>
           <a href="#types_rdfs:Class">Classes</a>
-        {% endif %}
+        {%- endif %}
 
-        {% if data.types["DefinedTerm"] %}
+        {%- if data.types["DefinedTerm"] %}
           <p>|</p>
           <a href="#types_DefinedTerm">DefinedTerms</a>
-        {% endif %}
-      {% endif %}
-    {% endmacro %}
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
 
     {% macro root() %}
       <div class="home-link">
@@ -566,21 +568,21 @@
           {{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value }}
         </a>
       </div>
-    {% endmacro %}
+    {%- endmacro %}
 
     {% macro showType(type) %}
       <!--<a href="#types_{{ type }}" class="type"></a>-->
       {{ type | replace(r/.*:/) }}
       {{ infoLink(data.typeUrls[type]) }}
-    {% endmacro %}
+    {%- endmacro %}
 
     {% macro setProp(prop) %}
-      {% if prop is string %}
+      {%- if prop is string %}
         {{ prop }}
       {% else %}
         {{ prop | merge({ prop: true }) }}
-      {% endif %}
-    {% endmacro %}
+      {%- endif %}
+    {%- endmacro %}
 
     {% macro display(item, class) %}
       <!-- Heading Section -->
@@ -588,17 +590,17 @@
         <div class="entity-header-row">
           {{ root () }}
           <h2>
-            {% if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
+            {%- if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
               {{ item.props["http://schema.org/name"].fwd[0].value }}
             {% else %}
               <!-- Use ID if name isn't available, e.g. files -->
               {{ item.id }}
-            {% endif %}
+            {%- endif %}
           </h2>
-          {% for type in item.type %}
+          {%- for type in item.type %}
             <span class="type">{{ showType(type) }}</span
-            >{% if not loop.last %}<p>|</p>{% endif %}
-          {% endfor %}
+            >{%- if not loop.last %}<p>|</p>{%- endif %}
+          {%- endfor %}
 
           <h3>Identifier</h3>
           <h2 class="id">{{ item.id }}</h2>
@@ -613,51 +615,52 @@
         <section class="browse">
           {{ crateNav() }}
           <!-- Think this is where the function for displaying selected item of drop down list should go but not sure -->
-          {% if item == data.ids[data.entryPoint] %}
-            {% for type, list in data.types %}
+          {%- if item == data.ids[data.entryPoint] %}
+            {%- for type, list in data.types %}
               <div id="types_{{ type }}" class="drop-down">
                 <div class="entity-grid">
                   <h2>{{ type }} ({{ list.length }})</h2>
 
-                  {% set isLong = list.length  > 9 %}
-                  {% if isLong %}
+                  {%- set isLong = list.length  > 9 %}
+                  {%- if isLong %}
                     <input class="border" onkeyup="res = search(this)" />
                     <span class="count">
                       ({{ list.length }} / {{ list.length }})</span
                     >
-                  {% endif %}
+                  {%- endif %}
                   <div class="{{ 'long' if isLong else 'short' }}">
-                    {% for id in list %}
-                      {% if id != data.entryPoint %}
+                    {%- for id in list %}
+                      {%- if id != data.entryPoint %}
                         <div>
                           <a href="#{{ id | urlencode }}">
-                            {% if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
+                            {%- if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
                               {{ data.ids[id].props["http://schema.org/name"].fwd[0].value }}
                             {% else %}
                               {{ id }}
-                            {% endif %}
+                            {%- endif %}
                           </a>
                         </div>
-                      {% endif %}
-                    {% endfor %}
+                      {%- endif %}
+                    {%- endfor %}
                   </div>
                 </div>
               </div>
-            {% endfor %}
-          {% endif %}
+            {%- endfor %}
+          {%- endif %}
         </section>
 
         <!--Section for files if they are avails-->
-        {% set htmlRegex = r/(\.txt)$|(\.html?)$/i %}
-        {% set audioRegex = r/(\.mp3)|(\.ogg?)|(\.wav)$/i %}
-        {% set imgRegex = r/(\.jpe?g)|(\.png|(\.giff?))$/i %}
-        {% set vidRegex = r/(\.mp4)|(\.mov)$/i %}
+        {%- set htmlRegex = r/(\.txt)$|(\.html?)$/i %}
+        {%- set mdRegex = r/\.md$/i %}
+        {%- set audioRegex = r/(\.mp3)|(\.ogg?)|(\.wav)$/i %}
+        {%- set imgRegex = r/(\.jpe?g)|(\.png|(\.giff?))$/i %}
+        {%- set vidRegex = r/(\.mp4)|(\.mov)$/i %}
 
-        {% set pdfRegex = r/pdf$/i %}
+        {%- set pdfRegex = r/pdf$/i %}
 
-        {% if item.type.includes("File") %}
+        {%- if item.type.includes("File") %}
           <div class="centered-files">
-            {% if htmlRegex.test(item.id) %}
+            {%- if htmlRegex.test(item.id) %}
               <!-- TODO: fix these width="80%"s, they are not valid -->
               <iframe
                 src="{{ item.id | urlencode }}"
@@ -681,12 +684,14 @@
                 src="{{ item.id | urlencode }}"
                 loading="lazy"
               />
+            {% elif mdRegex.test(item.id) %}
+              {{ item.previewHtml | safe }}
             {% elif pdfRegex.test(item.id) %}
               <!--          <iframe   src="{{ item.id }}" type="application/pdf" width="100%" height="600px" loading="lazy" />-->
-            {% endif %}
+            {%- endif %}
             <a href="{{ item.id | urlencode }}">Open file location</a>
           </div>
-        {% endif %}
+        {%- endif %}
 
         <!-- Properties section -->
         <div class="section_head">
@@ -694,57 +699,57 @@
         </div>
 
         <div class="property-grid">
-          {% set seenProps = {"@id": true,"@type": true} %}
-          {% for group in layout %}
-            {% set hasContent = false %}
-            {% for input in group.inputs %}
-              {% if item.props[input] %}
-                {% set hasContent = true %}
-                {% set seenProps = seenProps | setProp(input) %}
-              {% endif %}
-            {% endfor %}
-            {% if hasContent %}
+          {%- set seenProps = {"@id": true,"@type": true} %}
+          {%- for group in layout %}
+            {%- set hasContent = false %}
+            {%- for input in group.inputs %}
+              {%- if item.props[input] %}
+                {%- set hasContent = true %}
+                {%- set seenProps = seenProps | setProp(input) %}
+              {%- endif %}
+            {%- endfor %}
+            {%- if hasContent %}
               <div class="property-header-row">{{ group.name }}</div>
-            {% endif %}
-            {% for input in group.inputs %}
-              {% if item.props[input] %}
+            {%- endif %}
+            {%- for input in group.inputs %}
+              {%- if item.props[input] %}
                 {{ displayProp(input, item.props[input]) }}
-              {% endif %}
-            {% endfor %}
-          {% endfor %}
+              {%- endif %}
+            {%- endfor %}
+          {%- endfor %}
 
-          {% set hasContent = false %}
-          {% for input, val in item.props %}
-            {% if not seenProps[input] %}
-              {% set hasContent = true %}
-            {% endif %}
-          {% endfor %}
+          {%- set hasContent = false %}
+          {%- for input, val in item.props %}
+            {%- if not seenProps[input] %}
+              {%- set hasContent = true %}
+            {%- endif %}
+          {%- endfor %}
 
-          {% if hasContent %}
+          {%- if hasContent %}
             <div class="property-header-row">Other properties</div>
-          {% endif %}
+          {%- endif %}
 
-          {% for input, val in item.props %}
-            {% if not seenProps[input] %}
+          {%- for input, val in item.props %}
+            {%- if not seenProps[input] %}
               {{ displayProp(input, item.props[input]) }}
-            {% endif %}
-          {% endfor %}
+            {%- endif %}
+          {%- endfor %}
         </div>
       </div>
-    {% endmacro %}
+    {%- endmacro %}
 
     {{ display(data.ids[data.entryPoint], "root") }}
 
-    {% for id, entity in data.ids %}
-      {% if id != data.entryPoint %}
+    {%- for id, entity in data.ids %}
+      {%- if id != data.entryPoint %}
         {{ display(entity, "entity") }}
-      {% endif %}
-    {% endfor %}
+      {%- endif %}
+    {%- endfor %}
 
     {# A div for each type
 
 
-    {% for type, list in data.types %}
+    {%- for type, list in data.types %}
     <div id="types_{{type}}" class="entity" >
     <div class="property-grid">
         <p> {{ root() }} </p>  
@@ -753,7 +758,7 @@
      <h2>{{type}} ({{list.length}}) </h2>
     </div>
 
-        {% if list.length  > 9 %}
+        {%- if list.length  > 9 %}
                     
                 <input class="border" onkeyup="res = search(this)">
                 <span class="count"> ({{ list.length }} / {{ list.length }})</span>
@@ -762,26 +767,26 @@
                 {% else %}
                 <div class="short">
                         
-                {% endif %}
+                {%- endif %}
 
-        {% for id in list %}
-            {% if id != data.entryPoint %}
+        {%- for id in list %}
+            {%- if id != data.entryPoint %}
                 <div>
                     <a href="#{{id}}">
-                        {% if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
+                        {%- if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
                             {{ data.ids[id].props["http://schema.org/name"].fwd[0].value }}
                         {% else %}
                             {{ id }}
-                        {% endif %}
+                        {%- endif %}
                     </a>
                 </div>
-            {% endif %}   
+            {%- endif %}   
           
-        {% endfor %}
+        {%- endfor %}
      </div>
    </div> 
 
 </div>
- {% endfor %} #}
+ {%- endfor %} #}
   </body>
 </html>

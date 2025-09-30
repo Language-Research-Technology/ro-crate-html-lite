@@ -7,7 +7,8 @@
   "scripts": {
     "test": "mocha test/test-bounding-box.js",
     "visualize": "node test/test-bounding-box.js",
-    "format": "prettier --write template.html"
+    "format": "prettier --write template.html",
+    "build": "node index.js test_data/sample/ && node index.js test_data/WO_SubCollections/ && node index.js test_data/thesis/"
   },
   "author": "Peter Sefton",
   "license": "GPL-3.0",

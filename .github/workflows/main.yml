@@ -24,4 +24,4 @@ jobs:
           echo "# HTML validation results" >> $GITHUB_STEP_SUMMARY
           echo "| Message | Extract | File |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
-          jq -r '.messages[0:1000] | map(.extract = (.extract | @html) | .message = (.message | @html) | "| \(.message | @html) | <code>\(.extract | @html | gsub("\n"; "<br>"))</code> | \(.url | split("ro-crate-html-lite")[-1]):\(.lastLine)  |") | join("\n")' log.log >> $GITHUB_STEP_SUMMARY
+          jq -r '.messages[0:1000] | map("| \(.message | @html) | <code>\(.extract | @html | gsub("\n"; "<br>"))</code> | \(.url | split("ro-crate-html-lite")[-1]):\(.lastLine)  |") | join("\n")' log.log >> $GITHUB_STEP_SUMMARY

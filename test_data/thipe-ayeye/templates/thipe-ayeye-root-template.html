@@ -23,13 +23,17 @@
             background-position: center center;
             margin: 0;
         }
-        .page-title {
+        .page-title, .footer-row {
             text-align: center;
             background-color: black;
             color: white;
             font-weight: normal;
             padding: 1em;
             margin: 0;
+        }
+        .footer-row a {
+            color: white;
+            font-size: 1.2em;
         }
         .main-container {
             width:100%;
@@ -134,7 +138,9 @@
     </div> <!-- Close property-row div -->
 {% endmacro %}
 
-{% macro display(item, class) %}
+{% macro display(data, class) %}
+    {% set item = data.ids[data.entryPoint] %}
+
     <div id="{{item.id}}" class="{{class}}">
         <div class="header-row">
             <h2 class="page-title">
@@ -151,10 +157,23 @@
                 {% endif %}
             {% endfor %}
         </div>
+
+        <div class="footer-row main-container">
+            {% for id, entity in data.ids %}
+                {% if entity["type"] and "AboutPage" in entity["type"] %}
+                    <div style="text-align:center; margin: 1em;">
+                        <a href="{{ data.pages[id].path }}" class="about-link"">
+                            About this project
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+             
     </div>
 {% endmacro %}
 
-{{ display(data.ids[data.entryPoint], "root") }}
+{{ display(data, "root") }}
 
 </body>
 </html>

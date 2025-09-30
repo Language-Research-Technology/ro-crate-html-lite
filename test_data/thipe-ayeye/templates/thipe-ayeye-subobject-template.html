@@ -48,7 +48,6 @@
                 padding-right: 0.5em;
             }
         }
-
         .page-header-row {
             display: flex;
             flex-direction: row;
@@ -93,7 +92,6 @@
             border-radius: 4px;
             box-shadow: 4px 4px 6px rgba(0,0,0,0.2);
         }
-
         .hide {
             display: none;
         }
@@ -128,7 +126,6 @@
         .audio-play-btn.playing svg circle {
             fill: #1976d2;
         }
-
         /* GRID */
         .grid {
             display: grid;
@@ -382,7 +379,7 @@
         <div class="page-header-row">
             <!-- Navigation -->
             <div class="home-link">
-                {{ root () }}
+                {{ root() }}
             </div>
             <!-- Title -->
             <div class="page-title">
@@ -430,6 +427,7 @@
                     {{ item.props["arcp://name,custom/terms#sentence"].fwd[0].value }}
                 </div>
             </div>
+
             <div class="grid">
                 <div class="left"></div>
                 <div class="right">

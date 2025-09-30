@@ -170,10 +170,7 @@
     </script>
 
 </head>
-
-
-
-  <body>
+<body>
 
 {% macro infoLink(url) %}
     {% if url %}
@@ -185,9 +182,11 @@
     {% endif %}
 {% endmacro %}
 
+
 {% macro diplayLabel(propData) %}
     {{ propData.label | replace(r/.*:/, "")  }}
 {% endmacro %}
+
 
 {% macro infoLink(url) %}
     {% if url %}
@@ -198,6 +197,7 @@
         {% endif %}
     {% endif %}
 {% endmacro %}
+
 
 {% macro displayProp(prop, propData) %}
     <div class="property-row">
@@ -252,7 +252,6 @@
 {% endmacro %}
 
 
-
 {% macro root() %}  
     <div class="home-link">
         <a href="../../../../../ro-crate-preview.html" class="root">
@@ -288,8 +287,6 @@
 {% endmacro %}
 
 
-
-
 {% macro showHasPartImage(item) %}
     {% if item.props["arcp://name,custom/terms#image"] %}
         {% set img = item.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
@@ -303,7 +300,6 @@
         </div>
     {% endif %}
 {% endmacro %}
-
 
 
 {% macro showHasPartAudio(item) %}
@@ -361,7 +357,6 @@
 {% endmacro %}
 
 
-
 {% macro showHasPartSentenceAudio(item) %}
     {% if item.props["arcp://name,custom/terms#sentenceAudio"] %}
         {% set sentenceAudio = item.props["arcp://name,custom/terms#sentenceAudio"].fwd[0].target_id %}
@@ -381,77 +376,70 @@
 {% endmacro %}
 
 
-
-
-
 {% macro display(item, class) %}
-
-<!-- Heading Section -->
-<div id="{{item.id}}" class="main-container {{class}}">
-    <div class="page-header-row">
-        <!-- Navigation -->
-        <div class="home-link">
-            {{ root () }}
+    <!-- Heading Section -->
+    <div id="{{item.id}}" class="main-container {{class}}">
+        <div class="page-header-row">
+            <!-- Navigation -->
+            <div class="home-link">
+                {{ root () }}
+            </div>
+            <!-- Title -->
+            <div class="page-title">
+                {% if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
+                    <div class="page-title-audio">{{ showHasPartNameAudio(item) }}</div>
+                    <h2 class="page-title-text">{{ item.props["http://schema.org/name"].fwd[0].value }}</h2>
+                {% else %} <!-- Use ID if name isn't available, e.g. files -->
+                    <h2 class="page-title-text">{{ item.id }}</h2>
+                {% endif %}
+            </div>
         </div>
-        <!-- Title -->
-        <div class="page-title">
-            {% if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
-                <div class="page-title-audio">{{ showHasPartNameAudio(item) }}</div>
-                <h2 class="page-title-text">{{ item.props["http://schema.org/name"].fwd[0].value }}</h2>
-            {% else %} <!-- Use ID if name isn't available, e.g. files -->
-                <h2 class="page-title-text">{{ item.id }}</h2>
-            {% endif %}
+
+        <!-- Properties section -->
+        <div class="middle-column property-grid">
+            {% set seenProps = {"@id": true, "@type": true} %}
+            
+            <script>
+                console.log('item.props:', {{ item.props | dump | safe }});
+            </script>
+
+            <div class="grid feature-image v-space-1em">
+                <div class="left">
+                    {{ showHasPartCallAudio(item) }}
+                </div>
+                <div class="right">
+                    {{ showHasPartImage(item) }}
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="left"></div>
+                <div class="right">
+                    <p>
+                        {{ item.props["arcp://name,custom/terms#translation"].fwd[0].value }}
+                    </p>
+                    <p class="linnaean-name">
+                        {{ item.props["arcp://name,custom/terms#scientificName"].fwd[0].value }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="left">{{ showHasPartSentenceAudio(item) }}</div>
+                <div class="right">
+                    {{ item.props["arcp://name,custom/terms#sentence"].fwd[0].value }}
+                </div>
+            </div>
+            <div class="grid">
+                <div class="left"></div>
+                <div class="right">
+                    <span class="translation">
+                        {{ item.props["arcp://name,custom/terms#sentenceTranslation"].fwd[0].value }}
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- Properties section -->
-    <div class="middle-column property-grid">
-        {% set seenProps = {"@id": true, "@type": true} %}
-        
-        <script>
-            console.log('item.props:', {{ item.props | dump | safe }});
-        </script>
-
-        <div class="grid feature-image v-space-1em">
-            <div class="left">
-                {{ showHasPartCallAudio(item) }}
-            </div>
-            <div class="right">
-                {{ showHasPartImage(item) }}
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="left"></div>
-            <div class="right">
-                <p>
-                    {{ item.props["arcp://name,custom/terms#translation"].fwd[0].value }}
-                </p>
-                <p class="linnaean-name">
-                    {{ item.props["arcp://name,custom/terms#scientificName"].fwd[0].value }}
-                </p>
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="left">{{ showHasPartSentenceAudio(item) }}</div>
-            <div class="right">
-                {{ item.props["arcp://name,custom/terms#sentence"].fwd[0].value }}
-            </div>
-        </div>
-        <div class="grid">
-            <div class="left"></div>
-            <div class="right">
-                <span class="translation">
-                    {{ item.props["arcp://name,custom/terms#sentenceTranslation"].fwd[0].value }}
-                </span>
-            </div>
-        </div>
-
-
-    </div>
-</div>
-
 {% endmacro %}
 
 

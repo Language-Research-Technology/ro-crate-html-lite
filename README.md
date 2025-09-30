@@ -42,3 +42,7 @@ Farms to freeways -- multipages
 ```
 node index.js  -m test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
 ```
+
+## Contributing
+
+To format the template run `npm run format`

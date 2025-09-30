@@ -1,0 +1,22 @@
+name: HTML check
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+jobs:
+  html_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Run HTML5 Validator
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: test_data/*/ro-crate-preview.html
+          css: true
+          format: json
+      - name: Output validation results
+        run: |
+          jq -r '.messages | map(.extract = (.extract | @html) | .message = (.message | @html) | "| \(.message | @html) | <code>\(.extract | @html | gsub("\n"; "<br>"))</code> | \(.url | split("ro-crate-html-lite")[-1]) |") | join("\n")' log.log >> $GITHUB_STEP_SUMMARY

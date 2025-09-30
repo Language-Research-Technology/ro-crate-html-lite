@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
+    <title>
+      {{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] }}
+    </title>
     <style>
       body {
         font-family: Arial, Helvetica, sans-serif;
@@ -243,7 +245,7 @@
         width: 100%;
         display: flex;
         padding: 5px 0px;
-        background-color: 6C6A6A;
+        background-color: #6c6a6a;
       }
 
       .section_head h2 {
@@ -458,7 +460,7 @@
                 {% else %}
                   {% if val["target_id"] %}
                     <span class="button-right"
-                      ><a href="#{{ val["target_id"] }}">
+                      ><a href="#{{ val["target_id"] | urlencode }}">
                         {{ val["target_name"] }}
                       </a></span
                     >
@@ -582,7 +584,7 @@
 
     {% macro display(item, class) %}
       <!-- Heading Section -->
-      <div id="{{ item.id }}" class="{{ class }}">
+      <div id="{{ item.id | urlencode }}" class="{{ class }}">
         <div class="entity-header-row">
           {{ root () }}
           <h2>
@@ -611,36 +613,38 @@
         <section class="browse">
           {{ crateNav() }}
           <!-- Think this is where the function for displaying selected item of drop down list should go but not sure -->
-          {% for type, list in data.types %}
-            <div id="types_{{ type }}" class="drop-down">
-              <div class="entity-grid">
-                <h2>{{ type }} ({{ list.length }})</h2>
+          {% if item == data.ids[data.entryPoint] %}
+            {% for type, list in data.types %}
+              <div id="types_{{ type }}" class="drop-down">
+                <div class="entity-grid">
+                  <h2>{{ type }} ({{ list.length }})</h2>
 
-                {% set isLong = list.length  > 9 %}
-                {% if isLong %}
-                  <input class="border" onkeyup="res = search(this)" />
-                  <span class="count">
-                    ({{ list.length }} / {{ list.length }})</span
-                  >
-                {% endif %}
-                <div class="{{ 'long' if isLong else 'short' }}">
-                  {% for id in list %}
-                    {% if id != data.entryPoint %}
-                      <div>
-                        <a href="#{{ id }}">
-                          {% if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
-                            {{ data.ids[id].props["http://schema.org/name"].fwd[0].value }}
-                          {% else %}
-                            {{ id }}
-                          {% endif %}
-                        </a>
-                      </div>
-                    {% endif %}
-                  {% endfor %}
+                  {% set isLong = list.length  > 9 %}
+                  {% if isLong %}
+                    <input class="border" onkeyup="res = search(this)" />
+                    <span class="count">
+                      ({{ list.length }} / {{ list.length }})</span
+                    >
+                  {% endif %}
+                  <div class="{{ 'long' if isLong else 'short' }}">
+                    {% for id in list %}
+                      {% if id != data.entryPoint %}
+                        <div>
+                          <a href="#{{ id | urlencode }}">
+                            {% if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
+                              {{ data.ids[id].props["http://schema.org/name"].fwd[0].value }}
+                            {% else %}
+                              {{ id }}
+                            {% endif %}
+                          </a>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
-            </div>
-          {% endfor %}
+            {% endfor %}
+          {% endif %}
         </section>
 
         <!--Section for files if they are avails-->
@@ -654,28 +658,33 @@
         {% if item.type.includes("File") %}
           <div class="centered-files">
             {% if htmlRegex.test(item.id) %}
+              <!-- TODO: fix these width="80%"s, they are not valid -->
               <iframe
-                src="{{ item.id }}"
+                src="{{ item.id | urlencode }}"
                 type="text/plain"
                 width="80%"
                 height="500"
                 loading="lazy"
               ></iframe>
             {% elif audioRegex.test(item.id) %}
-              <audio controls width="80%"><source src="{{ item.id }}" /></audio>
+              <audio controls width="80%">
+                <source src="{{ item.id | urlencode }}" />
+              </audio>
             {% elif vidRegex.test(item.id) %}
-              <video io controls><source src="{{ item.id }}" /></video>
+              <video io controls>
+                <source src="{{ item.id | urlencode }}" />
+              </video>
             {% elif imgRegex.test(item.id) %}
               <img
                 width="80%"
                 style="object-fit: contain"
-                src="{{ item.id }}"
+                src="{{ item.id | urlencode }}"
                 loading="lazy"
               />
             {% elif pdfRegex.test(item.id) %}
               <!--          <iframe   src="{{ item.id }}" type="application/pdf" width="100%" height="600px" loading="lazy" />-->
             {% endif %}
-            <a href="{{ item.id }}">Open file location</a>
+            <a href="{{ item.id | urlencode }}">Open file location</a>
           </div>
         {% endif %}
 
@@ -732,8 +741,7 @@
       {% endif %}
     {% endfor %}
 
- 
- <!-- A div for each type
+    {# A div for each type
 
 
     {% for type, list in data.types %}
@@ -774,6 +782,6 @@
    </div> 
 
 </div>
- {% endfor %} -->
+ {% endfor %} #}
   </body>
 </html>

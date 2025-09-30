@@ -14,9 +14,10 @@ jobs:
       - name: Run HTML5 Validator
         uses: Cyb3r-Jak3/html5validator-action@v7.2.0
         with:
-          root: test_data/*/ro-crate-preview.html
+          root: test_data/
           css: true
           format: json
+          extra: --match ro-crate-preview.html
       - name: Output validation results
         run: |
           jq -r '.messages | map(.extract = (.extract | @html) | .message = (.message | @html) | "| \(.message | @html) | <code>\(.extract | @html | gsub("\n"; "<br>"))</code> | \(.url | split("ro-crate-html-lite")[-1]) |") | join("\n")' log.log >> $GITHUB_STEP_SUMMARY

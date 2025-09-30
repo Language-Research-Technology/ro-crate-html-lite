@@ -267,18 +267,6 @@
 {% endmacro %}
 
 
-
-
-{% macro setProp(prop) %}
-    {% if prop is string %}
-        {{ prop }}
-    {% else %}
-        {{ prop | merge({ prop: true }) }}
-    {% endif %}
-{% endmacro %}
-
-
-
 {% macro showHasPart(item) %}
     {% if item.props["http://schema.org/hasPart"] %}
         <div class="has-part-list"> showHasPart:

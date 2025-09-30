@@ -2,7 +2,8 @@
     "types": {
       "RepositoryObject": {"template": "test_data/thipe-ayeye/templates/thipe-ayeye-subobject-template.html"},
       "RepositoryCollection": {"template": "test_data/thipe-ayeye/templates/thipe-ayeye-subobject-template.html"},
-      "Person": {"template": "test_data/thipe-ayeye/templates/thipe-ayeye-subobject-template.html"}
+      "Person": {"template": "test_data/thipe-ayeye/templates/thipe-ayeye-subobject-template.html"},
+      "AboutPage": {"template": "test_data/thipe-ayeye/templates/thipe-ayeye-about-template.html"}
     },
     "root" : {"template": "test_data/thipe-ayeye/templates/thipe-ayeye-root-template.html"}
 }

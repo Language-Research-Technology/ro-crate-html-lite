@@ -40,7 +40,7 @@
 
 <body>
 
-{{ "about/about.md" | prefixPathWithCratePath | renderMarkdown | safe }}
+{{ data.entryPoint | prefixPathWithCratePath | renderMarkdown | safe }}
 
 </body>
 </html>

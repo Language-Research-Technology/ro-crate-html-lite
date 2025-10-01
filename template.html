@@ -667,7 +667,7 @@
             {%- if htmlRegex.test(item.id) %}
               <!-- TODO: fix these width="80%"s, they are not valid -->
               <iframe
-                src="{{ item.id | urlencode }}"
+                src="{{ item.id }}"
                 type="text/plain"
                 width="80%"
                 height="500"
@@ -675,17 +675,17 @@
               ></iframe>
             {% elif audioRegex.test(item.id) %}
               <audio controls width="80%">
-                <source src="{{ item.id | urlencode }}" />
+                <source src="{{ item.id }}" />
               </audio>
             {% elif vidRegex.test(item.id) %}
               <video io controls>
-                <source src="{{ item.id | urlencode }}" />
+                <source src="{{ item.id }}" />
               </video>
             {% elif imgRegex.test(item.id) %}
               <img
                 width="80%"
                 style="object-fit: contain"
-                src="{{ item.id | urlencode }}"
+                src="{{ item.id }}"
                 loading="lazy"
               />
             {% elif mdRegex.test(item.id) %}

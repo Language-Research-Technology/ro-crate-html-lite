@@ -130,7 +130,10 @@
         "text/markdown"
       ],
       "fileFormat": "http://www.nationalarchives.gov.uk/PRONOM/fmt/1149",
-      "name": "about.md"
+      "name": "about.md",
+      "about": {
+        "@id": "./"
+      }
     },
     {
       "@id": "pics/thumbs/2017-06-11 12.56.14.png",

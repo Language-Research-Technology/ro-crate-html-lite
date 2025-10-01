@@ -687,7 +687,7 @@
                 loading="lazy"
               />
             {% elif mdRegex.test(item.id) %}
-              {{ item.previewHtml | safe }}
+              {{ item.id | prefixPathWithCratePath | renderMarkdown | safe }}
             {% elif pdfRegex.test(item.id) %}
               <!--          <iframe   src="{{ item.id }}" type="application/pdf" width="100%" height="600px" loading="lazy" />-->
             {%- endif %}

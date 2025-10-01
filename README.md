@@ -29,6 +29,29 @@ Options:
 -h, --help                  Display help for command.
 ```
 
+### About Page
+
+To generate an About page for the site:
+1. Include an entry for the file in the RO-Crate with `@type` of `File` and `AboutPage`. Use the path to the about content (in markdown format) as the entry's `@id`.  The `encodingFormat` describes the markdown file media type, and `isRef_about` indicates that the about information is related to the collection (rather than, say one of the collection objects).
+
+```json
+{
+    "@id": "about/about.md",
+    "@type": [
+        "File",
+        "AboutPage"
+    ], 
+    "encodingFormat":	"text/markdown",
+    "isRef_about": "./"
+},
+```
+
+2. Save the markdown file in the crate directory according to the path given as the file ID.
+
+3. Associate the `AboutPage` type with a template in the multipage config.
+
+
+
 ## Run with test data
 
 Sample crate:

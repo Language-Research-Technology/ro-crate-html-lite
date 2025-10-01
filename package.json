@@ -17,6 +17,7 @@
     "canvas": "^3.1.0",
     "commander": "^12.1.0",
     "maplibre-gl": "^4.7.1",
+    "markdown-it": "^14.1.0",
     "nunjucks": "^3.2.4",
     "puppeteer": "^23.7.1",
     "ro-crate": "^3.4.1",

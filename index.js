@@ -199,7 +199,8 @@ program
         // Create a temporary crateLite with this entity as the entry point
         const pageData = {
           ...crateLite,
-          entryPoint: entityId
+          entryPoint: entityId,
+          cratePath: cratePath, // Pass cratePath to the template to use in path prefixing filter
         };
         
         // For now, use the template file content for all pages

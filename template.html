@@ -466,6 +466,8 @@
                     >
                   {% elif val.value is string %}
                     {{ val.value | urlize | safe }}
+                  {% elif val.value %}
+                    {{ val.value }}
                   {% else %}
                     WARNING SOMETHING WENT WRONG {{ val | dump }}
                   {%- endif %}

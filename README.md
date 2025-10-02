@@ -65,3 +65,13 @@ Farms to freeways -- multipages
 ```
 node index.js  -m test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
 ```
+
+## Contributing
+
+To format the template run `npm run format`
+
+### HTML Validation continuous integration
+
+This repo has HTML validation set up to run on push/PR. It prints the report on the summary page of each [Actions workflow run](https://github.com/Language-Research-Technology/ro-crate-html-lite/actions/workflows/main.yml). The CI run won't fail on any validation errors, it's just for our information.
+
+The validator is currently set up to only check `test_data/**/ro-crate-preview.html` files, this means that multipage previews won't be validated. Since the purpose of the validation is to check, by proxy, the validity of the template, CI for the multipage previews will be added as separate workflow in the future.

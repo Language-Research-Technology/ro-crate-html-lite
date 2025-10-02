@@ -188,7 +188,10 @@ program
     await crate.resolveContext();
     
     // Pass the parsed config data, not the raw string
-    const crateLite = await roCrateToJSON(crate, configData);
+    const crateLite = {
+        ...await roCrateToJSON(crate, configData),
+          cratePath: cratePath, // Pass cratePath to the template to use in path prefixing filter
+    }
     const layout = await findLayout(crate, options.layout);
 
     if (options.multipageConfig) {
@@ -200,7 +203,6 @@ program
         const pageData = {
           ...crateLite,
           entryPoint: entityId,
-          cratePath: cratePath, // Pass cratePath to the template to use in path prefixing filter
         };
         
         // For now, use the template file content for all pages

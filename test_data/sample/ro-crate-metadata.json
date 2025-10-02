@@ -118,6 +118,24 @@
       "name": "Exchangeable Image File Format (Compressed)"
     },
     {
+      "@id": "about.md",
+      "@type": ["File", "AboutPage"],
+      "contentSize": 58,
+      "dateModified": "2025-10-01T12:30:03+10:00",
+      "description": "",
+      "encodingFormat": [
+        {
+          "@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/1149"
+        },
+        "text/markdown"
+      ],
+      "fileFormat": "http://www.nationalarchives.gov.uk/PRONOM/fmt/1149",
+      "name": "about.md",
+      "about": {
+        "@id": "./"
+      }
+    },
+    {
       "@id": "pics/thumbs/2017-06-11 12.56.14.png",
       "@type": "File",
       "contentSize": 20594,

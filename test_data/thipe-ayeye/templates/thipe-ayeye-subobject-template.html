@@ -14,7 +14,7 @@
     {% set path = data.pages[data.entryPoint].path %}
 
     {% if domain and data.ids[data.entryPoint].props["http://schema.org/hasPart"] %}
-        <meta property="og:url" content="{{ domain }}/{{ path }}" />
+        <meta property="og:url" content="https://{{ domain }}/{{ path }}" />
         {% for val in data.ids[data.entryPoint].props["http://schema.org/hasPart"].fwd %}
             {% if val.target_name and (val.target_name.endsWith(".jpg") or val.target_name.endsWith(".png")) %}
                 <meta property="og:image" content="http://{{ domain }}/{{ val.target_name }}" />

@@ -29,16 +29,13 @@
             background-position: center center;
             margin: 0;
         }
-        .page-title {
-            text-align: center;
-            background-color: black;
-            color: white;
-            font-weight: normal;
-            padding: 1em;
-            margin: 0;
-        }
         .main-container {
             width:100%;
+        }
+        .middle-column {
+            width: 60vw;
+            max-width: 900px;
+            margin: 0 auto;
         }
         .page-header-row {
             display: flex;
@@ -48,10 +45,19 @@
             background-color: black;
             padding: 0.5em 1em;
         }        
-        .middle-column {
-            width: 60vw;
-            max-width: 900px;
-            margin: 0 auto;
+        .page-title {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .page-title-text {
+            text-align: center;
+            color: white;
+            font-weight: normal;
+            padding: 1em;
+            margin: 0;
         }
         </style>
 </head>
@@ -77,6 +83,11 @@
             <div class="home-link">
                 {{ root() }}
             </div>
+            <!-- Title -->
+            <div class="page-title">
+                <h2 class="page-title-text">About</h2>
+            </div>
+
         </div>
         <div class="middle-column property-grid">
         {{ data.entryPoint | prefixPathWithCratePath | renderMarkdown | safe }}

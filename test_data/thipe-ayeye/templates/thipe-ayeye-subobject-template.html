@@ -5,15 +5,16 @@
     <title>{{ title }}</title>
 
     {# Facebook sharing image (Open Graph) #}
-    <meta property="og:url" content="{{ url }}" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ data.ids[data.entryPoint].props['http://schema.org/name'].fwd[0].value }}" />
     <meta property="og:description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
     <meta name="description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
 
     {% set domain = data.pages[data.entryPoint].domain %}
+    {% set path = data.pages[data.entryPoint].path %}
 
     {% if domain and data.ids[data.entryPoint].props["http://schema.org/hasPart"] %}
+        <meta property="og:url" content="{{ domain }}/{{ path }}" />
         {% for val in data.ids[data.entryPoint].props["http://schema.org/hasPart"].fwd %}
             {% if val.target_name and (val.target_name.endsWith(".jpg") or val.target_name.endsWith(".png")) %}
                 <meta property="og:image" content="http://{{ domain }}/{{ val.target_name }}" />

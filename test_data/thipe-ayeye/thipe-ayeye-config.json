@@ -5,5 +5,5 @@
       "AboutPage": {"template": "test_data/thipe-ayeye/templates/thipe-ayeye-about-template.html"}
     },
     "root" : {"template": "test_data/thipe-ayeye/templates/thipe-ayeye-root-template.html"},
-    "domain": "https://ayeye-thipe-akerte.bird-apps.com"
+    "domain": "ayeye-thipe-akerte.bird-apps.com"
 }

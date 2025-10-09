@@ -56,7 +56,7 @@ To add domain to open graph metadata tags:
 ```json
 {
     "root": {"template":"test_data/example/templates/example-template.html"},
-    "domain": "https://example.com"
+    "domain": "example.com"
 }
 ```
 

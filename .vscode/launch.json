@@ -1,0 +1,27 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "MultiPage Dictionary",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/index.js",
+            "console": "integratedTerminal",
+            "args": [
+                "/Users/moises/source/github/Language-Research-Technology/corpus-tools-ec-arrernte/ocfl/arcp_name_ec-arrernte-dictionary-recordings/__object__/v4/content", 
+                "-m",
+                "${workspaceFolder}/test_data/dictionary/dictionary-config.json"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            }
+        }
+    ]
+}

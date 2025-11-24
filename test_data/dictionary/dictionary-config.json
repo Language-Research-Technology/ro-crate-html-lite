@@ -1,0 +1,7 @@
+{
+    "types": {
+      "lexicalEntry": {"template": "test_data/dictionary/templates/dictionary-entry-detail.html"},
+      "AboutPage": {"template": "test_data/dictionary/templates/dictionary-about.html"}
+    },
+    "root" : {"template": "test_data/dictionary/templates/dictionary-entry-list.html"}
+}

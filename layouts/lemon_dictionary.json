@@ -1,0 +1,100 @@
+[
+  {
+    "name": "About",
+    "help": "The core metadata for this RO-Crate and its subject matter.",
+    "inputs": [
+      "@id",
+      "@type",
+      "http://purl.org/dc/terms/conformsTo",
+      "http://schema.org/name",
+      "http://schema.org/familyName",
+      "http://schema.org/givenName",
+      "http://schema.org/description",
+      "http://schema.org/conformsTo",
+      "http://schema.org/datePublished",
+      "http://schema.org/license",
+      "http://schema.org/usageInfo",
+      "http://schema.org/about",
+      "http://schema.org/mentions",
+      "http://schema.org/mainEntity",
+      "http://schema.org/sameAs",
+      "http://schema.org/language"
+    ]
+  },
+  {
+    "name": "Related People, Orgs & Works",
+    "help": "The context for the creation of this RO-Crate; who made it, funded it etc.",
+    "inputs": [
+      "http://schema.org/author",
+      "http://schema.org/creator",
+      "http://schema.org/publisher",
+      "http://schema.org/accountablePerson",
+      "http://schema.org/funder",
+      "http://schema.org/affiliation",
+      "http://schema.org/citation"
+
+    ]
+  },
+  {
+    "name": "Structure",
+    "help": "How the parts of this RO-Crate relate, such as collection and object relationships.",
+    "inputs": [
+      "http://pcdm.org/models#memberOf",
+      "http://pcdm.org/models#hasMember",
+      "http://schema.org/isPartOf",
+      "http://schema.org/hasPart",
+      "http://pcdm.org/models#fileOf",
+      "http://pcdm.org/models#hasFile",
+      "http://schema.org/inDefinedTermSet",
+      "http://schema.org/hasDefinedTerm"
+    ]
+  },
+  {
+    "name": "Provenance",
+    "help": "Detailed description of how entities were created, by whom and with which tools.",
+    "inputs": [
+      "http://schema.org/agent",
+      "http://schema.org/object",
+      "http://schema.org/instrument",
+      "http://schema.org/result",
+      "http://schema.org/participant",
+      "http://schema.org/target"
+    ]
+  },
+  {
+    "name": "Space & Time",
+    "help": "Where and when the data was collected; the times and places it mentions or describes.",
+    "inputs": [
+      "http://schema.org/temporalCoverage",
+      "http://schema.org/spatialCoverage",
+      "http://schema.org/contentLocation",
+      "http://schema.org/locationCreated",
+      "http://schema.org/geo",
+      "http://www.opengis.net/ont/geosparql#asWKT",
+      "http://schema.org/address"
+    ]
+  },
+  {
+    "name": "Software & Hardware",
+    "help": "For computer programs and execution environments that could be used to create data, have created data, or are being packaged and described.",
+      "inputs": [
+      "http://schema.org/availableOnDevice",
+      "http://schema.org/downloadUrl",
+      "http://schema.org/installUrl",
+      "http://schema.org/memoryRequirements",
+      "http://schema.org/operatingSystem",
+      "http://schema.org/processorRequirements",
+      "http://schema.org/programmingLanguage",
+      "http://schema.org/releaseNotes",
+      "http://schema.org/runtimePlatform",
+      "http://schema.org/runtime",
+      "http://schema.org/screenshot",
+      "http://schema.org/softwareAddOn",
+      "http://schema.org/softwareHelp",
+      "http://schema.org/softwareRequirements",
+      "http://schema.org/softwareVersion",
+      "http://schema.org/storageRequirements",
+      "http://schema.org/supportingData"
+    ]
+  }
+]

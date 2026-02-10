@@ -517,12 +517,6 @@ select {
 
 {% macro crateNav() %}
  
-<div class="nav">
-    <p>Browse by type of entity:</p> {{ typeNav() }}
-<p> OR </p>
-{%if data.types["File"] %}
-    <a href="#types_File" class="find_button">Files in this crate</a>
-{% endif %}
 <!--
 {% if data.types["Dataset"] and data.types["Dataset"].length > 2 %}
     <a href="#types_Dataset">Datasets in this crate</a>

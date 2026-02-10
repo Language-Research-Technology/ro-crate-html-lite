@@ -146,7 +146,10 @@ program
    "-m --multipage-config <configPath>",
    "Filepath or URL to a multipage configuration file in JSON format."
   )
- 
+  .option(
+   "-d, --dump-intermediate <outputFile>",
+   "Filepath to write the intermediate cratelite JSON data for debugging purposes."
+  )
   
 
   .action(async (cratePath, options) => {
@@ -192,6 +195,22 @@ program
         ...await roCrateToJSON(crate, configData),
           cratePath: cratePath, // Pass cratePath to the template to use in path prefixing filter
     }
+    
+    // Dump intermediate data if requested
+    if (options.dumpIntermediate) {
+      try {
+        fs.writeFileSync(
+          options.dumpIntermediate,
+          JSON.stringify(crateLite, null, 2),
+          "utf-8"
+        );
+        console.log(`Dumped intermediate data to ${options.dumpIntermediate}`);
+      } catch (error) {
+        console.error(`Error writing dump file: ${error.message}`);
+        return;
+      }
+    }
+    
     const layout = await findLayout(crate, options.layout);
 
     if (options.multipageConfig) {

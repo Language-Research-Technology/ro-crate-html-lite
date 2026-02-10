@@ -26,6 +26,8 @@ Options:
 
 -m, --multipage-config <configPath>  Filepath or URL to a multipage configuration file in JSON format.
 
+-d, --dump-intermediate <outputFile>  Filepath to write the intermediate cratelite JSON data for debugging purposes. This outputs the processed RO-Crate data structure that is used to render the HTML preview.
+
 -h, --help                  Display help for command.
 ```
 
@@ -50,7 +52,18 @@ To generate an About page for the site:
 
 3. Associate the `AboutPage` type with a template in the multipage config.
 
+### Debugging with Intermediate Data Dump
 
+To inspect the intermediate data structure that is used to render the HTML preview, use the `--dump-intermediate` option:
+
+```
+node index.js --dump-intermediate debug.json test_data/sample
+```
+
+This will write the processed RO-Crate data (the `crateLite` object) to `debug.json`. This is useful for:
+- Debugging template issues
+- Understanding how the RO-Crate data is transformed for rendering
+- Inspecting entity relationships and properties as seen by the template
 
 ## Run with test data
 

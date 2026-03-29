@@ -192,6 +192,17 @@ program
         ...await roCrateToJSON(crate, configData),
           cratePath: cratePath, // Pass cratePath to the template to use in path prefixing filter
     }
+
+    // Load markdown content for File entities
+    for (const [id, entity] of Object.entries(crateLite.ids)) {
+      if (entity.id.match(/\.md$/i)) {
+        const markdownPath = path.join(cratePath, entity.id);
+        if (fs.existsSync(markdownPath)) {
+          entity.content = fs.readFileSync(markdownPath, 'utf-8');
+        }
+      }
+    }
+
     const layout = await findLayout(crate, options.layout);
 
     if (options.multipageConfig) {

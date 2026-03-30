@@ -1,5 +1,5 @@
 import { strict as assert } from "assert";
-import { roCrateToJSON, quadTreeId } from "../lib/preview.js";
+import { roCrateToJSON } from "../lib/preview.js";
 import { ROCrate } from "ro-crate";
 import fs from "fs";
 
@@ -39,7 +39,7 @@ describe("preview.js", function () {
 
       // Convert to JSON using our function
       const result = await roCrateToJSON(crate);
-      console.log("Converted JSON:", JSON.stringify(result, null, 2));
+      //console.log("Converted JSON:", JSON.stringify(result, null, 2));
       // Test the basic structure
       assert.ok(result, "Result should exist");
       assert.ok(result.entryPoint, "Should have an entry point");
@@ -226,7 +226,7 @@ describe("preview.js", function () {
     it("Should handle multi-page configuration", async function () {
       // Create a crate with multiple entities of different types
       const crateData = JSON.parse(
-        fs.readFileSync("test_data/f2fnew/ro-crate-metadata.json", "utf8")
+        fs.readFileSync("test_data/f2fnew/data/ro-crate-metadata.json", "utf8")
       );
       const crate = new ROCrate(crateData, { array: true, link: true });
       const multiPageConfig = {
@@ -243,7 +243,7 @@ describe("preview.js", function () {
 
       // Convert to JSON with multi-page config
       const result = await roCrateToJSON(crate, multiPageConfig);
-      console.log("Pages generated:", result.pages);
+      //console.log("Pages generated:", result.pages);
 
       // Check that pages are generated for entities of specified types
       assert.equal(

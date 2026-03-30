@@ -1,15 +1,28 @@
 {
   "name": "ro-crate-html-lite",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A tool to create static HTML-only ro-crate-preview-html files for an RO-Crate",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/test-bounding-box.js",
-    "visualize": "node test/test-bounding-box.js",
+    "test": "mocha",
     "format": "prettier --write template.html"
   },
   "author": "Peter Sefton",
+  "contributors": [
+    {
+      "name": "Alvin Sebastian"
+    },
+    {
+      "name": "Ben Foley"
+    },
+    {
+      "name": "River Tae Smith"
+    },
+    {
+      "name": "Moises Sacal Bonequi"
+    }
+  ],
   "license": "GPL-3.0",
   "dependencies": {
     "axios": "^1.9.0",
@@ -19,7 +32,7 @@
     "markdown-it": "^14.1.0",
     "nunjucks": "^3.2.4",
     "puppeteer": "^23.7.1",
-    "ro-crate": "^3.4.1",
+    "ro-crate": "^3.7.0",
     "terraformer-wkt-parser": "^1.2.1",
     "wellknown": "^0.5.0"
   },

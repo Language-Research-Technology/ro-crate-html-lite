@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] else "Chapter" }}</title>
+    <title>{{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value
+        if data.ids[data.entryPoint].props["http://schema.org/name"]
+           and data.ids[data.entryPoint].props["http://schema.org/name"].fwd
+           and data.ids[data.entryPoint].props["http://schema.org/name"].fwd|length > 0
+        else "Chapter" }}</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; }
         body {

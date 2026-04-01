@@ -96,7 +96,7 @@
 {# Display a single value (string, link, or named target) #}
 {% macro renderVal(val, depth) %}
     {% if val.url %}
-        <a href="{{ val.url }}" target="_blank">{{ val.url }}</a>
+        <a href="{{ val.url }}" target="_blank" rel="noopener noreferrer">{{ val.url }}</a>
     {% elif val.target_id and data.pages[val.target_id] %}
         <a href="../../../../../{{ data.pages[val.target_id].path }}">{{ val.target_name }}</a>
     {% elif val.target_name %}

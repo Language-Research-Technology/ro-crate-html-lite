@@ -130,12 +130,12 @@
 {# ── Header ───────────────────────────────────────────────────────────────── #}
 
 {% set thesis = data.ids[data.entryPoint] %}
-{% set thesisName = thesis.props["http://schema.org/name"].fwd[0].value if thesis.props["http://schema.org/name"] else "Thesis" %}
-{% set thesisDesc = thesis.props["http://schema.org/description"].fwd[0].value if thesis.props["http://schema.org/description"] else "" %}
-{% set thesisDate = thesis.props["http://schema.org/datePublished"].fwd[0].value if thesis.props["http://schema.org/datePublished"] else "" %}
-{% set thesisUrl  = thesis.props["http://schema.org/url"].fwd[0].url if thesis.props["http://schema.org/url"] else "" %}
+{% set thesisName = thesis.props["http://schema.org/name"].fwd[0].value if thesis.props["http://schema.org/name"] and thesis.props["http://schema.org/name"].fwd.length > 0 else "Thesis" %}
+{% set thesisDesc = thesis.props["http://schema.org/description"].fwd[0].value if thesis.props["http://schema.org/description"] and thesis.props["http://schema.org/description"].fwd.length > 0 else "" %}
+{% set thesisDate = thesis.props["http://schema.org/datePublished"].fwd[0].value if thesis.props["http://schema.org/datePublished"] and thesis.props["http://schema.org/datePublished"].fwd.length > 0 else "" %}
+{% set thesisUrl  = thesis.props["http://schema.org/url"].fwd[0].url if thesis.props["http://schema.org/url"] and thesis.props["http://schema.org/url"].fwd.length > 0 else "" %}
 {% set citeAs = "" %}
-{% if thesis.props["cite-as"] %}
+{% if thesis.props["cite-as"] and thesis.props["cite-as"].fwd.length > 0 %}
     {% set _v = thesis.props["cite-as"].fwd[0] %}
     {% set citeAs = _v.url if _v.url else (_v.target_id if _v.target_id else _v.value) %}
 {% endif %}

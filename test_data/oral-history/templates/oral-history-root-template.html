@@ -493,7 +493,11 @@ function showPopup(rowIndex) {
         if (LINK_FIELDS.has(key)) {
             var url = String(value || "").trim();
             if (/^https?:\/\//.test(url)) {
-                var safe = url.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+                var safe = url.replace(/&/g,"&amp;")
+                              .replace(/</g,"&lt;")
+                              .replace(/>/g,"&gt;")
+                              .replace(/"/g,"&quot;")
+                              .replace(/'/g,"&#39;");
                 display = '<a href="' + safe + '" target="_blank" rel="noopener noreferrer">' + safe + '</a>';
             } else {
                 display = String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");

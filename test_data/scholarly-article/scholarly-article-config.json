@@ -1,0 +1,6 @@
+{
+    "types": {
+        "Chapter": {"template": "test_data/scholarly-article/templates/scholarly-article-template.html"}
+    },
+    "root": {"template": "test_data/scholarly-article/templates/scholarly-article-root-template.html"}
+}

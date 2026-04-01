@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] else "Collection" }}</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+            color: #222;
+        }
+        .page-header {
+            background: #1a3a5c;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            padding: 0.8em 1.5em;
+        }
+        .back-btn {
+            flex: 0 0 auto;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5em;
+            line-height: 1;
+            opacity: 0.85;
+            transition: opacity 0.15s;
+        }
+        .back-btn:hover { opacity: 1; }
+        .page-header h1 {
+            margin: 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        .content {
+            max-width: 900px;
+            margin: 2em auto;
+            padding: 0 1.5em;
+        }
+        .prop-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .prop-table tr { border-bottom: 1px solid #eee; }
+        .prop-table tr:last-child { border-bottom: none; }
+        .prop-table th {
+            width: 220px;
+            min-width: 160px;
+            padding: 0.65em 1em;
+            text-align: left;
+            font-weight: 500;
+            color: #1a3a5c;
+            background: #f0f4fa;
+            vertical-align: top;
+            font-size: 0.9em;
+        }
+        .prop-table td {
+            padding: 0.65em 1em;
+            vertical-align: top;
+            font-size: 0.92em;
+        }
+        .prop-table a { color: #1a3a5c; }
+        .keyword-tag {
+            display: inline-block;
+            background: #e8f0fa;
+            color: #1a3a5c;
+            border-radius: 3px;
+            padding: 0.1em 0.5em;
+            margin: 0.1em 0.2em 0.1em 0;
+            font-size: 0.85em;
+        }
+        .section-title {
+            margin: 1.5em 0 0.5em;
+            font-size: 1em;
+            font-weight: 600;
+            color: #1a3a5c;
+            border-bottom: 2px solid #1a3a5c;
+            padding-bottom: 0.2em;
+        }
+        @media (max-width: 600px) {
+            .prop-table th { width: 130px; min-width: 110px; font-size: 0.82em; }
+            .prop-table td { font-size: 0.85em; }
+            .content { margin: 1em auto; padding: 0 0.5em; }
+        }
+    </style>
+</head>
+<body>
+
+{# ---- Macros ---- #}
+
+{# Display a single value (string, link, or named target) #}
+{% macro renderVal(val, depth) %}
+    {% if val.url %}
+        <a href="{{ val.url }}" target="_blank">{{ val.url }}</a>
+    {% elif val.target_id and data.pages[val.target_id] %}
+        <a href="../../../../../{{ data.pages[val.target_id].path }}">{{ val.target_name }}</a>
+    {% elif val.target_name %}
+        {{ val.target_name }}
+    {% elif val.value is string %}
+        {{ val.value }}
+    {% elif val.value is not none %}
+        {{ val.value | string }}
+    {% endif %}
+{% endmacro %}
+
+{# Display a prop row only if property exists and has values #}
+{% macro showProp(label, propUri) %}
+    {% set propObj = data.ids[data.entryPoint].props[propUri] %}
+    {% if propObj and propObj.fwd and propObj.fwd.length > 0 %}
+    <tr>
+        <th scope="row">{{ label }}</th>
+        <td>
+            {% for val in propObj.fwd %}
+                {{ renderVal(val) }}{% if not loop.last %}<br>{% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+{% endmacro %}
+
+{# Display keywords as tags #}
+{% macro showKeywords(label, propUri) %}
+    {% set propObj = data.ids[data.entryPoint].props[propUri] %}
+    {% if propObj and propObj.fwd and propObj.fwd.length > 0 %}
+    <tr>
+        <th scope="row">{{ label }}</th>
+        <td>
+            {% for val in propObj.fwd %}
+                <span class="keyword-tag">{% if val.value %}{{ val.value }}{% elif val.target_name %}{{ val.target_name }}{% endif %}</span>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+{% endmacro %}
+
+{# ---- Page layout ---- #}
+
+{% set item = data.ids[data.entryPoint] %}
+{% set itemName = item.props["http://schema.org/name"].fwd[0].value if item.props["http://schema.org/name"] else data.entryPoint %}
+
+<div class="page-header">
+    <a class="back-btn" href="../../../../../ro-crate-preview.html" title="Back to all collections">&#8592;</a>
+    <h1>{{ itemName }}</h1>
+</div>
+
+<div class="content">
+
+    <p class="section-title">Collection details</p>
+    <table class="prop-table">
+        {{ showProp("Collection name",    "http://schema.org/name") }}
+        {{ showProp("Collection holder",  "https://schema.org/holdingArchive") }}
+        {{ showProp("Contributor",        "http://schema.org/author") }}
+        {{ showProp("Rights holder",      "http://purl.org/dc/terms/rightsHolder") }}
+        {{ showProp("Publisher",          "http://schema.org/publisher") }}
+        {{ showProp("Accountable person", "http://schema.org/accountablePerson") }}
+        {{ showProp("Language",           "http://schema.org/inLanguage") }}
+        {{ showProp("Location",           "http://schema.org/contentLocation") }}
+        {{ showProp("Date",               "https://w3id.org/ldac/terms#dateFreeText") }}
+        {{ showKeywords("Subjects",       "http://schema.org/keywords") }}
+        {{ showProp("Description",        "http://schema.org/description") }}
+    </table>
+
+    <p class="section-title">Collection characteristics</p>
+    <table class="prop-table">
+        {{ showProp("Purpose",                      "https://w3id.org/ro/terms/precarious-oral-history#collectionPurpose") }}
+        {{ showProp("Format (audio/visual)",        "https://w3id.org/ro/terms/precarious-oral-history#avFormat") }}
+        {{ showProp("Analogue or digital",          "https://w3id.org/ro/terms/precarious-oral-history#analogueDigital") }}
+        {{ showProp("Audio format",                 "https://w3id.org/ro/terms/precarious-oral-history#audioFormat") }}
+        {{ showProp("Audiovisual format",           "https://w3id.org/ro/terms/precarious-oral-history#audiovisualFormat") }}
+        {{ showProp("Physical condition",           "https://w3id.org/ro/terms/precarious-oral-history#physicalCondition") }}
+        {{ showProp("Audio quality",                "https://w3id.org/ro/terms/precarious-oral-history#audioQuality") }}
+        {{ showProp("Number of interviews",         "https://w3id.org/ro/terms/precarious-oral-history#numInterviews") }}
+        {{ showProp("Total hours",                  "https://w3id.org/ro/terms/precarious-oral-history#totalHours") }}
+        {{ showProp("Average interview length",     "https://w3id.org/ro/terms/precarious-oral-history#avgInterviewLength") }}
+    </table>
+
+    <p class="section-title">Finding aids &amp; access</p>
+    <table class="prop-table">
+        {{ showProp("Transcripts",                  "https://w3id.org/ro/terms/precarious-oral-history#transcripts") }}
+        {{ showProp("Timed summaries",              "https://w3id.org/ro/terms/precarious-oral-history#timedSummaries") }}
+        {{ showProp("Interview overviews",          "https://w3id.org/ro/terms/precarious-oral-history#overviews") }}
+        {{ showProp("Related materials",            "https://w3id.org/ro/terms/precarious-oral-history#relatedMaterials") }}
+        {{ showProp("Catalogue / finding aid",      "https://w3id.org/ro/terms/precarious-oral-history#catalogueListing") }}
+        {{ showProp("Outputs",                      "https://w3id.org/ro/terms/precarious-oral-history#outputs") }}
+        {{ showProp("Other information",            "https://w3id.org/ro/terms/precarious-oral-history#otherInfo") }}
+        {{ showProp("Freely accessible",            "http://schema.org/isAccessibleForFree") }}
+        {{ showProp("Creative work status",         "http://schema.org/creativeWorkStatus") }}
+        {{ showProp("Collection protocol",          "https://w3id.org/ldac/terms#hasCollectionProtocol") }}
+        {{ showProp("Usage info",                   "http://schema.org/usageInfo") }}
+        {{ showProp("Based on",                     "http://schema.org/isBasedOn") }}
+        {{ showProp("URL",                          "http://schema.org/url") }}
+    </table>
+
+</div>
+
+</body>
+</html>

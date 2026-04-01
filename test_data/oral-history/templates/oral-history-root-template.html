@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if data.ids[data.entryPoint].props["http://schema.org/name"] %}{{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value }}{% else %}Oral History Collections{% endif %}</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+            color: #222;
+        }
+        header {
+            background: #2c3e6b;
+            color: white;
+            padding: 1.5em 2em;
+        }
+        header h1 {
+            margin: 0 0 0.3em;
+            font-size: 1.5em;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        header .subtitle {
+            font-size: 0.9em;
+            opacity: 0.85;
+            max-width: 700px;
+            margin: 0;
+        }
+
+        /* Controls bar */
+        .controls {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 0.7em 2em;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8em;
+        }
+        .controls input[type="text"] {
+            padding: 0.4em 0.8em;
+            font-size: 0.95em;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            max-width: 280px;
+            width: 100%;
+        }
+        .col-filter { width: 100% !important; max-width: 95% !important; }
+        #rowCount { font-size: 0.85em; color: #666; }
+        #exportCSV {
+            padding: 0.4em 1em;
+            font-size: 0.85em;
+            background: transparent;
+            border: 1px solid #2c3e6b;
+            color: #2c3e6b;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        #exportCSV:hover { background: #eef2fb; }
+
+        /* Tag cloud */
+        .tag-section {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 0.6em 2em;
+        }
+        .tag-section strong { font-size: 0.85em; color: #555; display: block; margin-bottom: 0.4em; }
+        .tag-filter {
+            display: inline-block;
+            background: #e8edf7;
+            color: #2c3e6b;
+            padding: 3px 9px;
+            margin: 2px 3px 2px 0;
+            border-radius: 3px;
+            font-size: 0.82em;
+            cursor: pointer;
+        }
+        .tag-filter:hover { background: #d0d8f0; }
+        .tag-filter.active { background: #2c3e6b; color: white; }
+        #clearTagFilter {
+            margin-top: 0.4em;
+            margin-left: 0.2em;
+            padding: 3px 10px;
+            font-size: 0.82em;
+            background: transparent;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #555;
+            font-family: inherit;
+        }
+        #clearTagFilter:hover { background: #f0f0f0; }
+
+        /* Table */
+        .table-wrap { padding: 0 0 3em; overflow-x: auto; }
+        table { border-collapse: collapse; width: 100%; table-layout: auto; }
+        th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; vertical-align: top; }
+        th { background: #2c3e6b; color: white; }
+        #dataTable thead { position: sticky; top: 0; z-index: 10; }
+        #dataTable thead tr:nth-child(2) th { background: #3d5180; }
+        #dataTable thead th { position: relative; }
+        #dataTable thead th:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 4px; height: 100%;
+            cursor: col-resize;
+            background-color: transparent;
+            z-index: 1;
+        }
+        #dataTable thead th:not(:last-child):hover::after,
+        #dataTable thead th:not(:last-child).column-hover::after { background: rgba(255,255,255,0.25); }
+        #dataTable thead th.resizing::after { background: rgba(255,255,255,0.5); }
+        #dataTable td:last-child, #dataTable th:last-child { width: 60px; max-width: 60px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #dataTable th:nth-child(1), #dataTable td:nth-child(1) { max-width: 200px; }
+        #dataTable th:nth-child(2), #dataTable td:nth-child(2),
+        #dataTable th:nth-child(3), #dataTable td:nth-child(3) { max-width: 250px; }
+        #dataTable tbody td:nth-child(4), #dataTable tbody td:nth-child(5) { max-width: 350px; word-wrap: break-word; }
+        #dataTable tbody tr:hover { background: #eef2fb; cursor: pointer; }
+        tr.hide { display: none; }
+
+        /* Popup */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 10vh; left: 10%;
+            width: 80%; max-height: 80vh;
+            background: white;
+            border: 1px solid #ddd;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border-radius: 6px;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        #popupHeader {
+            position: sticky; top: 0;
+            background: #2c3e6b;
+            padding: 10px 14px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: flex-end;
+            z-index: 1001;
+        }
+        #popupHeader button {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.6);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9em;
+        }
+        #popupHeader button:hover { background: rgba(255,255,255,0.15); }
+        #popupContent {
+            padding: 20px 20px 40px;
+            overflow-y: auto;
+            max-height: calc(80vh - 50px);
+        }
+        #popupContent h3 { color: #2c3e6b; font-weight: 600; margin-top: 0; }
+        #popupContent table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        #popupContent tr { display: flex; width: 100%; }
+        #popupContent th, #popupContent td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left; vertical-align: top;
+            word-wrap: break-word; overflow-wrap: break-word;
+        }
+        #popupContent th {
+            background: #eef2fb;
+            color: #2c3e6b;
+            flex: 0 1 300px; max-width: 300px; min-width: 140px;
+        }
+        #popupContent td { flex: 1; min-width: 0; }
+        #popupContent a { color: #2c3e6b; }
+
+        /* Terms modal */
+        #termsModal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #termsContent {
+            background: white;
+            padding: 2.4rem;
+            border-radius: 8px;
+            max-width: 640px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        #termsContent p { text-align: left; font-size: 0.95em; line-height: 1.6; }
+        #termsContent a { color: #2c3e6b; }
+        #acceptButton {
+            display: block;
+            margin: 1.5em auto 0;
+            padding: 10px 30px;
+            background: #2c3e6b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1em;
+        }
+        #acceptButton:hover { background: #3d5180; }
+
+        @media (max-width: 768px) {
+            header { padding: 1em; }
+            .controls { padding: 0.6em 1em; }
+            .tag-section { padding: 0.6em 1em; }
+            #popupContent th { flex: 0 1 200px; max-width: 200px; min-width: 110px; }
+        }
+    </style>
+</head>
+<body>
+
+{# ──────────────────────────────────────────────────────────────── #}
+{# Helper macros for extracting text values from props              #}
+{# ──────────────────────────────────────────────────────────────── #}
+
+{% macro getStr(entity, propUri) %}
+{%- if entity.props[propUri] and entity.props[propUri].fwd.length > 0 -%}
+  {%- set v = entity.props[propUri].fwd[0] -%}
+  {%- if v.target_name -%}{{ v.target_name | trim | safe }}{%- elif v.value is string -%}{{ v.value | trim | safe }}{%- elif v.value is not none -%}{{ v.value | string | trim | safe }}{%- elif v.url -%}{{ v.url | trim | safe }}{%- endif -%}
+{%- endif -%}
+{% endmacro %}
+
+{% macro getAll(entity, propUri) %}
+{%- if entity.props[propUri] and entity.props[propUri].fwd.length > 0 -%}
+  {%- for v in entity.props[propUri].fwd -%}
+    {%- if v.target_name -%}{{ v.target_name | trim | safe }}{%- elif v.value is string -%}{{ v.value | trim | safe }}{%- elif v.value is not none -%}{{ v.value | string | trim | safe }}{%- elif v.url -%}{{ v.url | trim | safe }}{%- endif -%}
+    {%- if not loop.last -%}, {% endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{% endmacro %}
+
+{# ──────────────────────────────────────────────────────────────── #}
+{# Terms modal                                                       #}
+{# ──────────────────────────────────────────────────────────────── #}
+
+<div id="termsModal">
+    <div id="termsContent">
+        <p>This database contains a list of precarious oral history collections in Victoria with information about each collection that was reported to the Identifying Precarious Victorian Oral History Collections Project between May–September 2025. Information about each listed collection was supplied to the project by the collection holder (or their authorised representative).</p>
+        <p>This database raises awareness of the extent and condition of precarious oral history collections in Victoria. We hope this will spark further initiatives that support precarious oral history collections.</p>
+        <p>Precarious collections are at risk of not surviving. There are many other oral history collections in Victoria that have not been identified by this project and are not included in this database. If you wish to assist in any future efforts to support precarious oral history collections, please <a href="https://precariousoralhistories.com/contact/" target="_blank" rel="noopener noreferrer">contact us</a>.</p>
+        <p>Please note that many collections listed in the database are not accessible. You do not have permission to reproduce or republish the information in this database, and it cannot be scraped for any purpose including AI and machine learning.</p>
+        <p>This database was created in late 2025 by the Identifying Precarious Victorian Oral History Collections Project, an initiative of the <a href="https://www.ldaca.edu.au/" target="_blank" rel="noopener noreferrer">Language Data Commons of Australia (LDaCA)</a> at the Australian National University. Learn about the project and access the Project Report that corresponds with this database at: <a href="https://precariousoralhistories.com/" target="_blank" rel="noopener noreferrer">https://precariousoralhistories.com</a>.</p>
+        <button id="acceptButton">Accept</button>
+    </div>
+</div>
+
+{# ──────────────────────────────────────────────────────────────── #}
+{# Header                                                             #}
+{# ──────────────────────────────────────────────────────────────── #}
+
+<header>
+    <h1>A database identifying precarious Victorian oral history collections</h1>
+    <p class="subtitle">A survey of precarious (at-risk) oral history collections held by community organisations, libraries, museums, archives, and individuals across Victoria, Australia.</p>
+</header>
+
+{# ──────────────────────────────────────────────────────────────── #}
+{# Tag cloud (subjects filter)                                        #}
+{# ──────────────────────────────────────────────────────────────── #}
+
+<div class="tag-section">
+    <strong>Filter by subjects</strong>
+    {% set vocab = [
+        "Activism, Politics and Social Change",
+        "Arts and Cultural Life",
+        "Culturally and Linguistically Diverse Communities",
+        "Disability",
+        "Education",
+        "Environment, Place, and Natural Disasters",
+        "Family and Family History",
+        "Farming and Agriculture",
+        "First Nations People",
+        "Folklore",
+        "Health and Welfare",
+        "Industry, Business, and Commerce",
+        "LGBTIQA+ History",
+        "Life History/Story Interview",
+        "Local Communities and Local Histories",
+        "Migration",
+        "Refugees and Asylum Seekers",
+        "Relationships and Sexuality",
+        "Religion and Spirituality",
+        "Rural and Regional Life",
+        "Science, Technology and Innovation",
+        "Specific Life Stages (Childhood, Youth, Midlife, Later Life)",
+        "Sport and Leisure",
+        "Unemployment and Underemployment",
+        "War",
+        "Women",
+        "Work",
+        "Unknown",
+        "Other"
+    ] %}
+    {% for tag in vocab %}
+        <span class="tag-filter" data-tag="{{ tag }}">{{ tag }}</span>
+    {% endfor %}
+    <br><button id="clearTagFilter">Clear subject filter</button>
+</div>
+
+{# ──────────────────────────────────────────────────────────────── #}
+{# Controls bar: search + toolbar                                     #}
+{# ──────────────────────────────────────────────────────────────── #}
+
+<div class="controls">
+    <input type="text" id="searchInput" placeholder="Search the whole table...">
+    <span id="rowCount"></span>
+    <button id="exportCSV">Export CSV</button>
+</div>
+
+{# ──────────────────────────────────────────────────────────────── #}
+{# Popup                                                              #}
+{# ──────────────────────────────────────────────────────────────── #}
+
+<div id="popup">
+    <div id="popupHeader">
+        <button onclick="document.getElementById('popup').style.display='none'">Close</button>
+    </div>
+    <div id="popupContent"></div>
+</div>
+
+{# ──────────────────────────────────────────────────────────────── #}
+{# Table                                                              #}
+{# ──────────────────────────────────────────────────────────────── #}
+
+<div class="table-wrap">
+
+<table id="dataTable">
+    <thead id="tableHead">
+        <tr>
+            <th scope="col">Contributor</th>
+            <th scope="col">Collection holder</th>
+            <th scope="col">Collection name</th>
+            <th scope="col">Collection subjects</th>
+            <th scope="col">Collection description</th>
+            <th scope="col">ID</th>
+        </tr>
+        <tr>
+            <th scope="col"><input type="text" class="col-filter" data-col="0" placeholder="Search..."></th>
+            <th scope="col"><input type="text" class="col-filter" data-col="1" placeholder="Search..."></th>
+            <th scope="col"><input type="text" class="col-filter" data-col="2" placeholder="Search..."></th>
+            <th scope="col"><input type="text" class="col-filter" data-col="3" placeholder="Search..."></th>
+            <th scope="col"><input type="text" class="col-filter" data-col="4" placeholder="Search..."></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+</div>{# /table-wrap #}
+
+{# ──────────────────────────────────────────────────────────────── #}
+{# Popup data + table row data embedded as JS                        #}
+{# Values use | safe inside macros to prevent HTML entity encoding   #}
+{# ──────────────────────────────────────────────────────────────── #}
+
+<script>
+// tableData: popup properties for each row (same order as tableRowData)
+window.tableData = [
+{% set sorted_ids = data.types.RepositoryCollection | sort %}
+{% for entity_id in sorted_ids %}{% if entity_id != data.entryPoint %}
+{% set e = data.ids[entity_id] %}
+{% set v_name %}{{ getStr(e, "http://schema.org/name") | trim }}{% endset %}
+{% set v_author %}{{ getAll(e, "http://schema.org/author") | trim }}{% endset %}
+{% set v_holder %}{{ getStr(e, "https://schema.org/holdingArchive") | trim }}{% endset %}
+{% set v_rightsholder %}{{ getAll(e, "http://purl.org/dc/terms/rightsHolder") | trim }}{% endset %}
+{% set v_publisher %}{{ getStr(e, "http://schema.org/publisher") | trim }}{% endset %}
+{% set v_accountable %}{{ getStr(e, "http://schema.org/accountablePerson") | trim }}{% endset %}
+{% set v_language %}{{ getAll(e, "http://schema.org/inLanguage") | trim }}{% endset %}
+{% set v_location %}{{ getStr(e, "http://schema.org/contentLocation") | trim }}{% endset %}
+{% set v_date %}{{ getStr(e, "https://w3id.org/ldac/terms#dateFreeText") | trim }}{% endset %}
+{% set v_keywords %}{{ getAll(e, "http://schema.org/keywords") | trim }}{% endset %}
+{% set v_desc %}{{ getStr(e, "http://schema.org/description") | trim }}{% endset %}
+{% set v_purpose %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#collectionPurpose") | trim }}{% endset %}
+{% set v_numint %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#numInterviews") | trim }}{% endset %}
+{% set v_hours %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#totalHours") | trim }}{% endset %}
+{% set v_avglen %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#avgInterviewLength") | trim }}{% endset %}
+{% set v_avformat %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#avFormat") | trim }}{% endset %}
+{% set v_ad %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#analogueDigital") | trim }}{% endset %}
+{% set v_audioformat %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#audioFormat") | trim }}{% endset %}
+{% set v_avformat2 %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#audiovisualFormat") | trim }}{% endset %}
+{% set v_condition %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#physicalCondition") | trim }}{% endset %}
+{% set v_quality %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#audioQuality") | trim }}{% endset %}
+{% set v_transcripts %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#transcripts") | trim }}{% endset %}
+{% set v_timed %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#timedSummaries") | trim }}{% endset %}
+{% set v_overviews %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#overviews") | trim }}{% endset %}
+{% set v_related %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#relatedMaterials") | trim }}{% endset %}
+{% set v_catalogue %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#catalogueListing") | trim }}{% endset %}
+{% set v_outputs %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#outputs") | trim }}{% endset %}
+{% set v_other %}{{ getStr(e, "https://w3id.org/ro/terms/precarious-oral-history#otherInfo") | trim }}{% endset %}
+{% set v_accessible %}{{ getStr(e, "http://schema.org/isAccessibleForFree") | trim }}{% endset %}
+{% set v_status %}{{ getStr(e, "http://schema.org/creativeWorkStatus") | trim }}{% endset %}
+{% set v_protocol %}{{ getStr(e, "https://w3id.org/ldac/terms#hasCollectionProtocol") | trim }}{% endset %}
+{% set v_url %}{{ getStr(e, "http://schema.org/url") | trim }}{% endset %}
+{% set v_usage %}{{ getStr(e, "http://schema.org/usageInfo") | trim }}{% endset %}
+{% set v_basedon %}{{ getStr(e, "http://schema.org/isBasedOn") | trim }}{% endset %}
+{
+  "Collection name":             {{ v_name | dump | safe }},
+  "Contributor":                 {{ v_author | dump | safe }},
+  "Collection holder":           {{ v_holder | dump | safe }},
+  "Rights holder / Custodian":   {{ v_rightsholder | dump | safe }},
+  "Publisher":                   {{ v_publisher | dump | safe }},
+  "Accountable person":          {{ v_accountable | dump | safe }},
+  "Language":                    {{ v_language | dump | safe }},
+  "Location":                    {{ v_location | dump | safe }},
+  "Date":                        {{ v_date | dump | safe }},
+  "Subjects":                    {{ v_keywords | dump | safe }},
+  "Description":                 {{ v_desc | dump | safe }},
+  "Purpose":                     {{ v_purpose | dump | safe }},
+  "Number of interviews":        {{ v_numint | dump | safe }},
+  "Total hours":                 {{ v_hours | dump | safe }},
+  "Average interview length":    {{ v_avglen | dump | safe }},
+  "Format (audio/visual)":       {{ v_avformat | dump | safe }},
+  "Analogue or digital":         {{ v_ad | dump | safe }},
+  "Audio format":                {{ v_audioformat | dump | safe }},
+  "Audiovisual format":          {{ v_avformat2 | dump | safe }},
+  "Physical condition":          {{ v_condition | dump | safe }},
+  "Audio quality":               {{ v_quality | dump | safe }},
+  "Transcripts":                 {{ v_transcripts | dump | safe }},
+  "Timed summaries":             {{ v_timed | dump | safe }},
+  "Interview overviews":         {{ v_overviews | dump | safe }},
+  "Related materials":           {{ v_related | dump | safe }},
+  "Catalogue/finding aid":       {{ v_catalogue | dump | safe }},
+  "Outputs":                     {{ v_outputs | dump | safe }},
+  "Other information":           {{ v_other | dump | safe }},
+  "Freely accessible":           {{ v_accessible | dump | safe }},
+  "Creative work status":        {{ v_status | dump | safe }},
+  "Collection protocol":         {{ v_protocol | dump | safe }},
+  "URL":                         {{ v_url | dump | safe }},
+  "Usage info":                  {{ v_usage | dump | safe }},
+  "Based on":                    {{ v_basedon | dump | safe }},
+  "ID":                          {{ entity_id | replace(r/^#collection-/, "") | dump | safe }}
+},
+{% endif %}{% endfor %}
+];
+
+// tableRowData: cell values for table columns (same order as tableData)
+window.tableRowData = [
+{% set sorted_ids = data.types.RepositoryCollection | sort %}
+{% for entity_id in sorted_ids %}{% if entity_id != data.entryPoint %}
+{% set e = data.ids[entity_id] %}
+{% set v_author %}{{ getAll(e, "http://schema.org/author") | trim }}{% endset %}
+{% set v_holder %}{{ getStr(e, "https://schema.org/holdingArchive") | trim }}{% endset %}
+{% set v_name %}{{ getStr(e, "http://schema.org/name") | trim }}{% endset %}
+{% set v_keywords %}{{ getAll(e, "http://schema.org/keywords") | trim }}{% endset %}
+{% set v_desc %}{{ getStr(e, "http://schema.org/description") | trim }}{% endset %}
+{% set v_id %}{{ entity_id | replace(r/^#collection-/, "") | trim }}{% endset %}
+{% set v_page %}{{ data.pages[entity_id].path if data.pages[entity_id] else '' }}{% endset %}
+{
+  "cells": [
+    {{ v_author | dump | safe }},
+    {{ v_holder | dump | safe }},
+    {{ v_name | dump | safe }},
+    {{ v_keywords | dump | safe }},
+    {{ v_desc | dump | safe }},
+    {{ v_id | dump | safe }}
+  ],
+  "pagePath": {{ v_page | dump | safe }}
+},
+{% endif %}{% endfor %}
+];
+</script>
+
+<script>
+// ── Popup ───────────────────────────────────────────────────────────────────
+var LINK_FIELDS = new Set(["URL", "Based on", "Usage info", "Collection protocol", "ID"]);
+
+function showPopup(rowIndex) {
+    var popup     = document.getElementById("popup");
+    var container = document.getElementById("popupContent");
+    var data      = window.tableData[rowIndex];
+    if (!data) return;
+
+    var html = "<h3>Full data</h3><table>";
+    for (var key in data) {
+        if (!Object.prototype.hasOwnProperty.call(data, key)) continue;
+        var value = data[key];
+        if (value === null || value === "" || (typeof value === "string" && value.trim() === "")) continue;
+        var display;
+        if (LINK_FIELDS.has(key)) {
+            var url = String(value || "").trim();
+            if (/^https?:\/\//.test(url)) {
+                var safe = url.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+                display = '<a href="' + safe + '" target="_blank" rel="noopener noreferrer">' + safe + '</a>';
+            } else {
+                display = String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+            }
+        } else {
+            display = String(value || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        }
+        html += "<tr><th>" + key + "</th><td>" + display + "</td></tr>";
+    }
+    html += "</table>";
+    container.innerHTML = html;
+    popup.style.display = "flex";
+}
+
+// ── Table rendering ──────────────────────────────────────────────────────────
+function truncate(text, maxLen) {
+    if (!text) return " ";
+    var s = String(text).trim();
+    return s.length <= maxLen ? s : s.substring(0, maxLen) + "…";
+}
+
+var TRUNCATE = [100, 100, 100, 120, 120, 80];
+
+function generateTableRows() {
+    var tbody = document.getElementById("tableBody");
+    if (!tbody || !window.tableRowData) return;
+
+    // Sort by Collection holder (column index 1) ascending
+    var indices = window.tableRowData.map(function(_, i){ return i; });
+    indices.sort(function(a, b) {
+        var va = String((window.tableRowData[a].cells[1]) || "").toLowerCase().trim();
+        var vb = String((window.tableRowData[b].cells[1]) || "").toLowerCase().trim();
+        return va.localeCompare(vb);
+    });
+
+    tbody.innerHTML = "";
+    indices.forEach(function(origIdx) {
+        var rowData  = window.tableRowData[origIdx];
+        var cells    = rowData.cells || [];
+        var pagePath = rowData.pagePath || "";
+        var tr = document.createElement("tr");
+        tr.onclick = function(){ showPopup(origIdx); };
+
+        cells.forEach(function(cellValue, colIdx) {
+            var td   = document.createElement("td");
+            var span = document.createElement("span");
+            span.className = "cell-content";
+            var full = String(cellValue || "").trim();
+            span.setAttribute("data-fulltext", full);
+            // Name column (2) gets a link
+            if (colIdx === 2 && pagePath) {
+                var a = document.createElement("a");
+                a.href = pagePath;
+                a.textContent = truncate(full, TRUNCATE[colIdx]);
+                a.onclick = function(e){ e.stopPropagation(); };
+                span.appendChild(a);
+            } else {
+                span.textContent = truncate(full, TRUNCATE[colIdx]) || " ";
+            }
+            td.appendChild(span);
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+}
+
+// ── Row count ────────────────────────────────────────────────────────────────
+function updateRowCount() {
+    var rc   = document.getElementById("rowCount");
+    if (!rc) return;
+    var rows    = Array.from(document.querySelectorAll("#dataTable tbody tr"));
+    var total   = rows.length;
+    var visible = rows.filter(function(r){ return !r.classList.contains("hide"); }).length;
+    rc.textContent = visible === total
+        ? total + " row" + (total !== 1 ? "s" : "")
+        : visible + " of " + total + " rows";
+}
+
+// ── Export CSV ───────────────────────────────────────────────────────────────
+function exportToCSV() {
+    var header = ["Contributor","Collection holder","Collection name","Collection subjects","Collection description","ID"]
+        .map(function(c){ return '"' + c.replace(/"/g, '""') + '"'; }).join(",");
+
+    var rows = Array.from(document.querySelectorAll("#dataTable tbody tr"))
+        .filter(function(r){ return !r.classList.contains("hide"); });
+
+    var lines = rows.map(function(row) {
+        return Array.from(row.querySelectorAll("td .cell-content")).map(function(span) {
+            var val = (span.getAttribute("data-fulltext") || span.textContent || "").trim();
+            return '"' + val.replace(/"/g, '""') + '"';
+        }).join(",");
+    });
+
+    var csv  = [header].concat(lines).join("\n");
+    var blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement("a");
+    a.href = url; a.download = "oral-history-collections.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// ── Column resize ────────────────────────────────────────────────────────────
+function initColumnResize() {
+    var table      = document.getElementById("dataTable");
+    var headerRows = table.querySelectorAll("thead tr");
+    if (!headerRows.length) return;
+    var firstRow = headerRows[0];
+    var headers  = Array.from(firstRow.querySelectorAll("th"));
+
+    headerRows.forEach(function(row) {
+        row.querySelectorAll("th:not(:last-child)").forEach(function(header, index) {
+            header.addEventListener("mouseenter", function() {
+                headerRows.forEach(function(r) {
+                    var c = r.querySelector("th:nth-child(" + (index + 1) + ")");
+                    if (c) c.classList.add("column-hover");
+                });
+            });
+            header.addEventListener("mouseleave", function() {
+                headerRows.forEach(function(r) {
+                    var c = r.querySelector("th:nth-child(" + (index + 1) + ")");
+                    if (c) c.classList.remove("column-hover");
+                });
+            });
+        });
+    });
+
+    headers.slice(0, -1).forEach(function(header, index) {
+        var isResizing = false, startX = 0, startWidth = 0, activeHeader = null;
+
+        headerRows.forEach(function(row) {
+            var c = row.querySelector("th:nth-child(" + (index + 1) + ")");
+            if (!c) return;
+            c.addEventListener("mousedown", function(e) {
+                var rect = e.currentTarget.getBoundingClientRect();
+                if (rect.width - (e.clientX - rect.left) > 10) return;
+                isResizing = true; startX = e.pageX; startWidth = e.currentTarget.offsetWidth;
+                activeHeader = e.currentTarget;
+                headerRows.forEach(function(r) {
+                    var cc = r.querySelector("th:nth-child(" + (index + 1) + ")");
+                    if (cc) cc.classList.add("resizing");
+                });
+                document.body.style.cursor = "col-resize";
+                document.body.style.userSelect = "none";
+                e.preventDefault(); e.stopPropagation();
+            });
+        });
+
+        document.addEventListener("mousemove", function(e) {
+            if (!isResizing || !activeHeader) return;
+            var newWidth = Math.max(50, startWidth + (e.pageX - startX));
+            table.querySelectorAll(
+                "th:nth-child(" + (index + 1) + "), td:nth-child(" + (index + 1) + ")"
+            ).forEach(function(cell) {
+                cell.style.width = newWidth + "px";
+                cell.style.minWidth = newWidth + "px";
+                if (cell.style.maxWidth) cell.style.maxWidth = "none";
+            });
+        });
+
+        document.addEventListener("mouseup", function() {
+            if (!isResizing) return;
+            isResizing = false;
+            headerRows.forEach(function(r) {
+                var cc = r.querySelector("th:nth-child(" + (index + 1) + ")");
+                if (cc) cc.classList.remove("resizing");
+            });
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+            var fh = firstRow.querySelector("th:nth-child(" + (index + 1) + ")");
+            if (fh) localStorage.setItem("col-width-" + index, fh.style.width);
+            activeHeader = null;
+        });
+
+        // Restore saved widths
+        var saved = localStorage.getItem("col-width-" + index);
+        if (saved) {
+            table.querySelectorAll(
+                "th:nth-child(" + (index + 1) + "), td:nth-child(" + (index + 1) + ")"
+            ).forEach(function(cell) {
+                cell.style.width = saved;
+                cell.style.minWidth = saved;
+                if (cell.style.maxWidth) cell.style.maxWidth = "none";
+            });
+        }
+    });
+}
+
+// ── Tag cloud filter ──────────────────────────────────────────────────────────
+var SUBJECTS_COL = 3;
+
+function initTagCloud() {
+    document.querySelector(".tag-section").addEventListener("click", function(e) {
+        if (!e.target.classList.contains("tag-filter")) return;
+        var tag = e.target.dataset.tag.toLowerCase();
+        document.querySelectorAll(".tag-filter").forEach(function(t){ t.classList.remove("active"); });
+        e.target.classList.add("active");
+        document.querySelectorAll("#dataTable tbody tr").forEach(function(row) {
+            var cell = row.cells[SUBJECTS_COL];
+            var span = cell && cell.querySelector(".cell-content");
+            var text = span ? (span.getAttribute("data-fulltext") || span.textContent) : "";
+            row.classList.toggle("hide", !text.toLowerCase().includes(tag));
+        });
+        updateRowCount();
+    });
+
+    document.getElementById("clearTagFilter").addEventListener("click", function() {
+        document.querySelectorAll(".tag-filter").forEach(function(t){ t.classList.remove("active"); });
+        document.querySelectorAll("#dataTable tbody tr").forEach(function(r){ r.classList.remove("hide"); });
+        updateRowCount();
+    });
+}
+
+// ── DOMContentLoaded ──────────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function() {
+
+    generateTableRows();
+    updateRowCount();
+    initColumnResize();
+    initTagCloud();
+
+    document.getElementById("popup").style.display = "none";
+
+    document.getElementById("acceptButton").addEventListener("click", function() {
+        document.getElementById("termsModal").style.display = "none";
+    });
+
+    document.getElementById("exportCSV").addEventListener("click", exportToCSV);
+
+    // Global search
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+        var filter = this.value.toLowerCase();
+        document.querySelectorAll("#dataTable tbody tr").forEach(function(row) {
+            var match = false;
+            row.querySelectorAll("td .cell-content").forEach(function(span) {
+                var text = span.getAttribute("data-fulltext") || span.textContent;
+                if (text.toLowerCase().includes(filter)) match = true;
+            });
+            row.classList.toggle("hide", !match);
+        });
+        updateRowCount();
+    });
+
+    // Per-column search
+    document.getElementById("tableHead").addEventListener("keyup", function(e) {
+        if (!e.target.classList.contains("col-filter")) return;
+        var filters = Array.from(document.querySelectorAll(".col-filter")).map(function(inp) {
+            return { col: parseInt(inp.dataset.col, 10), val: inp.value.trim().toLowerCase() };
+        });
+        document.querySelectorAll("#dataTable tbody tr").forEach(function(row) {
+            var match = true;
+            filters.forEach(function(f) {
+                if (!f.val) return;
+                var cell = row.cells[f.col];
+                var span = cell && cell.querySelector(".cell-content");
+                var text = span ? (span.getAttribute("data-fulltext") || span.textContent) : "";
+                if (!text.toLowerCase().includes(f.val)) match = false;
+            });
+            row.classList.toggle("hide", !match);
+        });
+        updateRowCount();
+    });
+
+    // Close popup on Escape
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") document.getElementById("popup").style.display = "none";
+    });
+});
+</script>
+
+</body>
+</html>

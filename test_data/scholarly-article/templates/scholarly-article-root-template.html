@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] else "Thesis" }}</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+            color: #222;
+        }
+        header {
+            background: #2c3e6b;
+            color: white;
+            padding: 1.8em 2em 1.4em;
+        }
+        header h1 {
+            margin: 0 0 0.4em;
+            font-size: 1.5em;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .thesis-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2em;
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 0.5em;
+        }
+        .thesis-desc {
+            font-size: 0.9em;
+            opacity: 0.85;
+            max-width: 700px;
+            margin: 0.4em 0 0;
+            line-height: 1.5;
+        }
+        .thesis-links { margin-top: 0.8em; display: flex; gap: 1.2em; flex-wrap: wrap; }
+        .thesis-link { color: #a8cfff; font-size: 0.9em; text-decoration: none; }
+        .thesis-link:hover { text-decoration: underline; }
+
+        /* Controls bar */
+        .controls {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 0.7em 2em;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8em;
+        }
+        .controls input[type="text"] {
+            padding: 0.4em 0.8em;
+            font-size: 0.95em;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            max-width: 280px;
+            width: 100%;
+        }
+        .col-filter { width: 100% !important; max-width: 95% !important; }
+        #rowCount { font-size: 0.85em; color: #666; }
+        #exportCSV {
+            padding: 0.4em 1em;
+            font-size: 0.85em;
+            background: transparent;
+            border: 1px solid #2c3e6b;
+            color: #2c3e6b;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        #exportCSV:hover { background: #eef2fb; }
+
+        /* Table */
+        .table-wrap { padding: 0 0 3em; overflow-x: auto; }
+        table { border-collapse: collapse; width: 100%; table-layout: auto; }
+        th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; vertical-align: top; }
+        th { background: #2c3e6b; color: white; }
+        #dataTable thead { position: sticky; top: 0; z-index: 10; }
+        #dataTable thead tr:nth-child(2) th { background: #3d5180; }
+        #dataTable thead th { position: relative; }
+        #dataTable thead th:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 4px; height: 100%;
+            cursor: col-resize;
+            background: transparent;
+            z-index: 1;
+        }
+        #dataTable thead th:not(:last-child):hover::after,
+        #dataTable thead th:not(:last-child).column-hover::after { background: rgba(255,255,255,0.25); }
+        #dataTable thead th.resizing::after { background: rgba(255,255,255,0.5); }
+        #dataTable tbody tr:hover { background: #eef2fb; }
+        #dataTable th:nth-child(1), #dataTable td:nth-child(1) { max-width: 280px; }
+        #dataTable th:nth-child(2), #dataTable td:nth-child(2) { max-width: 160px; }
+        #dataTable th:nth-child(3), #dataTable td:nth-child(3) { max-width: 160px; }
+        #dataTable td:nth-child(4) { max-width: 400px; word-wrap: break-word; }
+        tr.hide { display: none; }
+
+        @media (max-width: 768px) {
+            header { padding: 1em; }
+            .controls { padding: 0.6em 1em; }
+        }
+    </style>
+</head>
+<body>
+
+{# ── Macros ───────────────────────────────────────────────────────────────── #}
+
+{% macro getStr(entity, propUri) %}
+{%- if entity.props[propUri] and entity.props[propUri].fwd.length > 0 -%}
+  {%- set v = entity.props[propUri].fwd[0] -%}
+  {%- if v.target_name -%}{{ v.target_name | trim | safe }}{%- elif v.value is string -%}{{ v.value | trim | safe }}{%- elif v.value is not none -%}{{ v.value | string | trim | safe }}{%- elif v.url -%}{{ v.url | trim | safe }}{%- endif -%}
+{%- endif -%}
+{% endmacro %}
+
+{% macro getAll(entity, propUri) %}
+{%- if entity.props[propUri] and entity.props[propUri].fwd.length > 0 -%}
+  {%- for v in entity.props[propUri].fwd -%}
+    {%- if v.target_name -%}{{ v.target_name | trim | safe }}{%- elif v.value is string -%}{{ v.value | trim | safe }}{%- elif v.value is not none -%}{{ v.value | string | trim | safe }}{%- elif v.url -%}{{ v.url | trim | safe }}{%- endif -%}
+    {%- if not loop.last -%}; {% endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{% endmacro %}
+
+{# ── Header ───────────────────────────────────────────────────────────────── #}
+
+{% set thesis = data.ids[data.entryPoint] %}
+{% set thesisName = thesis.props["http://schema.org/name"].fwd[0].value if thesis.props["http://schema.org/name"] else "Thesis" %}
+{% set thesisDesc = thesis.props["http://schema.org/description"].fwd[0].value if thesis.props["http://schema.org/description"] else "" %}
+{% set thesisDate = thesis.props["http://schema.org/datePublished"].fwd[0].value if thesis.props["http://schema.org/datePublished"] else "" %}
+{% set thesisUrl  = thesis.props["http://schema.org/url"].fwd[0].url if thesis.props["http://schema.org/url"] else "" %}
+{% set citeAs = "" %}
+{% if thesis.props["cite-as"] %}
+    {% set _v = thesis.props["cite-as"].fwd[0] %}
+    {% set citeAs = _v.url if _v.url else (_v.target_id if _v.target_id else _v.value) %}
+{% endif %}
+
+<header>
+    <h1>{{ thesisName }}</h1>
+    <div class="thesis-meta">
+        {% if thesisDate %}<span>Published: {{ thesisDate }}</span>{% endif %}
+        {% if thesis.props["http://schema.org/author"] %}
+            <span>Author:
+                {% for val in thesis.props["http://schema.org/author"].fwd %}
+                    {{ val.target_name if val.target_name else val.value }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </span>
+        {% endif %}
+    </div>
+    {% if thesisDesc %}<p class="thesis-desc">{{ thesisDesc }}</p>{% endif %}
+    <div class="thesis-links">
+        {% if thesisUrl %}<a class="thesis-link" href="{{ thesisUrl }}" target="_blank">View thesis &#8599;</a>{% endif %}
+        {% if citeAs %}<a class="thesis-link" href="{{ citeAs }}" target="_blank">DOI &#8599;</a>{% endif %}
+    </div>
+</header>
+
+{# ── Controls ─────────────────────────────────────────────────────────────── #}
+
+<div class="controls">
+    <input type="text" id="searchInput" placeholder="Search the whole table...">
+    <span id="rowCount"></span>
+    <button id="exportCSV">Export CSV</button>
+</div>
+
+{# ── Table ────────────────────────────────────────────────────────────────── #}
+
+<div class="table-wrap">
+<table id="dataTable">
+    <thead id="tableHead">
+        <tr>
+            <th scope="col">Chapter</th>
+            <th scope="col">Author</th>
+            <th scope="col">Research question</th>
+            <th scope="col">Description</th>
+        </tr>
+        <tr>
+            <th scope="col"><input type="text" class="col-filter" data-col="0" placeholder="Search..."></th>
+            <th scope="col"><input type="text" class="col-filter" data-col="1" placeholder="Search..."></th>
+            <th scope="col"><input type="text" class="col-filter" data-col="2" placeholder="Search..."></th>
+            <th scope="col"><input type="text" class="col-filter" data-col="3" placeholder="Search..."></th>
+        </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+</div>
+
+{# ── Data: iterate hasPart in thesis order, keep only Chapter pages ────────── #}
+
+<script>
+window.tableRowData = [
+{% if thesis.props["http://schema.org/hasPart"] %}
+{% for part in thesis.props["http://schema.org/hasPart"].fwd %}
+{% set partId = part.target_id %}
+{% if partId and data.pages[partId] %}
+{% set e = data.ids[partId] %}
+{% set v_name %}{{ getStr(e, "http://schema.org/name") | trim }}{% endset %}
+{% set v_author %}{{ getAll(e, "http://schema.org/author") | trim }}{% endset %}
+{% set v_desc %}{{ getStr(e, "http://schema.org/description") | trim }}{% endset %}
+{% set v_rq %}
+{%- if e.props["http://schema.org/about"] and e.props["http://schema.org/about"].fwd.length > 0 -%}
+  {%- set rqId = e.props["http://schema.org/about"].fwd[0].target_id -%}
+  {%- set rqEntity = data.ids[rqId] if rqId else null -%}
+  {%- if rqEntity and rqEntity.props["http://schema.org/name"] -%}{{ rqEntity.props["http://schema.org/name"].fwd[0].value | safe }}{%- endif -%}
+{%- endif -%}
+{% endset %}
+{% set v_page %}{{ data.pages[partId].path if data.pages[partId] else '' }}{% endset %}
+{
+  "cells": [
+    {{ v_name | dump | safe }},
+    {{ v_author | dump | safe }},
+    {{ v_rq | trim | dump | safe }},
+    {{ v_desc | dump | safe }}
+  ],
+  "pagePath": {{ v_page | dump | safe }}
+},
+{% endif %}{% endfor %}{% endif %}
+];
+</script>
+
+<script>
+// ── Table ─────────────────────────────────────────────────────────────────
+var TRUNCATE = [200, 120, 100, 220];
+
+function truncate(text, maxLen) {
+    if (!text) return " ";
+    var s = String(text).trim();
+    return s.length <= maxLen ? s : s.substring(0, maxLen) + "…";
+}
+
+function generateTableRows() {
+    var tbody = document.getElementById("tableBody");
+    if (!tbody || !window.tableRowData) return;
+
+    // Preserve thesis hasPart order (no sort)
+    tbody.innerHTML = "";
+    window.tableRowData.forEach(function(rowData, origIdx) {
+        var cells    = rowData.cells || [];
+        var pagePath = rowData.pagePath || "";
+        var tr = document.createElement("tr");
+        if (pagePath) {
+            tr.style.cursor = "pointer";
+            tr.onclick = function() { window.location.href = pagePath; };
+        }
+
+        cells.forEach(function(cellValue, colIdx) {
+            var td   = document.createElement("td");
+            var span = document.createElement("span");
+            span.className = "cell-content";
+            var full = String(cellValue || "").trim();
+            span.setAttribute("data-fulltext", full);
+            span.textContent = truncate(full, TRUNCATE[colIdx]) || " ";
+            td.appendChild(span);
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+}
+
+// ── Row count ─────────────────────────────────────────────────────────────
+function updateRowCount() {
+    var rc = document.getElementById("rowCount");
+    if (!rc) return;
+    var rows    = Array.from(document.querySelectorAll("#dataTable tbody tr"));
+    var total   = rows.length;
+    var visible = rows.filter(function(r) { return !r.classList.contains("hide"); }).length;
+    rc.textContent = visible === total
+        ? total + " chapter" + (total !== 1 ? "s" : "")
+        : visible + " of " + total + " chapters";
+}
+
+// ── Export CSV ────────────────────────────────────────────────────────────
+function exportToCSV() {
+    var header = ["Chapter", "Author", "Research question", "Description"]
+        .map(function(c) { return '"' + c.replace(/"/g, '""') + '"'; }).join(",");
+    var rows = Array.from(document.querySelectorAll("#dataTable tbody tr"))
+        .filter(function(r) { return !r.classList.contains("hide"); });
+    var lines = rows.map(function(row) {
+        return Array.from(row.querySelectorAll("td .cell-content")).map(function(span) {
+            var val = (span.getAttribute("data-fulltext") || span.textContent || "").trim();
+            return '"' + val.replace(/"/g, '""') + '"';
+        }).join(",");
+    });
+    var csv  = [header].concat(lines).join("\n");
+    var blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement("a");
+    a.href = url; a.download = "thesis-chapters.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// ── Column resize ─────────────────────────────────────────────────────────
+function initColumnResize() {
+    var table      = document.getElementById("dataTable");
+    var headerRows = table.querySelectorAll("thead tr");
+    if (!headerRows.length) return;
+    var firstRow = headerRows[0];
+    var headers  = Array.from(firstRow.querySelectorAll("th"));
+
+    headerRows.forEach(function(row) {
+        row.querySelectorAll("th:not(:last-child)").forEach(function(header, index) {
+            header.addEventListener("mouseenter", function() {
+                headerRows.forEach(function(r) {
+                    var c = r.querySelector("th:nth-child(" + (index + 1) + ")");
+                    if (c) c.classList.add("column-hover");
+                });
+            });
+            header.addEventListener("mouseleave", function() {
+                headerRows.forEach(function(r) {
+                    var c = r.querySelector("th:nth-child(" + (index + 1) + ")");
+                    if (c) c.classList.remove("column-hover");
+                });
+            });
+        });
+    });
+
+    headers.slice(0, -1).forEach(function(header, index) {
+        var isResizing = false, startX = 0, startWidth = 0, activeHeader = null;
+
+        headerRows.forEach(function(row) {
+            var c = row.querySelector("th:nth-child(" + (index + 1) + ")");
+            if (!c) return;
+            c.addEventListener("mousedown", function(e) {
+                var rect = e.currentTarget.getBoundingClientRect();
+                if (rect.width - (e.clientX - rect.left) > 10) return;
+                isResizing = true; startX = e.pageX; startWidth = e.currentTarget.offsetWidth;
+                activeHeader = e.currentTarget;
+                headerRows.forEach(function(r) {
+                    var cc = r.querySelector("th:nth-child(" + (index + 1) + ")");
+                    if (cc) cc.classList.add("resizing");
+                });
+                document.body.style.cursor = "col-resize";
+                document.body.style.userSelect = "none";
+                e.preventDefault(); e.stopPropagation();
+            });
+        });
+
+        document.addEventListener("mousemove", function(e) {
+            if (!isResizing || !activeHeader) return;
+            var newWidth = Math.max(60, startWidth + (e.pageX - startX));
+            table.querySelectorAll(
+                "th:nth-child(" + (index + 1) + "), td:nth-child(" + (index + 1) + ")"
+            ).forEach(function(cell) {
+                cell.style.width = newWidth + "px";
+                cell.style.minWidth = newWidth + "px";
+                if (cell.style.maxWidth) cell.style.maxWidth = "none";
+            });
+        });
+
+        document.addEventListener("mouseup", function() {
+            if (!isResizing) return;
+            isResizing = false;
+            headerRows.forEach(function(r) {
+                var cc = r.querySelector("th:nth-child(" + (index + 1) + ")");
+                if (cc) cc.classList.remove("resizing");
+            });
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+            activeHeader = null;
+        });
+    });
+}
+
+// ── DOMContentLoaded ──────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function() {
+    generateTableRows();
+    updateRowCount();
+    initColumnResize();
+
+    document.getElementById("exportCSV").addEventListener("click", exportToCSV);
+
+    // Global search
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+        var filter = this.value.toLowerCase();
+        document.querySelectorAll("#dataTable tbody tr").forEach(function(row) {
+            var match = false;
+            row.querySelectorAll("td .cell-content").forEach(function(span) {
+                if ((span.getAttribute("data-fulltext") || span.textContent).toLowerCase().includes(filter)) match = true;
+            });
+            row.classList.toggle("hide", !match);
+        });
+        updateRowCount();
+    });
+
+    // Per-column search
+    document.getElementById("tableHead").addEventListener("keyup", function(e) {
+        if (!e.target.classList.contains("col-filter")) return;
+        var filters = Array.from(document.querySelectorAll(".col-filter")).map(function(inp) {
+            return { col: parseInt(inp.dataset.col, 10), val: inp.value.trim().toLowerCase() };
+        });
+        document.querySelectorAll("#dataTable tbody tr").forEach(function(row) {
+            var match = true;
+            filters.forEach(function(f) {
+                if (!f.val) return;
+                var cell = row.cells[f.col];
+                var span = cell && cell.querySelector(".cell-content");
+                var text = span ? (span.getAttribute("data-fulltext") || span.textContent) : "";
+                if (!text.toLowerCase().includes(f.val)) match = false;
+            });
+            row.classList.toggle("hide", !match);
+        });
+        updateRowCount();
+    });
+
+});
+</script>
+
+</body>
+</html>

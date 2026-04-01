@@ -154,8 +154,8 @@
     </div>
     {% if thesisDesc %}<p class="thesis-desc">{{ thesisDesc }}</p>{% endif %}
     <div class="thesis-links">
-        {% if thesisUrl %}<a class="thesis-link" href="{{ thesisUrl }}" target="_blank">View thesis &#8599;</a>{% endif %}
-        {% if citeAs %}<a class="thesis-link" href="{{ citeAs }}" target="_blank">DOI &#8599;</a>{% endif %}
+        {% if thesisUrl %}<a class="thesis-link" href="{{ thesisUrl }}" target="_blank" rel="noopener noreferrer">View thesis &#8599;</a>{% endif %}
+        {% if citeAs %}<a class="thesis-link" href="{{ citeAs }}" target="_blank" rel="noopener noreferrer">DOI &#8599;</a>{% endif %}
     </div>
 </header>
 

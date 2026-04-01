@@ -1454,7 +1454,7 @@
         "@id": "https://s11.no/2022/phd/introduction/#rq3",
         "@type": "Question",
         "name": "RQ3",
-        "description": "Research Question 3, ims for FAIR Computational Workflows",
+        "description": "Research Question 3, aims for FAIR Computational Workflows",
         "text": "Can a FAIR Digital Object approach for computational workflows unify machine-readable descriptions of Research Software, data and provenance, which can be consistently implemented by developers of different workflow management systems?"
       },
       {

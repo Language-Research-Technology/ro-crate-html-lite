@@ -133,11 +133,11 @@
 
 {% macro renderVal(val) %}
     {% if val.url %}
-        <a href="{{ val.url }}" target="_blank">{{ val.target_name if val.target_name else val.url }}</a>
+        <a href="{{ val.url }}" target="_blank" rel="noopener noreferrer">{{ val.target_name if val.target_name else val.url }}</a>
     {% elif val.target_id and data.pages[val.target_id] %}
         <a href="../../../../../{{ data.pages[val.target_id].path }}">{{ val.target_name }}</a>
     {% elif val.target_id %}
-        <a href="{{ val.target_id }}" target="_blank">{{ val.target_name if val.target_name else val.target_id }}</a>
+        <a href="{{ val.target_id }}" target="_blank" rel="noopener noreferrer">{{ val.target_name if val.target_name else val.target_id }}</a>
     {% elif val.target_name %}
         {{ val.target_name }}
     {% elif val.value is string %}

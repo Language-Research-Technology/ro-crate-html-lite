@@ -1,0 +1,9 @@
+# Ignore test folders
+test/
+test_data/
+
+# Ignore config/dev stuff
+coverage/
+.github/
+.vscode/
+.env

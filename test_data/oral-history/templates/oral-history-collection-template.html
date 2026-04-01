@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] else "Collection" }}</title>
+    {% set nameProp = data.ids[data.entryPoint].props["http://schema.org/name"] %}
+    <title>{{ nameProp.fwd[0].value if nameProp and nameProp.fwd and nameProp.fwd|length > 0 else "Collection" }}</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; }
         body {

@@ -50,7 +50,15 @@ To generate an About page for the site:
 
 3. Associate the `AboutPage` type with a template in the multipage config.
 
-
+### Domain
+To add domain to open graph metadata tags:
+1. Add domain to the multipage config
+```json
+{
+    "root": {"template":"test_data/example/templates/example-template.html"},
+    "domain": "example.com"
+}
+```
 
 ## Run with test data
 

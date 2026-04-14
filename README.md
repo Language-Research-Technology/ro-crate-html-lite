@@ -57,7 +57,13 @@ To generate an About page for the site:
 Sample crate:
 
 ```
-node index.js test_data/sample
+node index.js test_data/sample/crate
+```
+
+Sample crate with tabular summary and no multipage output:
+
+```
+node index.js -m test_data/sample/sample-config.json test_data/sample/crate
 ```
 
 Farms to freeways -- multipages 
@@ -65,6 +71,45 @@ Farms to freeways -- multipages
 ```
 node index.js  -m test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
 ```
+
+### Optional tabular summary settings for multipage configs
+
+You can add a `tabular` block to a multipage config to generate a reusable
+table summary on the root page.
+
+```json
+{
+    "types": {
+        "RepositoryCollection": {
+            "template": "test_data/oral-history/templates/oral-history-collection-template.html"
+        }
+    },
+    "root": {
+        "template": "test_data/oral-history/templates/oral-history-root-template.html"
+    },
+    "tabular": {
+        "mainNavType": "RepositoryCollection",
+        "columnLimit": 6,
+        "searchEnabled": true,
+        "includeFallbackColumns": true
+    }
+}
+```
+
+How columns are chosen:
+
+- Column order follows `inputGroups` from the resolved layout.
+- Columns with no values for that type are skipped.
+- If `includeFallbackColumns` is `true`, extra populated properties not listed in `inputGroups` can be appended.
+- `columnLimit` caps the number of columns shown in the summary table.
+
+If you want tabular summaries without generating per-entity pages, set:
+
+```json
+"multipage": false
+```
+
+in the multipage config file.
 
 ## Contributing
 

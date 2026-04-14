@@ -187,9 +187,11 @@ program
     const crate = new ROCrate(metadata, { array: true, link: true });
     await crate.resolveContext();
     
-    // Pass the parsed config data, not the raw string
+    const layout = await findLayout(crate, options.layout);
+
+    // Pass the parsed config data and resolved layout
     const crateLite = {
-        ...await roCrateToJSON(crate, configData),
+        ...await roCrateToJSON(crate, configData, layout),
           cratePath: cratePath, // Pass cratePath to the template to use in path prefixing filter
     }
 
@@ -203,35 +205,35 @@ program
       }
     }
 
-    const layout = await findLayout(crate, options.layout);
-
     if (options.multipageConfig) {
 
       template = fs.readFileSync(configData.root.template, "utf8");
-      for (const [entityId, pageDetails] of Object.entries(crateLite.pages)) {
+      if (configData.multipage !== false) {
+        for (const [entityId, pageDetails] of Object.entries(crateLite.pages)) {
         
-        // Create a temporary crateLite with this entity as the entry point
-        const pageData = {
-          ...crateLite,
-          entryPoint: entityId,
-        };
-        
-        // For now, use the template file content for all pages
-        // Later you might want to load different templates based on entity type
-        console.log(`Rendering page for entity ${entityId} using template ${pageDetails.template}`);
-        const pageTemplate = fs.readFileSync(pageDetails.template, "utf8");
+          // Create a temporary crateLite with this entity as the entry point
+          const pageData = {
+            ...crateLite,
+            entryPoint: entityId,
+          };
+          
+          // For now, use the template file content for all pages
+          // Later you might want to load different templates based on entity type
+          console.log(`Rendering page for entity ${entityId} using template ${pageDetails.template}`);
+          const pageTemplate = fs.readFileSync(pageDetails.template, "utf8");
 
-        const html = renderTemplate(pageData, pageTemplate, layout);
+          const html = renderTemplate(pageData, pageTemplate, layout);
 
-        const outputPath = path.join(cratePath, pageDetails.path);
-        const outputDir = path.dirname(outputPath);
-        
-        if (!fs.existsSync(outputDir)) {
-          fs.mkdirSync(outputDir, { recursive: true });
+          const outputPath = path.join(cratePath, pageDetails.path);
+          const outputDir = path.dirname(outputPath);
+          
+          if (!fs.existsSync(outputDir)) {
+            fs.mkdirSync(outputDir, { recursive: true });
+          }
+          
+          fs.writeFileSync(outputPath, html, "utf-8");
+          console.log(`Wrote page for ${entityId} to ${outputPath}`);
         }
-        
-        fs.writeFileSync(outputPath, html, "utf-8");
-        console.log(`Wrote page for ${entityId} to ${outputPath}`);
       }
     } 
     const html = renderTemplate(crateLite, template, layout);

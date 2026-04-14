@@ -254,6 +254,208 @@ describe("preview.js", function () {
     
       console.log("✅ Multi-page configuration test passed");
     });
+
+    it("should generate tabular summaries ordered by inputGroups", async function () {
+      const crateData = JSON.parse(
+        fs.readFileSync("test_data/f2fnew/data/ro-crate-metadata.json", "utf8")
+      );
+      const crate = new ROCrate(crateData, { array: true, link: true });
+      await crate.resolveContext();
+
+      const multiPageConfig = {
+        types: {
+          RepositoryObject: {
+            template: "test_data/f2fnew/templates/f2f-subobject-template.html",
+          },
+        },
+        root: { template: "test_data/f2fnew/templates/f2f-root-template.html" },
+        tabular: {
+          mainNavType: "RepositoryObject",
+          columnLimit: 4,
+          includeFallbackColumns: false,
+        },
+      };
+      multiPageConfig.navigationByType = {
+        "http://pcdm.org/models#Object": [],
+        "http://schema.org/MediaObject": [],
+      };
+
+      const layout = [
+        {
+          name: "About",
+          inputs: [
+            "http://schema.org/name",
+            "http://schema.org/description",
+            "http://schema.org/license",
+          ],
+        },
+      ];
+
+      const result = await roCrateToJSON(crate, multiPageConfig, layout);
+      assert.ok(result.tabular, "Should include tabular metadata");
+      assert.equal(result.tabular.mainNavType, "RepositoryObject");
+      assert.ok(
+        result.tabular.types.RepositoryObject,
+        "Should include RepositoryObject tabular entries"
+      );
+
+      const columns = result.tabular.types.RepositoryObject.columns;
+      assert.ok(
+        columns.length > 0 && columns.length <= 4,
+        "Should include populated columns up to tabular columnLimit"
+      );
+      assert.equal(
+        columns[0].uri,
+        "http://schema.org/name",
+        "First column should follow layout input ordering"
+      );
+      assert.equal(
+        columns[1].uri,
+        "http://schema.org/description",
+        "Second column should follow layout input ordering"
+      );
+
+      const row = result.tabular.types.RepositoryObject.rows[0];
+      assert.ok(row, "Should include at least one tabular row");
+      assert.ok(
+        typeof row.pagePath === "string",
+        "Row should include a path for navigation"
+      );
+      assert.equal(
+        row.cells.length,
+        columns.length,
+        "Each row should provide one cell per configured column"
+      );
+    });
+
+    it("should use configured navigationByType columns in order with custom labels", async function () {
+      const crateData = JSON.parse(
+        fs.readFileSync("test_data/oral-history/crate/ro-crate-metadata.json", "utf8")
+      );
+      const crate = new ROCrate(crateData, { array: true, link: true });
+      await crate.resolveContext();
+
+      const config = {
+        multipage: false,
+        root: { template: "template.html" },
+        navigationByType: {
+          "http://pcdm.org/models#Collection": [
+            { uri: "http://schema.org/name", label: "Collection name" },
+            { uri: "http://schema.org/description", label: "Collection description" },
+            { uri: "@id", label: "ID", stripPrefix: "#collection-" },
+          ],
+        },
+        tabular: {
+          mainNavType: "RepositoryCollection",
+          searchEnabled: true,
+          columnSearchEnabled: true,
+        },
+      };
+
+      const result = await roCrateToJSON(crate, config, []);
+      assert.ok(result.tabular && result.tabular.enabled, "Tabular should be enabled");
+      assert.equal(result.tabular.columnSearchEnabled, true, "Column search should be enabled from config");
+      assert.ok(result.tabular.types.RepositoryCollection, "Should include RepositoryCollection tabular entries");
+
+      const columns = result.tabular.types.RepositoryCollection.columns;
+      assert.equal(columns.length, 3, "Should use exactly configured columns");
+      assert.equal(columns[0].uri, "http://schema.org/name");
+      assert.equal(columns[0].label, "Collection name");
+      assert.equal(columns[1].uri, "http://schema.org/description");
+      assert.equal(columns[1].label, "Collection description");
+      assert.equal(columns[2].uri, "@id");
+      assert.equal(columns[2].label, "ID");
+
+      const firstRow = result.tabular.types.RepositoryCollection.rows[0];
+      assert.ok(firstRow, "Should include at least one row");
+      assert.ok(
+        !String(firstRow.cells[2] || "").startsWith("#collection-"),
+        "Configured stripPrefix should be applied to @id values"
+      );
+    });
+
+    it("should normalise bare property terms to URIs so layout inputGroups can match them", async function () {
+      const crateData = JSON.parse(
+        fs.readFileSync("test_data/sample/crate/ro-crate-metadata.json", "utf8")
+      );
+      const crate = new ROCrate(crateData, { array: true, link: true });
+      await crate.resolveContext();
+
+      const config = JSON.parse(fs.readFileSync("test_data/sample/sample-config.json", "utf8"));
+      const layout = JSON.parse(fs.readFileSync("lib/default_layout.json", "utf8"));
+
+      const result = await roCrateToJSON(crate, config, layout);
+
+      const rootEntity = result.ids[result.entryPoint];
+      assert.ok(rootEntity, "Root entity should exist");
+
+      const propKeys = Object.keys(rootEntity.props);
+
+      // Schema.org properties from the sample crate must be stored as full URIs
+      assert.ok(
+        propKeys.includes("http://schema.org/name"),
+        'Props should contain "http://schema.org/name" not bare "name"'
+      );
+      assert.ok(
+        propKeys.includes("http://schema.org/description"),
+        'Props should contain "http://schema.org/description" not bare "description"'
+      );
+
+      // Bare terms (no colon or http prefix, not @-keywords) must NOT appear as prop keys
+      const bareTermKeys = propKeys.filter(
+        (k) => !k.includes(":") && !k.startsWith("@")
+      );
+      assert.deepEqual(
+        bareTermKeys,
+        [],
+        `Bare property terms should be normalised to URIs (found: ${bareTermKeys.join(", ")})`
+      );
+
+      // The layout "About" group's URIs must be present among prop keys to ensure grouping works
+      const aboutInputs = layout.find((g) => g.name === "About").inputs.filter((u) => u.startsWith("http"));
+      const matchedAbout = aboutInputs.filter((u) => propKeys.includes(u));
+      assert.ok(
+        matchedAbout.length > 0,
+        `At least one "About" group URI should match root entity props (layout URIs: ${aboutInputs.join(", ")})`
+      );
+
+      console.log("✅ inputGroup URI normalisation regression test passed");
+    });
+
+    it("should keep tabular data when multipage is disabled", async function () {
+      const crateData = JSON.parse(
+        fs.readFileSync("test_data/sample/crate/ro-crate-metadata.json", "utf8")
+      );
+      const crate = new ROCrate(crateData, { array: true, link: true });
+      await crate.resolveContext();
+
+      const config = {
+        multipage: false,
+        root: { template: "template.html" },
+        navigationByType: {
+          "http://schema.org/Dataset": [],
+        },
+        tabular: {
+          mainNavType: "Dataset",
+          columnLimit: 5,
+          searchEnabled: true,
+        },
+      };
+
+      const layout = JSON.parse(fs.readFileSync("lib/default_layout.json", "utf8"));
+      const result = await roCrateToJSON(crate, config, layout);
+
+      assert.equal(
+        Object.keys(result.pages).length,
+        0,
+        "No per-entity pages should be generated when multipage is disabled"
+      );
+      assert.ok(result.tabular && result.tabular.enabled, "Tabular data should still be generated");
+      assert.ok(
+        result.tabular.types.Dataset && result.tabular.types.Dataset.rows.length > 0,
+        "Dataset tabular rows should be present"
+      );
+    });
   });
 });
 

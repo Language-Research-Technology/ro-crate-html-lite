@@ -1,0 +1,13 @@
+{
+  "multipage": false,
+  "root": {"template": "template.html"},
+  "navigationByType": {
+    "http://schema.org/Dataset": []
+  },
+  "tabular": {
+    "mainNavType": "Dataset",
+    "columnLimit": 6,
+    "searchEnabled": true,
+    "includeFallbackColumns": true
+  }
+}

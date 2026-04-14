@@ -1,0 +1,38 @@
+{
+    "multipage": false,
+    "root": {"template": "template.html"},
+    "navigationByType": {
+        "http://pcdm.org/models#Collection": [
+            {"uri": "http://schema.org/name", "label": "Collection name"},
+            {"uri": "http://schema.org/author", "label": "Contributor"},
+            {"uri": "https://schema.org/holdingArchive", "label": "Collection holder"},     
+            {"uri": "http://schema.org/keywords", "label": "Collection subjects"},
+            {"uri": "http://schema.org/description", "label": "Collection description"}
+        ], 
+        "http://schema.org/Person": [
+            {"uri": "http://schema.org/name", "label": "Name"},
+            {"uri": "http://schema.org/author", "label": "Contributor to ..."},
+
+             {"uri": "http://schema.org/description", "label": "Description"}
+
+        ],
+         "http://schema.org/Organization": [
+            {"uri": "http://schema.org/name", "label": "Name"},
+            {"uri": "http://schema.org/publisher", "label": "Publisher of ..."},
+            {"uri": "http://schema.org/description", "label": "Collection description"}
+
+        ],
+         "http://schema.org/Language": [
+            {"uri": "http://schema.org/name", "label": "Name"},
+            {"uri": "http://schema.org/inLanguage", "label": "In language(s)"}
+
+        ]
+    },
+    "tabular": {
+        "mainNavType": "RepositoryCollection", 
+        "columnLimit": 6,
+        "searchEnabled": true,
+        "columnSearchEnabled": true,
+        "includeFallbackColumns": true
+    }
+}

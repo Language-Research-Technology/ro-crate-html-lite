@@ -37,10 +37,10 @@
         ]
     },
     "tabular": {
-        "mainNavType": "RepositoryCollection", 
+        "mainNavType": "http://pcdm.org/models#Collection", 
         "columnLimit": 5,
         "searchEnabled": true,
         "columnSearchEnabled": false,
-        "includeFallbackColumns": true
+        "includeFallbackColumns": true     
     }
 }

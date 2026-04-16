@@ -270,7 +270,7 @@ describe("preview.js", function () {
         },
         root: { template: "test_data/f2fnew/templates/f2f-root-template.html" },
         tabular: {
-          mainNavType: "RepositoryObject",
+          mainNavType: "http://pcdm.org/models#Object",
           columnLimit: 4,
           includeFallbackColumns: false,
         },
@@ -325,6 +325,37 @@ describe("preview.js", function () {
         row.cells.length,
         columns.length,
         "Each row should provide one cell per configured column"
+      );
+    });
+
+    it("should hide conformsTo columns by default when navigationByType is not configured", async function () {
+      const crateData = JSON.parse(
+        fs.readFileSync("test_data/f2fnew/data/ro-crate-metadata.json", "utf8")
+      );
+      const crate = new ROCrate(crateData, { array: true, link: true });
+      await crate.resolveContext();
+
+      const config = {
+        multipage: false,
+        root: { template: "template.html" },
+        tabular: {
+          mainNavType: "http://pcdm.org/models#Object",
+          columnLimit: 12,
+          includeFallbackColumns: true,
+        },
+      };
+
+      const result = await roCrateToJSON(crate, config, []);
+      const columns = result.tabular.types.RepositoryObject.columns;
+
+      const hasConformsTo = columns.some(
+        (col) => String(col.uri || "").toLowerCase().endsWith("conformsto")
+      );
+
+      assert.equal(
+        hasConformsTo,
+        false,
+        "conformsTo should be hidden by default in auto-generated tabular columns"
       );
     });
 

@@ -117,9 +117,10 @@ tablular summary on the root page.
         "template": "test_data/oral-history/templates/oral-history-root-template.html"
     },
     "tabular": {
-        "mainNavType": "RepositoryCollection",
+        "mainNavType": "http://pcdm.org/models#Collection",
         "columnLimit": 6,
         "searchEnabled": true,
+        "hideColumns": ["http://purl.org/dc/terms/conformsTo"],
         "includeFallbackColumns": true
     }
 }
@@ -142,7 +143,7 @@ You can also provide explicit per-type navigation and columns with `navigationBy
         ]
     },
     "tabular": {
-        "mainNavType": "RepositoryCollection",
+        "mainNavType": "http://pcdm.org/models#Collection",
         "columnLimit": 5,
         "searchEnabled": true,
         "columnSearchEnabled": false,
@@ -159,6 +160,9 @@ How columns are chosen:
 - If `includeFallbackColumns` is `true`, extra populated properties not listed in `inputGroups` can be appended.
 - `columnLimit` caps the number of columns shown in the summary table.
 - `columnSearchEnabled` enables per-column search inputs in the table header.
+- `mainNavType` accepts either a bare type name or a full type URI.
+- `hideColumns` hides columns by URI (with local-name matching fallback) when `navigationByType` is not configured.
+- Internal default tabular config hides `conformsTo` columns unless explicitly re-added via `navigationByType`.
 
 `navigationByType` accepts full type URIs. Matching includes a local-name fallback so equivalent URI variants (for example `http`/`https`) still resolve.
 

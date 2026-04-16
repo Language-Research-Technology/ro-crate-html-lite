@@ -1,0 +1,1483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] }}
+    </title>
+    <style>
+      :root {
+        --surface-page: #f6f8f7;
+        --surface-panel: #fcfdfc;
+        --surface-header: #e9efec;
+        --surface-header-entity: #f4f8f6;
+        --surface-accent: #dde7e2;
+        --surface-control: #e4ece8;
+        --surface-control-hover: #d8e3dd;
+        --text-strong: #111111;
+        --link-color: #2f6197;
+        --link-color-hover: #244d79;
+        --link-dot-color: #a9bfd8;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1vw;
+        margin: 0;
+        background: var(--surface-page);
+        color: var(--text-strong);
+      }
+      h3 {
+        font-size: 0.6em;
+        line-height: 0;
+        margin-bottom: 4px;
+        margin-top: 2em;
+      }
+
+      h2.id {
+        font-size: 0.5em;
+        margin-top: 1.25em;
+        font-weight: lighter;
+      }
+      .long {
+        overflow: scroll;
+        max-height: 22em;
+      }
+      .entity {
+        display: none;
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        z-index: 3000;
+        padding: 2vh 3.5vw;
+        overflow: auto;
+        background: rgba(67, 92, 82, 0.18);
+      }
+      .entity:target {
+        display: block;
+      }
+
+      .entity-panel {
+        background: var(--surface-panel);
+        min-height: 96vh;
+        max-width: 1400px;
+        margin: 0 auto;
+        overflow-x: hidden;
+        box-shadow: 0 10px 26px rgba(17, 17, 17, 0.14);
+      }
+
+      .entity a:not(.entity-close):not(.home-close-button) {
+        text-decoration: none;
+        line-height: 2em;
+        color: var(--link-color);
+      }
+
+      .entity-grid {
+        margin: 0px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        width: 100%;
+      }
+
+      /*  .roots {
+        margin-bottom: 100vh; /* Adds a whole screen of blank space 
+    }
+        */
+
+      .entity:target {
+        display: block;
+      }
+
+      span.type {
+        padding: 0px 5px;
+        margin-right: 5px;
+        font-size: 0.6em;
+        font-weight: lighter;
+        display: inline-block;
+      }
+
+      span.type::after {
+        content: "\a";
+        white-space: pre;
+      }
+
+      .entity-header-row span.type::after {
+        content: "";
+      }
+
+      span.info a {
+        text-decoration: none;
+        font-size: 0.9em;
+      }
+
+      .button-left,
+      .button-right {
+        margin-bottom: 10px;
+        padding: 2px 10px;
+        padding: 0;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .button-left:hover,
+      .button-right:hover {
+        color: #4e4e4e;
+      }
+
+      .button-left a::before {
+        content: "\2039";
+        font-size: 1em;
+        font-weight: 400;
+        color: #7f90a3;
+      }
+
+      .button-right a::after {
+        content: "\203A";
+        font-size: 1em;
+        font-weight: 400;
+        color: #7f90a3;
+      }
+
+      .button-left a,
+      .button-right a {
+        text-decoration: none;
+        line-height: 2em;
+        transition: all 0.3s ease-in;
+        color: var(--link-color);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2em;
+        white-space: nowrap;
+      }
+
+      .button-left a:hover,
+      .button-right a:hover {
+        color: var(--link-color-hover);
+      }
+
+      .entity .property-value .button-left a,
+      .entity .property-value .button-right a {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 62ch;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .entity .property-value .long {
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .property-grid {
+        margin: 0px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+
+        width: 72%;
+      }
+
+      .property-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 24px;
+      }
+
+      .property-row a {
+        text-decoration: none;
+        line-height: 2em;
+        transition: all 0.3s ease-in;
+        color: var(--link-color);
+      }
+
+      .entity-header-row {
+        width: 100%;
+        padding: 8px 80px 10px 40px;
+        background-color: var(--surface-header);
+        color: var(--text-strong);
+        font-size: 2em;
+        font-weight: bold;
+        text-align: left;
+        position: relative;
+        border-bottom: 1px solid #cfdad4;
+      }
+
+      .entity-header-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .entity-header-home {
+        flex: 1 1 auto;
+        min-width: 220px;
+        text-align: left;
+      }
+
+      .entity-header-types {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 2px auto 0;
+        text-align: center;
+        padding: 0 80px;
+      }
+
+      .entity .entity-header-row {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: var(--surface-header-entity);
+        color: var(--text-strong);
+        border-bottom: 1px solid #d3ddd8;
+        padding-right: 72px;
+      }
+
+      .entity .entity-header-types {
+        padding: 0 55px;
+      }
+
+      .entity .entity-header-row a {
+        color: #111111;
+      }
+
+      .entity .entity-header-row .type,
+      .entity .entity-header-row p,
+      .entity .entity-header-row h3,
+      .entity .entity-header-row .info a {
+        color: #111111;
+      }
+
+      .entity-close {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        color: var(--text-strong);
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1;
+        border: 1px solid #aebbb5;
+        background: var(--surface-control);
+        border-radius: 999px;
+        width: 34px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        z-index: 5;
+      }
+
+      .entity-close:hover {
+        background: var(--surface-control-hover);
+        border-color: #9dafa7;
+        color: var(--text-strong);
+      }
+
+      .entity-close:focus-visible {
+        outline: 2px solid #111111;
+        outline-offset: 2px;
+      }
+
+      .entity-header-row h2 {
+        align-items: center;
+        text-align: center;
+        line-height: 1.1em;
+        margin: 4px auto 0;
+        justify-content: center; /* Center horizontally */
+        font-size: 0.75em;
+        max-width: 90%;
+      }
+
+      .entity-header-row h2.id {
+        margin-top: 4px;
+        font-size: 0.42em;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+
+      .root-description {
+        max-width: 72vw;
+        margin: 4px auto 0;
+        font-size: 0.42em;
+        line-height: 1.45;
+        font-weight: 400;
+        text-align: center;
+        display: block;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .root-more-link {
+        margin-top: 3px;
+        text-align: center;
+      }
+
+      .root-more-link a {
+        font-size: 0.44em;
+        color: var(--link-color);
+        text-decoration-color: var(--link-dot-color);
+      }
+
+      .entity-header-row .info {
+        text-decoration: none;
+        font-size: 0.75em;
+      }
+
+      .entity-header-row a {
+        color: var(--text-strong);
+        text-decoration: none;
+        font-size: 0.5em;
+        font-weight: bold;
+        line-height: 1.25;
+        margin-top: 0;
+        padding-top: 0;
+      }
+
+      .entity-header-row a:not(.entity-close):not(.home-close-button) {
+        color: var(--link-color);
+        text-decoration-color: var(--link-dot-color);
+      }
+
+      .entity-header-types p {
+        font-size: 0.45em;
+        display: inline;
+      }
+
+      .home-link {
+        margin: 0;
+        text-align: left;
+      }
+
+      .home-link .home-close-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 11px;
+        border-radius: 999px;
+        border: 1px solid currentColor;
+        background: transparent;
+        text-decoration: none;
+        font-size: 0.46em;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .home-link .home-close-button:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .entity .home-link .home-close-button:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+
+      .entity-identifier {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 6px;
+      }
+
+      .entity-identifier h3,
+      .entity-identifier h2.id {
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .entity-identifier h3 {
+        font-size: 0.45em;
+      }
+
+      .entity-identifier h2.id {
+        font-size: 0.42em;
+      }
+
+      .entity .entity-header-row .type {
+        margin-top: 2px;
+      }
+
+      .entity .entity-header-row h2 + .type,
+      .entity .entity-header-row h2 + p {
+        margin-top: 4px;
+      }
+
+      .entity .property-grid {
+        width: 100%;
+        margin: 0;
+      }
+
+      .entity .property-header-row {
+        margin-top: 8px;
+        padding: 10px 14px;
+        font-size: 0.78em;
+        text-align: center;
+      }
+
+      .entity .property-row {
+        padding: 6px 8px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        gap: 0;
+      }
+
+      .entity .property-name,
+      .entity .property-value {
+        font-size: 0.88em;
+      }
+
+      .entity .property-name {
+        flex: 0 0 24%;
+        max-width: 24%;
+        padding-right: 4px;
+      }
+
+      .entity .property-value {
+        flex: 1 1 76%;
+        min-width: 0;
+        line-height: 1.25;
+        margin-left: 0;
+      }
+
+      .property-header-row {
+        display: flex;
+        justify-content: left; /* Center horizontally */
+        align-items: center;
+        text-align: center;
+        padding: 14px 28px;
+        margin-top: 12px;
+        border-radius: 10px 10px 0 0;
+        background-color: #e6e6e6;
+        color: #111111;
+        font-size: 1vw;
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+      .property-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        background-color: #ffffff;
+      }
+
+      .property-row:last-child {
+        margin-bottom: 25px;
+      }
+
+      .property-name {
+        flex: 1;
+        font-weight: bold;
+        padding-right: 16px;
+      }
+      .property-name a {
+        color: #000000;
+        text-decoration: none;
+        transition: all 0.2s ease-in;
+        font-size: 1em;
+      }
+
+      .property-name a:hover {
+        color: #000000;
+      }
+
+      .property-value {
+        flex: 2;
+        gap: 5px;
+        align-items: left;
+        line-height: 1.35;
+      }
+
+      .section_head {
+        width: 100%;
+        display: flex;
+        padding: 2px 0px;
+        background-color: var(--surface-accent);
+      }
+
+      .section_head h2 {
+        width: 60%;
+        margin: 0 auto;
+        font-size: 1.05em;
+        line-height: 1.2;
+        color: var(--text-strong);
+      }
+
+      .browse {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 24px);
+        max-width: none;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: stretch;
+        margin-bottom: 12px;
+        margin-top: 6px;
+      }
+      .browse nav {
+        width: 100%;
+        padding-top: 10px;
+      }
+
+      .browse p {
+        display: inline;
+        margin-left: 5px;
+      }
+
+      .tabular-wrap {
+        width: 100%;
+        margin-top: 12px;
+      }
+
+      .tabular-controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin: 8px 0;
+        flex-wrap: wrap;
+      }
+
+      .tabular-controls input {
+        padding: 6px 8px;
+        border: 1px solid #bbb;
+      }
+
+      .tabular-count {
+        font-size: 0.9em;
+      }
+
+      .tabular-table-wrap {
+        overflow-x: auto;
+        width: 100%;
+        display: none;
+      }
+
+      .tabular-table-wrap.tabular-table-active {
+        display: block;
+      }
+
+      .tabular-table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .tabular-table th,
+      .tabular-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      .tabular-table th {
+        background-color: #f3f3f3;
+      }
+
+      .tabular-table td a {
+        color: var(--link-color);
+        text-decoration: none;
+      }
+
+      .tabular-table td a:hover {
+        color: var(--link-color-hover);
+      }
+
+      .table-cell-long {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 0.9em;
+      }
+
+      .table-cell-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .table-cell-search {
+        padding: 4px 6px;
+        border: 1px solid #bbb;
+        font-size: 0.85em;
+        flex: 1 1 auto;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+
+      .table-cell-count {
+        font-size: 0.8em;
+        color: #666;
+        white-space: nowrap;
+      }
+
+      .table-cell-values {
+        position: relative;
+        max-height: 150px;
+        overflow-y: scroll;
+        border: 1px solid #ddd;
+        padding: 4px;
+        background-color: #fafafa;
+        scrollbar-gutter: stable;
+        scrollbar-width: auto;
+        scrollbar-color: #9bb0c6 #e8edf2;
+        box-shadow:
+          inset 0 10px 8px -10px rgba(77, 102, 126, 0.45),
+          inset 0 -10px 8px -10px rgba(77, 102, 126, 0.45);
+      }
+
+      .table-cell-values::after {
+        content: "scroll";
+        position: sticky;
+        bottom: 2px;
+        left: calc(100% - 44px);
+        display: inline-block;
+        font-size: 0.68em;
+        line-height: 1;
+        color: #7f97b1;
+        background: rgba(250, 250, 250, 0.9);
+        padding: 1px 4px;
+        border-radius: 4px;
+        pointer-events: none;
+      }
+
+      .table-cell-values::-webkit-scrollbar {
+        width: 11px;
+      }
+
+      .table-cell-values::-webkit-scrollbar-track {
+        background: #e8edf2;
+      }
+
+      .table-cell-values::-webkit-scrollbar-thumb {
+        background: #9bb0c6;
+        border-radius: 8px;
+        border: 2px solid #e8edf2;
+      }
+
+      .table-cell-values::-webkit-scrollbar-thumb:hover {
+        background: #7f97b1;
+      }
+
+      .table-cell-item {
+        padding: 3px 6px;
+        margin: 2px 0;
+        line-height: 1.4;
+      }
+
+      .table-cell-item:hover {
+        background-color: #f0f0f0;
+      }
+
+      .find_button {
+        background-color: var(--surface-control);
+        color: var(--text-strong) !important;
+        border: 1px solid #afbeb6;
+        padding: 14px 25px;
+        text-align: center;
+        border-radius: 4px;
+        text-decoration: none !important;
+        display: inline-block;
+        margin-left: 5px;
+      }
+
+      .find_button:hover {
+        background-color: var(--surface-control-hover);
+      }
+
+      .centered-files {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100vw;
+      }
+
+      .centered-files a {
+        display: block;
+        margin-top: 25px;
+        margin-bottom: 25px;
+      }
+
+      .entity .centered-files img,
+      .entity .centered-files video,
+      .entity .centered-files iframe {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .entity .centered-files {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 24px;
+        box-sizing: border-box;
+      }
+
+      select {
+        all: unset;
+        min-width: 18ch;
+        width: auto;
+        max-width: 100%;
+        line-height: 1.5em;
+        padding: 0.5em 3.5em 0.5em 1em;
+        border-bottom: 1px solid #4e4e4e;
+        background-color: #f1f1f1;
+        white-space: nowrap;
+
+        /*This is the arrow */
+        background-image:
+          linear-gradient(45deg, transparent 50%, rgb(111, 111, 111) 50%),
+          linear-gradient(135deg, rgb(111, 111, 111) 50%, transparent 50%);
+        background-position:
+          calc(100% - 20px) calc(1em + 0px),
+          calc(100% - 15px) calc(1em + 0px),
+          100% 0;
+        background-size:
+          5px 5px,
+          5px 5px,
+          2.5em 2.5em;
+        background-repeat: no-repeat;
+        display: inline-block;
+        box-sizing: border-box;
+      }
+
+      .drop-down {
+        display: none;
+        position: static;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 0px;
+        scroll-margin-top: 600px;
+      }
+
+      .drop-down:target {
+        display: block;
+      }
+
+      .drop-down a {
+        text-decoration: none;
+        line-height: 2em;
+        color: var(--link-color);
+      }
+
+      iframe {
+        background-color: #f5f5f5;
+        border: none;
+        padding: 35px;
+      }
+
+      .home-link {
+        font-size: 0.5em !important;
+      }
+
+      .home-link a {
+        font-weight: 100 !important;
+        font-size: 14px !important;
+      }
+      /*-- this is a test comment*/
+
+      /*.property-value button {
+    margin-bottom: 5px;
+    padding: 2px 10px;
+    border: none;
+    border-bottom: dotted 2px;
+    cursor: pointer;
+    transition: all .2s ease-in;
+    color: #000000;
+}
+
+.property-value button a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000000;
+}
+
+.property-value button a:hover {
+    color: #4e4e4e; 
+} */
+    </style>
+
+    <script>
+      function applyTabularFilters() {
+        var globalSearchInput = document.getElementById("tabularSearchInput");
+        var globalQuery = globalSearchInput ? globalSearchInput.value.toLowerCase() : "";
+
+        // Find current active table's body
+        var activeTableWrap = document.querySelector(".tabular-table-wrap.tabular-table-active");
+        if (!activeTableWrap) {
+          return;
+        }
+
+        // Only use column filters from the active table
+        var colQueries = Array.from(activeTableWrap.querySelectorAll(".tabular-col-search")).map(function (input) {
+          return (input.value || "").toLowerCase();
+        });
+
+        var activeTableBody = activeTableWrap.querySelector("tbody");
+        if (!activeTableBody) {
+          return;
+        }
+
+        activeTableBody.querySelectorAll("tr").forEach(function (row) {
+          var matchesGlobal = !globalQuery || ((row.dataset.fullText || "").indexOf(globalQuery) > -1);
+          var matchesColumns = colQueries.every(function (q, idx) {
+            if (!q) {
+              return true;
+            }
+            var cellText = row.dataset["col" + idx] || "";
+            return cellText.indexOf(q) > -1;
+          });
+
+          row.style.display = matchesGlobal && matchesColumns ? "" : "none";
+        });
+
+        updateTabularCount();
+      }
+
+      function updateTabularCount() {
+        var count = document.getElementById("tabularCount");
+        if (!count) {
+          return;
+        }
+        var activeTableBody = document.querySelector(".tabular-table-active tbody");
+        if (!activeTableBody) {
+          return;
+        }
+        var rows = Array.from(activeTableBody.querySelectorAll("tr"));
+        var visible = rows.filter(function (row) {
+          return row.style.display !== "none";
+        }).length;
+        count.textContent = visible + " / " + rows.length;
+      }
+
+      function filterTableCell(input) {
+        var container = input.closest(".table-cell-long");
+        if (!container) return;
+        
+        var searchText = input.value.toLowerCase();
+        var itemsContainer = container.querySelector(".table-cell-values");
+        var items = itemsContainer.querySelectorAll(".table-cell-item");
+        var visibleCount = 0;
+        
+        items.forEach(function(item) {
+          var itemText = item.textContent.toLowerCase();
+          if (itemText.indexOf(searchText) > -1) {
+            item.style.display = "";
+            visibleCount++;
+          } else {
+            item.style.display = "none";
+          }
+        });
+        
+        var countSpan = container.querySelector(".table-cell-visible");
+        if (countSpan) {
+          countSpan.textContent = visibleCount;
+        }
+      }
+
+      function search(input) {
+        li = input.parentNode.getElementsByTagName("div");
+        filter = input.value.toUpperCase();
+        count = li.length;
+        found = 0;
+        for (i = 0; i < li.length; i++) {
+          txtValue = li[i].textContent.toUpperCase() || "";
+          if (txtValue.indexOf(filter) > -1) {
+            li[i].style.display = "";
+            found++;
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+        input.parentNode.getElementsByClassName("count")[0].innerText =
+          `${found - 1} /  ${count - 1}`;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var rootOverlay = document.getElementById("root_entity_overlay");
+        if (rootOverlay && !window.location.hash) {
+          window.location.hash = "#root_entity_overlay";
+        }
+
+        var select = document.getElementById("tabularTypeSelect");
+        var searchInput = document.getElementById("tabularSearchInput");
+
+        // Handle type switching (show/hide pre-rendered tables)
+        if (select) {
+          select.addEventListener("change", function () {
+            // Hide all tables
+            document.querySelectorAll(".tabular-table-wrap").forEach(function (wrap) {
+              wrap.classList.remove("tabular-table-active");
+            });
+            // Show selected table
+            var selectedTable = document.querySelector(".tabular-table-wrap[data-type='" + select.value + "']");
+            if (selectedTable) {
+              selectedTable.classList.add("tabular-table-active");
+            }
+            // Clear search when switching types
+            if (searchInput) {
+              searchInput.value = "";
+            }
+            updateTabularCount();
+          });
+          // Show the initial selected type
+          var initialTable = document.querySelector(".tabular-table-wrap[data-type='" + select.value + "']");
+          if (initialTable) {
+            initialTable.classList.add("tabular-table-active");
+          }
+        } else {
+          // Single type - no dropdown, just show the table
+          var singleTable = document.querySelector(".tabular-table-wrap");
+          if (singleTable) {
+            singleTable.classList.add("tabular-table-active");
+          }
+        }
+
+        // Handle search filtering
+        if (searchInput) {
+          searchInput.addEventListener("input", function () {
+            applyTabularFilters();
+          });
+        }
+
+        // Handle per-column searches
+        document.querySelectorAll(".tabular-col-search").forEach(function (input) {
+          input.addEventListener("input", applyTabularFilters);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    {%- macro infoLink(url) %}
+      {%- if url %}
+        {%- if data.ids[url] %}
+          <a
+            href="#{{ url }}"
+            title="See definiton for {{ url }} in this RO-Crate"
+          >
+            ⓘ
+          </a>
+        {% else %}
+          <a
+            href="{{ url }}"
+            title="Look up definiton for {{ url }}"
+            target="_blank"
+          >
+            ⓘ
+          </a>
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
+
+    {%- macro diplayLabel(propData) %}
+      {{ propData.label | replace(r/.*:/, "") }}
+      {{ infoLink(propData.url) }}
+    {%- endmacro %}
+
+    {%- macro infoLink(url) %}
+
+      {%- if url %}
+        {%- if data.ids[url] %}
+          <span class="info"><a href="#{{ url }}">ⓘ</a></span>
+        {%- else %}
+          <span class="info"> <a href="{{ url }}" target="_blank">ⓘ</a></span>
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
+
+    {%- macro displayProp(prop, propData) %}
+      <div class="property-row">
+        <div class="property-name">{{ diplayLabel(propData) }}</div>
+        <div class="property-value">
+          {%- set isLong = propData.fwd.length + propData.rev.length > 10 %}
+          {%- if isLong %}
+            <input class="border" onkeyup="res = search(this)" />
+            <span class="count">
+              ({{ propData.fwd.length + propData.rev.length }} /
+              {{ propData.fwd.length + propData.rev.length }})</span
+            >
+          {%- endif %}
+          <div class="{{ 'long' if isLong else 'short' }}">
+            {%- for val in propData.fwd %}
+              <div>
+                {%- if val is string %}
+                  {{ val | urlize | safe }}
+                {%- elif val["url"] %}
+                  <a href="{{ val["url"] }}"> {{ val["url"] }}</a>
+                {%- else %}
+                  {%- if val["target_id"] %}
+                    <span class="button-right">
+                      <a href="#{{ val["target_id"] | urlencode }}" title="{{ val["target_name"] }}">
+                        {{ val["target_name"] }}
+                      </a>
+                    </span>
+                  {%- elif val.value is string %}
+                    {{ val.value | urlize | safe }}
+                  {%- elif val.value %}
+                    {{ val.value }}
+                  {%- else %}
+                    WARNING SOMETHING WENT WRONG {{ val | dump }}
+                  {%- endif %}
+                {%- endif %}
+                
+              </div>
+            {%- endfor %}
+            {%- for val in propData.rev %}
+              <div>
+                {%- if val["target_id"] %}
+                  <span class="button-left">
+                    <a href="#{{ val["target_id"] | urlencode }}" title="{{ val["target_name"] }}">
+                      {{ val["target_name"] }}
+                    </a>
+                  </span>
+                {%- else %}
+                  WARNING SOMETHING WENT WRONG {{ val | dump }} ⬅
+                {%- endif %}
+              </div>
+            {%- endfor %}
+          </div>
+        </div>
+      </div>
+    {%- endmacro %}
+
+    {%- macro typeNav() %}
+      <select onchange="location.href=this.value">
+        <option value="disabled selected">Select a type</option>
+        {%- for type, list in data.types %}
+          {%- if type != "File" %}
+            <option value="#types_{{ type }}">{{ type }}</option>
+          {%- endif %}
+        {%- endfor %}
+      </select>
+    {%- endmacro %}
+
+    {%- macro crateNav() %}
+      <div class="nav">
+        <p>Browse by type of entity:</p>
+        {%- if data.tabular and data.tabular.enabled %}
+          {%- set navItems = data.tabular.navItems if data.tabular.navItems else [] %}
+          {%- if navItems.length == 1 %}
+            <p>{{ navItems[0].label }}</p>
+          {%- else %}
+          <select id="tabularTypeSelect">
+            {%- for navItem in navItems %}
+              <option value="{{ navItem.type }}" {{ "selected" if data.tabular.mainNavType == navItem.type else "" }}>{{ navItem.label }}</option>
+            {%- endfor %}
+          </select>
+          {%- endif %}
+        {%- elif data.tabular and data.tabular.navOnly %}
+          <select id="tabularTypeSelect">
+            {%- for type in data.tabular.navTypes %}
+              <option value="{{ type }}" {{ "selected" if data.tabular.mainNavType == type else "" }}>{{ type }}</option>
+            {%- endfor %}
+          </select>
+        {%- else %}
+          {{ typeNav() }}
+        {%- endif %}
+        <!--
+{%- if data.types["Dataset"] and data.types["Dataset"].length > 2 %}
+          <a href="#types_Dataset">Datasets in this crate</a>
+        {%- endif %}
+    -->
+      </div>
+    {%- endmacro %}
+
+    {%- macro renderTableCell(cell, isNameColumn, row) %}
+      {%- if cell is string %}
+        {{ cell }}
+      {%- elif cell is mapping and cell.isLong and cell.items %}
+        {# Multi-value cell with scrollable container #}
+        <div class="table-cell-long">
+          {%- if (cell.items | length) > 4 %}
+            <div class="table-cell-controls">
+              <input type="text" class="table-cell-search" placeholder="Search..." onkeyup="filterTableCell(this)" />
+              <span class="table-cell-count">
+                <span class="table-cell-visible">{{ cell.items | length }}</span> / {{ cell.items | length }}
+              </span>
+            </div>
+          {%- endif %}
+          <div class="table-cell-values">
+            {%- for item in cell.items %}
+              {%- if item.target_id and item.text %}
+                <div class="table-cell-item" data-text="{{ item.text | lower }}">
+                  {%- set buttonClass = "button-left" if item.isReverse else "button-right" %}
+                  <span class="{{ buttonClass }}">
+                    <a href="#{{ item.target_id | urlencode }}">
+                      {{ item.text }}
+                    </a>
+                  </span>
+                </div>
+              {%- elif item.text %}
+                <div class="table-cell-item" data-text="{{ item.text | lower }}">
+                  {{ item.text }}
+                </div>
+              {%- endif %}
+            {%- endfor %}
+          </div>
+        </div>
+      {%- elif cell is iterable and cell is not string and cell is not mapping %}
+        {# Array of 2 values - inline #}
+        {%- for item in cell %}
+          {%- if not loop.first %}, {% endif %}
+          {%- if item.target_id and item.text %}
+            {%- set buttonClass = "button-left" if item.isReverse else "button-right" %}
+            <span class="{{ buttonClass }}">
+              <a href="#{{ item.target_id | urlencode }}">
+                {{ item.text }}
+              </a>
+            </span>
+          {%- elif item.text %}
+            {{ item.text }}
+          {%- endif %}
+        {%- endfor %}
+      {%- elif cell is mapping and cell.target_id and cell.text %}
+        {%- set buttonClass = "button-left" if cell.isReverse else "button-right" %}
+        <span class="{{ buttonClass }}">
+          <a href="#{{ cell.target_id | urlencode }}">
+            {{ cell.text }}
+          </a>
+        </span>
+      {%- elif isNameColumn and row.pagePath %}
+        <a href="{{ row.pagePath }}">
+          {% if cell and cell.text %}
+            {{ cell.text }}
+          {% else %}
+            {{ row.displayName or row.id }}
+          {%- endif %}
+        </a>
+      {%- elif isNameColumn and row.id %}
+        <a href="#{{ row.id | urlencode }}">
+          {% if cell and cell.text %}
+            {{ cell.text }}
+          {% else %}
+            {{ row.displayName or row.id }}
+          {%- endif %}
+        </a>
+      {%- else %}
+        {% if cell and cell.text %}
+          {{ cell.text }}
+        {% elif cell is string %}
+          {{ cell }}
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
+
+    {%- macro tabularSummary() %}
+      {%- if data.tabular and data.tabular.enabled %}
+        <div class="tabular-wrap">
+          {%- if data.tabular.searchEnabled %}
+            <div class="tabular-controls">
+              <label for="tabularSearchInput">Search</label>
+              <input id="tabularSearchInput" type="text" />
+              <span class="tabular-count" id="tabularCount"></span>
+            </div>
+          {%- endif %}
+
+          {%- for typeName, typeData in data.tabular.types %}
+            {%- set nameUri = "http://schema.org/name" %}
+            <div class="tabular-table-wrap" data-type="{{ typeName }}">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                    {%- for col in typeData.columns %}
+                      <th>{{ col.label or col.uri }}</th>
+                    {%- endfor %}
+                  </tr>
+                  {%- if data.tabular.columnSearchEnabled %}
+                    <tr>
+                      {%- for col in typeData.columns %}
+                        <th>
+                          <input type="text" class="tabular-col-search" placeholder="Search..." />
+                        </th>
+                      {%- endfor %}
+                    </tr>
+                  {%- endif %}
+                </thead>
+                <tbody>
+                  {%- for row in typeData.rows %}
+                    <tr data-full-text="{{ (row.displayName | default(row.id, true)) | lower }} {{ row.cellSearchTexts | join(" ") | lower }}"
+                        {%- for i in range(row.cellSearchTexts|length) %}
+                          data-col{{ i }}="{{ row.cellSearchTexts[i] | default("", true) | lower }}"
+                        {%- endfor %}>
+                      {%- for cell in row.cells %}
+                        <td>
+                          {{- renderTableCell(cell, typeData.columns[loop.index0].uri == nameUri, row) -}}
+                        </td>
+                      {%- endfor %}
+                    </tr>
+                  {%- endfor %}
+                </tbody>
+              </table>
+            </div>
+          {%- endfor %}
+        </div>
+      {%- endif %}
+    {%- endmacro %}
+    <!--
+    {%- macro schemaElements() %}
+      {%- if data.types["DefinedTerm"] or data.types["rdf:Property"] or  data.types["rdfs:Class"] %}
+        <h3>Custom schema elements</h3>
+        {%- if data.types["rdf:Property"] %}
+          <a href="#types_rdf:Property">Properties</a>
+        {%- endif %}
+
+        {%- if data.types["rdfs:Class"] %}
+          <p>|</p>
+          <a href="#types_rdfs:Class">Classes</a>
+        {%- endif %}
+
+        {%- if data.types["DefinedTerm"] %}
+          <p>|</p>
+          <a href="#types_DefinedTerm">DefinedTerms</a>
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
+    -->
+
+    {%- macro root() %}
+      <div class="home-link">
+        <a href="#{{ data.entryPoint | urlencode }}" class="home-close-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            fill="currentColor"
+            class="bi bi-x-lg"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
+            />
+          </svg>
+          Close summary
+        </a>
+      </div>
+    {%- endmacro %}
+
+    {%- macro showType(type) %}
+      <!--<a href="#types_{{ type }}" class="type"></a>-->
+      {{ type | replace(r/.*:/) }}
+      {{ infoLink(data.typeUrls[type]) }}
+    {%- endmacro %}
+
+    {%- macro setProp(prop) %}
+      {%- if prop is string %}
+        {{ prop }}
+      {% else %}
+        {{ prop | merge({ prop: true }) }}
+      {%- endif %}
+    {%- endmacro %}
+
+    {%- macro display(item, class, anchorId, closeTargetId) %}
+      <!-- Heading Section -->
+      {%- set effectiveAnchorId = anchorId if anchorId else item.id %}
+      {%- set effectiveCloseTargetId = closeTargetId if closeTargetId else data.entryPoint %}
+      <div id="{{ effectiveAnchorId | urlencode }}" class="{{ class }}">
+        {%- if class == "entity" %}<div class="entity-panel">{%- endif %}
+        <div class="entity-header-row">
+          {%- if class == "entity" %}
+            <a
+              href="#{{ effectiveCloseTargetId | urlencode }}"
+              class="entity-close"
+              aria-label="Close summary"
+              title="Close"
+            >
+              ×
+            </a>
+          {%- endif %}
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+              {%- if class == "entity" %}
+                {{ root () }}
+              {%- endif %}
+            </div>
+          </div>
+          <div class="entity-header-types">
+            {%- for type in item.type %}
+              <span class="type">{{ showType(type) }}</span
+              >{%- if not loop.last %}<p>|</p>{%- endif %}
+            {%- endfor %}
+          </div>
+          <h2>
+            {%- if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
+              {{ item.props["http://schema.org/name"].fwd[0].value }}
+            {% else %}
+              <!-- Use ID if name isn't available, e.g. files -->
+              {{ item.id }}
+            {%- endif %}
+          </h2>
+          {%- if item == data.ids[data.entryPoint] and class == "root" and item.props and "http://schema.org/description" in item.props and item.props["http://schema.org/description"].fwd and item.props["http://schema.org/description"].fwd.length > 0 %}
+            {%- set rootDescription = item.props["http://schema.org/description"].fwd[0].value if item.props["http://schema.org/description"].fwd[0].value else item.props["http://schema.org/description"].fwd[0] %}
+            {%- if rootDescription %}
+              <p class="root-description">{{ rootDescription }}</p>
+            {%- endif %}
+            <p class="root-more-link"><a href="#root_entity_overlay">More about this data</a></p>
+          {%- endif %}
+          {%- if not (item == data.ids[data.entryPoint]) %}
+            <h2 class="id">{{ item.id }}</h2>
+          {%- endif %}
+          {%- if item == data.ids[data.entryPoint] and class == "root" %}
+          {%- endif %}
+        </div>
+
+        {%- if item == data.ids[data.entryPoint] and class == "root" %}
+          <section class="browse">
+            {{ crateNav() }}
+            {%- if data.tabular and data.tabular.enabled %}
+              {{ tabularSummary() }}
+            {%- elif data.tabular and data.tabular.navOnly %}
+              <!-- Navigation-only mode: show selector only, no summary tables -->
+            {%- else %}
+              {%- for type, list in data.types %}
+                <div id="types_{{ type }}" class="drop-down">
+                  <div class="entity-grid">
+                    <h2>{{ type }} ({{ list.length }})</h2>
+
+                    {%- set isLong = list.length  > 10 %}
+                    {%- if isLong %}
+                      <input class="border" onkeyup="res = search(this)" />
+                      <span class="count">
+                        ({{ list.length }} / {{ list.length }})</span
+                      >
+                    {%- endif %}
+                    <div class="{{ 'long' if isLong else 'short' }}">
+                      {%- for id in list %}
+                        {%- if id != data.entryPoint %}
+                          <div>
+                            <a href="#{{ id | urlencode }}">
+                              {%- if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
+                                {{ data.ids[id].props["http://schema.org/name"].fwd[0].value }}
+                              {%- else %}
+                                {{ id }}
+                              {%- endif %}
+                            </a>
+                          </div>
+                        {%- endif %}
+                      {%- endfor %}
+                    </div>
+                  </div>
+                </div>
+              {%- endfor %}
+            {%- endif %}
+          </section>
+        {%- endif %}
+
+        <!--Section for files if they are avails-->
+        {%- set htmlRegex = r/(\.txt)$|(\.html?)$/i %}
+        {%- set mdRegex = r/\.md$/i %}
+        {%- set audioRegex = r/(\.mp3)|(\.ogg?)|(\.wav)$/i %}
+        {%- set imgRegex = r/(\.jpe?g)|(\.png|(\.giff?))$/i %}
+        {%- set vidRegex = r/(\.mp4)|(\.mov)$/i %}
+
+        {%- set pdfRegex = r/pdf$/i %}
+
+        {%- if item.type.includes("File") %}
+          <div class="centered-files">
+            {%- if htmlRegex.test(item.id) %}
+              <!-- TODO: fix these width="80%"s, they are not valid -->
+              <iframe
+                src="{{ item.id }}"
+                type="text/plain"
+                width="80%"
+                height="500"
+                loading="lazy"
+              ></iframe>
+            {% elif audioRegex.test(item.id) %}
+              <audio controls width="80%">
+                <source src="{{ item.id }}" />
+              </audio>
+            {% elif vidRegex.test(item.id) %}
+              <video io controls>
+                <source src="{{ item.id }}" />
+              </video>
+            {% elif imgRegex.test(item.id) %}
+              <img
+                width="100%"
+                style="object-fit: contain"
+                src="{{ item.id }}"
+                loading="lazy"
+              />
+            {% elif mdRegex.test(item.id) %}
+              {%- if item.content %}
+                {{ item.content | renderMarkdown | safe }}
+              {%- else %}
+                <p>Markdown content not available. <a href="{{ item.id | urlencode }}">View file</a></p>
+              {%- endif %}
+            {% elif pdfRegex.test(item.id) %}
+              <!--          <iframe   src="{{ item.id }}" type="application/pdf" width="100%" height="600px" loading="lazy" />-->
+            {%- endif %}
+            <a href="{{ item.id | urlencode }}">Open file location</a>
+          </div>
+        {%- endif %}
+
+        {%- if not (item == data.ids[data.entryPoint] and class == "root" and data.tabular and data.tabular.hideRootSummary) %}
+        <div class="property-grid">
+          {%- set seenProps = {"@id": true,"@type": true} %}
+          {%- for group in layout %}
+            {%- set hasContent = false %}
+            {%- for input in group.inputs %}
+              {%- if item.props[input] %}
+                {%- set hasContent = true %}
+                {%- set seenProps = seenProps | setProp(input) %}
+              {%- endif %}
+            {%- endfor %}
+            {%- if hasContent %}
+              <div class="property-header-row">{{ group.name }}</div>
+            {%- endif %}
+            {%- for input in group.inputs %}
+              {%- if item.props[input] %}
+                {{ displayProp(input, item.props[input]) }}
+              {%- endif %}
+            {%- endfor %}
+          {%- endfor %}
+
+          {%- set hasContent = false %}
+          {%- for input, val in item.props %}
+            {%- if not seenProps[input] %}
+              {%- set hasContent = true %}
+            {%- endif %}
+          {%- endfor %}
+
+          {%- if hasContent %}
+            <div class="property-header-row">Other properties</div>
+          {%- endif %}
+
+          {%- for input, val in item.props %}
+            {%- if not seenProps[input] %}
+              {{ displayProp(input, item.props[input]) }}
+            {%- endif %}
+          {%- endfor %}
+        </div>
+        {%- endif %}
+        {%- if class == "entity" %}</div>{%- endif %}
+      </div>
+    {%- endmacro %}
+
+    {{ display(data.ids[data.entryPoint], "root") }}
+
+    {%- if data.tabular and data.tabular.hideRootSummary %}
+      {{ display(data.ids[data.entryPoint], "entity", "root_entity_overlay", data.entryPoint) }}
+    {%- endif %}
+
+    {%- for id, entity in data.ids %}
+      {%- if id != data.entryPoint %}
+        {{ display(entity, "entity") }}
+      {%- endif %}
+    {%- endfor %}
+  </body>
+</html>

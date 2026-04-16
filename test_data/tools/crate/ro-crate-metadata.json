@@ -1,0 +1,1220 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.1/context",
+    {
+      "@vocab": "http://schema.org/",
+      "ldac": "https://w3id.org/ldac/terms#",
+      "custom": "arcp://name,custom/terms#"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "identifier": "ro-crate-metadata.json",
+      "about": {
+        "@id": "./"
+      }
+    },
+    {
+      "@id": "https://github.com/Language-Research-Technology",
+      "@type": "Organization",
+      "name": "Language Data Commons of Australia"
+    },
+    {
+      "@id": "https://ror.org/00rqy9422",
+      "@type": "Organization",
+      "name": "The University of Queensland"
+    },
+    {
+      "@id": "https://creativecommons.org/licenses/by/4.0/",
+      "@type": "ldacDataReuseLicense",
+      "name": "Attribution 4.0 International (CC BY 4.0)",
+      "description": "You are free to: Share — copy and redistribute the material in any medium or format. Adapt — remix, transform, and build upon the material for any purpose, even commercially. This license is acceptable for Free Cultural Works. The licensor cannot revoke these freedoms as long as you follow the license terms.",
+      "ldac:allowTextIndex": "true",
+      "isPartOf": {
+        "@id": "./"
+      }
+    },
+    {
+      "@id": "./",
+      "@type": [
+        "Dataset",
+        "RepositoryCollection"
+      ],
+      "name": "LDaCA Tools Catalogue",
+      "description": "This is a collection listing all the LDaCA tools.",
+      "ldac:doi": "",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "inLanguage": "English",
+      "ldac:metadataIsPublic": "true",
+      "author": {
+        "@id": "https://github.com/Language-Research-Technology"
+      },
+      "publisher": {
+        "@id": "https://ror.org/00rqy9422"
+      },
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:hasMember": [
+        {
+          "@id": "arcp://name,AnonymisingELANFiles"
+        },
+        {
+          "@id": "arcp://name,CollocationAnalyser"
+        },
+        {
+          "@id": "arcp://name,CollocationCalculator"
+        },
+        {
+          "@id": "arcp://name,ConcordanceExplorer"
+        },
+        {
+          "@id": "arcp://name,Concordancer"
+        },
+        {
+          "@id": "arcp://name,Crate-O"
+        },
+        {
+          "@id": "arcp://name,Discursis"
+        },
+        {
+          "@id": "arcp://name,DocumentSimilarity"
+        },
+        {
+          "@id": "arcp://name,ELANAnnotationSplitter"
+        },
+        {
+          "@id": "arcp://name,ELANAudioSegmentation"
+        },
+        {
+          "@id": "arcp://name,ELANCommander"
+        },
+        {
+          "@id": "arcp://name,ELANInventory"
+        },
+        {
+          "@id": "arcp://name,ELANReplacer"
+        },
+        {
+          "@id": "arcp://name,FileRenamer"
+        },
+        {
+          "@id": "arcp://name,ImageDatasetExplorer"
+        },
+        {
+          "@id": "arcp://name,KeywordFinder"
+        },
+        {
+          "@id": "arcp://name,KeywordExtractor"
+        },
+        {
+          "@id": "arcp://name,KeywordsAnalysis"
+        },
+        {
+          "@id": "arcp://name,Lameta"
+        },
+        {
+          "@id": "arcp://name,NetworkVisualiser"
+        },
+        {
+          "@id": "arcp://name,Part-of-SpeechTagger"
+        },
+        {
+          "@id": "arcp://name,POSTagger"
+        },
+        {
+          "@id": "arcp://name,QuotationTool"
+        },
+        {
+          "@id": "arcp://name,SemanticTaggerEnglish"
+        },
+        {
+          "@id": "arcp://name,SentimentExplorer"
+        },
+        {
+          "@id": "arcp://name,TextCleaner"
+        },
+        {
+          "@id": "arcp://name,TopicExplorer"
+        },
+        {
+          "@id": "arcp://name,TopicDetector"
+        },
+        {
+          "@id": "arcp://name,WordFinder"
+        },
+        {
+          "@id": "arcp://name,WordWebber"
+        },
+        {
+          "@id": "https://github.com/Supertyp/Anonymising_ELAN_files"
+        },
+        {
+          "@id": "https://github.com/Australian-Text-Analytics-Platform/farms-to-freeways"
+        },
+        {
+          "@id": "https://data.ldaca.edu.au/object?_id=https%3A%2F%2Fgithub.com%2FAustralian-Text-Analytics-Platform%2Fnotebook-ausreddit%2Fblob%2Fmain%2Fexploration.ipynb"
+        },
+        {
+          "@id": "https://data.ldaca.edu.au/object?_id=https%3A%2F%2Fgithub.com%2FAustralian-Text-Analytics-Platform%2Fnotebook-twittersphere%2Fblob%2Fmain%2Fexploration.ipynb"
+        }
+      ],
+      "hasPart": []
+    },
+    {
+      "@id": "https://ror.org/019wvm592",
+      "@type": "Organization",
+      "name": "Australian National University"
+    },
+    {
+      "@id": "https://ror.org/01ej9dk98",
+      "@type": "Organization",
+      "name": "The University of Melbourne"
+    },
+    {
+      "@id": "https://ror.org/0384j8v12",
+      "@type": "Organization",
+      "name": "The University of Sydney"
+    },
+    {
+      "@id": "https://ror.org/03pnv4752",
+      "@type": "Organization",
+      "name": "Queensland University of Technology"
+    },
+    {
+      "@id": "https://github.com/Sydney-Informatics-Hub",
+      "@type": "Organization",
+      "name": "Sydney Informatics Hub"
+    },
+    {
+      "@id": "https://github.com/QUT-Digital-Observatory",
+      "@type": "Organization",
+      "name": "Digital Observatory"
+    },
+    {
+      "@id": "https://github.com/SLCLADAL/ladal",
+      "@type": "Organization",
+      "name": "Language Technology and Data Analysis Laboratory"
+    },
+    {
+      "@id": "https://hass.uq.edu.au/centre-digital-cultures-societies",
+      "@type": "Organization",
+      "name": "Centre for Digital Cultures & Societies"
+    },
+    {
+      "@id": "https://orcid.org/0000-0002-1428-2649",
+      "@type": "Person",
+      "name": "Chao Sun"
+    },
+    {
+      "@id": "https://orcid.org/0009-0008-4603-9521",
+      "@type": "Person",
+      "name": "Jasper Chong"
+    },
+    {
+      "@id": "#JohnHatton",
+      "@type": "Person",
+      "name": "John Hatton"
+    },
+    {
+      "@id": "https://orcid.org/0000-0002-3616-6235",
+      "@type": "Person",
+      "name": "Marius Mather"
+    },
+    {
+      "@id": "https://orcid.org/0000-0003-1923-9153",
+      "@type": "Person",
+      "name": "Martin Schweinberger"
+    },
+    {
+      "@id": "https://orcid.org/0000-0002-4438-2755",
+      "@type": "Person",
+      "name": "Moises Sacal Bonequi"
+    },
+    {
+      "@id": "https://orcid.org/0000-0001-8797-1018",
+      "@type": "Person",
+      "name": "Nick Thieberger"
+    },
+    {
+      "@id": "https://orcid.org/0000-0003-2933-6627",
+      "@type": "Person",
+      "name": "Robert Fleet"
+    },
+    {
+      "@id": "https://orcid.org/0000-0002-1824-2361",
+      "@type": "Person",
+      "name": "Sam Hames"
+    },
+    {
+      "@id": "#SonyJufri",
+      "@type": "Person",
+      "name": "Sony Jufri"
+    },
+    {
+      "@id": "https://orcid.org/0000-0003-4904-2941",
+      "@type": "Person",
+      "name": "Wolfgang Barth"
+    },
+    {
+      "@id": "https://orcid.org/0000-0002-2118-3147",
+      "@type": "Person",
+      "name": "River Tae Smith"
+    },
+    {
+      "@id": "https://orcid.org/0009-0006-2241-3377",
+      "@type": "Person",
+      "name": "Rosanna Smith"
+    },
+    {
+      "@id": "https://orcid.org/0000-0003-3237-9943",
+      "@type": "Person",
+      "name": "Simon Musgrave"
+    },
+    {
+      "@id": "arcp://name,AnonymisingELANFiles",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Anonymising ELAN Files",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": {
+        "@id": "https://ror.org/019wvm592"
+      },
+      "author": {
+        "@id": "https://orcid.org/0000-0003-4904-2941"
+      },
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Supertyp/Anonymising_ELAN_files",
+      "description": "Anonymise content of ELAN files"
+    },
+    {
+      "@id": "arcp://name,CollocationAnalyser",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Collocation Analyser",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "R",
+      "url": "https://ladal.edu.au/tools.html#jupyter-tools",
+      "description": "Calculates various association measures (collocation statistics) based on textual input and allows you to download the resulting table"
+    },
+    {
+      "@id": "arcp://name,CollocationCalculator",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "CollocationCalculator",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "Collocation association measures"
+    },
+    {
+      "@id": "arcp://name,ConcordanceExplorer",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Concordance Explorer",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "R",
+      "url": "https://ladal.edu.au/tools.html#jupyter-tools",
+      "description": "Create Keyword-in-Context displays of words or phrases in a single text or collection of texts and to download the resulting table"
+    },
+    {
+      "@id": "arcp://name,Concordancer",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Concordancer",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/0384j8v12"
+        },
+        {
+          "@id": "https://github.com/Sydney-Informatics-Hub"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0002-3616-6235"
+      },
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Australian-Text-Analytics-Platform/atap_widgets",
+      "description": "A concordancer that demos how to analyse turn-taking pairs in a concordancer",
+      "creditText": "Bednarek, M., Mather, M., Maras, K., & Croser, H. (2023). ATAP Concordancer (v0.5.4) [Computer software]. https://github.com/Australian-Text-Analytics-Platform/atap_widgets. DOI. https://doi.org/10.5281/zenodo.10086731"
+    },
+    {
+      "@id": "arcp://name,Crate-O",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Crate-O",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/Language-Research-Technology"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0002-4438-2755"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://github.com/Language-Research-Technology/crate-o",
+      "description": "Browser-based editor for RO Crates"
+    },
+    {
+      "@id": "arcp://name,Discursis",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Discursis",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/0384j8v12"
+        },
+        {
+          "@id": "https://github.com/Sydney-Informatics-Hub"
+        }
+      ],
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Australian-Text-Analytics-Platform/discursis",
+      "description": "A conversational analysis and visualisation tool",
+      "creditText": "Not provided"
+    },
+    {
+      "@id": "arcp://name,DocumentSimilarity",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Document Similarity",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/0384j8v12"
+        },
+        {
+          "@id": "https://github.com/Sydney-Informatics-Hub"
+        }
+      ],
+      "author": [
+        {
+          "@id": "#SonyJufri"
+        },
+        {
+          "@id": "https://orcid.org/0000-0002-1428-2649"
+        }
+      ],
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Australian-Text-Analytics-Platform/document-similarity",
+      "description": "Identifies identical and similar text in a corpus",
+      "creditText": "Jufri, Sony & Sun, Chao (2024). Document Similarity. v1.2. Australian Text Analytics Platform. Software. https://github.com/Australian-Text-Analytics-Platform/document-similarity"
+    },
+    {
+      "@id": "arcp://name,ELANAnnotationSplitter",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "ELAN Annotation Splitter",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": {
+        "@id": "https://ror.org/019wvm592"
+      },
+      "author": {
+        "@id": "https://orcid.org/0000-0003-4904-2941"
+      },
+      "programmingLanguage": "Software program",
+      "url": "https://github.com/Supertyp/ELAN_apps/",
+      "description": "Allows to split annotations context depending across a folder full of Elan files. This is a standalone desktop appplication for PC and Mac, not a notebook"
+    },
+    {
+      "@id": "arcp://name,ELANAudioSegmentation",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "ELAN Audio Segmentation",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": {
+        "@id": "https://ror.org/019wvm592"
+      },
+      "author": {
+        "@id": "https://orcid.org/0000-0003-4904-2941"
+      },
+      "programmingLanguage": "Software program",
+      "url": "https://github.com/Supertyp/ELAN_apps/",
+      "description": "App which takes a audio or video file as imput and creates a ELAN file with empty annotations wherever a voice is heard in the audio"
+    },
+    {
+      "@id": "arcp://name,ELANCommander",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "ELAN Commander",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": {
+        "@id": "https://ror.org/019wvm592"
+      },
+      "author": {
+        "@id": "https://orcid.org/0000-0003-4904-2941"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://www.gerlingo.com/ELAN_commander.html",
+      "description": "Web application to find unwanted characters in annotations"
+    },
+    {
+      "@id": "arcp://name,ELANInventory",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "ELAN Inventory",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": {
+        "@id": "https://ror.org/019wvm592"
+      },
+      "author": {
+        "@id": "https://orcid.org/0000-0003-4904-2941"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://www.gerlingo.com/config_maker.html",
+      "description": "Web application to access the inventory of a transcription collection and to create config files to load a collection into ANNIS"
+    },
+    {
+      "@id": "arcp://name,ELANReplacer",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "ELAN Replacer",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": {
+        "@id": "https://ror.org/019wvm592"
+      },
+      "author": {
+        "@id": "https://orcid.org/0000-0003-4904-2941"
+      },
+      "programmingLanguage": "Software program",
+      "url": "https://github.com/Supertyp/ELAN_apps/",
+      "description": "Allows context depending search and replace functionality across a folder full of elan files. Saves hours of manual work for any spelling changes in transcription. This is a stand alone software application for PC and Mac, not a notebook"
+    },
+    {
+      "@id": "arcp://name,FileRenamer",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "FileRenamer",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "Batch rename plain-text files"
+    },
+    {
+      "@id": "arcp://name,ImageDatasetExplorer",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Image Dataset Explorer",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://hass.uq.edu.au/centre-digital-cultures-societies"
+        },
+        {
+          "@id": "https://github.com/Language-Research-Technology"
+        }
+      ],
+      "author": [
+        {
+          "@id": "https://orcid.org/0009-0008-4603-9521"
+        },
+        {
+          "@id": "https://orcid.org/0000-0002-1824-2361"
+        }
+      ],
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Language-Research-Technology/image-dataset-explorer",
+      "description": "Embeds images from a zip file using off the shelf image embeddings, then creates a static HTML visualisation for browsing/exploring clusters and relations"
+    },
+    {
+      "@id": "arcp://name,KeywordFinder",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Keyword Finder",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "R",
+      "url": "https://ladal.edu.au/tools.html#jupyter-tools",
+      "description": "Calculates various keyness measures describing how words are over or under-represented in the texts you provide, compared to your chosen reference text corpus"
+    },
+    {
+      "@id": "arcp://name,KeywordExtractor",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "KeywordExtractor",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "Keyness analysis vs. a reference corpus"
+    },
+    {
+      "@id": "arcp://name,KeywordsAnalysis",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Keywords Analysis",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/0384j8v12"
+        },
+        {
+          "@id": "https://github.com/Sydney-Informatics-Hub"
+        }
+      ],
+      "author": [
+        {
+          "@id": "#SonyJufri"
+        },
+        {
+          "@id": "https://orcid.org/0000-0002-1428-2649"
+        }
+      ],
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Australian-Text-Analytics-Platform/keywords-analysis",
+      "description": "Tool to analyse words in a collection of corpus and identify whether certain words are over or under-represented in a particular corpus compared to their representation in other corpus",
+      "creditText": "Jufri, Sony & Sun, Chao (2022). Keywords Analysis. v1.0. Australian Text Analytics Platform. Software. https://github.com/Australian-Text-Analytics-Platform/keywords-analysis"
+    },
+    {
+      "@id": "arcp://name,Lameta",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Lameta",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": {
+        "@id": "https://ror.org/01ej9dk98"
+      },
+      "author": [
+        {
+          "@id": "#JohnHatton"
+        },
+        {
+          "@id": "https://orcid.org/0000-0001-8797-1018"
+        }
+      ],
+      "programmingLanguage": "Software program",
+      "url": "object Object",
+      "description": "Lameta is a metadata tool to help with organising collections of files. It is mainly aimed at collections made in the course of documenting language, music, and other cultural expressions.\nLameta greatly simplifies management of collections and makes the archiving process straightforward and painless for field workers. ",
+      "creditText": "object Object"
+    },
+    {
+      "@id": "arcp://name,NetworkVisualiser",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Network Visualiser",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "R",
+      "url": "https://ladal.edu.au/tools.html#jupyter-tools",
+      "description": "Allows you to generate and download network graphs based on your data"
+    },
+    {
+      "@id": "arcp://name,Part-of-SpeechTagger",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Part-of-Speech Tagger",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "R",
+      "url": "https://ladal.edu.au/tools.html#jupyter-tools",
+      "description": "Add part-of-speech tags to texts or collections of texts in more than 60 languages and download the resulting pos-tagged texts"
+    },
+    {
+      "@id": "arcp://name,POSTagger",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "POSTagger",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "Part-of-speech tagging & dependency parsing in 65+ languages"
+    },
+    {
+      "@id": "arcp://name,QuotationTool",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Quotation Tool",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/0384j8v12"
+        },
+        {
+          "@id": "https://github.com/Sydney-Informatics-Hub"
+        }
+      ],
+      "author": [
+        {
+          "@id": "#SonyJufri"
+        },
+        {
+          "@id": "https://orcid.org/0000-0002-1428-2649"
+        }
+      ],
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Australian-Text-Analytics-Platform/quotation-tool",
+      "description": "A tool to extract quotes and other useful information from a newspaper article/corpus",
+      "creditText": "Jufri, Sony & Sun, Chao (2022). Quotation Tool. v1.0. Australian Text Analytics Platform. Software. https://github.com/Australian-Text-Analytics-Platform/quotation-tool"
+    },
+    {
+      "@id": "arcp://name,SemanticTaggerEnglish",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Semantic Tagger (English)",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/0384j8v12"
+        },
+        {
+          "@id": "https://github.com/Sydney-Informatics-Hub"
+        }
+      ],
+      "author": [
+        {
+          "@id": "#SonyJufri"
+        },
+        {
+          "@id": "https://orcid.org/0000-0002-1428-2649"
+        }
+      ],
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Australian-Text-Analytics-Platform/semantic-tagger",
+      "description": "Used to tag a text/corpus so you can extract token level semantic tags from the tagged texts",
+      "creditText": "object Object"
+    },
+    {
+      "@id": "arcp://name,SentimentExplorer",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "SentimentExplorer",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "NRC word-emotion sentiment analysis"
+    },
+    {
+      "@id": "arcp://name,TextCleaner",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "TextCleaner",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "Remove and replace text elements with regex"
+    },
+    {
+      "@id": "arcp://name,TopicExplorer",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Topic Explorer",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "R",
+      "url": "https://ladal.edu.au/tools.html#jupyter-tools",
+      "description": "Allows you to generate your own custom topic models using unsupervised and supervised LDA and download the results in an MS Excel spreadsheet"
+    },
+    {
+      "@id": "arcp://name,TopicDetector",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "TopicDetector",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "Unsupervised & seeded LDA topic modelling"
+    },
+    {
+      "@id": "arcp://name,WordFinder",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "WordFinder",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "Keyword-in-context concordancing"
+    },
+    {
+      "@id": "arcp://name,WordWebber",
+      "@type": "SoftwareApplication",
+      "conformsTo": {
+        "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "WordWebber",
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "publisher": [
+        {
+          "@id": "https://ror.org/00rqy9422"
+        },
+        {
+          "@id": "https://github.com/SLCLADAL/ladal"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-1923-9153"
+      },
+      "programmingLanguage": "Browser-based",
+      "url": "https://ladal.edu.au/tools.html#shiny-tools",
+      "description": "Word co-occurrence network visualisation"
+    },
+    {
+      "@id": "https://github.com/Supertyp/Anonymising_ELAN_files",
+      "@type": "SoftwareApplication",
+      "conformsTo": [
+        {
+          "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+        },
+        {
+          "@id": "object Object"
+        }
+      ],
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "COOEE Notebook",
+      "input": {
+        "@id": "arcp://name,hdl10.26180~23961609"
+      },
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "encodingFormat": "application/x-ipynb+json",
+      "publisher": {
+        "@id": "https://ror.org/019wvm592"
+      },
+      "author": [
+        {
+          "@id": "https://orcid.org/0009-0006-2241-3377"
+        },
+        {
+          "@id": "https://orcid.org/0000-0003-3237-9943"
+        },
+        {
+          "@id": "\"River Tae Smith\""
+        }
+      ],
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Supertyp/Anonymising_ELAN_files",
+      "description": "A topic modeling notebook for the cooee collection\n\n"
+    },
+    {
+      "@id": "object Object",
+      "@type": "Person",
+      "name": "Mel Mistica"
+    },
+    {
+      "@id": "arcp://name,hdl10.26180~23961609",
+      "name": "A COrpus of Oz Early English (COOEE)",
+      "@type": "RepositoryCollection"
+    },
+    {
+      "@id": "https://github.com/Australian-Text-Analytics-Platform/farms-to-freeways",
+      "@type": "SoftwareApplication",
+      "conformsTo": [
+        {
+          "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+        },
+        {
+          "@id": "object Object"
+        }
+      ],
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Farms to freeways notebook",
+      "input": {
+        "@id": "arcp://name,doi10.4225%2F35%2F555d661071c76"
+      },
+      "datePublished": "Sun Jul 07 2024 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "encodingFormat": "application/x-ipynb+json",
+      "publisher": {
+        "@id": "https://ror.org/019wvm592"
+      },
+      "author": {
+        "@id": "object Object"
+      },
+      "programmingLanguage": "Python",
+      "url": "https://github.com/Australian-Text-Analytics-Platform/farms-to-freeways"
+    },
+    {
+      "@id": "arcp://name,doi10.4225%2F35%2F555d661071c76",
+      "name": "Farms to Freeways Example Dataset",
+      "@type": "RepositoryCollection"
+    },
+    {
+      "@id": "https://data.ldaca.edu.au/object?_id=https%3A%2F%2Fgithub.com%2FAustralian-Text-Analytics-Platform%2Fnotebook-ausreddit%2Fblob%2Fmain%2Fexploration.ipynb",
+      "@type": "SoftwareApplication",
+      "conformsTo": [
+        {
+          "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+        },
+        {
+          "@id": "object Object"
+        }
+      ],
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "AusReddit Aggregate Data Explorer",
+      "input": {
+        "@id": "arcp://name,hdl10.25912~RDF_1754373503052\n"
+      },
+      "encodingFormat": "application/x-ipynb+json",
+      "publisher": [
+        {
+          "@id": "https://ror.org/03pnv4752"
+        },
+        {
+          "@id": "https://github.com/QUT-Digital-Observatory"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-2933-6627"
+      },
+      "programmingLanguage": "Python",
+      "url": "https://data.ldaca.edu.au/object?_id=https%3A%2F%2Fgithub.com%2FAustralian-Text-Analytics-Platform%2Fnotebook-ausreddit%2Fblob%2Fmain%2Fexploration.ipynb",
+      "description": "Allows researchers to explore and extract subsets of the AusReddit aggregated frequency data including word usage, ngram (phrase) usage, domains and hashtags over time."
+    },
+    {
+      "@id": "arcp://name,hdl10.25912~RDF_1754373503052\n",
+      "name": "object Object",
+      "@type": "RepositoryCollection"
+    },
+    {
+      "@id": "https://data.ldaca.edu.au/object?_id=https%3A%2F%2Fgithub.com%2FAustralian-Text-Analytics-Platform%2Fnotebook-twittersphere%2Fblob%2Fmain%2Fexploration.ipynb",
+      "@type": "SoftwareApplication",
+      "conformsTo": [
+        {
+          "@id": "https://w3id.org/ldac/profile#SoftwareTool"
+        },
+        {
+          "@id": "object Object"
+        }
+      ],
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "name": "Australian Twittersphere Aggregate Data Explorer",
+      "input": {
+        "@id": "arcp://name,hdl10.25912~RDF_1758591652309"
+      },
+      "datePublished": "Sat Apr 11 2026 10:00:00 GMT+1000 (Australian Eastern Standard Time)",
+      "encodingFormat": "application/x-ipynb+json",
+      "publisher": [
+        {
+          "@id": "https://ror.org/03pnv4752"
+        },
+        {
+          "@id": "https://github.com/QUT-Digital-Observatory"
+        }
+      ],
+      "author": {
+        "@id": "https://orcid.org/0000-0003-2933-6627"
+      },
+      "programmingLanguage": "Python",
+      "url": "https://data.ldaca.edu.au/object?_id=https%3A%2F%2Fgithub.com%2FAustralian-Text-Analytics-Platform%2Fnotebook-twittersphere%2Fblob%2Fmain%2Fexploration.ipynb",
+      "description": "Allows researchers to explore and extract subsets of the Australian Twittersphere aggregated frequency data including word usage, ngram (phrase) usage, domains and hashtags over time."
+    },
+    {
+      "@id": "arcp://name,hdl10.25912~RDF_1758591652309",
+      "name": "Australian Twittersphere (AuTS) aggregated data - Collection\n",
+      "@type": "RepositoryCollection"
+    }
+  ]
+}

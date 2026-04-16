@@ -9,7 +9,6 @@ const __dirname = path.dirname(__filename);
 const program = new Command();
 import { fileURLToPath } from 'url';
 import { roCrateToJSON, renderTemplate } from './lib/preview.js';
-import { config } from 'process';
 
 // Fetch the mapping JSON between conformsTo and mode
 async function fetchMapping() {
@@ -134,6 +133,39 @@ async function loadLayout(layoutOption) {
   }
 }
 
+function isHttpUrl(value) {
+  return typeof value === "string" &&
+    (value.startsWith("http://") || value.startsWith("https://"));
+}
+
+function resolveStylePath(stylePath, baseDir) {
+  if (!stylePath || typeof stylePath !== "string") {
+    return null;
+  }
+  if (isHttpUrl(stylePath) || path.isAbsolute(stylePath)) {
+    return stylePath;
+  }
+  return path.resolve(baseDir, stylePath);
+}
+
+async function loadStyleText(stylePath) {
+  if (!stylePath) {
+    return "";
+  }
+  if (isHttpUrl(stylePath)) {
+    const response = await fetch(stylePath);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch style from URL: ${stylePath}`);
+    }
+    return await response.text();
+  }
+
+  if (!fs.existsSync(stylePath)) {
+    throw new Error(`Style file not found: ${stylePath}`);
+  }
+  return fs.readFileSync(stylePath, "utf8");
+}
+
 program
   .name("html_preview")
   .description("Load an RO-Crate from a specified directory.")
@@ -143,8 +175,20 @@ program
     "Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use a raw link if the URL is from GitHub. (Default: \"https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json\")",
   )
   .option(
-   "-m --multipage-config <configPath>",
-   "Filepath or URL to a multipage configuration file in JSON format."
+    "-c, --config <configPath>",
+    "Filepath or URL to a configuration file in JSON format."
+    )
+    .option(
+    "-m, --multipage-config <configPath>",
+    "Deprecated alias for --config."
+  )
+  .option(
+    "-s, --style <stylePath>",
+    "Filepath or URL to a CSS file. Overrides config style and default.css."
+  )
+  .option(
+    "--stye <stylePath>",
+    "Deprecated alias for --style."
   )
  
   
@@ -161,11 +205,15 @@ program
       return;
     }
     
-    // Fix the multipage config handling
+    // Load optional config (preferred --config, deprecated --multipage-config)
     let configData = null;
-    if (options.multipageConfig) {
-      const configFile = options.multipageConfig;
-      console.log(`Using multipage configuration from ${configFile}`);
+    let configFilePath = null;
+    const configFile = options.config || options.multipageConfig;
+    if (options.multipageConfig && !options.config) {
+      console.warn("Warning: -m/--multipage-config is deprecated. Use -c/--config instead.");
+    }
+    if (configFile) {
+      console.log(`Using configuration from ${configFile}`);
       
       if (!fs.existsSync(configFile)) {
         console.error(`Error: Config file not found: ${configFile}`);
@@ -175,6 +223,7 @@ program
       try {
         const configContent = fs.readFileSync(configFile, "utf8");
         configData = JSON.parse(configContent); // Parse the JSON content
+        configFilePath = configFile;
       } catch (error) {
         console.error(`Error reading/parsing config file: ${error.message}`);
         return;
@@ -188,6 +237,29 @@ program
     await crate.resolveContext();
     
     const layout = await findLayout(crate, options.layout);
+
+    // Determine CSS source with precedence:
+    // 1) CLI --style / --stye, 2) config "style" (or root.style), 3) default.css
+    const defaultStylePath = path.join(__dirname, "default.css");
+    const cliStyle = options.style || options.stye || null;
+    const configStyle = configData && (configData.style || (configData.root && configData.root.style))
+      ? (configData.style || configData.root.style)
+      : null;
+
+    const stylePath = cliStyle
+      ? resolveStylePath(cliStyle, process.cwd())
+      : configStyle
+        ? resolveStylePath(configStyle, configFilePath ? path.dirname(configFilePath) : process.cwd())
+        : defaultStylePath;
+
+    let styleText = "";
+    try {
+      styleText = await loadStyleText(stylePath);
+      console.log(`Using style from ${stylePath}`);
+    } catch (error) {
+      console.error(`Error loading style: ${error.message}`);
+      return;
+    }
 
     // Pass the parsed config data and resolved layout
     const crateLite = {
@@ -205,7 +277,7 @@ program
       }
     }
 
-    if (options.multipageConfig) {
+    if (configFile) {
 
       template = fs.readFileSync(configData.root.template, "utf8");
       if (configData.multipage !== false) {
@@ -222,7 +294,7 @@ program
           console.log(`Rendering page for entity ${entityId} using template ${pageDetails.template}`);
           const pageTemplate = fs.readFileSync(pageDetails.template, "utf8");
 
-          const html = renderTemplate(pageData, pageTemplate, layout);
+          const html = renderTemplate(pageData, pageTemplate, layout, styleText);
 
           const outputPath = path.join(cratePath, pageDetails.path);
           const outputDir = path.dirname(outputPath);
@@ -236,7 +308,7 @@ program
         }
       }
     } 
-    const html = renderTemplate(crateLite, template, layout);
+    const html = renderTemplate(crateLite, template, layout, styleText);
     fs.writeFileSync(
       path.join(cratePath, "ro-crate-preview.html"),
       html,

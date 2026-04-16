@@ -22,11 +22,40 @@ Arguments:
 path_to_crate_directory     Path to the crate directory.
 
 Options:
--l, --layout <layoutPath>   Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use raw link if URL is from GitHub. (Default: "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json")
+-l, --layout <layoutPath>   Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout (input groups) instead of the default or the one present in the crate. Use raw link if URL is from GitHub. (Default: "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json")
 
--m, --multipage-config <configPath>  Filepath or URL to a multipage configuration file in JSON format.
+-c, --config <configPath>           Filepath or URL to a configuration file in JSON format.
+
+-m, --multipage-config <configPath> Deprecated alias for --config.
+
+-s, --style <stylePath>      Filepath or URL to a CSS file. Overrides config style and default.css.
+
+--stye <stylePath>           Deprecated alias for --style.
 
 -h, --help                  Display help for command.
+```
+
+### CSS loading
+
+CSS is loaded by the generator and injected into the HTML template (not linked with a stylesheet URL).
+
+Style resolution order:
+
+1. CLI `--style` (or deprecated `--stye`)
+2. Config `style` (or `root.style`)
+3. `default.css` in project root
+
+Examples:
+
+```bash
+# Use default.css
+node index.js test_data/COOEE/crate
+
+# Use style from config
+node index.js -c test_data/oral-history/oral-history-single-page-config.json test_data/oral-history/crate
+
+# Override style from CLI
+node index.js --style test_data/oral-history/oral-history-blue.css test_data/COOEE/crate
 ```
 
 ### About Page
@@ -63,19 +92,19 @@ node index.js test_data/sample/crate
 Sample crate with tabular summary and no multipage output:
 
 ```
-node index.js -m test_data/sample/sample-config.json test_data/sample/crate
+node index.js -c test_data/sample/sample-config.json test_data/sample/crate
 ```
 
-Farms to freeways -- multipages 
+Farms to freeways -- multiple pages  
 
 ```
-node index.js  -m test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
+node index.js -c test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
 ```
 
 ### Optional tabular summary settings for multipage configs
 
-You can add a `tabular` block to a multipage config to generate a reusable
-table summary on the root page.
+You can add a `tabular` block to a multipage config to generate 
+tablular summary on the root page.
 
 ```json
 {
@@ -96,12 +125,42 @@ table summary on the root page.
 }
 ```
 
+You can also provide explicit per-type navigation and columns with `navigationByType`:
+
+```json
+{
+    "multipage": false,
+    "style": "oral-history-blue.css",
+    "root": {"template": "template.html"},
+    "navigationByType": {
+        "http://pcdm.org/models#Collection": [
+            {"uri": "http://schema.org/name", "label": "Collection name"},
+            {"uri": "http://schema.org/description", "label": "Collection description"},
+            {"uri": "http://schema.org/about", "label": "Collection subjects"},
+            {"uri": "https://schema.org/holdingArchive", "label": "Collection holder"},
+            {"uri": "http://schema.org/author", "label": "Contributor"}
+        ]
+    },
+    "tabular": {
+        "mainNavType": "RepositoryCollection",
+        "columnLimit": 5,
+        "searchEnabled": true,
+        "columnSearchEnabled": false,
+        "includeFallbackColumns": true
+    }
+}
+```
+
 How columns are chosen:
 
 - Column order follows `inputGroups` from the resolved layout.
+- If `navigationByType` is present, dropdown order follows config order.
 - Columns with no values for that type are skipped.
 - If `includeFallbackColumns` is `true`, extra populated properties not listed in `inputGroups` can be appended.
 - `columnLimit` caps the number of columns shown in the summary table.
+- `columnSearchEnabled` enables per-column search inputs in the table header.
+
+`navigationByType` accepts full type URIs. Matching includes a local-name fallback so equivalent URI variants (for example `http`/`https`) still resolve.
 
 If you want tabular summaries without generating per-entity pages, set:
 
@@ -109,7 +168,12 @@ If you want tabular summaries without generating per-entity pages, set:
 "multipage": false
 ```
 
-in the multipage config file.
+in the config file.
+
+### Demo styles
+
+- Default style: `default.css`
+- Oral-history blue demo: `test_data/oral-history/oral-history-blue.css`
 
 ## Contributing
 

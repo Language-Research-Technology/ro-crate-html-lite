@@ -456,6 +456,77 @@ describe("preview.js", function () {
         "Dataset tabular rows should be present"
       );
     });
+
+    it("should deduplicate reciprocal hasPart/isPartOf and hasMember/memberOf pairs", async function () {
+      const crateData = {
+        "@context": "https://w3id.org/ro/crate/1.1/context",
+        "@graph": [
+          {
+            "@id": "ro-crate-metadata.json",
+            "@type": "CreativeWork",
+            about: { "@id": "./" },
+            conformsTo: { "@id": "https://w3id.org/ro/crate/1.1" },
+          },
+          {
+            "@id": "./",
+            "@type": ["Dataset"],
+            name: "Reciprocal test root",
+            hasPart: { "@id": "file-1.txt" },
+            "pcdm:hasMember": { "@id": "#object-1" },
+          },
+          {
+            "@id": "file-1.txt",
+            "@type": ["File"],
+            isPartOf: { "@id": "./" },
+          },
+          {
+            "@id": "#object-1",
+            "@type": ["RepositoryObject"],
+            "pcdm:memberOf": { "@id": "./" },
+          },
+        ],
+      };
+
+      const crate = new ROCrate(crateData, { array: true, link: true });
+      await crate.resolveContext();
+
+      const result = await roCrateToJSON(crate, null, []);
+
+      const root = result.ids["./"];
+      const file = result.ids["file-1.txt"];
+      const repoObject = result.ids["#object-1"];
+
+      assert.ok(root, "Root entity should exist");
+      assert.ok(file, "File entity should exist");
+      assert.ok(repoObject, "RepositoryObject entity should exist");
+
+      assert.ok(root.props["http://schema.org/hasPart"], "Root should keep hasPart");
+      assert.ok(
+        !root.props["http://schema.org/isPartOf"],
+        "Root should not also include reciprocal isPartOf"
+      );
+
+      assert.ok(file.props["http://schema.org/isPartOf"], "File should keep isPartOf");
+      assert.ok(
+        !file.props["http://schema.org/hasPart"],
+        "File should not also include reciprocal hasPart"
+      );
+
+      assert.ok(root.props["http://pcdm.org/models#hasMember"], "Root should keep pcdm:hasMember");
+      assert.ok(
+        !root.props["http://pcdm.org/models#memberOf"],
+        "Root should not also include reciprocal pcdm:memberOf"
+      );
+
+      assert.ok(
+        repoObject.props["http://pcdm.org/models#memberOf"],
+        "RepositoryObject should keep pcdm:memberOf"
+      );
+      assert.ok(
+        !repoObject.props["http://pcdm.org/models#hasMember"],
+        "RepositoryObject should not also include reciprocal pcdm:hasMember"
+      );
+    });
   });
 });
 

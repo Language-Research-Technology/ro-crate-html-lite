@@ -32,6 +32,8 @@ Options:
 
 --stye <stylePath>           Deprecated alias for --style.
 
+--rm                         Remove ro-crate-preview.html and ro-crate-preview_html directory from the crate.
+
 -h, --help                  Display help for command.
 ```
 

@@ -191,6 +191,7 @@
 
       .entity-header-row {
         width: 100%;
+        box-sizing: border-box;
         padding: 8px 80px 10px 40px;
         background-color: var(--surface-header);
         color: var(--text-strong);

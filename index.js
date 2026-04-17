@@ -148,6 +148,153 @@ function resolveStylePath(stylePath, baseDir) {
   return path.resolve(baseDir, stylePath);
 }
 
+function getReadableLabel(uri) {
+  if (!uri || typeof uri !== "string") {
+    return "";
+  }
+  const hashSplit = uri.split("#");
+  if (hashSplit.length > 1 && hashSplit[1]) {
+    return hashSplit[1];
+  }
+  const slashSplit = uri.split("/");
+  return slashSplit[slashSplit.length - 1] || uri;
+}
+
+function resolveTermUri(crate, term) {
+  let uri = crate.resolveTerm(term) || term;
+  if (
+    uri === term &&
+    typeof term === "string" &&
+    !term.startsWith("@") &&
+    !term.includes(":") &&
+    !term.startsWith("http://") &&
+    !term.startsWith("https://")
+  ) {
+    uri = `http://schema.org/${term}`;
+  }
+  return uri;
+}
+
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function isPlainObject(value) {
+  return !!value && typeof value === "object" && !Array.isArray(value);
+}
+
+function mergeMissingObjectKeys(target, source) {
+  const merged = isPlainObject(target) ? cloneJson(target) : {};
+
+  for (const [key, value] of Object.entries(source || {})) {
+    if (!(key in merged)) {
+      merged[key] = cloneJson(value);
+      continue;
+    }
+    if (isPlainObject(merged[key]) && isPlainObject(value)) {
+      merged[key] = mergeMissingObjectKeys(merged[key], value);
+    }
+  }
+
+  return merged;
+}
+
+function mergeTermMapping(existing, generated) {
+  const merged = isPlainObject(existing) ? cloneJson(existing) : {};
+  for (const [uri, generatedEntry] of Object.entries(generated || {})) {
+    if (!(uri in merged)) {
+      merged[uri] = cloneJson(generatedEntry);
+      continue;
+    }
+    if (isPlainObject(merged[uri]) && isPlainObject(generatedEntry)) {
+      merged[uri] = mergeMissingObjectKeys(merged[uri], generatedEntry);
+    }
+  }
+  return merged;
+}
+
+function mergeGeneratedConfig(existingConfig, generatedConfig) {
+  const existing = isPlainObject(existingConfig) ? cloneJson(existingConfig) : {};
+  const generated = isPlainObject(generatedConfig) ? generatedConfig : {};
+
+  const merged = mergeMissingObjectKeys(existing, generated);
+
+  // Always merge term mappings additively, preserving user edits.
+  merged.termMapping = mergeTermMapping(existing.termMapping, generated.termMapping);
+
+  // Add discovered/passed input groups only when absent.
+  if (!("inputGroups" in existing) && Array.isArray(generated.inputGroups)) {
+    merged.inputGroups = cloneJson(generated.inputGroups);
+  }
+
+  return merged;
+}
+
+function buildGeneratedConfig(crate, inputGroups = []) {
+  const classUriToDefaultLabel = new Map();
+  const propertyUriSet = new Set();
+
+  for (const entity of crate.entities()) {
+    const types = Array.isArray(entity["@type"]) ? entity["@type"] : [];
+    for (const typeTerm of types) {
+      const typeUri = resolveTermUri(crate, typeTerm);
+      if (!classUriToDefaultLabel.has(typeUri)) {
+        classUriToDefaultLabel.set(typeUri, typeTerm || getReadableLabel(typeUri));
+      }
+    }
+
+    for (const prop of Object.keys(entity)) {
+      if (["@id", "@type", "@reverse"].includes(prop)) {
+        continue;
+      }
+      propertyUriSet.add(resolveTermUri(crate, prop));
+    }
+
+    if (entity["@reverse"]) {
+      for (const reverseProp of Object.keys(entity["@reverse"])) {
+        propertyUriSet.add(resolveTermUri(crate, reverseProp));
+      }
+    }
+  }
+
+  const classUris = [...classUriToDefaultLabel.keys()].sort((a, b) => a.localeCompare(b));
+  const propertyUris = [...propertyUriSet].sort((a, b) => a.localeCompare(b));
+
+  const navigationByType = {};
+  for (const classUri of classUris) {
+    navigationByType[classUri] = [];
+  }
+
+  const allUris = [...new Set([...classUris, ...propertyUris])].sort((a, b) => a.localeCompare(b));
+  const termMapping = {};
+  for (const uri of allUris) {
+    const defaultLabel = classUriToDefaultLabel.get(uri) || getReadableLabel(uri);
+    termMapping[uri] = {
+      defaultLabel,
+      customLabel: "",
+    };
+  }
+
+  return {
+    multipage: false,
+    style: "",
+    root: {
+      template: "template.html",
+    },
+    inputGroups: Array.isArray(inputGroups) ? cloneJson(inputGroups) : [],
+    navigationByType,
+    tabular: {
+      mainNavType: "",
+      columnLimit: 5,
+      searchEnabled: true,
+      columnSearchEnabled: false,
+      includeFallbackColumns: true,
+      hideColumns: [],
+    },
+    termMapping,
+  };
+}
+
 async function loadStyleText(stylePath) {
   if (!stylePath) {
     return "";
@@ -190,12 +337,41 @@ program
     "--stye <stylePath>",
     "Deprecated alias for --style."
   )
+  .option(
+    "--generate-config <configPath>",
+    "Generate a starter config file with empty structure and termMapping for crate class/property URIs."
+  )
+  .option(
+    "--rm",
+    "Remove ro-crate-preview.html and ro-crate-preview_html directory from the crate."
+  )
  
   
 
   .action(async (cratePath, options) => {
     if (!fs.existsSync(cratePath) || !fs.lstatSync(cratePath).isDirectory()) {
       console.error(`Error: ${cratePath} is not a valid directory`);
+      return;
+    }
+
+    if (options.rm) {
+      const previewHtmlPath = path.join(cratePath, "ro-crate-preview.html");
+      const previewHtmlDirPath = path.join(cratePath, "ro-crate-preview_html");
+
+      let removed = false;
+      if (fs.existsSync(previewHtmlPath)) {
+        fs.unlinkSync(previewHtmlPath);
+        console.log(`Removed ${previewHtmlPath}`);
+        removed = true;
+      }
+      if (fs.existsSync(previewHtmlDirPath)) {
+        fs.rmSync(previewHtmlDirPath, { recursive: true, force: true });
+        console.log(`Removed ${previewHtmlDirPath}`);
+        removed = true;
+      }
+      if (!removed) {
+        console.log("No preview files found to remove.");
+      }
       return;
     }
     
@@ -235,8 +411,42 @@ program
     var template = fs.readFileSync(templateFile, "utf8");
     const crate = new ROCrate(metadata, { array: true, link: true });
     await crate.resolveContext();
+
+    if (options.generateConfig) {
+      const outputConfigPath = path.resolve(process.cwd(), options.generateConfig);
+      const layout = await findLayout(crate, options.layout);
+      const generatedConfig = buildGeneratedConfig(crate, layout);
+      const outputDir = path.dirname(outputConfigPath);
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
+
+      if (fs.existsSync(outputConfigPath)) {
+        try {
+          const existing = JSON.parse(fs.readFileSync(outputConfigPath, "utf8"));
+          const merged = mergeGeneratedConfig(existing, generatedConfig);
+          fs.writeFileSync(outputConfigPath, JSON.stringify(merged, null, 2), "utf8");
+          console.log(`Updated config at ${outputConfigPath} with missing generated fields.`);
+        } catch (error) {
+          console.error(`Error reading/parsing existing config file: ${error.message}`);
+          return;
+        }
+      } else {
+        fs.writeFileSync(outputConfigPath, JSON.stringify(generatedConfig, null, 2), "utf8");
+        console.log(`Generated starter config at ${outputConfigPath}`);
+      }
+      return;
+    }
     
-    const layout = await findLayout(crate, options.layout);
+    let layout;
+    if (options.layout) {
+      layout = await findLayout(crate, options.layout);
+    } else if (configData && Array.isArray(configData.inputGroups) && configData.inputGroups.length > 0) {
+      layout = configData.inputGroups;
+      console.log("Using inputGroups from config.");
+    } else {
+      layout = await findLayout(crate, options.layout);
+    }
 
     // Determine CSS source with precedence:
     // 1) CLI --style / --stye, 2) config "style" (or root.style), 3) default.css

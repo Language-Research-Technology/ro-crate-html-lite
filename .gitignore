@@ -131,3 +131,6 @@ dist
 
 .DS_Store
 **/.DS_Store
+
+# Local test crate data (not tracked)
+test_data/oral-history/crate/

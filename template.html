@@ -106,9 +106,25 @@
           `${found - 1} /  ${count - 1}`;
       }
 
+      window.addEventListener("beforeunload", function () {
+        try {
+          sessionStorage.setItem("showRootOverlayOnNextLoad", "1");
+        } catch (e) {
+          // Ignore storage errors in restricted browser contexts.
+        }
+      });
+
       document.addEventListener("DOMContentLoaded", function () {
         var rootOverlay = document.getElementById("root_entity_overlay");
-        if (rootOverlay && !window.location.hash) {
+        var shouldShowRootFromReload = false;
+        try {
+          shouldShowRootFromReload = sessionStorage.getItem("showRootOverlayOnNextLoad") === "1";
+          sessionStorage.removeItem("showRootOverlayOnNextLoad");
+        } catch (e) {
+          // Ignore storage errors in restricted browser contexts.
+        }
+
+        if (rootOverlay && (shouldShowRootFromReload || !window.location.hash)) {
           window.location.hash = "#root_entity_overlay";
         }
 
@@ -156,6 +172,20 @@
         // Handle per-column searches
         document.querySelectorAll(".tabular-col-search").forEach(function (input) {
           input.addEventListener("input", applyTabularFilters);
+        });
+
+        // Close summary overlay when clicking outside the panel, matching close-button behavior.
+        document.querySelectorAll(".entity").forEach(function (overlay) {
+          overlay.addEventListener("click", function (event) {
+            if (event.target.closest(".entity-panel")) {
+              return;
+            }
+            var closeTarget = overlay.getAttribute("data-close-target");
+            if (!closeTarget) {
+              return;
+            }
+            window.location.hash = "#" + encodeURIComponent(closeTarget);
+          });
         });
       });
     </script>
@@ -259,7 +289,7 @@
         <option value="disabled selected">Select a type</option>
         {%- for type, list in data.types %}
           {%- if type != "File" %}
-            <option value="#types_{{ type }}">{{ type }}</option>
+            <option value="#types_{{ type }}">{{ data.typeLabels[type] or type }}</option>
           {%- endif %}
         {%- endfor %}
       </select>
@@ -470,7 +500,7 @@
 
     {%- macro showType(type) %}
       <!--<a href="#types_{{ type }}" class="type"></a>-->
-      {{ type | replace(r/.*:/) }}
+      {{ data.typeLabels[type] or type | replace(r/.*:/) }}
       {{ infoLink(data.typeUrls[type]) }}
     {%- endmacro %}
 
@@ -486,7 +516,7 @@
       <!-- Heading Section -->
       {%- set effectiveAnchorId = anchorId if anchorId else item.id %}
       {%- set effectiveCloseTargetId = closeTargetId if closeTargetId else data.entryPoint %}
-      <div id="{{ effectiveAnchorId | urlencode }}" class="{{ class }}">
+      <div id="{{ effectiveAnchorId | urlencode }}" class="{{ class }}" data-close-target="{{ effectiveCloseTargetId }}">
         {%- if class == "entity" %}<div class="entity-panel">{%- endif %}
         <div class="entity-header-row">
           {%- if class == "entity" %}

@@ -558,6 +558,72 @@ describe("preview.js", function () {
         "RepositoryObject should not also include reciprocal pcdm:hasMember"
       );
     });
+
+    it("should apply termMapping custom labels for properties, columns, and type nav labels", async function () {
+      const crateData = JSON.parse(
+        fs.readFileSync("test_data/oral-history/crate/ro-crate-metadata.json", "utf8")
+      );
+      const crate = new ROCrate(crateData, { array: true, link: true });
+      await crate.resolveContext();
+
+      const config = {
+        multipage: false,
+        root: { template: "template.html" },
+        navigationByType: {
+          "http://pcdm.org/models#Collection": [
+            { uri: "http://schema.org/name" },
+          ],
+        },
+        tabular: {
+          mainNavType: "http://pcdm.org/models#Collection",
+          searchEnabled: true,
+          columnSearchEnabled: false,
+        },
+        termMapping: {
+          "http://pcdm.org/models#Collection": {
+            defaultLabel: "RepositoryCollection",
+            customLabel: "Collection Group",
+          },
+          "http://schema.org/name": {
+            defaultLabel: "name",
+            customLabel: "Display Name",
+          },
+        },
+      };
+
+      const result = await roCrateToJSON(crate, config, []);
+
+      const root = result.ids[result.entryPoint];
+      assert.ok(root, "Root entity should exist");
+      assert.equal(
+        root.props["http://schema.org/name"].label,
+        "Display Name",
+        "Property label should use termMapping customLabel"
+      );
+
+      const collectionTable = result.tabular.types.RepositoryCollection;
+      assert.ok(collectionTable, "RepositoryCollection tabular entries should exist");
+      assert.equal(
+        collectionTable.columns[0].label,
+        "Display Name",
+        "Configured column label fallback should use termMapping customLabel"
+      );
+
+      const navItem = result.tabular.navItems.find((item) => item.type === "RepositoryCollection");
+      assert.ok(navItem, "RepositoryCollection nav item should exist");
+      assert.match(
+        navItem.label,
+        /^Collection Group \(\d+\)$/,
+        "Type nav label should use mapped custom class label"
+      );
+
+      assert.ok(result.tabular.typeLabels, "typeLabels mapping should exist in tabular data");
+      assert.equal(
+        result.tabular.typeLabels.RepositoryCollection,
+        "Collection Group",
+        "typeLabels should contain mapped custom type label for use in templates"
+      );
+    });
   });
 });
 

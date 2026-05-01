@@ -7,10 +7,26 @@
       Sample dataset for RO-Crate v1.1
     </title>
     <style>
+      :root {
+        --surface-page: #f6f8f7;
+        --surface-panel: #fcfdfc;
+        --surface-header: #e9efec;
+        --surface-header-entity: #f4f8f6;
+        --surface-accent: #dde7e2;
+        --surface-control: #e4ece8;
+        --surface-control-hover: #d8e3dd;
+        --text-strong: #111111;
+        --link-color: #2f6197;
+        --link-color-hover: #244d79;
+        --link-dot-color: #a9bfd8;
+      }
+
       body {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 1vw;
         margin: 0;
+        background: var(--surface-page);
+        color: var(--text-strong);
       }
       h3 {
         font-size: 0.6em;
@@ -26,7 +42,7 @@
       }
       .long {
         overflow: scroll;
-        max-height: 10em;
+        max-height: 22em;
       }
       .entity {
         display: none;
@@ -36,26 +52,25 @@
         z-index: 3000;
         padding: 2vh 3.5vw;
         overflow: auto;
-        background: rgba(0, 0, 0, 0.45);
+        background: rgba(67, 92, 82, 0.18);
       }
       .entity:target {
         display: block;
       }
 
       .entity-panel {
-        background: #ffffff;
+        background: var(--surface-panel);
         min-height: 96vh;
         max-width: 1400px;
         margin: 0 auto;
         overflow-x: hidden;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 10px 26px rgba(17, 17, 17, 0.14);
       }
 
-      .entity a {
-        text-decoration: underline dotted 2px;
+      .entity a:not(.entity-close):not(.home-close-button) {
+        text-decoration: none;
         line-height: 2em;
-        text-underline-offset: 5px;
-        color: #000;
+        color: var(--link-color);
       }
 
       .entity-grid {
@@ -114,27 +129,50 @@
       }
 
       .button-left a::before {
-        content: "⏴";
-        font-size: 1.2em;
+        content: "\2039";
+        font-size: 1em;
+        font-weight: 400;
+        color: #7f90a3;
       }
 
       .button-right a::after {
-        content: "⏵";
-        font-size: 1.2em;
+        content: "\203A";
+        font-size: 1em;
+        font-weight: 400;
+        color: #7f90a3;
       }
 
       .button-left a,
       .button-right a {
-        text-decoration: underline dotted 2px;
+        text-decoration: none;
         line-height: 2em;
-        text-underline-offset: 5px;
         transition: all 0.3s ease-in;
-        color: #000000;
+        color: var(--link-color);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2em;
+        white-space: nowrap;
       }
 
       .button-left a:hover,
       .button-right a:hover {
-        color: #4e4e4e;
+        color: var(--link-color-hover);
+      }
+
+      .entity .property-value .button-left a,
+      .entity .property-value .button-right a {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 62ch;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .entity .property-value .long {
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
       }
 
       .property-grid {
@@ -154,31 +192,61 @@
       }
 
       .property-row a {
-        text-decoration: underline dotted 2px;
+        text-decoration: none;
         line-height: 2em;
-        text-underline-offset: 5px;
         transition: all 0.3s ease-in;
-        color: #000000;
+        color: var(--link-color);
       }
 
       .entity-header-row {
         width: 100%;
-        padding: 12px 15px 16px;
-        background-color: rgb(0, 0, 0);
-        color: #fff;
+        padding: 8px 80px 10px 40px;
+        background-color: var(--surface-header);
+        color: var(--text-strong);
         font-size: 2em;
         font-weight: bold;
-        text-align: center;
+        text-align: left;
         position: relative;
+        border-bottom: 1px solid #cfdad4;
+      }
+
+      .entity-header-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .entity-header-home {
+        flex: 1 1 auto;
+        min-width: 220px;
+        text-align: left;
+      }
+
+      .entity-header-types {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 2px auto 0;
+        text-align: center;
+        padding: 0 80px;
       }
 
       .entity .entity-header-row {
         position: sticky;
         top: 0;
         z-index: 2;
-        background: #ffffff;
-        color: #111111;
-        border-bottom: 1px solid #d9d9d9;
+        background: var(--surface-header-entity);
+        color: var(--text-strong);
+        border-bottom: 1px solid #d3ddd8;
+        padding-right: 72px;
+      }
+
+      .entity .entity-header-types {
+        padding: 0 55px;
       }
 
       .entity .entity-header-row a {
@@ -194,33 +262,74 @@
 
       .entity-close {
         position: absolute;
-        top: 10px;
-        right: 14px;
-        color: #111111;
+        top: 12px;
+        right: 16px;
+        color: var(--text-strong);
         text-decoration: none;
-        font-size: 0.5em;
+        font-size: 18px;
         font-weight: 700;
         line-height: 1;
-        border: 1px solid #111111;
-        background: #ffffff;
-        border-radius: 3px;
-        padding: 6px 10px;
+        border: 1px solid #aebbb5;
+        background: var(--surface-control);
+        border-radius: 999px;
+        width: 34px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
         z-index: 5;
       }
 
       .entity-close:hover {
-        background: #111111;
-        color: #ffffff;
+        background: var(--surface-control-hover);
+        border-color: #9dafa7;
+        color: var(--text-strong);
+      }
+
+      .entity-close:focus-visible {
+        outline: 2px solid #111111;
+        outline-offset: 2px;
       }
 
       .entity-header-row h2 {
         align-items: center;
         text-align: center;
         line-height: 1.1em;
-        margin: 8px auto 0;
+        margin: 4px auto 0;
         justify-content: center; /* Center horizontally */
         font-size: 0.75em;
         max-width: 90%;
+      }
+
+      .entity-header-row h2.id {
+        margin-top: 4px;
+        font-size: 0.42em;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+
+      .root-description {
+        max-width: 72vw;
+        margin: 4px auto 0;
+        font-size: 0.42em;
+        line-height: 1.45;
+        font-weight: 400;
+        text-align: center;
+        display: block;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .root-more-link {
+        margin-top: 3px;
+        text-align: center;
+      }
+
+      .root-more-link a {
+        font-size: 0.44em;
+        color: var(--link-color);
+        text-decoration-color: var(--link-dot-color);
       }
 
       .entity-header-row .info {
@@ -229,20 +338,50 @@
       }
 
       .entity-header-row a {
-        color: #fff;
+        color: var(--text-strong);
         text-decoration: none;
         font-size: 0.5em;
         font-weight: bold;
         line-height: 1.25;
         margin-top: 0;
         padding-top: 0;
-        text-decoration: underline dotted 2px;
-        text-underline-offset: 5px;
       }
 
-      .entity-header-row p {
-        font-size: 0.6em;
+      .entity-header-row a:not(.entity-close):not(.home-close-button) {
+        color: var(--link-color);
+        text-decoration-color: var(--link-dot-color);
+      }
+
+      .entity-header-types p {
+        font-size: 0.45em;
         display: inline;
+      }
+
+      .home-link {
+        margin: 0;
+        text-align: left;
+      }
+
+      .home-link .home-close-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 11px;
+        border-radius: 999px;
+        border: 1px solid currentColor;
+        background: transparent;
+        text-decoration: none;
+        font-size: 0.46em;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .home-link .home-close-button:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .entity .home-link .home-close-button:hover {
+        background: rgba(0, 0, 0, 0.06);
       }
 
       .entity-identifier {
@@ -290,8 +429,11 @@
       }
 
       .entity .property-row {
-        padding: 6px 12px;
+        padding: 6px 8px;
+        justify-content: flex-start;
         align-items: flex-start;
+        flex-wrap: nowrap;
+        gap: 0;
       }
 
       .entity .property-name,
@@ -300,11 +442,16 @@
       }
 
       .entity .property-name {
-        padding-right: 12px;
+        flex: 0 0 24%;
+        max-width: 24%;
+        padding-right: 4px;
       }
 
       .entity .property-value {
+        flex: 1 1 76%;
+        min-width: 0;
         line-height: 1.25;
+        margin-left: 0;
       }
 
       .property-header-row {
@@ -322,6 +469,9 @@
         text-transform: capitalize;
       }
       .property-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
         background-color: #ffffff;
       }
 
@@ -356,7 +506,7 @@
         width: 100%;
         display: flex;
         padding: 2px 0px;
-        background-color: #6c6a6a;
+        background-color: var(--surface-accent);
       }
 
       .section_head h2 {
@@ -364,16 +514,17 @@
         margin: 0 auto;
         font-size: 1.05em;
         line-height: 1.2;
-        color: #fff;
+        color: var(--text-strong);
       }
 
       .browse {
         display: flex;
         flex-direction: column;
-        width: 72%;
+        width: calc(100% - 24px);
+        max-width: none;
         margin: 0 auto;
         justify-content: center;
-        align-items: center;
+        align-items: stretch;
         margin-bottom: 12px;
         margin-top: 6px;
       }
@@ -435,15 +586,115 @@
         background-color: #f3f3f3;
       }
 
+      .tabular-table td a {
+        color: var(--link-color);
+        text-decoration: none;
+      }
+
+      .tabular-table td a:hover {
+        color: var(--link-color-hover);
+      }
+
+      .table-cell-long {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 0.9em;
+      }
+
+      .table-cell-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .table-cell-search {
+        padding: 4px 6px;
+        border: 1px solid #bbb;
+        font-size: 0.85em;
+        flex: 1 1 auto;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+
+      .table-cell-count {
+        font-size: 0.8em;
+        color: #666;
+        white-space: nowrap;
+      }
+
+      .table-cell-values {
+        position: relative;
+        max-height: 150px;
+        overflow-y: scroll;
+        border: 1px solid #ddd;
+        padding: 4px;
+        background-color: #fafafa;
+        scrollbar-gutter: stable;
+        scrollbar-width: auto;
+        scrollbar-color: #9bb0c6 #e8edf2;
+        box-shadow:
+          inset 0 10px 8px -10px rgba(77, 102, 126, 0.45),
+          inset 0 -10px 8px -10px rgba(77, 102, 126, 0.45);
+      }
+
+      .table-cell-values::after {
+        content: "scroll";
+        position: sticky;
+        bottom: 2px;
+        left: calc(100% - 44px);
+        display: inline-block;
+        font-size: 0.68em;
+        line-height: 1;
+        color: #7f97b1;
+        background: rgba(250, 250, 250, 0.9);
+        padding: 1px 4px;
+        border-radius: 4px;
+        pointer-events: none;
+      }
+
+      .table-cell-values::-webkit-scrollbar {
+        width: 11px;
+      }
+
+      .table-cell-values::-webkit-scrollbar-track {
+        background: #e8edf2;
+      }
+
+      .table-cell-values::-webkit-scrollbar-thumb {
+        background: #9bb0c6;
+        border-radius: 8px;
+        border: 2px solid #e8edf2;
+      }
+
+      .table-cell-values::-webkit-scrollbar-thumb:hover {
+        background: #7f97b1;
+      }
+
+      .table-cell-item {
+        padding: 3px 6px;
+        margin: 2px 0;
+        line-height: 1.4;
+      }
+
+      .table-cell-item:hover {
+        background-color: #f0f0f0;
+      }
+
       .find_button {
-        background-color: #000000;
-        color: white !important;
+        background-color: var(--surface-control);
+        color: var(--text-strong) !important;
+        border: 1px solid #afbeb6;
         padding: 14px 25px;
         text-align: center;
         border-radius: 4px;
         text-decoration: none !important;
         display: inline-block;
         margin-left: 5px;
+      }
+
+      .find_button:hover {
+        background-color: var(--surface-control-hover);
       }
 
       .centered-files {
@@ -477,11 +728,14 @@
 
       select {
         all: unset;
-        max-width: 35%;
+        min-width: 18ch;
+        width: auto;
+        max-width: 100%;
         line-height: 1.5em;
         padding: 0.5em 3.5em 0.5em 1em;
         border-bottom: 1px solid #4e4e4e;
         background-color: #f1f1f1;
+        white-space: nowrap;
 
         /*This is the arrow */
         background-image:
@@ -496,6 +750,8 @@
           5px 5px,
           2.5em 2.5em;
         background-repeat: no-repeat;
+        display: inline-block;
+        box-sizing: border-box;
       }
 
       .drop-down {
@@ -513,10 +769,9 @@
       }
 
       .drop-down a {
-        text-decoration: underline dotted 2px;
+        text-decoration: none;
         line-height: 2em;
-        text-underline-offset: 5px;
-        color: #000;
+        color: var(--link-color);
       }
 
       iframe {
@@ -554,18 +809,26 @@
 .property-value button a:hover {
     color: #4e4e4e; 
 } */
+
     </style>
 
     <script>
       function applyTabularFilters() {
         var globalSearchInput = document.getElementById("tabularSearchInput");
         var globalQuery = globalSearchInput ? globalSearchInput.value.toLowerCase() : "";
-        var colQueries = Array.from(document.querySelectorAll(".tabular-col-search")).map(function (input) {
+
+        // Find current active table's body
+        var activeTableWrap = document.querySelector(".tabular-table-wrap.tabular-table-active");
+        if (!activeTableWrap) {
+          return;
+        }
+
+        // Only use column filters from the active table
+        var colQueries = Array.from(activeTableWrap.querySelectorAll(".tabular-col-search")).map(function (input) {
           return (input.value || "").toLowerCase();
         });
 
-        // Find current active table's body
-        var activeTableBody = document.querySelector(".tabular-table-active tbody");
+        var activeTableBody = activeTableWrap.querySelector("tbody");
         if (!activeTableBody) {
           return;
         }
@@ -602,6 +865,31 @@
         count.textContent = visible + " / " + rows.length;
       }
 
+      function filterTableCell(input) {
+        var container = input.closest(".table-cell-long");
+        if (!container) return;
+        
+        var searchText = input.value.toLowerCase();
+        var itemsContainer = container.querySelector(".table-cell-values");
+        var items = itemsContainer.querySelectorAll(".table-cell-item");
+        var visibleCount = 0;
+        
+        items.forEach(function(item) {
+          var itemText = item.textContent.toLowerCase();
+          if (itemText.indexOf(searchText) > -1) {
+            item.style.display = "";
+            visibleCount++;
+          } else {
+            item.style.display = "none";
+          }
+        });
+        
+        var countSpan = container.querySelector(".table-cell-visible");
+        if (countSpan) {
+          countSpan.textContent = visibleCount;
+        }
+      }
+
       function search(input) {
         li = input.parentNode.getElementsByTagName("div");
         filter = input.value.toUpperCase();
@@ -620,7 +908,28 @@
           `${found - 1} /  ${count - 1}`;
       }
 
+      window.addEventListener("beforeunload", function () {
+        try {
+          sessionStorage.setItem("showRootOverlayOnNextLoad", "1");
+        } catch (e) {
+          // Ignore storage errors in restricted browser contexts.
+        }
+      });
+
       document.addEventListener("DOMContentLoaded", function () {
+        var rootOverlay = document.getElementById("root_entity_overlay");
+        var shouldShowRootFromReload = false;
+        try {
+          shouldShowRootFromReload = sessionStorage.getItem("showRootOverlayOnNextLoad") === "1";
+          sessionStorage.removeItem("showRootOverlayOnNextLoad");
+        } catch (e) {
+          // Ignore storage errors in restricted browser contexts.
+        }
+
+        if (rootOverlay && (shouldShowRootFromReload || !window.location.hash)) {
+          window.location.hash = "#root_entity_overlay";
+        }
+
         var select = document.getElementById("tabularTypeSelect");
         var searchInput = document.getElementById("tabularSearchInput");
 
@@ -666,58 +975,73 @@
         document.querySelectorAll(".tabular-col-search").forEach(function (input) {
           input.addEventListener("input", applyTabularFilters);
         });
+
+        // Close summary overlay when clicking outside the panel, matching close-button behavior.
+        document.querySelectorAll(".entity").forEach(function (overlay) {
+          overlay.addEventListener("click", function (event) {
+            if (event.target.closest(".entity-panel")) {
+              return;
+            }
+            var closeTarget = overlay.getAttribute("data-close-target");
+            if (!closeTarget) {
+              return;
+            }
+            window.location.hash = "#" + encodeURIComponent(closeTarget);
+          });
+        });
       });
     </script>
   </head>
 
   <body>
+    <!--
+    -->
 
     
       <!-- Heading Section -->
-      <div id=".%2F" class="root">
+      <div id=".%2F" class="root" data-close-target="./">
         <div class="entity-header-row">
-          
-      <div class="home-link">
-        <a href="#.%2F" class="root">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-house-door-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
-            />
-          </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
-        </a>
-      </div>
-          <h2>
-              Sample dataset for RO-Crate v1.1
-            
-          </h2>
-            <span class="type">
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Dataset" class="type"></a>-->
       Dataset
       
           <span class="info"> <a href="http://schema.org/Dataset" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">./</h2>
+              >
           </div>
-            <p><a href="#root_entity_overlay">More...</a></p>
-          
+          <h2>
+              Sample dataset for RO-Crate v1.1
+            
+          </h2>
+              <p class="root-description">This is a simple dataset for demonstration purposes it contains just one image and a directory full of useless text files.</p>
+            <p class="root-more-link"><a href="#root_entity_overlay">More about this data</a></p>
         </div>
           <section class="browse">
             
       <div class="nav">
         <p>Browse by type of entity:</p>
-            <p>Dataset</p>
+          <select id="tabularTypeSelect">
+              <option value="File" selected>File (5)</option>
+              <option value="Organization" >Organization (4)</option>
+              <option value="DataDownload" >DataDownload (3)</option>
+              <option value="Dataset" >Dataset (3)</option>
+              <option value="CreateAction" >CreateAction (2)</option>
+              <option value="CreativeWork" >CreativeWork (2)</option>
+              <option value="ImageObject" >ImageObject (2)</option>
+              <option value="IndividualProduct" >IndividualProduct (2)</option>
+              <option value="website" >website (2)</option>
+              <option value="AboutPage" >AboutPage (1)</option>
+              <option value="ContactPoint" >ContactPoint (1)</option>
+              <option value="Geometry" >Geometry (1)</option>
+              <option value="Person" >Person (1)</option>
+              <option value="Place" >Place (1)</option>
+              <option value="ScholarlyArticle" >ScholarlyArticle (1)</option>
+              <option value="SoftwareApplication" >SoftwareApplication (1)</option>
+          </select>
         <!--
           <a href="#types_Dataset">Datasets in this crate</a>
     -->
@@ -729,6 +1053,407 @@
               <input id="tabularSearchInput" type="text" />
               <span class="tabular-count" id="tabularCount"></span>
             </div>
+            <div class="tabular-table-wrap" data-type="File">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>description</th>
+                      <th>about</th>
+                      <th>creator</th>
+                      <th>contentSize</th>
+                      <th>dateModified</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="about.md about.md  sample dataset for ro-crate v1.1  58 2025-10-01t12:30:03+10:00"
+                          data-col0="about.md"
+                          data-col1=""
+                          data-col2="sample dataset for ro-crate v1.1"
+                          data-col3=""
+                          data-col4="58"
+                          data-col5="2025-10-01t12:30:03+10:00">
+                        <td>
+        <a href="#about.md">
+          
+            about.md
+          
+        </a></td>
+                        <td>
+        
+          </td>
+                        <td>
+        <span class="button-right">
+          <a href="#.%2F">
+            Sample dataset for RO-Crate v1.1
+          </a>
+        </span></td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+          58
+        </td>
+                        <td>
+        
+          2025-10-01T12:30:03+10:00
+        </td>
+                    </tr>
+                    <tr data-full-text="pics/2017-06-11 12.56.14.jpg pics/2017-06-11 12.56.14.jpg depicts a fence at a disused motor racing venue with the front part of a slightly out of focus black dog in the foreground.  peter sefton 5114778 2021-04-21t11:27:03+10:00"
+                          data-col0="pics/2017-06-11 12.56.14.jpg"
+                          data-col1="depicts a fence at a disused motor racing venue with the front part of a slightly out of focus black dog in the foreground."
+                          data-col2=""
+                          data-col3="peter sefton"
+                          data-col4="5114778"
+                          data-col5="2021-04-21t11:27:03+10:00">
+                        <td>
+        <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+          
+            pics/2017-06-11 12.56.14.jpg
+          
+        </a></td>
+                        <td>
+        
+          Depicts a fence at a disused motor racing venue with the front part of a slightly out of focus black dog in the foreground.
+        </td>
+                        <td>
+        
+          </td>
+                        <td>
+        <span class="button-right">
+          <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+            Peter Sefton
+          </a>
+        </span></td>
+                        <td>
+        
+          5114778
+        </td>
+                        <td>
+        
+          2021-04-21T11:27:03+10:00
+        </td>
+                    </tr>
+                    <tr data-full-text="pics/sepia_fence.jpg pics/sepia_fence.jpg sepia tone version of my fence/dog pic  peter sefton 4855037 2021-04-21t11:27:03+10:00"
+                          data-col0="pics/sepia_fence.jpg"
+                          data-col1="sepia tone version of my fence/dog pic"
+                          data-col2=""
+                          data-col3="peter sefton"
+                          data-col4="4855037"
+                          data-col5="2021-04-21t11:27:03+10:00">
+                        <td>
+        <a href="#pics%2Fsepia_fence.jpg">
+          
+            pics/sepia_fence.jpg
+          
+        </a></td>
+                        <td>
+        
+          Sepia tone version of my fence/dog pic
+        </td>
+                        <td>
+        
+          </td>
+                        <td>
+        <span class="button-right">
+          <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+            Peter Sefton
+          </a>
+        </span></td>
+                        <td>
+        
+          4855037
+        </td>
+                        <td>
+        
+          2021-04-21T11:27:03+10:00
+        </td>
+                    </tr>
+                    <tr data-full-text="pics/thumbs/2017-06-11 12.56.14.png pics/thumbs/2017-06-11 12.56.14.png    20594 2021-04-21t11:27:03+10:00"
+                          data-col0="pics/thumbs/2017-06-11 12.56.14.png"
+                          data-col1=""
+                          data-col2=""
+                          data-col3=""
+                          data-col4="20594"
+                          data-col5="2021-04-21t11:27:03+10:00">
+                        <td>
+        <a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png">
+          
+            pics/thumbs/2017-06-11 12.56.14.png
+          
+        </a></td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+          20594
+        </td>
+                        <td>
+        
+          2021-04-21T11:27:03+10:00
+        </td>
+                    </tr>
+                    <tr data-full-text="pics/thumbs/sepia_fence.png pics/thumbs/sepia_fence.png    20524 2021-04-21t11:27:03+10:00"
+                          data-col0="pics/thumbs/sepia_fence.png"
+                          data-col1=""
+                          data-col2=""
+                          data-col3=""
+                          data-col4="20524"
+                          data-col5="2021-04-21t11:27:03+10:00">
+                        <td>
+        <a href="#pics%2Fthumbs%2Fsepia_fence.png">
+          
+            pics/thumbs/sepia_fence.png
+          
+        </a></td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+          20524
+        </td>
+                        <td>
+        
+          2021-04-21T11:27:03+10:00
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="Organization">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>description</th>
+                      <th>funder</th>
+                      <th>address</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="australian national data service australian national data service the core purpose of the australian national data service (ands) is to make australia’s research data assets more valuable for researchers, research institutions and the nation. sample dataset for ro-crate v1.1, provisioner project "
+                          data-col0="australian national data service"
+                          data-col1="the core purpose of the australian national data service (ands) is to make australia’s research data assets more valuable for researchers, research institutions and the nation."
+                          data-col2="sample dataset for ro-crate v1.1, provisioner project"
+                          data-col3="">
+                        <td>
+        <a href="#http%3A%2F%2Fands.org.au">
+          
+            Australian National Data Service
+          
+        </a></td>
+                        <td>
+        
+          The core purpose of the Australian National Data Service (ANDS) is to make Australia’s research data assets more valuable for researchers, research institutions and the nation.
+        </td>
+                        <td>
+        
+            <span class="button-left">
+              <a href="#.%2F">
+                Sample dataset for RO-Crate v1.1
+              </a>
+            </span>, 
+            <span class="button-left">
+              <a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">
+                Provisioner Project
+              </a>
+            </span></td>
+                        <td>
+        
+          </td>
+                    </tr>
+                    <tr data-full-text="datacrate project datacrate project the datacrate project is to write the spec for datacrate, of which this is an example. the datacrate project is part of the university of technology sydney&#39;s provisioner project, which was part-funded by the australian national data service (ands) - now part of the australian research data commons (ardc). university of technology sydney, sample dataset for ro-crate v1.1 "
+                          data-col0="datacrate project"
+                          data-col1="the datacrate project is to write the spec for datacrate, of which this is an example. the datacrate project is part of the university of technology sydney&#39;s provisioner project, which was part-funded by the australian national data service (ands) - now part of the australian research data commons (ardc)."
+                          data-col2="university of technology sydney, sample dataset for ro-crate v1.1"
+                          data-col3="">
+                        <td>
+        <a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate">
+          
+            DataCrate Project
+          
+        </a></td>
+                        <td>
+        
+          The DataCrate project is to write the spec for DataCrate, of which this is an example. The DataCrate project is part of the University of Technology Sydney&#39;s Provisioner project, which was part-funded by the Australian National Data Service (ANDS) - now part of the Australian Research Data Commons (ARDC).
+        </td>
+                        <td>
+        
+            <span class="button-right">
+              <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+                University of Technology Sydney
+              </a>
+            </span>, 
+            <span class="button-left">
+              <a href="#.%2F">
+                Sample dataset for RO-Crate v1.1
+              </a>
+            </span></td>
+                        <td>
+        
+          </td>
+                    </tr>
+                    <tr data-full-text="provisioner project provisioner project the university of technology sydney provisioner project is  university of technology sydney, australian national data service "
+                          data-col0="provisioner project"
+                          data-col1="the university of technology sydney provisioner project is "
+                          data-col2="university of technology sydney, australian national data service"
+                          data-col3="">
+                        <td>
+        <a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">
+          
+            Provisioner Project
+          
+        </a></td>
+                        <td>
+        
+          The University of Technology Sydney Provisioner project is 
+        </td>
+                        <td>
+        
+            <span class="button-right">
+              <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+                University of Technology Sydney
+              </a>
+            </span>, 
+            <span class="button-right">
+              <a href="#http%3A%2F%2Fands.org.au">
+                Australian National Data Service
+              </a>
+            </span></td>
+                        <td>
+        
+          </td>
+                    </tr>
+                    <tr data-full-text="university of technology sydney university of technology sydney   broadway, 2007, nsw australia"
+                          data-col0="university of technology sydney"
+                          data-col1=""
+                          data-col2=""
+                          data-col3="broadway, 2007, nsw australia">
+                        <td>
+        <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+          
+            University of Technology Sydney
+          
+        </a></td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+        <div class="table-cell-long">
+          <div class="table-cell-values">
+                <div class="table-cell-item" data-text="sample dataset for ro-crate v1.1">
+                  <span class="button-left">
+                    <a href="#.%2F">
+                      Sample dataset for RO-Crate v1.1
+                    </a>
+                  </span>
+                </div>
+                <div class="table-cell-item" data-text="datacrate project">
+                  <span class="button-left">
+                    <a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate">
+                      DataCrate Project
+                    </a>
+                  </span>
+                </div>
+                <div class="table-cell-item" data-text="provisioner project">
+                  <span class="button-left">
+                    <a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">
+                      Provisioner Project
+                    </a>
+                  </span>
+                </div>
+          </div>
+        </div></td>
+                        <td>
+        
+          Broadway, 2007, NSW Australia
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="DataDownload">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>path</th>
+                      <th>encodingFormat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="#picsdistro  http://data.research.uts.edu.au "
+                          data-col0=""
+                          data-col1="http://data.research.uts.edu.au"
+                          data-col2="">
+                        <td>
+        <a href="#%23picsdistro">
+          
+            #picsdistro
+        </a></td>
+                        <td>
+        
+          http://data.research.uts.edu.au
+        </td>
+                        <td>
+        
+          </td>
+                    </tr>
+                    <tr data-full-text="https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip  https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip zip"
+                          data-col0=""
+                          data-col1="https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip"
+                          data-col2="zip">
+                        <td>
+        <a href="#https%3A%2F%2Fdata.research.uts.edu.au%2Fexamples%2Fro-crate%2Fexamples%2Fsrc%2Fdownloads%2Fsample.zip">
+          
+            https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip
+        </a></td>
+                        <td>
+        
+          https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip
+        </td>
+                        <td>
+        
+          zip
+        </td>
+                    </tr>
+                    <tr data-full-text="https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip  https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip zip"
+                          data-col0=""
+                          data-col1="https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip"
+                          data-col2="zip">
+                        <td>
+        <a href="#https%3A%2F%2Fwww.researchobject.org%2Fexample-ro-sample-image-crate%2Fdownload%2Fsample-crate.zip">
+          
+            https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip
+        </a></td>
+                        <td>
+        
+          https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip
+        </td>
+                        <td>
+        
+          zip
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="tabular-table-wrap" data-type="Dataset">
               <table class="tabular-table">
                 <thead>
@@ -739,10 +1464,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr data-full-text="pictures pictures this directory contains the images for the research project pics/2017-06-11 12.56.14.jpg, pics/sepia_fence.jpg, thumbnails, sample dataset for ro-crate v1.1"
+                    <tr data-full-text="pictures pictures this directory contains the images for the research project "
                           data-col0="pictures"
                           data-col1="this directory contains the images for the research project"
-                          data-col2="pics/2017-06-11 12.56.14.jpg, pics/sepia_fence.jpg, thumbnails, sample dataset for ro-crate v1.1">
+                          data-col2="">
                         <td>
         <a href="#pics%2F">
           
@@ -754,12 +1479,44 @@
           This directory contains the images for the research project
         </td>
                         <td>
-        </td>
+        
+        <div class="table-cell-long">
+          <div class="table-cell-values">
+                <div class="table-cell-item" data-text="pics/2017-06-11 12.56.14.jpg">
+                  <span class="button-right">
+                    <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+                      pics/2017-06-11 12.56.14.jpg
+                    </a>
+                  </span>
+                </div>
+                <div class="table-cell-item" data-text="pics/sepia_fence.jpg">
+                  <span class="button-right">
+                    <a href="#pics%2Fsepia_fence.jpg">
+                      pics/sepia_fence.jpg
+                    </a>
+                  </span>
+                </div>
+                <div class="table-cell-item" data-text="thumbnails">
+                  <span class="button-right">
+                    <a href="#pics%2Fthumbs%2F">
+                      Thumbnails
+                    </a>
+                  </span>
+                </div>
+                <div class="table-cell-item" data-text="sample dataset for ro-crate v1.1">
+                  <span class="button-left">
+                    <a href="#.%2F">
+                      Sample dataset for RO-Crate v1.1
+                    </a>
+                  </span>
+                </div>
+          </div>
+        </div></td>
                     </tr>
-                    <tr data-full-text="thumbnails thumbnails  pics/thumbs/2017-06-11 12.56.14.png, pics/thumbs/sepia_fence.png, pictures"
+                    <tr data-full-text="thumbnails thumbnails  "
                           data-col0="thumbnails"
                           data-col1=""
-                          data-col2="pics/thumbs/2017-06-11 12.56.14.png, pics/thumbs/sepia_fence.png, pictures">
+                          data-col2="">
                         <td>
         <a href="#pics%2Fthumbs%2F">
           
@@ -767,9 +1524,35 @@
           
         </a></td>
                         <td>
-        </td>
+        
+          </td>
                         <td>
-        </td>
+        
+        <div class="table-cell-long">
+          <div class="table-cell-values">
+                <div class="table-cell-item" data-text="pics/thumbs/2017-06-11 12.56.14.png">
+                  <span class="button-right">
+                    <a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png">
+                      pics/thumbs/2017-06-11 12.56.14.png
+                    </a>
+                  </span>
+                </div>
+                <div class="table-cell-item" data-text="pics/thumbs/sepia_fence.png">
+                  <span class="button-right">
+                    <a href="#pics%2Fthumbs%2Fsepia_fence.png">
+                      pics/thumbs/sepia_fence.png
+                    </a>
+                  </span>
+                </div>
+                <div class="table-cell-item" data-text="pictures">
+                  <span class="button-left">
+                    <a href="#pics%2F">
+                      Pictures
+                    </a>
+                  </span>
+                </div>
+          </div>
+        </div></td>
                     </tr>
                     <tr data-full-text="too many files too many files this directory contains many small files, that we’re not going to describe in detail. sample dataset for ro-crate v1.1"
                           data-col0="too many files"
@@ -795,6 +1578,649 @@
                 </tbody>
               </table>
             </div>
+            <div class="tabular-table-wrap" data-type="CreateAction">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>description</th>
+                      <th>agent</th>
+                      <th>object</th>
+                      <th>instrument</th>
+                      <th>result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="converted dog picture to sepia converted dog picture to sepia convert -sepia-tone 80% test_data/sample/pics/2017-06-11&#92; 12.56.14.jpg test_data/sample/pics/sepia_fence.jpg peter sefton pics/2017-06-11 12.56.14.jpg imagemagick pics/sepia_fence.jpg"
+                          data-col0="converted dog picture to sepia"
+                          data-col1="convert -sepia-tone 80% test_data/sample/pics/2017-06-11&#92; 12.56.14.jpg test_data/sample/pics/sepia_fence.jpg"
+                          data-col2="peter sefton"
+                          data-col3="pics/2017-06-11 12.56.14.jpg"
+                          data-col4="imagemagick"
+                          data-col5="pics/sepia_fence.jpg">
+                        <td>
+        <a href="#%23SepiaConversion">
+          
+            Converted dog picture to sepia
+          
+        </a></td>
+                        <td>
+        
+          convert -sepia-tone 80% test_data/sample/pics/2017-06-11&#92; 12.56.14.jpg test_data/sample/pics/sepia_fence.jpg
+        </td>
+                        <td>
+        <span class="button-right">
+          <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+            Peter Sefton
+          </a>
+        </span></td>
+                        <td>
+        <span class="button-right">
+          <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+            pics/2017-06-11 12.56.14.jpg
+          </a>
+        </span></td>
+                        <td>
+        <span class="button-right">
+          <a href="#https%3A%2F%2Fwww.imagemagick.org%2F">
+            ImageMagick
+          </a>
+        </span></td>
+                        <td>
+        <span class="button-right">
+          <a href="#pics%2Fsepia_fence.jpg">
+            pics/sepia_fence.jpg
+          </a>
+        </span></td>
+                    </tr>
+                    <tr data-full-text="took dog picture took dog picture photo snapped on a photo walk on a misty day peter sefton catalina park epl1 camera, lumix g 20/f1.7 lens pics/2017-06-11 12.56.14.jpg"
+                          data-col0="took dog picture"
+                          data-col1="photo snapped on a photo walk on a misty day"
+                          data-col2="peter sefton"
+                          data-col3="catalina park"
+                          data-col4="epl1 camera, lumix g 20/f1.7 lens"
+                          data-col5="pics/2017-06-11 12.56.14.jpg">
+                        <td>
+        <a href="#%23Photo1">
+          
+            Took dog picture
+          
+        </a></td>
+                        <td>
+        
+          Photo snapped on a photo walk on a misty day
+        </td>
+                        <td>
+        <span class="button-right">
+          <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+            Peter Sefton
+          </a>
+        </span></td>
+                        <td>
+        <span class="button-right">
+          <a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">
+            Catalina Park
+          </a>
+        </span></td>
+                        <td>
+        
+            <span class="button-right">
+              <a href="#%23EPL1">
+                EPL1 Camera
+              </a>
+            </span>, 
+            <span class="button-right">
+              <a href="#%23Panny20mm">
+                Lumix G 20/F1.7 lens
+              </a>
+            </span></td>
+                        <td>
+        <span class="button-right">
+          <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+            pics/2017-06-11 12.56.14.jpg
+          </a>
+        </span></td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="CreativeWork">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>description</th>
+                      <th>about</th>
+                      <th>identifier</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="attribution-noncommercial-sharealike 3.0 australia (cc by-nc-sa 3.0 au) attribution-noncommercial-sharealike 3.0 australia (cc by-nc-sa 3.0 au) this work is licensed under the creative commons attribution-noncommercial-sharealike 3.0 australia license. to view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/au/ or send a letter to creative commons, po box 1866, mountain view, ca 94042, usa.  "
+                          data-col0="attribution-noncommercial-sharealike 3.0 australia (cc by-nc-sa 3.0 au)"
+                          data-col1="this work is licensed under the creative commons attribution-noncommercial-sharealike 3.0 australia license. to view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/au/ or send a letter to creative commons, po box 1866, mountain view, ca 94042, usa."
+                          data-col2=""
+                          data-col3="">
+                        <td>
+        <a href="#https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2F3.0%2Fau%2F">
+          
+            Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU)
+          
+        </a></td>
+                        <td>
+        
+          This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Australia License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/au/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+        </td>
+                        <td>
+        
+          </td>
+                        <td>
+        
+          </td>
+                    </tr>
+                    <tr data-full-text="ro-crate-metadata.json   sample dataset for ro-crate v1.1 ro-crate-metadata.json"
+                          data-col0=""
+                          data-col1=""
+                          data-col2="sample dataset for ro-crate v1.1"
+                          data-col3="ro-crate-metadata.json">
+                        <td>
+        <a href="#ro-crate-metadata.json">
+          
+            ro-crate-metadata.json
+        </a></td>
+                        <td>
+        
+          </td>
+                        <td>
+        <span class="button-right">
+          <a href="#.%2F">
+            Sample dataset for RO-Crate v1.1
+          </a>
+        </span></td>
+                        <td>
+        
+          ro-crate-metadata.json
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="ImageObject">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>description</th>
+                      <th>creator</th>
+                      <th>contentSize</th>
+                      <th>dateModified</th>
+                      <th>encodingFormat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="pics/2017-06-11 12.56.14.jpg pics/2017-06-11 12.56.14.jpg depicts a fence at a disused motor racing venue with the front part of a slightly out of focus black dog in the foreground. peter sefton 5114778 2021-04-21t11:27:03+10:00 exchangeable image file format (compressed), image/jpeg"
+                          data-col0="pics/2017-06-11 12.56.14.jpg"
+                          data-col1="depicts a fence at a disused motor racing venue with the front part of a slightly out of focus black dog in the foreground."
+                          data-col2="peter sefton"
+                          data-col3="5114778"
+                          data-col4="2021-04-21t11:27:03+10:00"
+                          data-col5="exchangeable image file format (compressed), image/jpeg">
+                        <td>
+        <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+          
+            pics/2017-06-11 12.56.14.jpg
+          
+        </a></td>
+                        <td>
+        
+          Depicts a fence at a disused motor racing venue with the front part of a slightly out of focus black dog in the foreground.
+        </td>
+                        <td>
+        <span class="button-right">
+          <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+            Peter Sefton
+          </a>
+        </span></td>
+                        <td>
+        
+          5114778
+        </td>
+                        <td>
+        
+          2021-04-21T11:27:03+10:00
+        </td>
+                        <td>
+        
+            <span class="button-right">
+              <a href="#https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645">
+                Exchangeable Image File Format (Compressed)
+              </a>
+            </span>, 
+            image/jpeg</td>
+                    </tr>
+                    <tr data-full-text="pics/sepia_fence.jpg pics/sepia_fence.jpg sepia tone version of my fence/dog pic peter sefton 4855037 2021-04-21t11:27:03+10:00 , image/jpeg"
+                          data-col0="pics/sepia_fence.jpg"
+                          data-col1="sepia tone version of my fence/dog pic"
+                          data-col2="peter sefton"
+                          data-col3="4855037"
+                          data-col4="2021-04-21t11:27:03+10:00"
+                          data-col5=", image/jpeg">
+                        <td>
+        <a href="#pics%2Fsepia_fence.jpg">
+          
+            pics/sepia_fence.jpg
+          
+        </a></td>
+                        <td>
+        
+          Sepia tone version of my fence/dog pic
+        </td>
+                        <td>
+        <span class="button-right">
+          <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+            Peter Sefton
+          </a>
+        </span></td>
+                        <td>
+        
+          4855037
+        </td>
+                        <td>
+        
+          2021-04-21T11:27:03+10:00
+        </td>
+                        <td>
+        , 
+            image/jpeg</td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="IndividualProduct">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>description</th>
+                      <th>URL</th>
+                      <th>manufacturer</th>
+                      <th>model</th>
+                      <th>serialNumber</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="epl1 camera epl1 camera olympus camera with panasonic 20mm lens https://en.wikipedia.org/wiki/olympus_pen_e-pl1 olympus epl 1 b3b505338"
+                          data-col0="epl1 camera"
+                          data-col1="olympus camera with panasonic 20mm lens"
+                          data-col2="https://en.wikipedia.org/wiki/olympus_pen_e-pl1"
+                          data-col3="olympus"
+                          data-col4="epl 1"
+                          data-col5="b3b505338">
+                        <td>
+        <a href="#%23EPL1">
+          
+            EPL1 Camera
+          
+        </a></td>
+                        <td>
+        
+          Olympus camera with Panasonic 20mm lens
+        </td>
+                        <td>
+        
+          https://en.wikipedia.org/wiki/Olympus_PEN_E-PL1
+        </td>
+                        <td>
+        
+          Olympus
+        </td>
+                        <td>
+        
+          EPL 1
+        </td>
+                        <td>
+        
+          B3B505338
+        </td>
+                    </tr>
+                    <tr data-full-text="lumix g 20/f1.7 lens lumix g 20/f1.7 lens panasonic lens https://en.wikipedia.org/wiki/panasonic_lumix_20mm_lens panasonic lumix g 20mm f1.7 asph. 01fg3033651"
+                          data-col0="lumix g 20/f1.7 lens"
+                          data-col1="panasonic lens"
+                          data-col2="https://en.wikipedia.org/wiki/panasonic_lumix_20mm_lens"
+                          data-col3="panasonic"
+                          data-col4="lumix g 20mm f1.7 asph."
+                          data-col5="01fg3033651">
+                        <td>
+        <a href="#%23Panny20mm">
+          
+            Lumix G 20/F1.7 lens
+          
+        </a></td>
+                        <td>
+        
+          Panasonic lens
+        </td>
+                        <td>
+        
+          https://en.wikipedia.org/wiki/Panasonic_Lumix_20mm_lens
+        </td>
+                        <td>
+        
+          Panasonic
+        </td>
+                        <td>
+        
+          Lumix G 20mm F1.7 Asph.
+        </td>
+                        <td>
+        
+          01FG3033651
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="website">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="exchangeable image file format (compressed) exchangeable image file format (compressed)"
+                          data-col0="exchangeable image file format (compressed)">
+                        <td>
+        <a href="#https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645">
+          
+            Exchangeable Image File Format (Compressed)
+          
+        </a></td>
+                    </tr>
+                    <tr data-full-text="plain text file plain text file"
+                          data-col0="plain text file">
+                        <td>
+        <a href="#https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Fpronom">
+          
+            Plain Text File
+          
+        </a></td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="AboutPage">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>about</th>
+                      <th>contentSize</th>
+                      <th>dateModified</th>
+                      <th>encodingFormat</th>
+                      <th>fileFormat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="about.md about.md sample dataset for ro-crate v1.1 58 2025-10-01t12:30:03+10:00 , text/markdown http://www.nationalarchives.gov.uk/pronom/fmt/1149"
+                          data-col0="about.md"
+                          data-col1="sample dataset for ro-crate v1.1"
+                          data-col2="58"
+                          data-col3="2025-10-01t12:30:03+10:00"
+                          data-col4=", text/markdown"
+                          data-col5="http://www.nationalarchives.gov.uk/pronom/fmt/1149">
+                        <td>
+        <a href="#about.md">
+          
+            about.md
+          
+        </a></td>
+                        <td>
+        <span class="button-right">
+          <a href="#.%2F">
+            Sample dataset for RO-Crate v1.1
+          </a>
+        </span></td>
+                        <td>
+        
+          58
+        </td>
+                        <td>
+        
+          2025-10-01T12:30:03+10:00
+        </td>
+                        <td>
+        , 
+            text/markdown</td>
+                        <td>
+        
+          http://www.nationalarchives.gov.uk/PRONOM/fmt/1149
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="ContactPoint">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>contactType</th>
+                      <th>email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="contact peter sefton contact peter sefton customer service peter.sefton@uts.edu.au"
+                          data-col0="contact peter sefton"
+                          data-col1="customer service"
+                          data-col2="peter.sefton@uts.edu.au">
+                        <td>
+        <a href="#mailto%3Apeter.sefton%40uts.edu.au">
+          
+            Contact Peter Sefton
+          
+        </a></td>
+                        <td>
+        
+          customer service
+        </td>
+                        <td>
+        
+          peter.sefton@uts.edu.au
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="Geometry">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>asWKT</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="geometry-1 geometry-1 point (150.3025258272487 -33.71473918246115)"
+                          data-col0="geometry-1"
+                          data-col1="point (150.3025258272487 -33.71473918246115)">
+                        <td>
+        <a href="#%23Geometry-1">
+          
+            Geometry-1
+          
+        </a></td>
+                        <td>
+        
+          POINT (150.3025258272487 -33.71473918246115)
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="Person">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>familyName</th>
+                      <th>givenName</th>
+                      <th>affiliation</th>
+                      <th>contactPoint</th>
+                      <th>email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="peter sefton peter sefton sefton peter university of technology sydney mailto:peter.sefton@uts.edu.au pt@ptsefton.com"
+                          data-col0="peter sefton"
+                          data-col1="sefton"
+                          data-col2="peter"
+                          data-col3="university of technology sydney"
+                          data-col4="mailto:peter.sefton@uts.edu.au"
+                          data-col5="pt@ptsefton.com">
+                        <td>
+        <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+          
+            Peter Sefton
+          
+        </a></td>
+                        <td>
+        
+          Sefton
+        </td>
+                        <td>
+        
+          Peter
+        </td>
+                        <td>
+        <span class="button-right">
+          <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+            University of Technology Sydney
+          </a>
+        </span></td>
+                        <td>
+        
+          mailto:peter.sefton@uts.edu.au
+        </td>
+                        <td>
+        
+          pt@ptsefton.com
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="Place">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>description</th>
+                      <th>geo</th>
+                      <th>address</th>
+                      <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="catalina park catalina park catalina park is a disused motor racing venue, located at katoomba, in the blue mountains, new south wales, australia, and is recognised as an aboriginal place due to the long association of the local gundungarra and darug clans to the area. geometry-1 katoomba, nsw https://en.wikipedia.org/wiki/catalina_park"
+                          data-col0="catalina park"
+                          data-col1="catalina park is a disused motor racing venue, located at katoomba, in the blue mountains, new south wales, australia, and is recognised as an aboriginal place due to the long association of the local gundungarra and darug clans to the area."
+                          data-col2="geometry-1"
+                          data-col3="katoomba, nsw"
+                          data-col4="https://en.wikipedia.org/wiki/catalina_park">
+                        <td>
+        <a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">
+          
+            Catalina Park
+          
+        </a></td>
+                        <td>
+        
+          Catalina Park is a disused motor racing venue, located at Katoomba, in the Blue Mountains, New South Wales, Australia, and is recognised as an Aboriginal Place due to the long association of the local Gundungarra and Darug clans to the area.
+        </td>
+                        <td>
+        <span class="button-right">
+          <a href="#%23Geometry-1">
+            Geometry-1
+          </a>
+        </span></td>
+                        <td>
+        
+          Katoomba, NSW
+        </td>
+                        <td>
+        
+          https://en.wikipedia.org/wiki/Catalina_Park
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="ScholarlyArticle">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>datePublished</th>
+                      <th>author</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="this is an example publication with a dodgy doi this is an example publication with a dodgy doi 2018 peter sefton"
+                          data-col0="this is an example publication with a dodgy doi"
+                          data-col1="2018"
+                          data-col2="peter sefton">
+                        <td>
+        <a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456">
+          
+            This is an example publication with a dodgy DOI
+          
+        </a></td>
+                        <td>
+        
+          2018
+        </td>
+                        <td>
+        <span class="button-right">
+          <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+            Peter Sefton
+          </a>
+        </span></td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tabular-table-wrap" data-type="SoftwareApplication">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                      <th>name</th>
+                      <th>URL</th>
+                      <th>version</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr data-full-text="imagemagick imagemagick https://www.imagemagick.org/  imagemagick 7.0.8-2 q16 x86_64 2018-06-19"
+                          data-col0="imagemagick"
+                          data-col1="https://www.imagemagick.org/"
+                          data-col2=" imagemagick 7.0.8-2 q16 x86_64 2018-06-19">
+                        <td>
+        <a href="#https%3A%2F%2Fwww.imagemagick.org%2F">
+          
+            ImageMagick
+          
+        </a></td>
+                        <td>
+        
+          https://www.imagemagick.org/
+        </td>
+                        <td>
+        
+           ImageMagick 7.0.8-2 Q16 x86_64 2018-06-19
+        </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
         </div>
           </section>
 
@@ -802,7 +2228,7 @@
       </div>
       
       <!-- Heading Section -->
-      <div id="root_entity_overlay" class="entity"><div class="entity-panel">
+      <div id="root_entity_overlay" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -810,44 +2236,42 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Sample dataset for RO-Crate v1.1
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Dataset" class="type"></a>-->
       Dataset
       
           <span class="info"> <a href="http://schema.org/Dataset" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">./</h2>
+              >
           </div>
-            <p><a href="#root_entity_overlay">More...</a></p>
-          
+          <h2>
+              Sample dataset for RO-Crate v1.1
+            
+          </h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -908,7 +2332,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2F3.0%2Fau%2F">
+                      <a href="#https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2F3.0%2Fau%2F" title="Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU)">
                         Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU)
                       </a>
                     </span>
@@ -927,7 +2351,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#about.md">
+                    <a href="#about.md" title="about.md">
                       about.md
                     </a>
                   </span>
@@ -946,7 +2370,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" title="Peter Sefton">
                         Peter Sefton
                       </a>
                     </span>
@@ -965,7 +2389,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12" title="University of Technology Sydney">
                         University of Technology Sydney
                       </a>
                     </span>
@@ -984,7 +2408,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Fands.org.au">
+                      <a href="#http%3A%2F%2Fands.org.au" title="Australian National Data Service">
                         Australian National Data Service
                       </a>
                     </span>
@@ -992,7 +2416,7 @@
               </div>
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12" title="University of Technology Sydney">
                         University of Technology Sydney
                       </a>
                     </span>
@@ -1000,7 +2424,7 @@
               </div>
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate">
+                      <a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate" title="DataCrate Project">
                         DataCrate Project
                       </a>
                     </span>
@@ -1019,7 +2443,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456">
+                      <a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456" title="This is an example publication with a dodgy DOI">
                         This is an example publication with a dodgy DOI
                       </a>
                     </span>
@@ -1039,7 +2463,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#lots_of_little_files%2F">
+                      <a href="#lots_of_little_files%2F" title="Too many files">
                         Too many files
                       </a>
                     </span>
@@ -1047,7 +2471,7 @@
               </div>
               <div>
                     <span class="button-right">
-                      <a href="#pics%2F">
+                      <a href="#pics%2F" title="Pictures">
                         Pictures
                       </a>
                     </span>
@@ -1082,7 +2506,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">
+                      <a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html" title="Catalina Park">
                         Catalina Park
                       </a>
                     </span>
@@ -1102,7 +2526,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#mailto%3Apeter.sefton%40uts.edu.au">
+                      <a href="#mailto%3Apeter.sefton%40uts.edu.au" title="Contact Peter Sefton">
                         Contact Peter Sefton
                       </a>
                     </span>
@@ -1151,7 +2575,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fwww.researchobject.org%2Fexample-ro-sample-image-crate%2Fdownload%2Fsample-crate.zip">
+                      <a href="#https%3A%2F%2Fwww.researchobject.org%2Fexample-ro-sample-image-crate%2Fdownload%2Fsample-crate.zip" title="https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip">
                         https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip
                       </a>
                     </span>
@@ -1164,7 +2588,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="%23EPL1" class="entity"><div class="entity-panel">
+      <div id="%23EPL1" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -1172,43 +2596,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              EPL1 Camera
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_IndividualProduct" class="type"></a>-->
       IndividualProduct
       
           <span class="info"> <a href="http://schema.org/IndividualProduct" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">#EPL1</h2>
+              >
           </div>
-          
+          <h2>
+              EPL1 Camera
+            
+          </h2>
+            <h2 class="id">#EPL1</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -1255,7 +2679,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#%23Photo1">
+                    <a href="#%23Photo1" title="Took dog picture">
                       Took dog picture
                     </a>
                   </span>
@@ -1328,7 +2752,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="%23Panny20mm" class="entity"><div class="entity-panel">
+      <div id="%23Panny20mm" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -1336,43 +2760,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Lumix G 20/F1.7 lens
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_IndividualProduct" class="type"></a>-->
       IndividualProduct
       
           <span class="info"> <a href="http://schema.org/IndividualProduct" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">#Panny20mm</h2>
+              >
           </div>
-          
+          <h2>
+              Lumix G 20/F1.7 lens
+            
+          </h2>
+            <h2 class="id">#Panny20mm</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -1419,7 +2843,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#%23Photo1">
+                    <a href="#%23Photo1" title="Took dog picture">
                       Took dog picture
                     </a>
                   </span>
@@ -1492,7 +2916,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="%23Photo1" class="entity"><div class="entity-panel">
+      <div id="%23Photo1" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -1500,43 +2924,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Took dog picture
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_CreateAction" class="type"></a>-->
       CreateAction
       
           <span class="info"> <a href="http://schema.org/CreateAction" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">#Photo1</h2>
+              >
           </div>
-          
+          <h2>
+              Took dog picture
+            
+          </h2>
+            <h2 class="id">#Photo1</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -1583,7 +3007,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" title="Peter Sefton">
                         Peter Sefton
                       </a>
                     </span>
@@ -1602,7 +3026,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">
+                      <a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html" title="Catalina Park">
                         Catalina Park
                       </a>
                     </span>
@@ -1621,7 +3045,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#%23EPL1">
+                      <a href="#%23EPL1" title="EPL1 Camera">
                         EPL1 Camera
                       </a>
                     </span>
@@ -1629,7 +3053,7 @@
               </div>
               <div>
                     <span class="button-right">
-                      <a href="#%23Panny20mm">
+                      <a href="#%23Panny20mm" title="Lumix G 20/F1.7 lens">
                         Lumix G 20/F1.7 lens
                       </a>
                     </span>
@@ -1648,7 +3072,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+                      <a href="#pics%2F2017-06-11%2012.56.14.jpg" title="pics/2017-06-11 12.56.14.jpg">
                         pics/2017-06-11 12.56.14.jpg
                       </a>
                     </span>
@@ -1677,7 +3101,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" class="entity"><div class="entity-panel">
+      <div id="http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -1685,43 +3109,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Peter Sefton
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Person" class="type"></a>-->
       Person
       
           <span class="info"> <a href="http://schema.org/Person" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">http://orcid.org/0000-0002-3545-944X</h2>
+              >
           </div>
-          
+          <h2>
+              Peter Sefton
+            
+          </h2>
+            <h2 class="id">http://orcid.org/0000-0002-3545-944X</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -1783,14 +3207,14 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456">
+                    <a href="#http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456" title="This is an example publication with a dodgy DOI">
                       This is an example publication with a dodgy DOI
                     </a>
                   </span>
@@ -1808,14 +3232,14 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+                    <a href="#pics%2F2017-06-11%2012.56.14.jpg" title="pics/2017-06-11 12.56.14.jpg">
                       pics/2017-06-11 12.56.14.jpg
                     </a>
                   </span>
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#pics%2Fsepia_fence.jpg">
+                    <a href="#pics%2Fsepia_fence.jpg" title="pics/sepia_fence.jpg">
                       pics/sepia_fence.jpg
                     </a>
                   </span>
@@ -1833,7 +3257,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12" title="University of Technology Sydney">
                         University of Technology Sydney
                       </a>
                     </span>
@@ -1853,14 +3277,14 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#%23Photo1">
+                    <a href="#%23Photo1" title="Took dog picture">
                       Took dog picture
                     </a>
                   </span>
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#%23SepiaConversion">
+                    <a href="#%23SepiaConversion" title="Converted dog picture to sepia">
                       Converted dog picture to sepia
                     </a>
                   </span>
@@ -1903,7 +3327,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html" class="entity"><div class="entity-panel">
+      <div id="http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -1911,43 +3335,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Catalina Park
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Place" class="type"></a>-->
       Place
       
           <span class="info"> <a href="http://schema.org/Place" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">http://www.geonames.org/8152662/catalina-park.html</h2>
+              >
           </div>
-          
+          <h2>
+              Catalina Park
+            
+          </h2>
+            <h2 class="id">http://www.geonames.org/8152662/catalina-park.html</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -1994,7 +3418,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#%23Photo1">
+                    <a href="#%23Photo1" title="Took dog picture">
                       Took dog picture
                     </a>
                   </span>
@@ -2013,7 +3437,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -2031,7 +3455,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#%23Geometry-1">
+                      <a href="#%23Geometry-1" title="Geometry-1">
                         Geometry-1
                       </a>
                     </span>
@@ -2075,7 +3499,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="pics%2F2017-06-11%2012.56.14.jpg" class="entity"><div class="entity-panel">
+      <div id="pics%2F2017-06-11%2012.56.14.jpg" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -2083,49 +3507,49 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              pics/2017-06-11 12.56.14.jpg
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_File" class="type"></a>-->
       File
       
           <span class="info"> <a href="http://schema.org/MediaObject" target="_blank">ⓘ</a></span></span
-            ><p>|</p>
-            <span class="type">
+              ><p>|</p>
+              <span class="type">
       <!--<a href="#types_ImageObject" class="type"></a>-->
       ImageObject
       
           <span class="info"> <a href="http://schema.org/ImageObject" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">pics/2017-06-11 12.56.14.jpg</h2>
+              >
           </div>
-          
+          <h2>
+              pics/2017-06-11 12.56.14.jpg
+            
+          </h2>
+            <h2 class="id">pics/2017-06-11 12.56.14.jpg</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -2182,7 +3606,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" title="Peter Sefton">
                         Peter Sefton
                       </a>
                     </span>
@@ -2202,7 +3626,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#pics%2F">
+                    <a href="#pics%2F" title="Pictures">
                       Pictures
                     </a>
                   </span>
@@ -2221,7 +3645,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#%23SepiaConversion">
+                    <a href="#%23SepiaConversion" title="Converted dog picture to sepia">
                       Converted dog picture to sepia
                     </a>
                   </span>
@@ -2239,7 +3663,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#%23Photo1">
+                    <a href="#%23Photo1" title="Took dog picture">
                       Took dog picture
                     </a>
                   </span>
@@ -2288,7 +3712,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645">
+                      <a href="#https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645" title="Exchangeable Image File Format (Compressed)">
                         Exchangeable Image File Format (Compressed)
                       </a>
                     </span>
@@ -2326,7 +3750,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png">
+                      <a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png" title="pics/thumbs/2017-06-11 12.56.14.png">
                         pics/thumbs/2017-06-11 12.56.14.png
                       </a>
                     </span>
@@ -2339,7 +3763,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="https%3A%2F%2Fror.org%2F0384j8v12" class="entity"><div class="entity-panel">
+      <div id="https%3A%2F%2Fror.org%2F0384j8v12" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -2347,43 +3771,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              University of Technology Sydney
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Organization" class="type"></a>-->
       Organization
       
           <span class="info"> <a href="http://schema.org/Organization" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">https://ror.org/0384j8v12</h2>
+              >
           </div>
-          
+          <h2>
+              University of Technology Sydney
+            
+          </h2>
+            <h2 class="id">https://ror.org/0384j8v12</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -2426,7 +3850,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -2444,21 +3868,21 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate">
+                    <a href="#https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate" title="DataCrate Project">
                       DataCrate Project
                     </a>
                   </span>
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">
+                    <a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner" title="Provisioner Project">
                       Provisioner Project
                     </a>
                   </span>
@@ -2476,7 +3900,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+                    <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" title="Peter Sefton">
                       Peter Sefton
                     </a>
                   </span>
@@ -2504,7 +3928,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="%23Geometry-1" class="entity"><div class="entity-panel">
+      <div id="%23Geometry-1" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -2512,43 +3936,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Geometry-1
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Geometry" class="type"></a>-->
       Geometry
       
           <span class="info"> <a href="http://www.opengis.net/ont/geosparql#Geometry" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">#Geometry-1</h2>
+              >
           </div>
-          
+          <h2>
+              Geometry-1
+            
+          </h2>
+            <h2 class="id">#Geometry-1</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -2580,7 +4004,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html">
+                    <a href="#http%3A%2F%2Fwww.geonames.org%2F8152662%2Fcatalina-park.html" title="Catalina Park">
                       Catalina Park
                     </a>
                   </span>
@@ -2607,7 +4031,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645" class="entity"><div class="entity-panel">
+      <div id="https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Ffmt%2F645" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -2615,43 +4039,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Exchangeable Image File Format (Compressed)
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_website" class="type"></a>-->
       website
       
           <span class="info"> <a href="type" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">https://www.nationalarchives.gov.uk/PRONOM/fmt/645</h2>
+              >
           </div>
-          
+          <h2>
+              Exchangeable Image File Format (Compressed)
+            
+          </h2>
+            <h2 class="id">https://www.nationalarchives.gov.uk/PRONOM/fmt/645</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -2683,7 +4107,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+                    <a href="#pics%2F2017-06-11%2012.56.14.jpg" title="pics/2017-06-11 12.56.14.jpg">
                       pics/2017-06-11 12.56.14.jpg
                     </a>
                   </span>
@@ -2695,7 +4119,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="pics%2Fthumbs%2F2017-06-11%2012.56.14.png" class="entity"><div class="entity-panel">
+      <div id="pics%2Fthumbs%2F2017-06-11%2012.56.14.png" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -2703,43 +4127,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              pics/thumbs/2017-06-11 12.56.14.png
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_File" class="type"></a>-->
       File
       
           <span class="info"> <a href="http://schema.org/MediaObject" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">pics/thumbs/2017-06-11 12.56.14.png</h2>
+              >
           </div>
-          
+          <h2>
+              pics/thumbs/2017-06-11 12.56.14.png
+            
+          </h2>
+            <h2 class="id">pics/thumbs/2017-06-11 12.56.14.png</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -2804,7 +4228,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#pics%2Fthumbs%2F">
+                    <a href="#pics%2Fthumbs%2F" title="Thumbnails">
                       Thumbnails
                     </a>
                   </span>
@@ -2887,7 +4311,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+                    <a href="#pics%2F2017-06-11%2012.56.14.jpg" title="pics/2017-06-11 12.56.14.jpg">
                       pics/2017-06-11 12.56.14.jpg
                     </a>
                   </span>
@@ -2899,7 +4323,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="about.md" class="entity"><div class="entity-panel">
+      <div id="about.md" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -2907,49 +4331,49 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              about.md
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_File" class="type"></a>-->
       File
       
           <span class="info"> <a href="http://schema.org/MediaObject" target="_blank">ⓘ</a></span></span
-            ><p>|</p>
-            <span class="type">
+              ><p>|</p>
+              <span class="type">
       <!--<a href="#types_AboutPage" class="type"></a>-->
       AboutPage
       
           <span class="info"> <a href="http://schema.org/AboutPage" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">about.md</h2>
+              >
           </div>
-          
+          <h2>
+              about.md
+            
+          </h2>
+            <h2 class="id">about.md</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -3005,7 +4429,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#.%2F">
+                      <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                         Sample dataset for RO-Crate v1.1
                       </a>
                     </span>
@@ -3083,7 +4507,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="%23SepiaConversion" class="entity"><div class="entity-panel">
+      <div id="%23SepiaConversion" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -3091,43 +4515,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Converted dog picture to sepia
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_CreateAction" class="type"></a>-->
       CreateAction
       
           <span class="info"> <a href="http://schema.org/CreateAction" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">#SepiaConversion</h2>
+              >
           </div>
-          
+          <h2>
+              Converted dog picture to sepia
+            
+          </h2>
+            <h2 class="id">#SepiaConversion</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -3174,7 +4598,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" title="Peter Sefton">
                         Peter Sefton
                       </a>
                     </span>
@@ -3193,7 +4617,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+                      <a href="#pics%2F2017-06-11%2012.56.14.jpg" title="pics/2017-06-11 12.56.14.jpg">
                         pics/2017-06-11 12.56.14.jpg
                       </a>
                     </span>
@@ -3212,7 +4636,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fwww.imagemagick.org%2F">
+                      <a href="#https%3A%2F%2Fwww.imagemagick.org%2F" title="ImageMagick">
                         ImageMagick
                       </a>
                     </span>
@@ -3231,7 +4655,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#pics%2Fsepia_fence.jpg">
+                      <a href="#pics%2Fsepia_fence.jpg" title="pics/sepia_fence.jpg">
                         pics/sepia_fence.jpg
                       </a>
                     </span>
@@ -3260,7 +4684,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="https%3A%2F%2Fwww.imagemagick.org%2F" class="entity"><div class="entity-panel">
+      <div id="https%3A%2F%2Fwww.imagemagick.org%2F" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -3268,43 +4692,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              ImageMagick
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_SoftwareApplication" class="type"></a>-->
       SoftwareApplication
       
           <span class="info"> <a href="http://schema.org/SoftwareApplication" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">https://www.imagemagick.org/</h2>
+              >
           </div>
-          
+          <h2>
+              ImageMagick
+            
+          </h2>
+            <h2 class="id">https://www.imagemagick.org/</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -3336,7 +4760,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#%23SepiaConversion">
+                    <a href="#%23SepiaConversion" title="Converted dog picture to sepia">
                       Converted dog picture to sepia
                     </a>
                   </span>
@@ -3379,7 +4803,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="pics%2Fsepia_fence.jpg" class="entity"><div class="entity-panel">
+      <div id="pics%2Fsepia_fence.jpg" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -3387,49 +4811,49 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              pics/sepia_fence.jpg
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_File" class="type"></a>-->
       File
       
           <span class="info"> <a href="http://schema.org/MediaObject" target="_blank">ⓘ</a></span></span
-            ><p>|</p>
-            <span class="type">
+              ><p>|</p>
+              <span class="type">
       <!--<a href="#types_ImageObject" class="type"></a>-->
       ImageObject
       
           <span class="info"> <a href="http://schema.org/ImageObject" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">pics/sepia_fence.jpg</h2>
+              >
           </div>
-          
+          <h2>
+              pics/sepia_fence.jpg
+            
+          </h2>
+            <h2 class="id">pics/sepia_fence.jpg</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -3486,7 +4910,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" title="Peter Sefton">
                         Peter Sefton
                       </a>
                     </span>
@@ -3506,7 +4930,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#pics%2F">
+                    <a href="#pics%2F" title="Pictures">
                       Pictures
                     </a>
                   </span>
@@ -3525,7 +4949,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#%23SepiaConversion">
+                    <a href="#%23SepiaConversion" title="Converted dog picture to sepia">
                       Converted dog picture to sepia
                     </a>
                   </span>
@@ -3608,7 +5032,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#pics%2Fthumbs%2Fsepia_fence.png">
+                      <a href="#pics%2Fthumbs%2Fsepia_fence.png" title="pics/thumbs/sepia_fence.png">
                         pics/thumbs/sepia_fence.png
                       </a>
                     </span>
@@ -3621,7 +5045,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="pics%2Fthumbs%2Fsepia_fence.png" class="entity"><div class="entity-panel">
+      <div id="pics%2Fthumbs%2Fsepia_fence.png" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -3629,43 +5053,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              pics/thumbs/sepia_fence.png
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_File" class="type"></a>-->
       File
       
           <span class="info"> <a href="http://schema.org/MediaObject" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">pics/thumbs/sepia_fence.png</h2>
+              >
           </div>
-          
+          <h2>
+              pics/thumbs/sepia_fence.png
+            
+          </h2>
+            <h2 class="id">pics/thumbs/sepia_fence.png</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -3730,7 +5154,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#pics%2Fthumbs%2F">
+                    <a href="#pics%2Fthumbs%2F" title="Thumbnails">
                       Thumbnails
                     </a>
                   </span>
@@ -3813,7 +5237,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#pics%2Fsepia_fence.jpg">
+                    <a href="#pics%2Fsepia_fence.jpg" title="pics/sepia_fence.jpg">
                       pics/sepia_fence.jpg
                     </a>
                   </span>
@@ -3825,7 +5249,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="%23picsdistro" class="entity"><div class="entity-panel">
+      <div id="%23picsdistro" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -3833,43 +5257,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_DataDownload" class="type"></a>-->
       DataDownload
       
           <span class="info"> <a href="http://schema.org/DataDownload" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">#picsdistro</h2>
+              >
           </div>
-          
+          <h2>
+              
+            
+          </h2>
+            <h2 class="id">#picsdistro</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -3906,7 +5330,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456" class="entity"><div class="entity-panel">
+      <div id="http%3A%2F%2Fdx.doi.org%2F10.1000%2F123456" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -3914,43 +5338,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              This is an example publication with a dodgy DOI
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_ScholarlyArticle" class="type"></a>-->
       ScholarlyArticle
       
           <span class="info"> <a href="http://schema.org/ScholarlyArticle" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">http://dx.doi.org/10.1000/123456</h2>
+              >
           </div>
-          
+          <h2>
+              This is an example publication with a dodgy DOI
+            
+          </h2>
+            <h2 class="id">http://dx.doi.org/10.1000/123456</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -3997,7 +5421,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X">
+                      <a href="#http%3A%2F%2Forcid.org%2F0000-0002-3545-944X" title="Peter Sefton">
                         Peter Sefton
                       </a>
                     </span>
@@ -4016,7 +5440,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -4028,7 +5452,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="mailto%3Apeter.sefton%40uts.edu.au" class="entity"><div class="entity-panel">
+      <div id="mailto%3Apeter.sefton%40uts.edu.au" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4036,43 +5460,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Contact Peter Sefton
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_ContactPoint" class="type"></a>-->
       ContactPoint
       
           <span class="info"> <a href="http://schema.org/ContactPoint" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">mailto:peter.sefton@uts.edu.au</h2>
+              >
           </div>
-          
+          <h2>
+              Contact Peter Sefton
+            
+          </h2>
+            <h2 class="id">mailto:peter.sefton@uts.edu.au</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -4134,7 +5558,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -4146,7 +5570,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="http%3A%2F%2Fands.org.au" class="entity"><div class="entity-panel">
+      <div id="http%3A%2F%2Fands.org.au" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4154,43 +5578,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Australian National Data Service
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Organization" class="type"></a>-->
       Organization
       
           <span class="info"> <a href="http://schema.org/Organization" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">http://ands.org.au</h2>
+              >
           </div>
-          
+          <h2>
+              Australian National Data Service
+            
+          </h2>
+            <h2 class="id">http://ands.org.au</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -4237,14 +5661,14 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner">
+                    <a href="#http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner" title="Provisioner Project">
                       Provisioner Project
                     </a>
                   </span>
@@ -4256,7 +5680,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate" class="entity"><div class="entity-panel">
+      <div id="https%3A%2F%2Fgithub.com%2FUTS-eResearch%2Fprojects%2Fdatacrate" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4264,43 +5688,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              DataCrate Project
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Organization" class="type"></a>-->
       Organization
       
           <span class="info"> <a href="http://schema.org/Organization" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">https://github.com/UTS-eResearch/projects/datacrate</h2>
+              >
           </div>
-          
+          <h2>
+              DataCrate Project
+            
+          </h2>
+            <h2 class="id">https://github.com/UTS-eResearch/projects/datacrate</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -4347,7 +5771,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12" title="University of Technology Sydney">
                         University of Technology Sydney
                       </a>
                     </span>
@@ -4355,7 +5779,7 @@
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -4367,7 +5791,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2F3.0%2Fau%2F" class="entity"><div class="entity-panel">
+      <div id="https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-nc-sa%2F3.0%2Fau%2F" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4375,43 +5799,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU)
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_CreativeWork" class="type"></a>-->
       CreativeWork
       
           <span class="info"> <a href="http://schema.org/CreativeWork" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">https://creativecommons.org/licenses/by-nc-sa/3.0/au/</h2>
+              >
           </div>
-          
+          <h2>
+              Attribution-NonCommercial-ShareAlike 3.0 Australia (CC BY-NC-SA 3.0 AU)
+            
+          </h2>
+            <h2 class="id">https://creativecommons.org/licenses/by-nc-sa/3.0/au/</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -4457,7 +5881,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -4469,7 +5893,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="lots_of_little_files%2F" class="entity"><div class="entity-panel">
+      <div id="lots_of_little_files%2F" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4477,43 +5901,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Too many files
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Dataset" class="type"></a>-->
       Dataset
       
           <span class="info"> <a href="http://schema.org/Dataset" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">lots_of_little_files/</h2>
+              >
           </div>
-          
+          <h2>
+              Too many files
+            
+          </h2>
+            <h2 class="id">lots_of_little_files/</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -4560,7 +5984,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -4572,7 +5996,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="pics%2F" class="entity"><div class="entity-panel">
+      <div id="pics%2F" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4580,43 +6004,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Pictures
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Dataset" class="type"></a>-->
       Dataset
       
           <span class="info"> <a href="http://schema.org/Dataset" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">pics/</h2>
+              >
           </div>
-          
+          <h2>
+              Pictures
+            
+          </h2>
+            <h2 class="id">pics/</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -4663,7 +6087,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#pics%2F2017-06-11%2012.56.14.jpg">
+                      <a href="#pics%2F2017-06-11%2012.56.14.jpg" title="pics/2017-06-11 12.56.14.jpg">
                         pics/2017-06-11 12.56.14.jpg
                       </a>
                     </span>
@@ -4671,7 +6095,7 @@
               </div>
               <div>
                     <span class="button-right">
-                      <a href="#pics%2Fsepia_fence.jpg">
+                      <a href="#pics%2Fsepia_fence.jpg" title="pics/sepia_fence.jpg">
                         pics/sepia_fence.jpg
                       </a>
                     </span>
@@ -4679,7 +6103,7 @@
               </div>
               <div>
                     <span class="button-right">
-                      <a href="#pics%2Fthumbs%2F">
+                      <a href="#pics%2Fthumbs%2F" title="Thumbnails">
                         Thumbnails
                       </a>
                     </span>
@@ -4687,7 +6111,7 @@
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -4699,7 +6123,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="https%3A%2F%2Fwww.researchobject.org%2Fexample-ro-sample-image-crate%2Fdownload%2Fsample-crate.zip" class="entity"><div class="entity-panel">
+      <div id="https%3A%2F%2Fwww.researchobject.org%2Fexample-ro-sample-image-crate%2Fdownload%2Fsample-crate.zip" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4707,43 +6131,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              <!-- Use ID if name isn't available, e.g. files -->
-              https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_DataDownload" class="type"></a>-->
       DataDownload
       
           <span class="info"> <a href="http://schema.org/DataDownload" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip</h2>
+              >
           </div>
-          
+          <h2>
+              <!-- Use ID if name isn't available, e.g. files -->
+              https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip
+          </h2>
+            <h2 class="id">https://www.researchobject.org/example-ro-sample-image-crate/download/sample-crate.zip</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -4789,7 +6213,7 @@
           <div class="short">
               <div>
                   <span class="button-left">
-                    <a href="#.%2F">
+                    <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                       Sample dataset for RO-Crate v1.1
                     </a>
                   </span>
@@ -4801,7 +6225,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="pics%2Fthumbs%2F" class="entity"><div class="entity-panel">
+      <div id="pics%2Fthumbs%2F" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4809,43 +6233,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Thumbnails
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Dataset" class="type"></a>-->
       Dataset
       
           <span class="info"> <a href="http://schema.org/Dataset" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">pics/thumbs/</h2>
+              >
           </div>
-          
+          <h2>
+              Thumbnails
+            
+          </h2>
+            <h2 class="id">pics/thumbs/</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -4888,7 +6312,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png">
+                      <a href="#pics%2Fthumbs%2F2017-06-11%2012.56.14.png" title="pics/thumbs/2017-06-11 12.56.14.png">
                         pics/thumbs/2017-06-11 12.56.14.png
                       </a>
                     </span>
@@ -4896,7 +6320,7 @@
               </div>
               <div>
                     <span class="button-right">
-                      <a href="#pics%2Fthumbs%2Fsepia_fence.png">
+                      <a href="#pics%2Fthumbs%2Fsepia_fence.png" title="pics/thumbs/sepia_fence.png">
                         pics/thumbs/sepia_fence.png
                       </a>
                     </span>
@@ -4904,7 +6328,7 @@
               </div>
               <div>
                   <span class="button-left">
-                    <a href="#pics%2F">
+                    <a href="#pics%2F" title="Pictures">
                       Pictures
                     </a>
                   </span>
@@ -4916,7 +6340,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner" class="entity"><div class="entity-panel">
+      <div id="http%3A%2F%2Feresearch.uts.edu.au%2Fprojects%2Fprovisioner" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -4924,43 +6348,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Provisioner Project
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_Organization" class="type"></a>-->
       Organization
       
           <span class="info"> <a href="http://schema.org/Organization" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">http://eresearch.uts.edu.au/projects/provisioner</h2>
+              >
           </div>
-          
+          <h2>
+              Provisioner Project
+            
+          </h2>
+            <h2 class="id">http://eresearch.uts.edu.au/projects/provisioner</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -5007,7 +6431,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12">
+                      <a href="#https%3A%2F%2Fror.org%2F0384j8v12" title="University of Technology Sydney">
                         University of Technology Sydney
                       </a>
                     </span>
@@ -5015,7 +6439,7 @@
               </div>
               <div>
                     <span class="button-right">
-                      <a href="#http%3A%2F%2Fands.org.au">
+                      <a href="#http%3A%2F%2Fands.org.au" title="Australian National Data Service">
                         Australian National Data Service
                       </a>
                     </span>
@@ -5028,7 +6452,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="https%3A%2F%2Fdata.research.uts.edu.au%2Fexamples%2Fro-crate%2Fexamples%2Fsrc%2Fdownloads%2Fsample.zip" class="entity"><div class="entity-panel">
+      <div id="https%3A%2F%2Fdata.research.uts.edu.au%2Fexamples%2Fro-crate%2Fexamples%2Fsrc%2Fdownloads%2Fsample.zip" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -5036,43 +6460,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_DataDownload" class="type"></a>-->
       DataDownload
       
           <span class="info"> <a href="http://schema.org/DataDownload" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip</h2>
+              >
           </div>
-          
+          <h2>
+              
+            
+          </h2>
+            <h2 class="id">https://data.research.uts.edu.au/examples/ro-crate/examples/src/downloads/sample.zip</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -5124,7 +6548,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Fpronom" class="entity"><div class="entity-panel">
+      <div id="https%3A%2F%2Fwww.nationalarchives.gov.uk%2FPRONOM%2Fpronom" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -5132,43 +6556,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              Plain Text File
-            
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_website" class="type"></a>-->
       website
       
           <span class="info"> <a href="type" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">https://www.nationalarchives.gov.uk/PRONOM/pronom</h2>
+              >
           </div>
-          
+          <h2>
+              Plain Text File
+            
+          </h2>
+            <h2 class="id">https://www.nationalarchives.gov.uk/PRONOM/pronom</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -5193,7 +6617,7 @@
       </div>
         
       <!-- Heading Section -->
-      <div id="ro-crate-metadata.json" class="entity"><div class="entity-panel">
+      <div id="ro-crate-metadata.json" class="entity" data-close-target="./"><div class="entity-panel">
         <div class="entity-header-row">
             <a
               href="#.%2F"
@@ -5201,43 +6625,43 @@
               aria-label="Close summary"
               title="Close"
             >
-              [x]
+              ×
             </a>
-          
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+                
       <div class="home-link">
-        <a href="#.%2F" class="root">
+        <a href="#.%2F" class="home-close-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             fill="currentColor"
-            class="bi bi-house-door-fill"
+            class="bi bi-x-lg"
             viewBox="0 0 16 16"
           >
             <path
-              d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
             />
           </svg>
-          Go home:
-          Sample dataset for RO-Crate v1.1
+          Close summary
         </a>
       </div>
-          <h2>
-              <!-- Use ID if name isn't available, e.g. files -->
-              ro-crate-metadata.json
-          </h2>
-            <span class="type">
+            </div>
+          </div>
+          <div class="entity-header-types">
+              <span class="type">
       <!--<a href="#types_CreativeWork" class="type"></a>-->
       CreativeWork
       
           <span class="info"> <a href="http://schema.org/CreativeWork" target="_blank">ⓘ</a></span></span
-            >
-
-          <div class="entity-identifier">
-            <h3>Identifier</h3>
-            <h2 class="id">ro-crate-metadata.json</h2>
+              >
           </div>
-          
+          <h2>
+              <!-- Use ID if name isn't available, e.g. files -->
+              ro-crate-metadata.json
+          </h2>
+            <h2 class="id">ro-crate-metadata.json</h2>
         </div>
 
         <!--Section for files if they are avails-->
@@ -5253,7 +6677,7 @@
           <div class="short">
               <div>
                     <span class="button-right">
-                      <a href="#.%2F">
+                      <a href="#.%2F" title="Sample dataset for RO-Crate v1.1">
                         Sample dataset for RO-Crate v1.1
                       </a>
                     </span>

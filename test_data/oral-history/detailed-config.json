@@ -74,13 +74,7 @@
         "uri": "http://schema.org/inLanguage",
         "label": "In language(s)"
       }
-    ],
-    "http://schema.org/CreativeWork": [],
-    "http://schema.org/Dataset": [],
-    "http://schema.org/DefinedTermSet": [],
-    "http://schema.org/Place": [],
-    "https://w3id.org/ldac/terms#CollectionProtocol": [],
-    "https://w3id.org/ldac/terms#DataReuseLicense": []
+    ]
   },
   "tabular": {
     "mainNavType": "",

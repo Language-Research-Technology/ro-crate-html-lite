@@ -334,10 +334,6 @@ program
     "Filepath or URL to a CSS file. Overrides config style and default.css."
   )
   .option(
-    "--stye <stylePath>",
-    "Deprecated alias for --style."
-  )
-  .option(
     "--generate-config <configPath>",
     "Generate a starter config file with empty structure and termMapping for crate class/property URIs."
   )
@@ -449,9 +445,9 @@ program
     }
 
     // Determine CSS source with precedence:
-    // 1) CLI --style / --stye, 2) config "style" (or root.style), 3) default.css
+    // 1) CLI --style, 2) config "style" (or root.style), 3) default.css
     const defaultStylePath = path.join(__dirname, "default.css");
-    const cliStyle = options.style || options.stye || null;
+    const cliStyle = options.style || null;
     const configStyle = configData && (configData.style || (configData.root && configData.root.style))
       ? (configData.style || configData.root.style)
       : null;

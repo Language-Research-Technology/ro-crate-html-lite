@@ -30,8 +30,6 @@ Options:
 
 -s, --style <stylePath>      Filepath or URL to a CSS file. Overrides config style and default.css.
 
---stye <stylePath>           Deprecated alias for --style.
-
 --rm                         Remove ro-crate-preview.html and ro-crate-preview_html directory from the crate.
 
 -h, --help                  Display help for command.
@@ -43,7 +41,7 @@ CSS is loaded by the generator and injected into the HTML template (not linked w
 
 Style resolution order:
 
-1. CLI `--style` (or deprecated `--stye`)
+1. CLI `--style`
 2. Config `style` (or `root.style`)
 3. `default.css` in project root
 

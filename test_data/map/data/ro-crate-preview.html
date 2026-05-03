@@ -1,0 +1,1879 @@
+<!-- 
+ TODO
+ 
+ asWKT needs full URL to be recognised as a WKT property, but in the test data it's just "asWKT". This is because the test data is simplified and doesn't include the full URIs for properties. In a real RO-Crate, the properties would typically be represented with their full URIs, such as "http://www.opengis.net/ont/geosparql#asWKT".   
+  
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RO-Crate Map</title>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        background: #f4f6f8;
+      }
+
+      .page {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        height: 100%;
+      }
+
+      .header {
+        padding: 0.8rem 1rem;
+        background: #0f172a;
+        color: #ffffff;
+        border-bottom: 1px solid #1e293b;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .content {
+        position: relative;
+      }
+
+      #map {
+        position: absolute;
+        inset: 0;
+      }
+
+      .status {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 2;
+        background: rgba(15, 23, 42, 0.9);
+        color: #fff;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.4rem;
+        font-size: 0.9rem;
+      }
+
+      .status.error {
+        background: rgba(153, 27, 27, 0.95);
+      }
+
+      .layer-toggles {
+        position: absolute;
+        top: 1rem;
+        right: 3.5rem;
+        z-index: 2;
+        display: flex;
+        gap: 0.4rem;
+      }
+
+      .layer-toggles button {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 0.7rem;
+        border: 2px solid transparent;
+        border-radius: 0.35rem;
+        background: rgba(15, 23, 42, 0.85);
+        color: #fff;
+        font-size: 0.82rem;
+        cursor: pointer;
+        transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+      }
+
+      .layer-toggles button .swatch {
+        display: inline-block;
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .layer-toggles button:hover {
+        background: rgba(30, 41, 59, 0.95);
+      }
+
+      .layer-toggles button.off {
+        opacity: 0.45;
+      }
+
+      .mapboxgl-popup-content ul.point-list {
+        margin: 0;
+        padding: 0 0 0 1.1rem;
+        list-style: disc;
+      }
+
+      .mapboxgl-popup-content ul.point-list li {
+        margin: 0.2rem 0;
+        font-size: 0.85rem;
+      }
+
+      .debug-dump {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 2;
+        width: min(42rem, calc(100vw - 2rem));
+        max-height: 40vh;
+        overflow: auto;
+        margin: 0;
+        padding: 0.75rem;
+        border-radius: 0.4rem;
+        background: rgba(15, 23, 42, 0.9);
+        color: #e2e8f0;
+        font-size: 0.75rem;
+        line-height: 1.35;
+      }
+    </style>
+  </head>
+  <body>
+
+
+
+
+
+    
+
+    <main class="page">
+      <header class="header-row">
+        <h1 class="page-title">
+            
+            dingo lingo
+            
+        </h1>
+      </header>
+      <section class="content">
+        <div id="map" aria-label="Map of RO-Crate objects"></div>
+        <div id="status" class="status">Loading RO-Crate metadata...</div>
+        <div class="layer-toggles" id="layer-toggles" hidden>
+          <button type="button" data-layer="layer-dingo" style="--c:#f59e0b">
+            <span class="swatch" style="background:#f59e0b"></span>dingo
+          </button>
+          <button type="button" data-layer="layer-dog" style="--c:#22c55e">
+            <span class="swatch" style="background:#22c55e"></span>dog
+          </button>
+          <button type="button" data-layer="layer-other" style="--c:#0ea5e9">
+            <span class="swatch" style="background:#0ea5e9"></span>other
+          </button>
+        </div>
+        <pre id="features-dump" class="debug-dump" hidden></pre>
+      </section>
+    </main>
+
+
+    <!-- LOCATIONS-->
+        <!--
+            
+            <div class="locations">
+                
+                <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> ["#Location-1","#Location-10","#Location-11","#Location-2","#Location-3","#Location-4","#Location-5","#Location-6","#Location-7","#Location-8","#Location-9"] </pre>
+
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-1","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (134.04000 -14.77600)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#benggerri","target_name":"benggerri","url":"","local_url":""},{"value":"","target_id":"#arəngkə","target_name":"arəngkə","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-10","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (133.29712 -22.23826)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#angwely","target_name":"angwely","url":"","local_url":""},{"value":"","target_id":"#arnwer","target_name":"arnwer","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-11","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (133.62671 -23.58413)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#artnwere","target_name":"artnwere","url":"","local_url":""},{"value":"","target_id":"#akngwelye","target_name":"akngwelye","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-2","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (135.39551 -22.37040)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#arengk_apmer-areny","target_name":"arengk apmer-areny","url":"","local_url":""},{"value":"","target_id":"#arengk_artnwer","target_name":"arengk artnwer","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-3","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (151.46301 -32.87036)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#marongkai","target_name":"marongkai","url":"","local_url":""},{"value":"","target_id":"#tingko","target_name":"tingko","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-4","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (130.13031 -13.10757)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#debin","target_name":"debin","url":"","local_url":""},{"value":"","target_id":"#muyiny","target_name":"muyiny","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-5","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (127.07886 -14.11527)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#orralu_minya","target_name":"orralu minya","url":"","local_url":""},{"value":"","target_id":"#leewa_manya","target_name":"leewa manya","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-6","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (129.72656 -16.86763)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#ngurragin","target_name":"ngurragin","url":"","local_url":""},{"value":"","target_id":"#warlagu","target_name":"warlagu","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-7","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (134.42871 -16.42555)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#wamanji","target_name":"wamanji","url":"","local_url":""},{"value":"","target_id":"#janji","target_name":"janji","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-8","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (138.65400 -20.90400)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#gujaguja","target_name":"gujaguja","url":"","local_url":""},{"value":"","target_id":"#yiranhangu","target_name":"yiranhangu","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+                    
+                    
+                    <pre style="white-space: pre-wrap; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #ccc;"> {"id":"#Location-9","type":["Geometry"],"props":{"http://www.opengis.net/ont/geosparql#asWKT":{"fwd":[{"value":"POINT (153.28900 -29.02000)","target_id":"","target_name":"","url":"","local_url":""}],"rev":[],"label":"asWKT","url":"http://www.opengis.net/ont/geosparql#asWKT"},"http://schema.org/contentLocation":{"fwd":[],"rev":[{"value":"","target_id":"#dabahy","target_name":"dabahy","url":"","local_url":""},{"value":"","target_id":"#ming","target_name":"ming","url":"","local_url":""}],"label":"contentLocation","url":"http://schema.org/contentLocation"}}} </pre>
+            
+                    
+                        <div class="word">
+                            
+                        </div>
+                    
+            </div>
+        -->
+
+    <!-- OBJECTS-->
+        <!--
+            <div class=object-grid>
+                
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        akngwelye
+
+                            
+                            - Central Arrernte
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-11
+                        
+                        - WKT: POINT (133.62671 -23.58413)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        angwely
+
+                            
+                            - Central Anmatyerr
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-10
+                        
+                        - WKT: POINT (133.29712 -22.23826)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        arengk apmer-areny
+
+                            
+                            - Alyawarr
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-2
+                        
+                        - WKT: POINT (135.39551 -22.37040)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        arengk artnwer
+
+                            
+                            - Alyawarr
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-2
+                        
+                        - WKT: POINT (135.39551 -22.37040)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        arnwer
+
+                            
+                            - Central Anmatyerr
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-10
+                        
+                        - WKT: POINT (133.29712 -22.23826)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        artnwere
+
+                            
+                            - Central Arrernte
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-11
+                        
+                        - WKT: POINT (133.62671 -23.58413)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        arəngkə
+
+                            
+                            - Alawa
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-1
+                        
+                        - WKT: POINT (134.04000 -14.77600)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        benggerri
+
+                            
+                            - Alawa
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-1
+                        
+                        - WKT: POINT (134.04000 -14.77600)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        dabahy
+
+                            
+                            - Bundjalung
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-9
+                        
+                        - WKT: POINT (153.28900 -29.02000)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        debin
+
+                            
+                            - Batjamalh
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-4
+                        
+                        - WKT: POINT (130.13031 -13.10757)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        gujaguja
+
+                            
+                            - Bularnu
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-8
+                        
+                        - WKT: POINT (138.65400 -20.90400)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        janji
+
+                            
+                            - Binbinka
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-7
+                        
+                        - WKT: POINT (134.42871 -16.42555)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        leewa manya
+
+                            
+                            - Belaa
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-5
+                        
+                        - WKT: POINT (127.07886 -14.11527)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        marongkai
+
+                            
+                            - Awabakal
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-3
+                        
+                        - WKT: POINT (151.46301 -32.87036)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        ming
+
+                            
+                            - Bundjalung
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-9
+                        
+                        - WKT: POINT (153.28900 -29.02000)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        muyiny
+
+                            
+                            - Batjamalh
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-4
+                        
+                        - WKT: POINT (130.13031 -13.10757)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        ngurragin
+
+                            
+                            - Bilinarra
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-6
+                        
+                        - WKT: POINT (129.72656 -16.86763)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        orralu minya
+
+                            
+                            - Belaa
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-5
+                        
+                        - WKT: POINT (127.07886 -14.11527)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        tingko
+
+                            
+                            - Awabakal
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-3
+                        
+                        - WKT: POINT (151.46301 -32.87036)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        wamanji
+
+                            
+                            - Binbinka
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-7
+                        
+                        - WKT: POINT (134.42871 -16.42555)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        warlagu
+
+                            
+                            - Bilinarra
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-6
+                        
+                        - WKT: POINT (129.72656 -16.86763)
+                        
+                        
+                    </div>
+
+                
+                
+                
+
+                
+                
+                
+                 
+
+                    <div class="word">
+                        yiranhangu
+
+                            
+                            - Bularnu
+                            
+
+                        
+                        
+                        
+                        
+
+                        
+                        - location: #Location-8
+                        
+                        - WKT: POINT (138.65400 -20.90400)
+                        
+                        
+                    </div>
+
+                
+            </div>
+        -->
+
+
+
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/wellknown@0.5.0/wellknown.js"></script>
+    <script>
+      const statusEl = document.getElementById("status");
+      const featuresDumpEl = document.getElementById("features-dump");
+      const mapToken = "***REMOVED***";
+
+      const mapItems = [
+        
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "akngwelye",
+            gloss: "dog",
+            wkt: "POINT (133.62671 -23.58413)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "angwely",
+            gloss: "dog",
+            wkt: "POINT (133.29712 -22.23826)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "arengk apmer-areny",
+            gloss: "dog",
+            wkt: "POINT (135.39551 -22.37040)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "arengk artnwer",
+            gloss: "dingo",
+            wkt: "POINT (135.39551 -22.37040)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "arnwer",
+            gloss: "dingo",
+            wkt: "POINT (133.29712 -22.23826)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "artnwere",
+            gloss: "dingo",
+            wkt: "POINT (133.62671 -23.58413)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "arəngkə",
+            gloss: "dog",
+            wkt: "POINT (134.04000 -14.77600)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "benggerri",
+            gloss: "dingo",
+            wkt: "POINT (134.04000 -14.77600)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "dabahy",
+            gloss: "dog",
+            wkt: "POINT (153.28900 -29.02000)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "debin",
+            gloss: "dingo",
+            wkt: "POINT (130.13031 -13.10757)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "gujaguja",
+            gloss: "dog",
+            wkt: "POINT (138.65400 -20.90400)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "janji",
+            gloss: "dog",
+            wkt: "POINT (134.42871 -16.42555)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "leewa manya",
+            gloss: "dog",
+            wkt: "POINT (127.07886 -14.11527)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "marongkai",
+            gloss: "dingo",
+            wkt: "POINT (151.46301 -32.87036)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "ming",
+            gloss: "dog",
+            wkt: "POINT (153.28900 -29.02000)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "muyiny",
+            gloss: "dog",
+            wkt: "POINT (130.13031 -13.10757)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "ngurragin",
+            gloss: "dingo",
+            wkt: "POINT (129.72656 -16.86763)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "orralu minya",
+            gloss: "dingo",
+            wkt: "POINT (127.07886 -14.11527)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "tingko",
+            gloss: "dog",
+            wkt: "POINT (151.46301 -32.87036)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "wamanji",
+            gloss: "dingo",
+            wkt: "POINT (134.42871 -16.42555)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "warlagu",
+            gloss: "dog",
+            wkt: "POINT (129.72656 -16.86763)"
+          },
+        
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+          
+
+          
+          
+            
+              
+            
+          
+
+          {
+            name: "yiranhangu",
+            gloss: "dingo",
+            wkt: "POINT (138.65400 -20.90400)"
+          }
+        
+      ];
+
+
+      function wktToGeoJSON(wkt) {
+        if (!wkt || typeof wkt !== "string" || !window.wellknown || typeof window.wellknown.parse !== "function") {
+          return null;
+        }
+
+        try {
+          return window.wellknown.parse(wkt);
+        } catch (_err) {
+          return null;
+        }
+      }
+
+      if (!mapToken) {
+        statusEl.textContent = "Missing mapboxToken in config";
+        statusEl.classList.add("error");
+      } else {
+        mapboxgl.accessToken = mapToken;
+
+        const featuresByGloss = { dingo: [], dog: [], other: [] };
+
+        mapItems.forEach((item) => {
+          const geometry = wktToGeoJSON(item.wkt);
+          if (!geometry || geometry.type !== "Point" || !Array.isArray(geometry.coordinates)) {
+            return;
+          }
+          const feature = {
+            type: "Feature",
+            properties: { name: item.name, gloss: item.gloss },
+            geometry,
+          };
+          const key = item.gloss === "dingo" ? "dingo" : item.gloss === "dog" ? "dog" : "other";
+          featuresByGloss[key].push(feature);
+        });
+
+        const allFeatures = [...featuresByGloss.dingo, ...featuresByGloss.dog, ...featuresByGloss.other];
+
+        const map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/mapbox/streets-v12",
+          center: [133.7751, -25.2744],
+          zoom: 3,
+        });
+
+
+        // Safe mapItems dump for debugging: use textContent to avoid HTML injection.
+        featuresDumpEl.textContent = JSON.stringify(
+            {
+            featuresByGloss,
+            },
+            null,
+            2
+        );
+        featuresDumpEl.hidden = false;
+
+        
+        
+        map.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+        map.on("load", () => {
+          const layers = [
+            { id: "layer-dingo", key: "dingo", color: "#f59e0b", stroke: "#78350f" },
+            { id: "layer-dog",   key: "dog",   color: "#22c55e", stroke: "#14532d" },
+            { id: "layer-other", key: "other", color: "#0ea5e9", stroke: "#075985" },
+          ];
+
+          layers.forEach(({ id, key, color, stroke }) => {
+            map.addSource(id, {
+              type: "geojson",
+              data: { type: "FeatureCollection", features: featuresByGloss[key] },
+            });
+            map.addLayer({
+              id,
+              type: "circle",
+              source: id,
+              paint: {
+                "circle-radius": 6,
+                "circle-color": color,
+                "circle-stroke-color": stroke,
+                "circle-stroke-width": 1,
+              },
+            });
+          });
+
+          const layerIds = layers.map((l) => l.id);
+
+          map.on("click", layerIds, (e) => {
+            const coordinates = e.features[0].geometry.coordinates.slice();
+
+            // Collect all features rendered at this point across all layers, deduplicated by name.
+            const allRendered = map.queryRenderedFeatures(e.point, { layers: layerIds });
+            const seen = new Set();
+            const unique = allRendered.filter((f) => {
+              if (seen.has(f.properties.name)) return false;
+              seen.add(f.properties.name);
+              return true;
+            });
+
+            const items = unique.map((f) => {
+              const { name, gloss } = f.properties;
+              // Escape text to avoid HTML injection.
+              const escape = (s) =>
+                String(s ?? "")
+                  .replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;");
+              return gloss
+                ? `<li><strong>${escape(name)}</strong> — ${escape(gloss)}</li>`
+                : `<li><strong>${escape(name)}</strong></li>`;
+            });
+
+            const html =
+              items.length === 1
+                ? items[0].replace(/^<li>(.*)<\/li>$/, "$1")
+                : `<ul class="point-list">${items.join("")}</ul>`;
+
+            new mapboxgl.Popup()
+              .setLngLat(coordinates)
+              .setHTML(html)
+              .addTo(map);
+          });
+
+          map.on("mouseenter", layerIds, () => {
+            map.getCanvas().style.cursor = "pointer";
+          });
+
+          map.on("mouseleave", layerIds, () => {
+            map.getCanvas().style.cursor = "";
+          });
+
+          if (allFeatures.length > 0) {
+            const bounds = new mapboxgl.LngLatBounds();
+            allFeatures.forEach((feature) => bounds.extend(feature.geometry.coordinates));
+            map.fitBounds(bounds, { padding: 40, maxZoom: 13 });
+            statusEl.textContent = `Loaded ${allFeatures.length} mapped objects`;
+
+            const togglesEl = document.getElementById("layer-toggles");
+            togglesEl.hidden = false;
+
+            togglesEl.addEventListener("click", (e) => {
+              const btn = e.target.closest("button[data-layer]");
+              if (!btn) return;
+              const layerId = btn.dataset.layer;
+              const visible = map.getLayoutProperty(layerId, "visibility") !== "none";
+              map.setLayoutProperty(layerId, "visibility", visible ? "none" : "visible");
+              btn.classList.toggle("off", visible);
+            });
+          } else {
+            statusEl.textContent = "No valid WKT points found in RepositoryObject entries";
+            statusEl.classList.add("error");
+          }
+        });
+
+        map.on("error", (event) => {
+          statusEl.textContent = `Map error: ${event?.error?.message || "unknown"}`;
+          statusEl.classList.add("error");
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,564 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.2/context",
+    {
+      "@vocab": "http://schema.org/",
+      "ldac": "https://w3id.org/ldac/terms#",
+      "custom": "arcp://name,custom/terms#"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "identifier": "ro-crate-metadata.json",
+      "about": {
+        "@id": "./"
+      },
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.2"
+      }
+    },
+    {
+      "@id": "arcp://name,custom/terms#gloss",
+      "@type": "rdf:Property",
+      "name": "gloss",
+      "description": "the gloss of the entry",
+      "rdfs:label": "gloss",
+      "rdfs:comment": "the gloss of the entry"
+    },
+    {
+      "@id": "#benggerri",
+      "@type": "RepositoryObject",
+      "name": "benggerri",
+      "alternateName": "gurrurerru",
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Alawa",
+      "datePublished": "2024-09-04",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-1"
+      }
+    },
+    {
+      "@id": "./",
+      "@type": [
+        "Dataset",
+        "RepositoryCollection"
+      ],
+      "name": "dingo lingo",
+      "description": "dingo and dog words",
+      "isRef_author": "",
+      "isRef_publisher": "",
+      "datePublished": "2024-09-04",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:hasMember": [
+        {
+          "@id": "#benggerri"
+        },
+        {
+          "@id": "#arəngkə"
+        },
+        {
+          "@id": "#arengk_apmer-areny"
+        },
+        {
+          "@id": "#arengk_artnwer"
+        },
+        {
+          "@id": "#marongkai"
+        },
+        {
+          "@id": "#tingko"
+        },
+        {
+          "@id": "#debin"
+        },
+        {
+          "@id": "#muyiny"
+        },
+        {
+          "@id": "#orralu_minya"
+        },
+        {
+          "@id": "#leewa_manya"
+        },
+        {
+          "@id": "#ngurragin"
+        },
+        {
+          "@id": "#warlagu"
+        },
+        {
+          "@id": "#wamanji"
+        },
+        {
+          "@id": "#janji"
+        },
+        {
+          "@id": "#gujaguja"
+        },
+        {
+          "@id": "#yiranhangu"
+        },
+        {
+          "@id": "#dabahy"
+        },
+        {
+          "@id": "#ming"
+        },
+        {
+          "@id": "#angwely"
+        },
+        {
+          "@id": "#arnwer"
+        },
+        {
+          "@id": "#artnwere"
+        },
+        {
+          "@id": "#akngwelye"
+        }
+      ]
+    },
+    {
+      "@id": "#Location-1",
+      "@type": "Geometry",
+      "asWKT": "POINT (134.04000 -14.77600)"
+    },
+    {
+      "@id": "#arəngkə",
+      "@type": "RepositoryObject",
+      "name": "arəngkə",
+      "custom:gloss": "dog ",
+      "ldac:subjectLanguage": "Alawa",
+      "datePublished": "2024-09-05",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-1"
+      }
+    },
+    {
+      "@id": "#arengk_apmer-areny",
+      "@type": "RepositoryObject",
+      "name": "arengk apmer-areny",
+      "alternateName": "iltyepenh",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Alyawarr",
+      "datePublished": "2024-09-06",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-2"
+      }
+    },
+    {
+      "@id": "#Location-2",
+      "@type": "Geometry",
+      "asWKT": "POINT (135.39551 -22.37040)"
+    },
+    {
+      "@id": "#arengk_artnwer",
+      "@type": "RepositoryObject",
+      "name": "arengk artnwer",
+      "custom:gloss": "dingo ",
+      "ldac:subjectLanguage": "Alyawarr",
+      "datePublished": "2024-09-07",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-2"
+      }
+    },
+    {
+      "@id": "#marongkai",
+      "@type": "RepositoryObject",
+      "name": "marongkai",
+      "alternateName": [
+        "yuki",
+        "miri"
+      ],
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Awabakal",
+      "datePublished": "2024-09-08",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-3"
+      }
+    },
+    {
+      "@id": "#Location-3",
+      "@type": "Geometry",
+      "asWKT": "POINT (151.46301 -32.87036)"
+    },
+    {
+      "@id": "#tingko",
+      "@type": "RepositoryObject",
+      "name": "tingko",
+      "alternateName": [
+        "waiyi",
+        "warikal"
+      ],
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Awabakal",
+      "datePublished": "2024-09-09",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-3"
+      }
+    },
+    {
+      "@id": "#debin",
+      "@type": "RepositoryObject",
+      "name": "debin",
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Batjamalh",
+      "datePublished": "2024-09-10",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-4"
+      }
+    },
+    {
+      "@id": "#Location-4",
+      "@type": "Geometry",
+      "asWKT": "POINT (130.13031 -13.10757)"
+    },
+    {
+      "@id": "#muyiny",
+      "@type": "RepositoryObject",
+      "name": "muyiny",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Batjamalh",
+      "datePublished": "2024-09-11",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-4"
+      }
+    },
+    {
+      "@id": "#orralu_minya",
+      "@type": "RepositoryObject",
+      "name": "orralu minya",
+      "alternateName": [
+        "orrolu minya",
+        "orrompa minya",
+        "orrolo minya"
+      ],
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Belaa",
+      "datePublished": "2024-09-12",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-5"
+      }
+    },
+    {
+      "@id": "#Location-5",
+      "@type": "Geometry",
+      "asWKT": "POINT (127.07886 -14.11527)"
+    },
+    {
+      "@id": "#leewa_manya",
+      "@type": "RepositoryObject",
+      "name": "leewa manya",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Belaa",
+      "datePublished": "2024-09-13",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-5"
+      }
+    },
+    {
+      "@id": "#ngurragin",
+      "@type": "RepositoryObject",
+      "name": "ngurragin",
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Bilinarra",
+      "datePublished": "2024-09-14",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-6"
+      }
+    },
+    {
+      "@id": "#Location-6",
+      "@type": "Geometry",
+      "asWKT": "POINT (129.72656 -16.86763)"
+    },
+    {
+      "@id": "#warlagu",
+      "@type": "RepositoryObject",
+      "name": "warlagu",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Bilinarra",
+      "datePublished": "2024-09-15",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-6"
+      }
+    },
+    {
+      "@id": "#wamanji",
+      "@type": "RepositoryObject",
+      "name": "wamanji",
+      "alternateName": "wamarna",
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Binbinka",
+      "datePublished": "2024-09-16",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-7"
+      }
+    },
+    {
+      "@id": "#Location-7",
+      "@type": "Geometry",
+      "asWKT": "POINT (134.42871 -16.42555)"
+    },
+    {
+      "@id": "#janji",
+      "@type": "RepositoryObject",
+      "name": "janji",
+      "alternateName": "janya",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Binbinka",
+      "datePublished": "2024-09-17",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-7"
+      }
+    },
+    {
+      "@id": "#gujaguja",
+      "@type": "RepositoryObject",
+      "name": "gujaguja",
+      "alternateName": "warayi",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Bularnu",
+      "datePublished": "2024-09-18",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-8"
+      }
+    },
+    {
+      "@id": "#Location-8",
+      "@type": "Geometry",
+      "asWKT": "POINT (138.65400 -20.90400)"
+    },
+    {
+      "@id": "#yiranhangu",
+      "@type": "RepositoryObject",
+      "name": "yiranhangu",
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Bularnu",
+      "datePublished": "2024-09-19",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-8"
+      }
+    },
+    {
+      "@id": "#dabahy",
+      "@type": "RepositoryObject",
+      "name": "dabahy",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Bundjalung",
+      "datePublished": "2024-09-20",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-9"
+      }
+    },
+    {
+      "@id": "#Location-9",
+      "@type": "Geometry",
+      "asWKT": "POINT (153.28900 -29.02000)"
+    },
+    {
+      "@id": "#ming",
+      "@type": "RepositoryObject",
+      "name": "ming",
+      "custom:gloss": "dog ",
+      "ldac:subjectLanguage": "Bundjalung",
+      "datePublished": "2024-09-21",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-9"
+      }
+    },
+    {
+      "@id": "#angwely",
+      "@type": "RepositoryObject",
+      "name": "angwely",
+      "alternateName": "akngwely",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Central Anmatyerr",
+      "datePublished": "2024-09-22",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-10"
+      }
+    },
+    {
+      "@id": "#Location-10",
+      "@type": "Geometry",
+      "asWKT": "POINT (133.29712 -22.23826)"
+    },
+    {
+      "@id": "#arnwer",
+      "@type": "RepositoryObject",
+      "name": "arnwer",
+      "alternateName": "arnapar",
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Central Anmatyerr",
+      "datePublished": "2024-09-23",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-10"
+      }
+    },
+    {
+      "@id": "#artnwere",
+      "@type": "RepositoryObject",
+      "name": "artnwere",
+      "alternateName": "akngwelye",
+      "custom:gloss": "dingo",
+      "ldac:subjectLanguage": "Central Arrernte",
+      "datePublished": "2024-09-24",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-11"
+      }
+    },
+    {
+      "@id": "#Location-11",
+      "@type": "Geometry",
+      "asWKT": "POINT (133.62671 -23.58413)"
+    },
+    {
+      "@id": "#akngwelye",
+      "@type": "RepositoryObject",
+      "name": "akngwelye",
+      "custom:gloss": "dog",
+      "ldac:subjectLanguage": "Central Arrernte",
+      "datePublished": "2024-09-25",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "contentLocation": {
+        "@id": "#Location-11"
+      }
+    }
+  ]
+}

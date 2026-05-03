@@ -187,9 +187,14 @@ program
     const crate = new ROCrate(metadata, { array: true, link: true });
     await crate.resolveContext();
     
-    // Pass the parsed config data, not the raw string
+        // Expose custom config values (for example mapboxToken) to templates,
+        // but avoid clobbering structural keys used by crateLite.
+        const { root: _rootConfig, types: _typesConfig, ...templateConfigData } = configData || {};
+
+        // Pass the parsed config data, not the raw string
     const crateLite = {
         ...await roCrateToJSON(crate, configData),
+          ...templateConfigData,
           cratePath: cratePath, // Pass cratePath to the template to use in path prefixing filter
     }
 

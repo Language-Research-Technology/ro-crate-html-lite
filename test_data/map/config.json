@@ -1,5 +1,5 @@
 {
-    "mapboxToken": "pk.TOKEN_HERE",
+    "mapboxToken": "pk.TOKEN",
     "types": {},
     "root": {"template": "test_data/map/templates/map-template.html"}
 }

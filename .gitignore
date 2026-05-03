@@ -131,3 +131,7 @@ dist
 
 .DS_Store
 **/.DS_Store
+
+# Temporary Excel files
+~*.xls*
+

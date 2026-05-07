@@ -4,6 +4,9 @@ A tool to create a complete, completely static `ro-crate-preview.html` file with
 
 HTML Preview Lite is available without any installation at the [RO-Crate Playground](https://ro-crate.ldaca.edu.au/).
 
+A recipe is available [here](https://github.com/Language-Research-Technology/developer-documentation/blob/main/tutorials/ro-crate-html-lite/bird-site/ro-crate-preview-doc.md) to guide a user intending to replicate the work with their own data.
+
+
 ## Install
 
 ```

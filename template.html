@@ -231,56 +231,73 @@
 
     {%- macro displayProp(prop, propData) %}
       <div class="property-row">
-        <div class="property-name">{{ diplayLabel(propData) }}</div>
-        <div class="property-value">
-          {%- set isLong = propData.fwd.length + propData.rev.length > 10 %}
-          {%- if isLong %}
-            <input class="border" onkeyup="res = search(this)" />
-            <span class="count">
-              ({{ propData.fwd.length + propData.rev.length }} /
-              {{ propData.fwd.length + propData.rev.length }})</span
-            >
-          {%- endif %}
-          <div class="{{ 'long' if isLong else 'short' }}">
-            {%- for val in propData.fwd %}
-              <div>
-                {%- if val is string %}
-                  {{ val | urlize | safe }}
-                {%- elif val["url"] %}
-                  <a href="{{ val["url"] }}"> {{ val["url"] }}</a>
-                {%- else %}
+        {%- if propData.fwd.length > 0 %}
+          <div class="property-name">{{ diplayLabel(propData) }}</div>
+          <div class="property-value">
+            {%- set isLong = propData.fwd.length + propData.rev.length > 10 %}
+            {%- if isLong %}
+              <input class="border" onkeyup="res = search(this)" />
+              <span class="count">
+                ({{ propData.fwd.length + propData.rev.length }} /
+                {{ propData.fwd.length + propData.rev.length }})</span
+              >
+            {%- endif %}
+            <div class="{{ 'long' if isLong else 'short' }}">
+              {%- for val in propData.fwd %}
+                <div>
+                  {%- if val is string %}
+                    {{ val | urlize | safe }}
+                  {%- elif val["url"] %}
+                    <a href="{{ val["url"] }}"> {{ val["url"] }}</a>
+                  {%- else %}
+                    {%- if val["target_id"] %}
+                      <span{%- if not data.hasLayout %} class="button-right"{% endif %}>
+                        <a href="#{{ val["target_id"] | urlencode }}" title="{{ val["target_name"] }}">
+                          {{ val["target_name"] }}
+                        </a>
+                      </span>
+                    {%- elif val.value is string %}
+                      {{ val.value | urlize | safe }}
+                    {%- elif val.value %}
+                      {{ val.value }}
+                    {%- else %}
+                      WARNING SOMETHING WENT WRONG {{ val | dump }}
+                    {%- endif %}
+                  {%- endif %}
+                  
+                </div>
+              {%- endfor %}
+            </div>
+          </div>
+        {%- endif %}
+        {%- if propData.rev.length > 0 %}
+          <div class="property-name">{{ propData.reverseLabel | replace(r/.*:/, "") }}{{ infoLink(propData.url) }}</div>
+          <div class="property-value">
+            {%- set isLong = propData.fwd.length + propData.rev.length > 10 %}
+            {%- if isLong %}
+              <input class="border" onkeyup="res = search(this)" />
+              <span class="count">
+                ({{ propData.fwd.length + propData.rev.length }} /
+                {{ propData.fwd.length + propData.rev.length }})</span
+              >
+            {%- endif %}
+            <div class="{{ 'long' if isLong else 'short' }}">
+              {%- for val in propData.rev %}
+                <div>
                   {%- if val["target_id"] %}
-                    <span class="button-right">
+                    <span{%- if not data.hasLayout %} class="button-left"{% endif %}>
                       <a href="#{{ val["target_id"] | urlencode }}" title="{{ val["target_name"] }}">
                         {{ val["target_name"] }}
                       </a>
                     </span>
-                  {%- elif val.value is string %}
-                    {{ val.value | urlize | safe }}
-                  {%- elif val.value %}
-                    {{ val.value }}
                   {%- else %}
-                    WARNING SOMETHING WENT WRONG {{ val | dump }}
+                    WARNING SOMETHING WENT WRONG {{ val | dump }} ⬅
                   {%- endif %}
-                {%- endif %}
-                
-              </div>
-            {%- endfor %}
-            {%- for val in propData.rev %}
-              <div>
-                {%- if val["target_id"] %}
-                  <span class="button-left">
-                    <a href="#{{ val["target_id"] | urlencode }}" title="{{ val["target_name"] }}">
-                      {{ val["target_name"] }}
-                    </a>
-                  </span>
-                {%- else %}
-                  WARNING SOMETHING WENT WRONG {{ val | dump }} ⬅
-                {%- endif %}
-              </div>
-            {%- endfor %}
+                </div>
+              {%- endfor %}
+            </div>
           </div>
-        </div>
+        {%- endif %}
       </div>
     {%- endmacro %}
 
@@ -345,7 +362,7 @@
               {%- if item.target_id and item.text %}
                 <div class="table-cell-item" data-text="{{ item.text | lower }}">
                   {%- set buttonClass = "button-left" if item.isReverse else "button-right" %}
-                  <span class="{{ buttonClass }}">
+                  <span{%- if not data.hasLayout %} class="{{ buttonClass }}"{% endif %}>
                     <a href="#{{ item.target_id | urlencode }}">
                       {{ item.text }}
                     </a>
@@ -365,7 +382,7 @@
           {%- if not loop.first %}, {% endif %}
           {%- if item.target_id and item.text %}
             {%- set buttonClass = "button-left" if item.isReverse else "button-right" %}
-            <span class="{{ buttonClass }}">
+            <span{%- if not data.hasLayout %} class="{{ buttonClass }}"{% endif %}>
               <a href="#{{ item.target_id | urlencode }}">
                 {{ item.text }}
               </a>
@@ -376,7 +393,7 @@
         {%- endfor %}
       {%- elif cell is mapping and cell.target_id and cell.text %}
         {%- set buttonClass = "button-left" if cell.isReverse else "button-right" %}
-        <span class="{{ buttonClass }}">
+        <span{%- if not data.hasLayout %} class="{{ buttonClass }}"{% endif %}>
           <a href="#{{ cell.target_id | urlencode }}">
             {{ cell.text }}
           </a>

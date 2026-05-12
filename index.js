@@ -272,6 +272,8 @@ function buildGeneratedConfig(crate, inputGroups = []) {
     termMapping[uri] = {
       defaultLabel,
       customLabel: "",
+      customReverseLabel: "",
+      hide: false,
     };
   }
 
@@ -471,6 +473,7 @@ program
     const crateLite = {
         ...await roCrateToJSON(crate, configData, layout),
           cratePath: cratePath, // Pass cratePath to the template to use in path prefixing filter
+          hasLayout: !!configData, // Flag to indicate if a config/layout was provided
     }
 
     // Load markdown content for File entities

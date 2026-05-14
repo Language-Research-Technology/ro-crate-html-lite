@@ -100,8 +100,8 @@ async function loadLayout(layoutOption) {
 }
 
 program
-  .name("html_preview")
-  .description("Load an RO-Crate from a specified directory.")
+  .name("roc-html")
+  .description("Create an HTML file preview for an RO-Crate from a specified directory.")
   .argument("<path_to_crate_directory>", "Path to the crate directory.")
   .option(
     "-l, --layout <layoutPath>",

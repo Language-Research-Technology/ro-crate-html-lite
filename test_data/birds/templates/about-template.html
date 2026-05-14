@@ -102,10 +102,7 @@
 
         </div>
         <div class="middle-column property-grid">
-        
-            
-            {{ data.ids[data.entryPoint].content | renderMarkdown | safe }}
-
+        {{ data.entryPoint | renderMarkdown | safe }}
         <div class="logo-container">
             <img src="../../../../../about/logos/clc_logo.jpeg", class="logo">
             <img src="../../../../../about/logos/Karungkarni_logo.jpg", class="logo">

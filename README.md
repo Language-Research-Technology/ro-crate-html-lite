@@ -1,6 +1,6 @@
 # ro-crate-html-lite
 
-A tool to create a complete, completely static `ro-crate-preview.html` file with the same functionality as [ro-crate-html-js](https://github.com/UTS-eResearch/ro-crate-html-js) but without any dependence on online resources or JavaScript (except for some small helpers).
+A tool to create a complete, completely static `ro-crate-preview.html` file with the same functionality as [ro-crate-html-js](https://github.com/Language-Research-Technology/ro-crate-html-js) but without any dependence on online resources or JavaScript (except for some small helpers).
 
 HTML Preview Lite is available without any installation at the [RO-Crate Playground](https://ro-crate.ldaca.edu.au/).
 
@@ -17,7 +17,7 @@ npm install .
 ## Usage
 
 ```
-node index.js [options] <path_to_crate_directory>
+npx roc-html [options] <path_to_crate_directory>
 
 Load an RO-Crate from a specified directory.
 

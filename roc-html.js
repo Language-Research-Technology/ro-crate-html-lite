@@ -1,0 +1,203 @@
+#!/usr/bin/env node
+'use strict';
+
+import fs from 'fs';
+import path from 'path';
+import { Command } from 'commander';
+import { ROCrate } from 'ro-crate';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const program = new Command();
+import { fileURLToPath } from 'url';
+import { roCrateToJSON, renderTemplate, renderSinglePage } from './lib/preview.js';
+import { fetchMapping, fetchJson } from './lib/utils.js';
+//import { config } from 'process';
+
+
+async function findLayout(crate, layoutOption) {
+  try {
+    // If layoutOption is provided, override other logic and use that layout
+    if (layoutOption) {
+      console.log(`Using layout "${layoutOption}" from -l option.`);
+      return await loadLayout(layoutOption);
+    }
+    // Fetch the mapping if no -l option provided
+    const conformsToMapping = await fetchMapping();
+    if (!conformsToMapping) {
+      console.log("No mapping data available.");
+      return;
+    }
+
+    // Get the conformsTo dynamically from the input JSON
+    const conformsToLookup = crate.rootDataset.conformsTo?.[0]?.['@id'];
+    console.log(`conformsTo "${conformsToLookup}"`);
+
+    // Check if the conformsTo exists in the mapping
+    if (conformsToLookup && conformsToMapping.hasOwnProperty(conformsToLookup)) {
+      const mode = conformsToMapping[conformsToLookup];
+
+      // Fetch the inputGroups from the mode
+      const jsonData = await fetchJson(mode);
+
+      if (jsonData.inputGroups) {
+        const layout = jsonData.inputGroups;
+        console.log(`Fetched layout for "${conformsToLookup}"`);
+        return layout
+      } else {
+        console.log("No 'inputGroups' key found in the JSON file.");
+      }
+    }
+    console.log(`conformsTo "${conformsToLookup}" not found in the mapping. Using default layout.`);
+
+    const defaultUrl = "https://raw.githubusercontent.com/Language-Research-Technology/crate-o/refs/heads/main/src/lib/components/default_layout.json";
+
+    // Fetch the default layout from GitHub
+    const layout = await fetchJson(defaultUrl);
+
+    console.log("Fetched default layout.");
+    return layout;
+
+  } catch (error) {
+    console.error("Error processing data:", error);
+  }
+}
+
+// Load layout from a file or URL
+async function loadLayout(layoutOption) {
+  if (layoutOption.startsWith('http://') || layoutOption.startsWith('https://')) {
+    // If it's a URL, fetch the layout from the URL
+    const jsonData = await fetchJson(layoutOption);
+
+    // Check if inputGroups exists and return it
+    if (jsonData.inputGroups) {
+      return jsonData.inputGroups;
+    }
+
+    // If no inputGroups, return the entire JSON
+    return jsonData;
+
+  } else {
+    // If it's a file path, read the layout from the file
+    try {
+      const layout = fs.readFileSync(layoutOption, 'utf8');
+      const jsonData = JSON.parse(layout);  // Parse the file as JSON
+
+      // Check if inputGroups exists and return it
+      if (jsonData.inputGroups) {
+        return jsonData.inputGroups;
+      }
+
+      // If no inputGroups, return the entire JSON
+      return jsonData;
+
+    } catch (error) {
+      console.error('Error reading layout from file:', error.message);
+      throw error;
+    }
+  }
+}
+
+program
+  .name("html_preview")
+  .description("Load an RO-Crate from a specified directory.")
+  .argument("<path_to_crate_directory>", "Path to the crate directory.")
+  .option(
+    "-l, --layout <layoutPath>",
+    "Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use a raw link if the URL is from GitHub. (Default: \"https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json\")",
+  )
+  .option(
+    "-m --multipage-config <configPath>",
+    "Filepath or URL to a multipage configuration file in JSON format."
+  )
+
+
+
+  .action(async (cratePath, options) => {
+    if (!fs.existsSync(cratePath) || !fs.lstatSync(cratePath).isDirectory()) {
+      console.error(`Error: ${cratePath} is not a valid directory`);
+      return;
+    }
+
+    const metadataFile = path.join(cratePath, "ro-crate-metadata.json");
+    if (!fs.existsSync(metadataFile)) {
+      console.error(`Error: Metadata file not found in ${cratePath}`);
+      return;
+    }
+
+    // Fix the multipage config handling
+    let multipage = null;
+    if (options.multipageConfig) {
+      const configFile = options.multipageConfig;
+      console.log(`Using multipage configuration from ${configFile}`);
+
+      if (!fs.existsSync(configFile)) {
+        console.error(`Error: Config file not found: ${configFile}`);
+        return;
+      }
+
+      try {
+        const configContent = fs.readFileSync(configFile, "utf8");
+        multipage = JSON.parse(configContent); // Parse the JSON content
+      } catch (error) {
+        console.error(`Error reading/parsing config file: ${error.message}`);
+        return;
+      }
+    }
+
+    const metadata = JSON.parse(fs.readFileSync(metadataFile, "utf8"));
+    const templateFile = path.join(__dirname, "template.html");
+    var template = fs.readFileSync(templateFile, "utf8");
+    const crate = await ROCrate.create(metadata);
+    const crateLite = await roCrateToJSON(crate, multipage);
+
+    const layout = await findLayout(crate, options.layout);
+
+    function getMdContent(markdownPath) {
+      const relPath = markdownPath.startsWith(cratePath) ? markdownPath : path.join(cratePath, markdownPath);
+      try {
+        return fs.readFileSync(relPath, "utf-8");
+      } catch (error) {
+        console.warn(`Markdown file not found: ${relPath}`);
+      }
+    }
+    if (options.multipageConfig) {
+
+      template = fs.readFileSync(multipage.root.template, "utf8");
+      for (const [entityId, pageDetails] of Object.entries(crateLite.pages)) {
+
+        // Create a temporary crateLite with this entity as the entry point
+        const data = {
+          ...crateLite,
+          entryPoint: entityId,
+        };
+
+        // For now, use the template file content for all pages
+        // Later you might want to load different templates based on entity type
+        console.log(`Rendering page for entity ${entityId} using template ${pageDetails.template}`);
+        const template = fs.readFileSync(pageDetails.template, "utf8");
+
+        const html = await renderTemplate({ data, template, layout, multipage, getMdContent });
+
+        const outputPath = path.join(cratePath, pageDetails.path);
+        const outputDir = path.dirname(outputPath);
+
+        if (!fs.existsSync(outputDir)) {
+          fs.mkdirSync(outputDir, { recursive: true });
+        }
+
+        fs.writeFileSync(outputPath, html, "utf-8");
+        console.log(`Wrote page for ${entityId} to ${outputPath}`);
+      }
+    }
+    const html = await renderTemplate({ data: crateLite, template, layout, getMdContent });
+    fs.writeFileSync(
+      path.join(cratePath, "ro-crate-preview.html"),
+      html,
+      "utf-8"
+    );
+    console.log(`Wrote preview to ${path.join(cratePath, "ro-crate-preview.html")}`);
+
+  });
+program.parse(process.argv);

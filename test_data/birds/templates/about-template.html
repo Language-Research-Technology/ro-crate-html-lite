@@ -1,22 +1,22 @@
 <html lang="en">
   <head>
     {# Facebook sharing image (Open Graph) #}
-    <meta property="og:url" content="https://ayeye-thipe-akerte.bird-apps.com/ro-crate-preview.html" />
+    <meta property="og:url" content="https://bird-apps.com/ro-crate-preview.html" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Ayeye Thipe Akerte" />
-    <meta property="og:description" content="Arrernte stories about birds" />
-    <meta property="og:image" content="http://ayeye-thipe-akerte.bird-apps.com/files/images/og-img.jpg" />
-    <meta property="og:image:secure_url" content="https://ayeye-thipe-akerte.bird-apps.com/files/images/og-img.jpg" />
+    <meta property="og:title" content="Birds" />
+    <meta property="og:description" content="bird stories" />
+    <meta property="og:image" content="http://bird-apps.com/files/keyimage.jpg" />
+    <meta property="og:image:secure_url" content="https://bird-apps.com/files/keyimage.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>Birds</title>
     <link rel="icon" type="image/png" href="files/images/favicon.png" />
     <style>
         html, body {
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
-            background-color: #d3f4fe;
+            background-color: #d8ffe2;
             background-image: url(../../../../../files/images/clouds-background.png);
             background-size: cover;
             background-repeat: no-repeat;
@@ -53,6 +53,24 @@
             padding: 1em;
             margin: 0;
         }
+        .logo {
+            display: block;
+            max-width:500px;
+            max-height:500px;
+            width: 25%;
+            height: 25%;
+        }
+        .logo-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        img[alt=sp-headshot] {
+            max-width:500px;
+            max-height:500px;
+            width: 25%;
+            height: 25%;
+        }
         </style>
 </head>
 
@@ -85,6 +103,12 @@
         </div>
         <div class="middle-column property-grid">
         {{ data.entryPoint | renderMarkdown | safe }}
+        <div class="logo-container">
+            <img src="../../../../../about/logos/clc_logo.jpeg", class="logo">
+            <img src="../../../../../about/logos/Karungkarni_logo.jpg", class="logo">
+            <img src="../../../../../about/logos/murnkurrumurnkurru_logo_2014-1.jpg", class="logo">
+            <img src="../../../../../about/logos/UQlogo-Stacked-Purple-rgb.png", class="logo">
+        </div>
     </div>
 </div>  
 </body>

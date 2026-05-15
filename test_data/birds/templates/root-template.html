@@ -1,0 +1,177 @@
+<html lang="en">
+  <head>
+    {# Facebook sharing image (Open Graph) #}
+    <meta property="og:url" content="https://bird-apps.com/ro-crate-preview.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Birds" />
+    <meta property="og:description" content="bird stories" />
+    <meta property="og:image" content="http://bird-apps.com/files/keyimage.jpg" />
+    <meta property="og:image:secure_url" content="https://bird-apps.com/files/keyimage.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birds</title>
+    <link rel="icon" type="image/png" href="files/images/favicon.png" />
+    <style>
+        html, body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
+            background-color: #d8ffe2;
+            background-image: url(files/images/clouds-background.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin: 0;
+        }
+        .page-title, .footer-row {
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-weight: normal;
+            padding-top: 1em;
+            padding-bottom: 1em;
+            margin: 0;
+        }
+        .footer-row a {
+            color: white;
+            font-size: 1.2em;
+        }
+        .main-container {
+            width:100%;
+        }
+        .object-grid {
+            width:100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .object-grid-person {
+            width:100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        @media (max-width: 700px) {
+            .object-grid {
+                flex-direction: column;
+            }
+            div.bird {
+                width: 90vw !important;
+                height: auto;
+            }
+        }
+        div.bird {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            margin: 1em;
+            background-size: cover;
+            background-position: center;
+            transition: box-shadow 0.1s, transform 0.1s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            cursor: pointer;
+        }
+        .object-grid div.bird:active {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.12) inset;
+            transform: translateY(2px) scale(0.97);
+            border-color: #888;
+        }
+        div.bird {
+            position: relative;
+            overflow: hidden;
+        }
+        div.bird > a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+        .bird-name {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 0.3em 0.8em;
+            border-radius: 0 0 8px 8px;
+            font-size: 1em;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        </style>
+</head>
+<body>
+
+{% macro display(data, class) %}
+    {% set item = data.ids[data.entryPoint] %}
+
+    <div id="{{item.id}}" class="{{class}}">
+        <div class="header-row">
+            <h2 class="page-title">
+                {% if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
+                {{ item.props["http://schema.org/name"].fwd[0].value }}
+                {% endif %}
+            </h2>
+        </div>
+
+        <div class=object-grid>
+            {% set sorted_ids = data.types.RepositoryObject | sort %}
+            {% for entity_id in sorted_ids %}
+                {% set entity = data.ids[entity_id] %}
+                {% set imagePath = entity.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
+                {% set pagePath= data.pages[entity_id].path if data.pages[entity_id] else '' %}
+
+                <div class="bird" style="background-image: url('{{ imagePath }}');">
+                    <a href="{{ pagePath }}">
+                        <div class="bird-name">
+                            {{ entity.props["http://schema.org/name"].fwd[0].value }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="footer-row main-container">
+            {% for entity_id in data.types.AboutPage %}
+                <div style="text-align:center; margin: 1em;">
+                    <a href="{{ data.pages[entity_id].path }}" class="about-link">
+                        About this project
+                    </a>
+                    <br><br><p style="font-size: large;">Speakers:</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="object-grid-person">
+            {% set sorted_ids = data.types.Person | sort %}
+            {% for entity_id in sorted_ids %}
+                {% set entity = data.ids[entity_id] %}
+                {% set imagePath = entity.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
+                {% set pagePath= data.pages[entity_id].path if data.pages[entity_id] else '' %}
+
+                <div class="bird" style="background-image: url('{{ imagePath }}');">
+                    <a href="{{ pagePath }}">
+                        <div class="bird-name">
+                            {{ entity.props["http://schema.org/name"].fwd[0].value }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+             
+    </div>
+{% endmacro %}
+
+{{ display(data, "root") }}
+
+</body>
+</html>

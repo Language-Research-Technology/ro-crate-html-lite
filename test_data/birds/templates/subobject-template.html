@@ -2,18 +2,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>Birds</title>
     {# Facebook sharing image (Open Graph) #}
     <meta property="og:url" content="{{ url }}" />
     <meta property="og:type" content="website" />
-        <meta property="og:title" content="{{ data.ids[data.entryPoint].props['http://schema.org/name'].fwd[0].value }}" />
-        <meta property="og:description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
-        <meta name="description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
+    <meta property="og:title" content="{{ data.ids[data.entryPoint].props['http://schema.org/name'].fwd[0].value }}" />
+    <meta property="og:description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
+    <meta name="description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
     {% if data.ids[data.entryPoint].props["http://schema.org/hasPart"] %}
         {% for val in data.ids[data.entryPoint].props["http://schema.org/hasPart"].fwd %}
-            {% if val.target_name and (val.target_name.endsWith(".jpg") or val.target_name.endsWith(".png")) %}
-                <meta property="og:image" content="http://ayeye-thipe-akerte.bird-apps.com/{{ val.target_name }}" />
-                <meta property="og:image:secure_url" content="https://ayeye-thipe-akerte.bird-apps.com/{{ val.target_name }}" />
+            {% if val.target_name and (val.target_name.endsWith(".jpg") or val.target_name.endsWith(".png") or val.target_name.endsWith(".jpeg")) %}
+                <meta property="og:image" content="http://bird-apps.com/{{ val.target_name }}" />
+                <meta property="og:image:secure_url" content="https://bird-apps.com/{{ val.target_name }}" />
             {% endif %}
         {% endfor %}
     {% endif %}
@@ -21,7 +21,7 @@
     <style>
         html, body {
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
-            background-color: #d3f4fe;
+            background-color: #d8ffe2;
             background-image: url(../../../../../files/images/clouds-background.png);
             background-size: cover;
             background-repeat: no-repeat;
@@ -406,12 +406,25 @@
                 </div>
                 <div class="right">
                     {{ showHasPartImage(item) }}
+                    <p>Photographer: {{ item.props["arcp://name,custom/terms#photographerName"].fwd[0].value }}</p>
                 </div>
             </div>
+
+            {% if item.props["arcp://name,custom/terms#videoLink"] %}
+                <div class="grid">
+                    <div class="left"></div>
+                    <div class="right">
+                        <a href='{{ item.props["arcp://name,custom/terms#videoLink"].fwd[0].value }}'>Watch a video</a>
+                    </div>
+                </div>
+            {% endif %}
 
             <div class="grid">
                 <div class="left"></div>
                 <div class="right">
+                    {% if item.props["http://schema.org/alternateName"] %}
+                        <p> Alternate name: {{ item.props["http://schema.org/alternateName"].fwd[0].value }}</p>
+                    {% endif %}
                     <p>
                         {{ item.props["arcp://name,custom/terms#translation"].fwd[0].value }}
                     </p>
@@ -434,6 +447,15 @@
                     <span class="translation">
                         {{ item.props["arcp://name,custom/terms#sentenceTranslation"].fwd[0].value }}
                     </span>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="left"></div>
+                <div class="right">
+                    {% if item.props["arcp://name,custom/terms#speaker"] %}
+                        <p> Speaker: {{ item.props["arcp://name,custom/terms#speaker"].fwd[0].target_name }}</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -1,0 +1,178 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.2/context",
+    {
+      "@vocab": "http://schema.org/",
+      "ldac": "https://w3id.org/ldac/terms#",
+      "custom": "arcp://name,custom/terms#"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "identifier": "ro-crate-metadata.json",
+      "about": {
+        "@id": "./"
+      },
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.2"
+      }
+    },
+    {
+      "@id": "./",
+      "@type": [
+        "Dataset",
+        "RepositoryCollection"
+      ],
+      "name": "Birds",
+      "description": "bird stories",
+      "isRef_author": "",
+      "isRef_publisher": "",
+      "pcdm:hasMember": {
+        "@id": "#magpie"
+      }
+    },
+    {
+      "@id": "#magpie",
+      "@type": "RepositoryObject",
+      "name": "magpie",
+      "pcdm:memberOf": {
+        "@id": "./"
+      },
+      "speaker": {
+        "@id": "#person_1"
+      },
+      "datePublished": "2016-11-08 01:36:17",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "custom:translation": "Magpie",
+      "custom:sentence": "a story in language",
+      "custom:sentenceTranslation": "story translation",
+      "custom:photographerName": "Quartl",
+      "custom:scientificName": "birdy",
+      "custom:image": {
+        "@id": "files/images/magpie.jpg"
+      },
+      "custom:callAudio": {
+        "@id": "files/audio/calls/magpie.mp3"
+      },
+      "custom:nameAudio": {
+        "@id": "files/audio/names/magpie.mp3"
+      },
+      "custom:sentenceAudio": {
+        "@id": "files/audio/sentences/magpie.mp3"
+      }
+    },
+    {
+      "@id": "#person_1",
+      "name": "Person 1",
+      "description": "about them",
+      "@type": "Thing"
+    },
+    {
+      "@id": "files/images/magpie.jpg",
+      "@type": "File",
+      "isPartOf": {
+        "@id": "#magpie"
+      }
+    },
+    {
+      "@id": "files/audio/calls/magpie.mp3",
+      "@type": "File",
+      "isPartOf": {
+        "@id": "#magpie"
+      }
+    },
+    {
+      "@id": "files/audio/names/magpie.mp3",
+      "@type": "File",
+      "isPartOf": {
+        "@id": "#magpie"
+      }
+    },
+    {
+      "@id": "files/audio/sentences/magpie.mp3",
+      "@type": "File",
+      "isPartOf": {
+        "@id": "#magpie"
+      }
+    },
+    {
+      "@id": "arcp://name,custom/terms#translation",
+      "@type": "rdf:Property",
+      "name": "translation",
+      "description": "the translation of the entry",
+      "rdfs:label": "translation",
+      "rdfs:comment": "the translation of the entry"
+    },
+    {
+      "@id": "arcp://name,custom/terms#sentence",
+      "@type": "rdf:Property",
+      "name": "sentence",
+      "description": "a story about the entry",
+      "rdfs:label": "sentence",
+      "rdfs:comment": "a story about the entry"
+    },
+    {
+      "@id": "arcp://name,custom/terms#callAudio",
+      "@type": "rdf:Property",
+      "name": "callAudio",
+      "description": "the call audio file associated with this entry",
+      "rdfs:label": "callAudio",
+      "rdfs:comment": "the call audio file associated with this entry"
+    },
+    {
+      "@id": "arcp://name,custom/terms#image",
+      "@type": "rdf:Property",
+      "name": "image",
+      "description": "the bird image",
+      "rdfs:label": "image",
+      "rdfs:comment": "the bird image"
+    },
+    {
+      "@id": "arcp://name,custom/terms#scientificName",
+      "@type": "rdf:Property",
+      "name": "scientificName",
+      "description": "the scientificName for this entry",
+      "rdfs:label": "scientificName",
+      "rdfs:comment": "the scientificName for this entry"
+    },
+    {
+      "@id": "arcp://name,custom/terms#nameAudio",
+      "@type": "rdf:Property",
+      "name": "nameAudio",
+      "description": "the name audio file associated with this entry",
+      "rdfs:label": "nameAudio",
+      "rdfs:comment": "the name audio file associated with this entry"
+    },
+    {
+      "@id": "arcp://name,custom/terms#sentenceAudio",
+      "@type": "rdf:Property",
+      "name": "sentenceAudio",
+      "description": "the sentence audio file associated with this entry",
+      "rdfs:label": "sentenceAudio",
+      "rdfs:comment": "the sentence audio file associated with this entry"
+    },
+    {
+      "@id": "arcp://name,custom/terms#photographerName",
+      "@type": "rdf:Property",
+      "name": "photographerName",
+      "description": "the name of the photographer who took the associated image",
+      "rdfs:label": "photographerName",
+      "rdfs:comment": "the name of the photographer who took the associated image"
+    },
+    {
+      "@id": "about/about.md",
+      "@type": [
+        "File",
+        "AboutPage"
+      ],
+      "encodingFormat": "text/markdown",
+      "about": {
+        "@id": "./"
+      }
+    }
+  ]
+}

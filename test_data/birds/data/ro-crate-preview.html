@@ -1,22 +1,22 @@
 <html lang="en">
   <head>
-    {# Facebook sharing image (Open Graph) #}
-    <meta property="og:url" content="https://ayeye-thipe-akerte.bird-apps.com/ro-crate-preview.html" />
+    
+    <meta property="og:url" content="https://bird-apps.com/ro-crate-preview.html" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Ayeye Thipe Akerte" />
-    <meta property="og:description" content="Arrernte stories about birds" />
-    <meta property="og:image" content="http://ayeye-thipe-akerte.bird-apps.com/files/images/og-img.jpg" />
-    <meta property="og:image:secure_url" content="https://ayeye-thipe-akerte.bird-apps.com/files/images/og-img.jpg" />
+    <meta property="og:title" content="Birds" />
+    <meta property="og:description" content="bird stories" />
+    <meta property="og:image" content="http://bird-apps.com/files/keyimage.jpg" />
+    <meta property="og:image:secure_url" content="https://bird-apps.com/files/keyimage.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>Birds</title>
     <link rel="icon" type="image/png" href="files/images/favicon.png" />
     <style>
         html, body {
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
-            background-color: #d3f4fe;
+            background-color: #d8ffe2;
             background-image: url(files/images/clouds-background.png);
             background-size: cover;
             background-repeat: no-repeat;
@@ -28,7 +28,8 @@
             background-color: black;
             color: white;
             font-weight: normal;
-            padding: 1em;
+            padding-top: 1em;
+            padding-bottom: 1em;
             margin: 0;
         }
         .footer-row a {
@@ -45,6 +46,15 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+        }
+        .object-grid-person {
+            width:100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
         }
         @media (max-width: 700px) {
             .object-grid {
@@ -101,49 +111,55 @@
 </head>
 <body>
 
-{% macro display(data, class) %}
-    {% set item = data.ids[data.entryPoint] %}
 
-    <div id="{{item.id}}" class="{{class}}">
+
+
+    
+
+    <div id="./" class="root">
         <div class="header-row">
             <h2 class="page-title">
-                {% if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
-                {{ item.props["http://schema.org/name"].fwd[0].value }}
-                {% endif %}
+                
+                Birds
+                
             </h2>
         </div>
 
         <div class=object-grid>
-            {% set sorted_ids = data.types.RepositoryObject | sort %}
-            {% for entity_id in sorted_ids %}
-                {% set entity = data.ids[entity_id] %}
-                {% set imagePath = entity.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
-                {% set pagePath= data.pages[entity_id].path if data.pages[entity_id] else '' %}
+            
+            
+                
+                
+                
 
-                <div class="bird" style="background-image: url('{{ imagePath }}');">
-                    <a href="{{ pagePath }}">
+                <div class="bird" style="background-image: url('files/images/magpie.jpg');">
+                    <a href="ro-crate-preview_html/452dbe49/eb4840b0/e8494528/bcbed18c/index.html">
                         <div class="bird-name">
-                            {{ entity.props["http://schema.org/name"].fwd[0].value }}
+                            magpie
                         </div>
                     </a>
                 </div>
-            {% endfor %}
+            
         </div>
 
         <div class="footer-row main-container">
-            {% for entity_id in data.types.AboutPage %}
+            
                 <div style="text-align:center; margin: 1em;">
-                    <a href="{{ data.pages[entity_id].path }}" class="about-link">
+                    <a href="ro-crate-preview_html/f4d7d8e2/a0129bf0/277ebe9b/f2ca8cce/index.html" class="about-link">
                         About this project
                     </a>
+                    <br><br><p style="font-size: large;">Speakers:</p>
                 </div>
-            {% endfor %}
+            
+        </div>
+
+        <div class="object-grid-person">
+            
+            
         </div>
              
     </div>
-{% endmacro %}
 
-{{ display(data, "root") }}
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 {
   "name": "ro-crate-html-lite",
   "type": "module",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A tool to create static HTML-only ro-crate-preview-html files for an RO-Crate",
   "main": "index.js",
   "bin": {
@@ -48,6 +48,7 @@
     "index.js",
     "roc-html.js",
     "template.html",
+    "template.js",
     "lib"
   ],
   "engines": {

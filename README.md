@@ -10,27 +10,27 @@ A recipe is available [here](https://github.com/Language-Research-Technology/dev
 ## Install
 
 ```
-npm install .
-
+npm install ro-crate-html-lite
 ```
 
-## Usage
+## CLI Usage
 
 ```
 npx roc-html [options] <path_to_crate_directory>
 
-Load an RO-Crate from a specified directory.
+Create an HTML file preview for an RO-Crate from a specified directory.
 
 Arguments:
-path_to_crate_directory     Path to the crate directory.
+  path_to_crate_directory             Path to the crate directory.
 
 Options:
--l, --layout <layoutPath>   Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the crate. Use raw link if URL is from GitHub. (Default: "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json")
-
--m, --multipage-config <configPath>  Filepath or URL to a multipage configuration file in JSON format.
-
--h, --help                  Display help for command.
+  -l, --layout <layoutPath>           Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the
+                                      crate. Use a raw link if the URL is from GitHub. (Default:
+                                      "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json")
+  -m --multipage-config <configPath>  Filepath or URL to a multipage configuration file in JSON format.
+  -h, --help                          display help for command
 ```
+
 
 ### About Page
 
@@ -54,24 +54,38 @@ To generate an About page for the site:
 3. Associate the `AboutPage` type with a template in the multipage config.
 
 
-
-## Run with test data
+### Run with test data
 
 Sample crate:
 
 ```
-node index.js test_data/sample
+npx roc-html test_data/sample
 ```
 
 Farms to freeways -- multipages 
 
 ```
-node index.js  -m test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
+npx roc-html  -m test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
+```
+
+## Library Usage
+
+To use this library in your own code, import the `renderSinglePage` function, e.g.:
+```js
+import { renderSinglePage } from "ro-crate-html-lite";
+import { ROCrate } from 'ro-crate';
+import { readFile, writeFile } from 'node:fs/promises';
+
+const json = JSON.parse(await readFile('ro-crate-metadata.json', 'utf-8'));
+const crate = await ROCrate.create(json);
+const previewContent = await renderSinglePage({ crate });
+await writeFile('./preview.html', previewContent, 'utf-8');
 ```
 
 ## Contributing
 
-To format the template run `npm run format`
+To format the template run `npm run format`.
+To test any changes to the default `template.html`, run the `npm run build` command first to generate the pre-compiled template `template.js`.
 
 ### HTML Validation continuous integration
 

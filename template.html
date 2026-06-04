@@ -314,7 +314,7 @@
 
     {%- macro crateNav() %}
       <div class="nav">
-        <p>Browse by type of entity:</p>
+        <p>Browse by type:</p>
         {%- if data.tabular and data.tabular.enabled %}
           {%- set navItems = data.tabular.navItems if data.tabular.navItems else [] %}
           {%- if navItems.length == 1 %}

@@ -23,8 +23,8 @@
         "label": "Collection holder"
       },
       {
-        "uri": "http://schema.org/author",
-        "label": "Contributor"
+        "uri": "http://schema.org/accountablePerson",
+        "label": "Accountable Person"
       }
     ],
     "http://schema.org/DefinedTerm": [
@@ -57,22 +57,18 @@
         "label": "Name"
       },
       {
-        "uri": "http://schema.org/publisher",
-        "label": "Publisher of ..."
-      },
-      {
-        "uri": "http://schema.org/description",
-        "label": "Collection description"
+        "uri": "https://schema.org/holdingArchive",
+        "label": "Collections held"
       }
     ],
     "http://schema.org/Language": [
       {
         "uri": "http://schema.org/name",
-        "label": "Name"
+        "label": "Language"
       },
       {
         "uri": "http://schema.org/inLanguage",
-        "label": "In language(s)"
+        "label": "Collections with this language"
       }
     ]
     
@@ -102,13 +98,13 @@
       "defaultLabel": "memberOf",
       "customLabel": "Member of",
       "customReverseLabel": "Has member",
-      "hide": false
+      "hide": true
     },
     "http://purl.org/dc/terms/conformsTo": {
       "defaultLabel": "conformsTo",
       "customLabel": "Conforms To",
       "customReverseLabel": "",
-      "hide": false
+      "hide": true
     },
     "http://purl.org/dc/terms/rightsHolder": {
       "defaultLabel": "rightsHolder",
@@ -126,6 +122,12 @@
       "defaultLabel": "accountablePerson",
       "customLabel": "Accountable Person",
       "customReverseLabel": "Accountable for",
+      "hide": false
+    },
+     "http://schema.org/additionalType": {
+      "defaultLabel": "additionalType",
+      "customLabel": "Collection holder category",
+      "customReverseLabel": "",
       "hide": false
     },
     "http://schema.org/address": {
@@ -154,7 +156,7 @@
     },
     "http://schema.org/creativeWorkStatus": {
       "defaultLabel": "creativeWorkStatus",
-      "customLabel": "Creative Work Status",
+      "customLabel": "Collection Status",
       "customReverseLabel": "",
       "hide": false
     },
@@ -192,7 +194,7 @@
       "defaultLabel": "email",
       "customLabel": "Email",
       "customReverseLabel": "Email contact",
-      "hide": false
+      "hide": true
     },
     "http://schema.org/identifier": {
       "defaultLabel": "identifier",
@@ -270,7 +272,7 @@
       "defaultLabel": "publisher",
       "customLabel": "Publisher",
       "customReverseLabel": "Publisher of",
-      "hide": false
+      "hide": true
     },
     "http://schema.org/sameAs": {
       "defaultLabel": "sameAs",
@@ -280,7 +282,7 @@
     },
     "http://schema.org/url": {
       "defaultLabel": "url",
-      "customLabel": "Url",
+      "customLabel": "Homepage",
       "customReverseLabel": "Referenced at",
       "hide": false
     },
@@ -298,13 +300,13 @@
     },
     "https://w3id.org/ldac/terms#CollectionProtocol": {
       "defaultLabel": "ldac:CollectionProtocol",
-      "customLabel": "Ldac: Collection Protocol",
+      "customLabel": "Collection Protocol",
       "customReverseLabel": "",
       "hide": false
     },
     "https://w3id.org/ldac/terms#DataReuseLicense": {
       "defaultLabel": "ldac:DataReuseLicense",
-      "customLabel": "Ldac: Data Reuse License",
+      "customLabel": "Data Reuse License",
       "customReverseLabel": "",
       "hide": false
     },
@@ -346,13 +348,13 @@
     },
     "https://w3id.org/ro/terms/precarious-oral-history#avFormat": {
       "defaultLabel": "avFormat",
-      "customLabel": "Av Format",
+      "customLabel": "Audiovisual Format",
       "customReverseLabel": "",
       "hide": false
     },
     "https://w3id.org/ro/terms/precarious-oral-history#avgInterviewLength": {
       "defaultLabel": "avgInterviewLength",
-      "customLabel": "Avg Interview Length",
+      "customLabel": "Average Interview Length",
       "customReverseLabel": "",
       "hide": false
     },
@@ -376,7 +378,7 @@
     },
     "https://w3id.org/ro/terms/precarious-oral-history#numInterviews": {
       "defaultLabel": "numInterviews",
-      "customLabel": "Num Interviews",
+      "customLabel": "Number of Interviews",
       "customReverseLabel": "",
       "hide": false
     },
@@ -438,7 +440,7 @@
       "defaultLabel": "contributor",
       "customLabel": "Contributor",
       "customReverseLabel": "Contributor to",
-      "hide": false
+      "hide": true
     },
     "http://schema.org/propertyID": {
       "defaultLabel": "propertyID",
@@ -486,22 +488,15 @@
         "@type",
         "http://purl.org/dc/terms/conformsTo",
         "http://schema.org/name",
-        "http://schema.org/familyName",
-        "http://schema.org/givenName",
         "http://schema.org/description",
+        "http://schema.org/additionalType",
         "http://schema.org/datePublished",
-        "http://schema.org/license",
-        "http://schema.org/creditText",
-        "http://schema.org/usageInfo",
         "http://schema.org/about",
-        "http://schema.org/mentions",
-        "http://schema.org/mainEntity",
-        "https://w3id.org/ldac/terms#age",
-        "https://w3id.org/ldac/terms#doi",
-        "https://w3id.org/ldac/terms#indexableText",
-        "https://w3id.org/ldac/terms#itemLocation",
-        "https://w3id.org/ldac/terms#mainText",
-        "https://w3id.org/ldac/terms#materialType"
+        "http://schema.org/keywords",
+        "http://schema.org/holdingArchive",
+        "http://schema.org/accountablePerson",
+        "http://schema.org/url"
+      
       ]
     },
     {
@@ -518,14 +513,17 @@
       ]
     },
     {
-      "name": "Access",
+      "name": "Access & Permissions",
       "help": "",
       "inputs": [
-        "https://w3id.org/ldac/terms#access",
-        "https://w3id.org/ldac/terms#accessControlList",
-        "https://w3id.org/ldac/terms#authorizationWorkflow",
-        "https://w3id.org/ldac/terms#openAccessIndex",
-        "https://w3id.org/ldac/terms#reviewDate"
+        "http://schema.org/license",
+        "http://schema.org/creditText",
+        "http://schema.org/usageInfo",
+        "http://schema.org/isAccessibleForFree",
+        "https://w3id.org/ro/terms/precarious-oral-history#consentForms",
+        "https://w3id.org/ro/terms/precarious-oral-history#consentFutureAccess",
+        "https://w3id.org/ro/terms/precarious-oral-history#publiclyAccessible"
+
       ]
     },
     {
@@ -612,31 +610,9 @@
         "http://schema.org/locationCreated",
         "http://schema.org/geo",
         "http://www.opengis.net/ont/geosparql#asWKT",
-        "http://schema.org/address"
-      ]
-    },
-    {
-      "name": "Software & Hardware",
-      "help": "For computer programs and execution environments that could be used to create data, have created data, or are being packaged and described.",
-      "inputs": [
-        "http://schema.org/availableOnDevice",
-        "http://schema.org/downloadUrl",
-        "http://schema.org/installUrl",
-        "http://schema.org/memoryRequirements",
-        "http://schema.org/operatingSystem",
-        "http://schema.org/processorRequirements",
-        "http://schema.org/programmingLanguage",
-        "http://schema.org/releaseNotes",
-        "http://schema.org/runtimePlatform",
-        "http://schema.org/runtime",
-        "http://schema.org/screenshot",
-        "http://schema.org/softwareAddOn",
-        "http://schema.org/softwareHelp",
-        "http://schema.org/softwareRequirements",
-        "http://schema.org/softwareVersion",
-        "http://schema.org/storageRequirements",
-        "http://schema.org/supportingData",
-        "https://w3id.org/ldac/terms#channels"
+        "http://schema.org/address",
+        "http://schema.org/creativeWorkStatus"
+
       ]
     }
   ]

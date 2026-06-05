@@ -194,39 +194,23 @@
   <body>
     {%- macro infoLink(url) %}
       {%- if url %}
-        {%- if data.ids[url] %}
-          <a
-            href="#{{ url }}"
-            title="See definiton for {{ url }} in this RO-Crate"
-          >
-            ⓘ
-          </a>
-        {% else %}
-          <a
-            href="{{ url }}"
-            title="Look up definiton for {{ url }}"
-            target="_blank"
-          >
-            ⓘ
-          </a>
-        {%- endif %}
+        {%- set normalizedUrl = url | replace(r/^#/, "") %}
+        {%- set linkTarget = data.infoLinks[url] or data.infoLinks[normalizedUrl] %}
+        
+        {%- if linkTarget %}
+            <span class="info"><a href="#{{ linkTarget | urlencode }}" title="See definition for {{ url }} in this RO-Crate">ⓘ</a></span>
+          {%- elif url[0] == "#" -%}
+             <span class="info"><a href="#{{ normalizedUrl | urlencode }}" title="See definition for {{ normalizedUrl }} in this RO-Crate">ⓘ</a></span>
+          {%- else -%}
+             <span class="info"><a href="{{ url }}" title="Look up definition for {{ url }}" target="_blank">ⓘ</a></span>
+          {%- endif %}
+       
       {%- endif %}
     {%- endmacro %}
 
     {%- macro diplayLabel(propData) %}
       {{ propData.label | replace(r/.*:/, "") }}
       {{ infoLink(propData.url) }}
-    {%- endmacro %}
-
-    {%- macro infoLink(url) %}
-
-      {%- if url %}
-        {%- if data.ids[url] %}
-          <span class="info"><a href="#{{ url }}">ⓘ</a></span>
-        {%- else %}
-          <span class="info"> <a href="{{ url }}" target="_blank">ⓘ</a></span>
-        {%- endif %}
-      {%- endif %}
     {%- endmacro %}
 
     {%- macro displayProp(prop, propData) %}

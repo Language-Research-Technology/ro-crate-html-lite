@@ -624,6 +624,51 @@ describe("preview.js", function () {
         "typeLabels should contain mapped custom type label for use in templates"
       );
     });
+
+    it("should pre-calculate infoLinks for internal entities and external URIs", async function () {
+      // Create a crate with internal entity references and external URIs
+      const crate = new ROCrate({ array: true, link: true });
+
+      // Add a custom ontology entity (internal reference)
+      crate.addEntity({
+        "@id": "https://w3id.org/ro/terms/precarious-oral-history#publiclyAccessible",
+        "@type": "rdf:Property",
+        name: "Publicly Accessible",
+      });
+
+      // Add a dataset that references both the internal term and external URIs
+      crate.root.name = "Test Dataset";
+      crate.root.license = {
+        "@id": "https://creativecommons.org/licenses/by/4.0/",
+      };
+    
+
+      // Convert to JSON
+      const result = await roCrateToJSON(crate);
+
+      // Verify infoLinks structure exists
+      assert.ok(result.infoLinks, "Result should have infoLinks object");
+      assert.equal(
+        typeof result.infoLinks,
+        "object",
+        "infoLinks should be an object"
+      );
+
+      // Verify internal entity reference (entity exists in the crate)
+      const internalTermUri = "https://w3id.org/ro/terms/precarious-oral-history#publiclyAccessible";
+      assert.ok(
+        result.infoLinks[internalTermUri],
+        "infoLinks should contain entry for internal term URI"
+      );
+      assert.equal(
+        result.infoLinks[internalTermUri],
+        `${internalTermUri}`,
+        "Internal entity reference should be a hash link"
+      );
+
+
+      console.log("✅ infoLinks pre-calculation test passed");
+    });
   });
 });
 

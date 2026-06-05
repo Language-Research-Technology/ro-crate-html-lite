@@ -42,139 +42,139 @@
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#collectionPurpose",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Collection Purpose",
       "description": "The stated purpose or aim of the oral history collection."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#storageLocation",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Storage Location",
       "description": "Physical or digital storage location type of the collection materials (e.g. Organisation's Premises, Online Storage)."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#languageNote",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Language Note",
       "description": "The original free-text language description from the survey, preserved verbatim alongside the structured inLanguage entries."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#firstNationsFocus",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "First Nations Focus",
       "description": "Whether the collection has a First Nations focus. Survey values: Yes / Partially / Unsure / No."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#publiclyAccessible",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Publicly Accessible",
       "description": "Original survey text for public accessibility. Complements the boolean isAccessibleForFree with the full value (e.g. 'Upon Request', 'Other: …', combinations)."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#consentForms",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Consent Forms",
       "description": "Whether consent forms were used when collecting oral history interviews. Survey values: Yes / No / Other / Unsure."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#consentFutureAccess",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Consent for Future Access",
       "description": "Whether consent covers future access or use of the recordings. Survey values: Yes / No / Not Applicable / Other / Unsure."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#numInterviews",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Number of Interviews",
       "description": "Total number of interviews in the collection."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#totalHours",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Total Hours",
       "description": "Total recorded hours across all interviews in the collection."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#avgInterviewLength",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Average Interview Length",
       "description": "Average length of individual interviews in the collection."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#avFormat",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "AV Format",
       "description": "Audio-visual format of the collection recordings (collection-level; individual file format would use encodingFormat)."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#analogueDigital",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Analogue or Digital",
       "description": "Whether the collection exists in analogue form, digital form, or both; relevant for digitisation planning."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#audioFormat",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Audio Format",
       "description": "Audio format of the collection recordings (collection-level; individual file format would use encodingFormat)."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#audiovisualFormat",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Audiovisual Format",
       "description": "Audiovisual format of the collection recordings (collection-level; individual file format would use encodingFormat)."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#physicalCondition",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Physical Condition",
       "description": "Physical condition of the collection materials; relevant for preservation risk assessment."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#audioQuality",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Audio Quality",
       "description": "Audio quality of the collection recordings; relevant for access and transcription planning."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#transcripts",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Transcripts",
       "description": "Availability or description of transcripts for the collection (file-level detail unavailable; would use ldac:hasAnnotation if file paths were known)."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#timedSummaries",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Timed Summaries",
       "description": "Availability or description of timed summaries for the collection."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#overviews",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Overviews",
       "description": "Availability or description of collection overviews."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#relatedMaterials",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Related Materials",
       "description": "Related materials associated with the collection (free-text; would use schema:relatedLink if URLs were available)."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#catalogueListing",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Catalogue Listing",
       "description": "Whether a catalogue or finding aid exists for the collection; the URL (if any) is mapped separately via isBasedOn."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#outputs",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Outputs",
       "description": "Publications, reports, or other outputs derived from the collection."
     },
     {
       "@id": "https://w3id.org/ro/terms/precarious-oral-history#otherInfo",
-      "@type": "DefinedTerm",
+      "@type": "rdf:Property",
       "name": "Other Information",
       "description": "Additional free-text information about the collection not captured by other fields."
     },

@@ -11,8 +11,89 @@
     </style>
 
     <script>
+      function escapeRegExp(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }
+
+      function clearSearchHighlights(container) {
+        if (!container) {
+          return;
+        }
+        container.querySelectorAll("span.search-highlight").forEach(function (node) {
+          var parent = node.parentNode;
+          if (!parent) {
+            return;
+          }
+          parent.replaceChild(document.createTextNode(node.textContent), node);
+          parent.normalize();
+        });
+      }
+
+      function highlightSearchTerm(container, term) {
+        if (!container || !term) {
+          return;
+        }
+
+        var regex = new RegExp(escapeRegExp(term), "gi");
+        var walker = document.createTreeWalker(
+          container,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function (node) {
+              if (!node.nodeValue || !node.nodeValue.trim()) {
+                return NodeFilter.FILTER_REJECT;
+              }
+              var parentEl = node.parentElement;
+              if (parentEl && parentEl.closest(".search-highlight")) {
+                return NodeFilter.FILTER_REJECT;
+              }
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          }
+        );
+
+        var textNodes = [];
+        var current;
+        while ((current = walker.nextNode())) {
+          textNodes.push(current);
+        }
+
+        textNodes.forEach(function (textNode) {
+          var text = textNode.nodeValue;
+          regex.lastIndex = 0;
+          if (!regex.test(text)) {
+            return;
+          }
+
+          regex.lastIndex = 0;
+          var fragment = document.createDocumentFragment();
+          var lastIndex = 0;
+          var match;
+
+          while ((match = regex.exec(text)) !== null) {
+            if (match.index > lastIndex) {
+              fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+            }
+
+            var highlight = document.createElement("span");
+            highlight.className = "search-highlight";
+            highlight.textContent = match[0];
+            fragment.appendChild(highlight);
+
+            lastIndex = match.index + match[0].length;
+          }
+
+          if (lastIndex < text.length) {
+            fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+          }
+
+          textNode.parentNode.replaceChild(fragment, textNode);
+        });
+      }
+
       function applyTabularFilters() {
         var globalSearchInput = document.getElementById("tabularSearchInput");
+        var globalTerm = globalSearchInput ? (globalSearchInput.value || "") : "";
         var globalQuery = globalSearchInput ? globalSearchInput.value.toLowerCase() : "";
 
         // Find current active table's body
@@ -22,7 +103,11 @@
         }
 
         // Only use column filters from the active table
-        var colQueries = Array.from(activeTableWrap.querySelectorAll(".tabular-col-search")).map(function (input) {
+        var colInputs = Array.from(activeTableWrap.querySelectorAll(".tabular-col-search"));
+        var colTerms = colInputs.map(function (input) {
+          return input.value || "";
+        });
+        var colQueries = colInputs.map(function (input) {
           return (input.value || "").toLowerCase();
         });
 
@@ -32,6 +117,8 @@
         }
 
         activeTableBody.querySelectorAll("tr").forEach(function (row) {
+          clearSearchHighlights(row);
+
           var matchesGlobal = !globalQuery || ((row.dataset.fullText || "").indexOf(globalQuery) > -1);
           var matchesColumns = colQueries.every(function (q, idx) {
             if (!q) {
@@ -42,6 +129,21 @@
           });
 
           row.style.display = matchesGlobal && matchesColumns ? "" : "none";
+
+          if (row.style.display !== "none") {
+            if (globalTerm) {
+              highlightSearchTerm(row, globalTerm);
+            }
+            colTerms.forEach(function (term, idx) {
+              if (!term) {
+                return;
+              }
+              var cell = row.cells[idx];
+              if (cell) {
+                highlightSearchTerm(cell, term);
+              }
+            });
+          }
         });
 
         updateTabularCount();
@@ -73,9 +175,13 @@
         var visibleCount = 0;
         
         items.forEach(function(item) {
+          clearSearchHighlights(item);
           var itemText = item.textContent.toLowerCase();
           if (itemText.indexOf(searchText) > -1) {
             item.style.display = "";
+            if (searchText) {
+              highlightSearchTerm(item, searchText);
+            }
             visibleCount++;
           } else {
             item.style.display = "none";
@@ -94,9 +200,13 @@
         count = li.length;
         found = 0;
         for (i = 0; i < li.length; i++) {
+          clearSearchHighlights(li[i]);
           txtValue = li[i].textContent.toUpperCase() || "";
           if (txtValue.indexOf(filter) > -1) {
             li[i].style.display = "";
+            if (filter) {
+              highlightSearchTerm(li[i], input.value);
+            }
             found++;
           } else {
             li[i].style.display = "none";
@@ -193,7 +303,8 @@
 
   <body>
     {%- macro infoLink(url) %}
-      {%- if url %}
+      {%- set showInfoLinks = config.settings.showInfoLinks if config and config.settings and config.settings.showInfoLinks is not none else true %}
+      {%- if url and showInfoLinks %}
         {%- set normalizedUrl = url | replace(r/^#/, "") %}
         {%- set linkTarget = data.infoLinks[url] or data.infoLinks[normalizedUrl] %}
         
@@ -218,7 +329,8 @@
         {%- if propData.fwd.length > 0 %}
           <div class="property-name">{{ diplayLabel(propData) }}</div>
           <div class="property-value">
-            {%- set isLong = propData.fwd.length + propData.rev.length > 10 %}
+            {%- set searchThreshold = config.settings.maxListItemsWithoutSearch if config and config.settings and config.settings.maxListItemsWithoutSearch is not none else 10 %}
+            {%- set isLong = propData.fwd.length + propData.rev.length > searchThreshold %}
             {%- if isLong %}
               <input class="border" onkeyup="res = search(this)" />
               <span class="count">
@@ -230,7 +342,7 @@
               {%- for val in propData.fwd %}
                 <div>
                   {%- if val is string %}
-                    {{ val | urlize | safe }}
+                    {{ val | urlize | nl2br  | safe }}
                   {%- elif val["url"] %}
                     <a href="{{ val["url"] }}"> {{ val["url"] }}</a>
                   {%- else %}
@@ -241,7 +353,7 @@
                         </a>
                       </span>
                     {%- elif val.value is string %}
-                      {{ val.value | urlize | safe }}
+                      {{ val.value | urlize | nl2br  | safe }}
                     {%- elif val.value %}
                       {{ val.value }}
                     {%- else %}
@@ -257,7 +369,8 @@
         {%- if propData.rev.length > 0 %}
           <div class="property-name">{{ propData.reverseLabel | replace(r/.*:/, "") }}{{ infoLink(propData.url) }}</div>
           <div class="property-value">
-            {%- set isLong = propData.fwd.length + propData.rev.length > 10 %}
+            {%- set searchThreshold = config.settings.maxListItemsWithoutSearch if config and config.settings and config.settings.maxListItemsWithoutSearch is not none else 10 %}
+            {%- set isLong = propData.fwd.length + propData.rev.length > searchThreshold %}
             {%- if isLong %}
               <input class="border" onkeyup="res = search(this)" />
               <span class="count">
@@ -333,9 +446,10 @@
       {%- elif cell is mapping and cell.isLong and cell.items %}
         {# Multi-value cell with scrollable container #}
         <div class="table-cell-long">
-          {%- if (cell.items | length) > 4 %}
+          {%- set searchThreshold = config.settings.maxListItemsWithoutSearch if config and config.settings and config.settings.maxListItemsWithoutSearch is not none else 4 %}
+          {%- if (cell.items | length) > searchThreshold %}
             <div class="table-cell-controls">
-              <input type="text" class="table-cell-search" placeholder="Search..." onkeyup="filterTableCell(this)" />
+              <input type="text" class="table-cell-search" placeholder="Find..." onkeyup="filterTableCell(this)" />
               <span class="table-cell-count">
                 <span class="table-cell-visible">{{ cell.items | length }}</span> / {{ cell.items | length }}
               </span>
@@ -412,7 +526,7 @@
         <div class="tabular-wrap">
           {%- if data.tabular.searchEnabled %}
             <div class="tabular-controls">
-              <label for="tabularSearchInput">Search</label>
+              <label for="tabularSearchInput">Find</label>
               <input id="tabularSearchInput" type="text" />
               <span class="tabular-count" id="tabularCount"></span>
             </div>
@@ -432,7 +546,7 @@
                     <tr>
                       {%- for col in typeData.columns %}
                         <th>
-                          <input type="text" class="tabular-col-search" placeholder="Search..." />
+                          <input type="text" class="tabular-col-search" placeholder="Find..." />
                         </th>
                       {%- endfor %}
                     </tr>
@@ -481,27 +595,26 @@
 
     {%- macro root() %}
       <div class="home-link">
-        <a href="#{{ data.entryPoint | urlencode }}" class="home-close-button">
+        <a href="#{{ data.entryPoint | urlencode }}" class="home-close-button" onclick="if (window.history.length > 1) { window.history.back(); return false; }">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"
             height="14"
             fill="currentColor"
-            class="bi bi-x-lg"
+            class="bi bi-arrow-left"
             viewBox="0 0 16 16"
           >
             <path
-              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
+              d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8"
             />
           </svg>
-          Close summary
+          Back
         </a>
       </div>
     {%- endmacro %}
 
     {%- macro showType(type) %}
-      <!--<a href="#types_{{ type }}" class="type"></a>-->
-      {{ data.typeLabels[type] or type | replace(r/.*:/) }}
+      {{ config.termMapping[data.typeUrls[type]].customLabel or type | replace(r/.*:/) }}
       {{ infoLink(data.typeUrls[type]) }}
     {%- endmacro %}
 
@@ -545,7 +658,7 @@
           </div>
           <h2>
             {%- if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
-              {{ item.props["http://schema.org/name"].fwd[0].value }}
+              {{ item.props["http://schema.org/name"].fwd[0].value   }}
             {% else %}
               <!-- Use ID if name isn't available, e.g. files -->
               {{ item.id }}
@@ -554,7 +667,7 @@
           {%- if item == data.ids[data.entryPoint] and class == "root" and item.props and "http://schema.org/description" in item.props and item.props["http://schema.org/description"].fwd and item.props["http://schema.org/description"].fwd.length > 0 %}
             {%- set rootDescription = item.props["http://schema.org/description"].fwd[0].value if item.props["http://schema.org/description"].fwd[0].value else item.props["http://schema.org/description"].fwd[0] %}
             {%- if rootDescription %}
-              <p class="root-description">{{ rootDescription }}</p>
+              <p class="root-description">  {{ rootDescription | nl2br | safe }}</p>
             {%- endif %}
             <p class="root-more-link"><a href="#root_entity_overlay">More about this data</a></p>
           {%- endif %}
@@ -578,7 +691,8 @@
                   <div class="entity-grid">
                     <h2>{{ type }} ({{ list.length }})</h2>
 
-                    {%- set isLong = list.length  > 10 %}
+                    {%- set searchThreshold = config.settings.maxListItemsWithoutSearch if config and config.settings and config.settings.maxListItemsWithoutSearch is not none else 10 %}
+                    {%- set isLong = list.length > searchThreshold %}
                     {%- if isLong %}
                       <input class="border" onkeyup="res = search(this)" />
                       <span class="count">
@@ -658,7 +772,8 @@
         {%- if not (item == data.ids[data.entryPoint] and class == "root" and data.tabular and data.tabular.hideRootSummary) %}
         <div class="property-grid">
           {%- set seenProps = {"@id": true,"@type": true} %}
-          {%- for group in layout %}
+          {%- set propertyGroups = config.propertyGroups if config and config.propertyGroups else [] %}
+          {%- for group in propertyGroups %}
             {%- set hasContent = false %}
             {%- for input in group.inputs %}
               {%- if item.props[input] %}

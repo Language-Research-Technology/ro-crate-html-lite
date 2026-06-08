@@ -33,18 +33,18 @@ describe("index.js --generate-config", function () {
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
-  it("creates a config that includes inputGroups from the provided/found layout", function () {
+  it("creates a config that includes propertyGroups from the provided/found layout", function () {
     const configPath = path.join(tempDir, "generated-config.json");
-    const expectedInputGroups = JSON.parse(fs.readFileSync(layoutPath, "utf8"));
+    const expectedPropertyGroups = JSON.parse(fs.readFileSync(layoutPath, "utf8"));
 
     runGenerateConfig(configPath);
 
     const generated = JSON.parse(fs.readFileSync(configPath, "utf8"));
-    assert.ok(Array.isArray(generated.inputGroups), "inputGroups should be present");
+    assert.ok(Array.isArray(generated.propertyGroups), "propertyGroups should be present");
     assert.deepEqual(
-      generated.inputGroups,
-      expectedInputGroups,
-      "inputGroups should be written from the passed/found layout"
+      generated.propertyGroups,
+      expectedPropertyGroups,
+      "propertyGroups should be written from the passed/found layout"
     );
     assert.ok(generated.termMapping, "termMapping should be present");
   });
@@ -59,7 +59,7 @@ describe("index.js --generate-config", function () {
           customLabel: "Preferred Name",
         },
       },
-      inputGroups: [
+      propertyGroups: [
         {
           name: "Custom Group",
           inputs: ["http://schema.org/name"],
@@ -74,9 +74,9 @@ describe("index.js --generate-config", function () {
 
     assert.equal(updated.multipage, true, "existing scalar values should not be overwritten");
     assert.deepEqual(
-      updated.inputGroups,
-      existingConfig.inputGroups,
-      "existing inputGroups should not be changed"
+      updated.propertyGroups,
+      existingConfig.propertyGroups,
+      "existing propertyGroups should not be changed"
     );
     assert.equal(
       updated.termMapping["http://schema.org/name"].defaultLabel,
@@ -97,7 +97,7 @@ describe("index.js --generate-config", function () {
     );
   });
 
-  it("adds inputGroups when they are missing in an existing config", function () {
+  it("adds propertyGroups when they are missing in an existing config", function () {
     const configPath = path.join(tempDir, "missing-input-groups.json");
     const existingConfig = {
       multipage: false,
@@ -108,7 +108,7 @@ describe("index.js --generate-config", function () {
     runGenerateConfig(configPath);
 
     const updated = JSON.parse(fs.readFileSync(configPath, "utf8"));
-    assert.ok(Array.isArray(updated.inputGroups), "inputGroups should be added when missing");
-    assert.ok(updated.inputGroups.length > 0, "added inputGroups should not be empty");
+    assert.ok(Array.isArray(updated.propertyGroups), "propertyGroups should be added when missing");
+    assert.ok(updated.propertyGroups.length > 0, "added propertyGroups should not be empty");
   });
 });

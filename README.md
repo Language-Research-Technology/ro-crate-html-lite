@@ -154,10 +154,10 @@ You can also provide explicit per-type navigation and columns with `navigationBy
 
 How columns are chosen:
 
-- Column order follows `inputGroups` from the resolved layout.
+- Column order follows `propertyGroups` from the resolved layout.
 - If `navigationByType` is present, dropdown order follows config order.
 - Columns with no values for that type are skipped.
-- If `includeFallbackColumns` is `true`, extra populated properties not listed in `inputGroups` can be appended.
+- If `includeFallbackColumns` is `true`, extra populated properties not listed in `propertyGroups` can be appended.
 - `columnLimit` caps the number of columns shown in the summary table.
 - `columnSearchEnabled` enables per-column search inputs in the table header.
 - `mainNavType` accepts either a bare type name or a full type URI.
@@ -173,6 +173,35 @@ If you want tabular summaries without generating per-entity pages, set:
 ```
 
 in the config file.
+
+### Config reference
+
+Top-level config keys currently supported:
+
+- `multipage`: boolean. Generate per-entity pages when `true`.
+- `style`: CSS path or URL.
+- `root.template`: template path for the root page.
+- `propertyGroups`: ordered property groups used in the property panel.
+- `navigationByType`: optional explicit tabular columns and labels by type URI.
+- `tabular`: tabular summary behavior (`mainNavType`, `columnLimit`, `searchEnabled`, `columnSearchEnabled`, `includeFallbackColumns`, `hideColumns`).
+- `termMapping`: label and visibility overrides for classes/properties.
+- `settings`: UI behavior settings.
+
+`settings` keys:
+
+- `maxListItemsWithoutSearch` (number): list size threshold before inline find boxes are shown.
+- `showInfoLinks` (boolean): show/hide definition info icons (`ⓘ`) across the UI.
+
+Example:
+
+```json
+{
+    "settings": {
+        "maxListItemsWithoutSearch": 10,
+        "showInfoLinks": false
+    }
+}
+```
 
 ### Demo styles
 

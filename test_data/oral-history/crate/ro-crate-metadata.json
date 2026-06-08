@@ -1246,6 +1246,7 @@
         "@id": "https://w3id.org/ldac/profile#Collection"
       },
       "name": "Currently untitled but will sit the library Local History collection",
+      
       "description": "110 cassette tapes created by the former South Melbourne and Port Melbourne Historical Society. They did not merge with any other society. The majority of recordings are from older members of the community describing their life and key events in the area. About half seem to be recorded presentations at the historical society meetings, not interviews. Some of the cassette tapes have dates and include the name of the speaker of interviewer/s but there is limited metadata available about the interview beyond the name of the speaker. \nIn addition, 20 digital mp3 recordings on USBs in a drawer in Heritage Centre staff room. File name includes the name of interviewee and year, sometimes full date. Some of the names are the same as on the cassette tapes.  The digital tapes seem to be mostly interviewed by a local history librarian and constitute a separate project to the majority of the cassette tapes by the South Melbourne and Port Melbourne historical society. Only two of the digital interviews have slates so the interviewer is mostly unknown.",
       "accountablePerson": {
         "@id": "#person-nicole-hilder"

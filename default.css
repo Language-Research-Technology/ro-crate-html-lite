@@ -103,6 +103,12 @@
         font-size: 0.9em;
       }
 
+      .search-highlight {
+        background: #ffe38a;
+        border-radius: 2px;
+        padding: 0 1px;
+      }
+
       .button-left,
       .button-right {
         margin-bottom: 10px;
@@ -187,6 +193,12 @@
         line-height: 2em;
         transition: all 0.3s ease-in;
         color: var(--link-color);
+      }
+
+      .property-value br {
+        display: block;
+        content: "";
+        margin-top: 0.2em;
       }
 
       .entity-header-row {

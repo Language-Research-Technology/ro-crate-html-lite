@@ -57,15 +57,15 @@ async function findLayout(crate, layoutOption) {
     if (conformsToLookup && conformsToMapping.hasOwnProperty(conformsToLookup)) {
       const mode = conformsToMapping[conformsToLookup];
       
-      // Fetch the inputGroups from the mode
+      // Fetch the propertyGroups from the mode
       const jsonData = await fetchJsonFromMode(mode);
       
-      if (jsonData.inputGroups) {
-        const layout = jsonData.inputGroups;
+      if (jsonData.propertyGroups) {
+        const layout = jsonData.propertyGroups;
         console.log(`Fetched layout for "${conformsToLookup}"`);
         return layout
       } else {
-        console.log("No 'inputGroups' key found in the JSON file.");
+        console.log("No 'propertyGroups' key found in the JSON file.");
       }}
       console.log(`conformsTo "${conformsToLookup}" not found in the mapping. Using default layout.`);
 
@@ -100,12 +100,12 @@ async function loadLayout(layoutOption) {
       }
       const jsonData = await response.json();  // Parse the response as JSON
 
-      // Check if inputGroups exists and return it
-      if (jsonData.inputGroups) {
-        return jsonData.inputGroups;
+      // Check if propertyGroups exists and return it
+      if (jsonData.propertyGroups) {
+        return jsonData.propertyGroups;
       }
 
-      // If no inputGroups, return the entire JSON
+      // If no propertyGroups, return the entire JSON
       return jsonData;
 
     } catch (error) {
@@ -118,12 +118,12 @@ async function loadLayout(layoutOption) {
       const layout = fs.readFileSync(layoutOption, 'utf8');
       const jsonData = JSON.parse(layout);  // Parse the file as JSON
 
-      // Check if inputGroups exists and return it
-      if (jsonData.inputGroups) {
-        return jsonData.inputGroups;
+      // Check if propertyGroups exists and return it
+      if (jsonData.propertyGroups) {
+        return jsonData.propertyGroups;
       }
 
-      // If no inputGroups, return the entire JSON
+      // If no propertyGroups, return the entire JSON
       return jsonData;
 
     } catch (error) {
@@ -223,14 +223,14 @@ function mergeGeneratedConfig(existingConfig, generatedConfig) {
   merged.termMapping = mergeTermMapping(existing.termMapping, generated.termMapping);
 
   // Add discovered/passed input groups only when absent.
-  if (!("inputGroups" in existing) && Array.isArray(generated.inputGroups)) {
-    merged.inputGroups = cloneJson(generated.inputGroups);
+  if (!("propertyGroups" in existing) && Array.isArray(generated.propertyGroups)) {
+    merged.propertyGroups = cloneJson(generated.propertyGroups);
   }
 
   return merged;
 }
 
-function buildGeneratedConfig(crate, inputGroups = []) {
+function buildGeneratedConfig(crate, propertyGroups = []) {
   const classUriToDefaultLabel = new Map();
   const propertyUriSet = new Set();
 
@@ -283,7 +283,7 @@ function buildGeneratedConfig(crate, inputGroups = []) {
     root: {
       template: "template.html",
     },
-    inputGroups: Array.isArray(inputGroups) ? cloneJson(inputGroups) : [],
+    propertyGroups: Array.isArray(propertyGroups) ? cloneJson(propertyGroups) : [],
     navigationByType,
     tabular: {
       mainNavType: "",
@@ -380,7 +380,13 @@ program
     }
     
     // Load optional config (preferred --config, deprecated --multipage-config)
-    let configData = null;
+    const defaultConfig = {
+      settings: {
+        maxListItemsWithoutSearch: 10, 
+        showInfoLinks: true,
+      },
+    };
+    let configData = cloneJson(defaultConfig);
     let configFilePath = null;
     const configFile = options.config || options.multipageConfig;
     if (options.multipageConfig && !options.config) {
@@ -396,7 +402,8 @@ program
       
       try {
         const configContent = fs.readFileSync(configFile, "utf8");
-        configData = JSON.parse(configContent); // Parse the JSON content
+        const parsedConfig = JSON.parse(configContent); // Parse the JSON content
+        configData = mergeMissingObjectKeys(parsedConfig, defaultConfig);
         configFilePath = configFile;
       } catch (error) {
         console.error(`Error reading/parsing config file: ${error.message}`);
@@ -439,9 +446,11 @@ program
     let layout;
     if (options.layout) {
       layout = await findLayout(crate, options.layout);
-    } else if (configData && Array.isArray(configData.inputGroups) && configData.inputGroups.length > 0) {
-      layout = configData.inputGroups;
-      console.log("Using inputGroups from config.");
+      configData.propertyGroups = layout;
+   
+    } else if (configData && Array.isArray(configData.propertyGroups) && configData.propertyGroups.length > 0) {
+      layout = configData.propertyGroups;
+      console.log("Using propertyGroups from config.");
     } else {
       layout = await findLayout(crate, options.layout);
     }
@@ -476,6 +485,13 @@ program
           hasLayout: !!configData, // Flag to indicate if a config/layout was provided
     }
 
+    const templateConfig = {
+      ...(configData || {}),
+      propertyGroups: Array.isArray(configData && configData.propertyGroups)
+        ? configData.propertyGroups
+        : (Array.isArray(layout) ? layout : []),
+    };
+
     // Load markdown content for File entities
     for (const [id, entity] of Object.entries(crateLite.ids)) {
       if (entity.id.match(/\.md$/i)) {
@@ -503,7 +519,7 @@ program
           console.log(`Rendering page for entity ${entityId} using template ${pageDetails.template}`);
           const pageTemplate = fs.readFileSync(pageDetails.template, "utf8");
 
-          const html = renderTemplate(pageData, pageTemplate, layout, styleText);
+          const html = renderTemplate(pageData, pageTemplate, templateConfig, styleText);
 
           const outputPath = path.join(cratePath, pageDetails.path);
           const outputDir = path.dirname(outputPath);
@@ -517,7 +533,7 @@ program
         }
       }
     } 
-    const html = renderTemplate(crateLite, template, layout, styleText);
+    const html = renderTemplate(crateLite, template, templateConfig, styleText);
     fs.writeFileSync(
       path.join(cratePath, "ro-crate-preview.html"),
       html,

@@ -1,6 +1,10 @@
 {
   "multipage": false,
   "style": "",
+  "settings": {
+    "maxListItemsWithoutSearch": 20,
+    "showInfoLinks": false
+  },
   "root": {
     "template": "template.html"
   },
@@ -110,7 +114,7 @@
       "defaultLabel": "rightsHolder",
       "customLabel": "Rights holder",
       "customReverseLabel": "Rights held by",
-      "hide": false
+      "hide": true
     },
     "http://schema.org/about": {
       "defaultLabel": "about",
@@ -295,7 +299,7 @@
     "https://schema.org/holdingArchive": {
       "defaultLabel": "holdingArchive",
       "customLabel": "Holding Archive",
-      "customReverseLabel": "",
+      "customReverseLabel": "Collection(s) held",
       "hide": false
     },
     "https://w3id.org/ldac/terms#CollectionProtocol": {
@@ -479,7 +483,7 @@
       "hide": false
     }
   },
-  "inputGroups": [
+  "propertyGroups": [
     {
       "name": "About",
       "help": "The core metadata for this RO-Crate and its subject matter.",
@@ -527,7 +531,7 @@
       ]
     },
     {
-      "name": "Related People, Orgs & Works",
+      "name": "Related People, Orgs & Collections",
       "help": "The context for the creation of this RO-Crate; who made it, funded it etc.",
       "inputs": [
         "http://schema.org/creator",
@@ -561,7 +565,8 @@
         "https://w3id.org/ldac/terms#speaker",
         "https://w3id.org/ldac/terms#sponsor",
         "https://w3id.org/ldac/terms#transcriber",
-        "https://w3id.org/ldac/terms#translator"
+        "https://w3id.org/ldac/terms#translator",
+        "https://schema.org/holdingArchive"
       ]
     },
     {

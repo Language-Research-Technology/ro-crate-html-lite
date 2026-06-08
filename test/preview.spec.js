@@ -255,7 +255,7 @@ describe("preview.js", function () {
       console.log("✅ Multi-page configuration test passed");
     });
 
-    it("should generate tabular summaries ordered by inputGroups", async function () {
+    it("should generate tabular summaries ordered by propertyGroups", async function () {
       const crateData = JSON.parse(
         fs.readFileSync("test_data/f2fnew/data/ro-crate-metadata.json", "utf8")
       );
@@ -405,7 +405,7 @@ describe("preview.js", function () {
       );
     });
 
-    it("should normalise bare property terms to URIs so layout inputGroups can match them", async function () {
+    it("should normalise bare property terms to URIs so layout propertyGroups can match them", async function () {
       const crateData = JSON.parse(
         fs.readFileSync("test_data/sample/crate/ro-crate-metadata.json", "utf8")
       );
@@ -450,7 +450,7 @@ describe("preview.js", function () {
         `At least one "About" group URI should match root entity props (layout URIs: ${aboutInputs.join(", ")})`
       );
 
-      console.log("✅ inputGroup URI normalisation regression test passed");
+      console.log("✅ propertyGroup URI normalisation regression test passed");
     });
 
     it("should keep tabular data when multipage is disabled", async function () {

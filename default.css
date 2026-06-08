@@ -631,30 +631,16 @@
         position: relative;
         max-height: 150px;
         overflow-y: scroll;
+        overflow-x: hidden;
         border: 1px solid #ddd;
         padding: 4px;
         background-color: #fafafa;
-        scrollbar-gutter: stable;
+        scrollbar-gutter: stable both-edges;
         scrollbar-width: auto;
         scrollbar-color: #9bb0c6 #e8edf2;
         box-shadow:
           inset 0 10px 8px -10px rgba(77, 102, 126, 0.45),
           inset 0 -10px 8px -10px rgba(77, 102, 126, 0.45);
-      }
-
-      .table-cell-values::after {
-        content: "scroll";
-        position: sticky;
-        bottom: 2px;
-        left: calc(100% - 44px);
-        display: inline-block;
-        font-size: 0.68em;
-        line-height: 1;
-        color: #7f97b1;
-        background: rgba(250, 250, 250, 0.9);
-        padding: 1px 4px;
-        border-radius: 4px;
-        pointer-events: none;
       }
 
       .table-cell-values::-webkit-scrollbar {

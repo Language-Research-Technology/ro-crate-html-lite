@@ -42,1726 +42,780 @@
     {
       "@id": "#person-phil-vabre",
       "@type": "Person",
-      "name": [
-        "Phil Vabre",
-        "Phil"
-      ]
-    },
-    {
-      "@id": "#person-phi-vabre",
-      "@type": "Person",
-      "name": [
-        "Phi Vabre",
-        "Phi"
-      ]
+      "name": "Phil Vabre"
     },
     {
       "@id": "#person-marcus-mulcahy",
       "@type": "Person",
-      "name": [
-        "Marcus Mulcahy",
-        "Marcus"
-      ]
+      "name": "Marcus Mulcahy"
     },
     {
       "@id": "#person-nicole-hilder",
       "@type": "Person",
-      "name": [
-        "Nicole Hilder",
-        "Nicole"
-      ]
+      "name": "Nicole Hilder"
     },
     {
       "@id": "#person-stuart-hamilton",
       "@type": "Person",
-      "name": [
-        "Stuart Hamilton",
-        "Stuart"
-      ]
+      "name": "Stuart Hamilton"
     },
     {
       "@id": "#person-mia-martin-hobbs",
       "@type": "Person",
-      "name": [
-        "Mia Martin Hobbs",
-        "Mia"
-      ]
+      "name": "Mia Martin Hobbs"
     },
     {
       "@id": "#person-gwyn-mcclelland",
       "@type": "Person",
-      "name": [
-        "Gwyn McClelland",
-        "Gwyn"
-      ]
+      "name": "Gwen McClelland"
     },
     {
       "@id": "#person-rebecca-dauti",
       "@type": "Person",
-      "name": [
-        "Rebecca Dauti",
-        "Rebecca"
-      ]
+      "name": "Rebecca Dauti"
     },
     {
       "@id": "#person-jeffrey-atkinson",
       "@type": "Person",
-      "name": [
-        "Jeffrey Atkinson",
-        "Jeffrey"
-      ]
+      "name": "Jeffery Atkinson"
     },
     {
       "@id": "#person-nicolette-snowden",
       "@type": "Person",
-      "name": [
-        "Nicolette Snowden",
-        "Nicolette"
-      ]
+      "name": "Nicolette Snowden"
     },
     {
       "@id": "#person-geraldine-fela",
       "@type": "Person",
-      "name": [
-        "Geraldine Fela",
-        "Geraldine"
-      ]
+      "name": "Geraldine Fela"
     },
     {
       "@id": "#person-malcolm-mckinty",
       "@type": "Person",
-      "name": [
-        "Malcolm McKinty",
-        "Malcolm"
-      ]
+      "name": "Malcom McKinty"
     },
     {
-      "@id": "#person-bryan-john-power",
-      "@type": "Person",
-      "name": [
-        "Bryan John Power",
-        "Bryan"
-      ]
+      "@id": "#org-bryan-john-power",
+      "@type": "Organization",
+      "name": "Bryan John Power",
+      "additionalType": "Individual"
     },
     {
       "@id": "#person-katrina-lolicato",
       "@type": "Person",
-      "name": [
-        "Katrina Lolicato",
-        "Katrina"
-      ]
-    },
-    {
-      "@id": "#person-gracie-lolicato-katrina-loliato",
-      "@type": "Person",
-      "name": [
-        "Gracie lolicato Katrina loliato",
-        "Gracie"
-      ]
+      "name": "Katrina Lolicato"
     },
     {
       "@id": "#person-kate-davis",
       "@type": "Person",
-      "name": [
-        "Kate Davis",
-        "Kate"
-      ]
+      "name": "Kate Davis"
     },
     {
       "@id": "#person-deborah-mould",
       "@type": "Person",
-      "name": [
-        "Deborah Mould",
-        "Deborah"
-      ]
+      "name": "Deborah Mould"
     },
     {
       "@id": "#person-pauline-hastings",
       "@type": "Person",
-      "name": [
-        "Pauline Hastings",
-        "Pauline"
-      ]
+      "name": "Pauline Hastings"
     },
     {
       "@id": "#person-sue-phillips",
       "@type": "Person",
-      "name": [
-        "Sue Phillips",
-        "Sue"
-      ]
+      "name": "Sue Phillips"
     },
     {
       "@id": "#person-fay-quilford",
       "@type": "Person",
-      "name": [
-        "Fay Quilford",
-        "Fay"
-      ]
-    },
-    {
-      "@id": "#person-various-volunteer-members-over-the-past-50-years",
-      "@type": "Person",
-      "name": [
-        "Various volunteer members over the past 50 years",
-        "Various"
-      ]
+      "name": "Fay Quilford"
     },
     {
       "@id": "#person-alice-garner",
       "@type": "Person",
-      "name": [
-        "Alice Garner",
-        "Alice"
-      ]
+      "name": "Alice Garner"
     },
     {
       "@id": "#person-simone-battiston",
       "@type": "Person",
-      "name": [
-        "Simone Battiston",
-        "Simone"
-      ]
+      "name": "Simone Battiston"
     },
     {
       "@id": "#person-graeme-reilly",
       "@type": "Person",
-      "name": [
-        "Graeme Reilly",
-        "Graeme"
-      ]
+      "name": "Graeme Reilly"
     },
     {
       "@id": "#person-dell-winser",
       "@type": "Person",
-      "name": [
-        "Dell Winser",
-        "Dell"
-      ]
+      "name": "Dell Winser"
     },
     {
       "@id": "#person-meghan-grech",
       "@type": "Person",
-      "name": [
-        "Meghan Grech",
-        "Meghan"
-      ]
+      "name": "Meghan Grech"
     },
     {
       "@id": "#person-marlene-greiner",
       "@type": "Person",
-      "name": [
-        "Marlene Greiner",
-        "Marlene"
-      ]
+      "name": "Marlene Greiner"
     },
     {
       "@id": "#person-shane-homan",
       "@type": "Person",
-      "name": [
-        "Shane Homan",
-        "Shane"
-      ]
+      "name": "Shane Homan"
     },
     {
       "@id": "#person-monica-cronin",
       "@type": "Person",
-      "name": [
-        "Monica Cronin",
-        "Monica"
-      ]
+      "name": "Monica Cronin"
     },
     {
       "@id": "#person-simon-pase",
       "@type": "Person",
-      "name": [
-        "Simon Pase",
-        "Simon"
-      ]
-    },
-    {
-      "@id": "#person-robert-grant",
-      "@type": "Person",
-      "name": [
-        "Robert Grant",
-        "Robert"
-      ]
+      "name": "Simon Pase"
     },
     {
       "@id": "#person-miranda-francis",
       "@type": "Person",
-      "name": [
-        "Miranda Francis",
-        "Miranda"
-      ]
+      "name": "Miranda Francis"
     },
     {
-      "@id": "#person-anthony-john-dare",
-      "@type": "Person",
-      "name": [
-        "Anthony John Dare",
-        "Anthony"
-      ]
+      "@id": "#org-joseph-ribarow",
+      "@type": "Organization",
+      "name": "Joseph Ribarow",
+      "url": "http://historyofstalbans.com.au",
+      "additionalType": "Individual"
     },
     {
-      "@id": "#person-joseph-ribarow",
+      "@id": "#person-deanna-boulos-social-support-and-events-officer-city-of-boroondara",
       "@type": "Person",
-      "name": [
-        "Joseph Ribarow",
-        "Joseph"
-      ]
-    },
-    {
-      "@id": "#person-fiona-poulton",
-      "@type": "Person",
-      "name": [
-        "Fiona Poulton",
-        "Fiona"
-      ]
+      "name": "Deanna Boulos, Social Support and Events Officer, City of Boroondara"
     },
     {
       "@id": "#person-dr-deborah-jordan",
       "@type": "Person",
-      "name": [
-        "Dr Deborah Jordan",
-        "Dr"
-      ]
-    },
-    {
-      "@id": "#person-dan-haumschild",
-      "@type": "Person",
-      "name": [
-        "Dan Haumschild",
-        "Dan"
-      ]
+      "name": "Dr Deborah Jordan"
     },
     {
       "@id": "#person-alice-mcinnes",
       "@type": "Person",
-      "name": [
-        "Alice McInnes",
-        "Alice"
-      ]
-    },
-    {
-      "@id": "#person-elizabeth-libby-anne-scott",
-      "@type": "Person",
-      "name": [
-        "Elizabeth (Libby) Anne Scott",
-        "Elizabeth"
-      ]
+      "name": "Alice McInnes"
     },
     {
       "@id": "#person-elizabeth-anne-scott",
       "@type": "Person",
-      "name": [
-        "Elizabeth Anne Scott",
-        "Elizabeth"
-      ]
-    },
-    {
-      "@id": "#person-heather-mckay-cassandra-smith-and-erika-gronbach",
-      "@type": "Person",
-      "name": [
-        "Heather McKay, Cassandra Smith and Erika Gronbach",
-        "Heather"
-      ]
+      "name": "Elizabeth Anne Scott"
     },
     {
       "@id": "#person-cassandra-smith",
       "@type": "Person",
-      "name": [
-        "Cassandra Smith",
-        "Cassandra"
-      ]
+      "name": "Cassandra Smith"
     },
     {
       "@id": "#person-hannah-viney",
       "@type": "Person",
-      "name": [
-        "Hannah Viney",
-        "Hannah"
-      ]
+      "name": "Hannah Viney"
     },
     {
       "@id": "#person-jordana-silverstein",
       "@type": "Person",
-      "name": [
-        "Jordana Silverstein",
-        "Jordana"
-      ]
+      "name": "Jordana Silverstein"
     },
     {
       "@id": "#person-kirby-fenwick",
       "@type": "Person",
-      "name": [
-        "Kirby Fenwick",
-        "Kirby"
-      ]
+      "name": "Kirby Fenwick"
     },
     {
       "@id": "#person-ken-purdham",
       "@type": "Person",
-      "name": [
-        "Ken Purdham",
-        "Ken"
-      ]
+      "name": "Ken Purdham"
     },
     {
       "@id": "#person-janet-wilson",
       "@type": "Person",
-      "name": [
-        "Janet Wilson",
-        "Janet"
-      ]
+      "name": "Janet Wilson"
     },
     {
       "@id": "#person-marian-matta",
       "@type": "Person",
-      "name": [
-        "Marian Matta",
-        "Marian"
-      ]
+      "name": "Marian Matta"
     },
     {
       "@id": "#person-mairi-christina-neil",
       "@type": "Person",
-      "name": [
-        "Mairi Christina Neil",
-        "Mairi"
-      ]
+      "name": "Mairi Christina Neil"
     },
     {
       "@id": "#person-juliet-fox",
       "@type": "Person",
-      "name": [
-        "Juliet Fox",
-        "Juliet"
-      ]
-    },
-    {
-      "@id": "#person-3cr-community-radio",
-      "@type": "Person",
-      "name": [
-        "3CR Community Radio",
-        "3CR"
-      ]
+      "name": "Juliet Fox"
     },
     {
       "@id": "#person-robert-porter",
       "@type": "Person",
-      "name": [
-        "Robert Porter",
-        "Robert"
-      ]
+      "name": "Robert Porter"
     },
     {
       "@id": "#person-graham-goulding",
       "@type": "Person",
-      "name": [
-        "Graham Goulding",
-        "Graham"
-      ]
-    },
-    {
-      "@id": "#person-graham-e-goulding",
-      "@type": "Person",
-      "name": [
-        "Graham E Goulding",
-        "Graham"
-      ]
+      "name": "Graham Goulding"
     },
     {
       "@id": "#person-liz-mcinerney",
       "@type": "Person",
-      "name": [
-        "LIZ MCINERNEY",
-        "LIZ"
-      ]
-    },
-    {
-      "@id": "#person-elizabeth-mcinerney",
-      "@type": "Person",
-      "name": [
-        "ELIZABETH MCINERNEY",
-        "ELIZABETH"
-      ]
-    },
-    {
-      "@id": "#person-henry-pleming",
-      "@type": "Person",
-      "name": [
-        "HENRY PLEMING",
-        "HENRY"
-      ]
+      "name": "Liz McInerney"
     },
     {
       "@id": "#person-hayden-williams",
       "@type": "Person",
-      "name": [
-        "Hayden Williams",
-        "Hayden"
-      ]
+      "name": "Hayden Williams"
     },
     {
       "@id": "#person-maureen-everitt",
       "@type": "Person",
-      "name": [
-        "Maureen Everitt",
-        "Maureen"
-      ]
+      "name": "Maureen Everitt"
     },
     {
       "@id": "#person-del-atkinson",
       "@type": "Person",
-      "name": [
-        "Del Atkinson",
-        "Del"
-      ]
+      "name": "Del Atkinson"
     },
     {
       "@id": "#person-john-kumm",
       "@type": "Person",
-      "name": [
-        "John Kumm",
-        "John"
-      ]
+      "name": "John Kumm"
     },
     {
       "@id": "#person-maree-janet-belyea",
       "@type": "Person",
-      "name": [
-        "Maree Janet Belyea",
-        "Maree"
-      ]
+      "name": "Maree Janet Belyea"
     },
     {
       "@id": "#person-derek-reid",
       "@type": "Person",
-      "name": [
-        "Derek Reid",
-        "Derek"
-      ]
-    },
-    {
-      "@id": "#person-damien-kennedy",
-      "@type": "Person",
-      "name": [
-        "Damien Kennedy",
-        "Damien"
-      ]
+      "name": "Derek Reid"
     },
     {
       "@id": "#person-jean-rotherham",
       "@type": "Person",
-      "name": [
-        "Jean Rotherham",
-        "Jean"
-      ]
+      "name": "Jean Rotherham"
     },
     {
       "@id": "#person-diana-cork",
       "@type": "Person",
-      "name": [
-        "Diana Cork",
-        "Diana"
-      ]
-    },
-    {
-      "@id": "#person-george-milford",
-      "@type": "Person",
-      "name": [
-        "George Milford",
-        "George"
-      ]
+      "name": "Diana Cork"
     },
     {
       "@id": "#person-judy-farmer",
       "@type": "Person",
-      "name": [
-        "Judy Farmer",
-        "Judy"
-      ]
+      "name": "Judy Farmer"
     },
     {
       "@id": "#person-ellen-burrows",
       "@type": "Person",
-      "name": [
-        "Ellen Burrows",
-        "Ellen"
-      ]
-    },
-    {
-      "@id": "#person-jim-crosthwaite",
-      "@type": "Person",
-      "name": [
-        "Jim Crosthwaite",
-        "Jim"
-      ]
+      "name": "Ellen Burrows"
     },
     {
       "@id": "#person-anthony-mcaleer-oam",
       "@type": "Person",
-      "name": [
-        "Anthony McAleer OAM",
-        "Anthony"
-      ]
+      "name": "Anthony McAleer OAM"
     },
     {
       "@id": "#person-luke-savage",
       "@type": "Person",
-      "name": [
-        "Luke Savage",
-        "Luke"
-      ]
+      "name": "Luke Savage"
     },
     {
       "@id": "#person-sue-barnett",
       "@type": "Person",
-      "name": [
-        "Sue Barnett",
-        "Sue"
-      ]
-    },
-    {
-      "@id": "#person-stephen-gillespie",
-      "@type": "Person",
-      "name": [
-        "Stephen Gillespie",
-        "Stephen"
-      ]
+      "name": "Sue Barnett"
     },
     {
       "@id": "#person-lynda-tieman",
       "@type": "Person",
-      "name": [
-        "Lynda Tieman",
-        "Lynda"
-      ]
+      "name": "Lynda Tieman"
     },
     {
       "@id": "#person-rose-blustein",
       "@type": "Person",
-      "name": [
-        "Rose Blustein",
-        "Rose"
-      ]
-    },
-    {
-      "@id": "#person-renata-singer",
-      "@type": "Person",
-      "name": [
-        "Renata Singer",
-        "Renata"
-      ]
+      "name": "Rose Blustein"
     },
     {
       "@id": "#person-erin-wilson",
       "@type": "Person",
-      "name": [
-        "Erin Wilson",
-        "Erin"
-      ]
-    },
-    {
-      "@id": "#person-n-a",
-      "@type": "Person",
-      "name": "N/A"
+      "name": "Erin Wilson"
     },
     {
       "@id": "#person-margaret-gibson",
       "@type": "Person",
-      "name": [
-        "Margaret Gibson",
-        "Margaret"
-      ]
+      "name": "Margaret Gibson"
     },
     {
       "@id": "#person-jennifer-rose",
       "@type": "Person",
-      "name": [
-        "Jennifer Rose",
-        "Jennifer"
-      ]
-    },
-    {
-      "@id": "#person-emeritus-professor-andrew-jakubowicz",
-      "@type": "Person",
-      "name": [
-        "Emeritus Professor Andrew Jakubowicz",
-        "Emeritus"
-      ]
+      "name": "Jennifer Rose"
     },
     {
       "@id": "#person-larina-strauch",
       "@type": "Person",
-      "name": [
-        "Larina Strauch",
-        "Larina"
-      ]
+      "name": "Larina Strauch"
     },
     {
       "@id": "#person-tonya-lewis",
       "@type": "Person",
-      "name": [
-        "Tonya Lewis",
-        "Tonya"
-      ]
+      "name": "Tonya Lewis"
     },
     {
       "@id": "#person-anna-donne",
       "@type": "Person",
-      "name": [
-        "Anna Donne",
-        "Anna"
-      ]
+      "name": "Anna Donne"
     },
     {
       "@id": "#person-robert-ashworth",
       "@type": "Person",
-      "name": [
-        "Robert Ashworth",
-        "Robert"
-      ]
-    },
-    {
-      "@id": "#person-numerous-previous-office-bearers",
-      "@type": "Person",
-      "name": [
-        "Numerous previous office bearers",
-        "Numerous"
-      ]
+      "name": "Robert Ashworth"
     },
     {
       "@id": "#person-rebecca-houlihan",
       "@type": "Person",
-      "name": [
-        "Rebecca Houlihan",
-        "Rebecca"
-      ]
+      "name": "Rebecca Houlihan"
     },
     {
       "@id": "#person-ian-moyle",
       "@type": "Person",
-      "name": [
-        "Ian Moyle",
-        "Ian"
-      ]
+      "name": "Ian Moyle"
     },
     {
       "@id": "#person-sarah-crooke",
       "@type": "Person",
-      "name": [
-        "Sarah Crooke",
-        "Sarah"
-      ]
+      "name": "Sarah Crooke"
     },
     {
       "@id": "#person-janine-smith",
       "@type": "Person",
-      "name": [
-        "Janine Smith",
-        "Janine"
-      ]
+      "name": "Janine Smith"
     },
     {
       "@id": "#person-robert-graeme-kennedy",
       "@type": "Person",
-      "name": [
-        "Robert Graeme Kennedy",
-        "Robert"
-      ]
+      "name": "Robert Graeme Kennedy"
     },
     {
       "@id": "#person-amanda-steen",
       "@type": "Person",
-      "name": [
-        "Amanda Steen",
-        "Amanda"
-      ]
-    },
-    {
-      "@id": "#person-latrobe-valley-cultural-heritage-project",
-      "@type": "Person",
-      "name": [
-        "Latrobe Valley Cultural Heritage Project",
-        "Latrobe"
-      ]
+      "name": "Amanda Steen"
     },
     {
       "@id": "#person-julia-lees",
       "@type": "Person",
-      "name": [
-        "Julia Lees",
-        "Julia"
-      ]
-    },
-    {
-      "@id": "#person-memento-media",
-      "@type": "Person",
-      "name": [
-        "Memento Media",
-        "Memento"
-      ]
+      "name": "Julia Lees"
     },
     {
       "@id": "#person-colleen-forbes",
       "@type": "Person",
-      "name": [
-        "Colleen Forbes",
-        "Colleen"
-      ]
-    },
-    {
-      "@id": "#person-colleen-margaret-forbes",
-      "@type": "Person",
-      "name": [
-        "Colleen Margaret Forbes",
-        "Colleen"
-      ]
-    },
-    {
-      "@id": "#person-unknown",
-      "@type": "Person",
-      "name": "unknown"
+      "name": "Colleen Forbes"
     },
     {
       "@id": "#person-zoe-velonis",
       "@type": "Person",
-      "name": [
-        "Zoe Velonis",
-        "Zoe"
-      ]
-    },
-    {
-      "@id": "#person-teishan-ahearne",
-      "@type": "Person",
-      "name": [
-        "Teishan Ahearne",
-        "Teishan"
-      ]
+      "name": "Zoe Velonis"
     },
     {
       "@id": "#person-nathalie-nguyen",
       "@type": "Person",
-      "name": [
-        "Nathalie Nguyen",
-        "Nathalie"
-      ]
+      "name": "Nathalie Nguyen"
     },
     {
       "@id": "#person-becca-smith",
       "@type": "Person",
-      "name": [
-        "Becca Smith",
-        "Becca"
-      ]
-    },
-    {
-      "@id": "#person-becca-smith-pgs-archivist",
-      "@type": "Person",
-      "name": [
-        "Becca Smith, PGS Archivist",
-        "Becca"
-      ]
+      "name": "Becca Smith"
     },
     {
       "@id": "#person-camille-cullinan",
       "@type": "Person",
-      "name": [
-        "Camille Cullinan",
-        "Camille"
-      ]
-    },
-    {
-      "@id": "#person-gaelle-pain",
-      "@type": "Person",
-      "name": [
-        "Gaelle Pain",
-        "Gaelle"
-      ]
+      "name": "Camille Cullinan"
     },
     {
       "@id": "#person-michele-matthews",
       "@type": "Person",
-      "name": [
-        "Michele Matthews",
-        "Michele"
-      ]
-    },
-    {
-      "@id": "#person-barbara-poustie",
-      "@type": "Person",
-      "name": [
-        "Barbara Poustie",
-        "Barbara"
-      ]
-    },
-    {
-      "@id": "#person-tonya-lewis-adult-information-services-librarian",
-      "@type": "Person",
-      "name": [
-        "Tonya Lewis (Adult/Information Services Librarian)",
-        "Tonya"
-      ]
+      "name": "Michele Matthews"
     },
     {
       "@id": "#person-terry-young",
       "@type": "Person",
-      "name": [
-        "Terry Young",
-        "Terry"
-      ]
-    },
-    {
-      "@id": "#person-barbara-nichol",
-      "@type": "Person",
-      "name": [
-        "Barbara Nichol",
-        "Barbara"
-      ]
+      "name": "Terry Young"
     },
     {
       "@id": "#person-russell-smith-secretary",
       "@type": "Person",
-      "name": [
-        "Russell Smith, Secretary",
-        "Russell"
-      ]
-    },
-    {
-      "@id": "#person-dr-russell-g-smith",
-      "@type": "Person",
-      "name": [
-        "Dr Russell G Smith",
-        "Dr"
-      ]
+      "name": "Russell Smith, Secretary"
     },
     {
       "@id": "#person-rainer-linz",
       "@type": "Person",
-      "name": [
-        "Rainer Linz",
-        "Rainer"
-      ]
+      "name": "Rainer Linz"
     },
     {
       "@id": "#person-thomas-kehoe",
       "@type": "Person",
-      "name": [
-        "Thomas Kehoe",
-        "Thomas"
-      ]
+      "name": "Thomas Kehoe"
     },
     {
       "@id": "#person-stefanie-pearce",
       "@type": "Person",
-      "name": [
-        "Stefanie Pearce",
-        "Stefanie"
-      ]
+      "name": "Stefanie Pearce"
     },
     {
       "@id": "#person-mark-moore",
       "@type": "Person",
-      "name": [
-        "Mark Moore",
-        "Mark"
-      ]
-    },
-    {
-      "@id": "#person-edward-stuckey",
-      "@type": "Person",
-      "name": [
-        "Edward Stuckey",
-        "Edward"
-      ]
+      "name": "Mark Moore"
     },
     {
       "@id": "#person-the-secretary",
       "@type": "Person",
-      "name": [
-        "The Secretary",
-        "The"
-      ]
+      "name": "The Secretary"
     },
     {
       "@id": "#person-grace-kathryn-trist",
       "@type": "Person",
-      "name": [
-        "Grace Kathryn Trist",
-        "Grace"
-      ]
+      "name": "Grace Kathryn Trist"
     },
     {
       "@id": "#person-ken-mansell",
       "@type": "Person",
-      "name": [
-        "Ken Mansell",
-        "Ken"
-      ]
+      "name": "Ken Mansell"
     },
     {
       "@id": "#person-katie-junor",
       "@type": "Person",
-      "name": [
-        "Katie Junor",
-        "Katie"
-      ]
-    },
-    {
-      "@id": "#person-josephine-anne-sangster",
-      "@type": "Person",
-      "name": [
-        "Josephine Anne Sangster",
-        "Josephine"
-      ]
+      "name": "Katie Junor"
     },
     {
       "@id": "#person-josie-sangster",
       "@type": "Person",
-      "name": [
-        "Josie Sangster",
-        "Josie"
-      ]
+      "name": "Josie Sangster"
     },
     {
       "@id": "#person-shannon-mccartney",
       "@type": "Person",
-      "name": [
-        "Shannon McCartney",
-        "Shannon"
-      ]
-    },
-    {
-      "@id": "#person-na",
-      "@type": "Person",
-      "name": "NA"
+      "name": "Shannon McCartney"
     },
     {
       "@id": "#person-mirela-cufurovic",
       "@type": "Person",
-      "name": [
-        "Mirela Cufurovic",
-        "Mirela"
-      ]
+      "name": "Mirela Cufurovic"
     },
     {
       "@id": "#person-emily-grant",
       "@type": "Person",
-      "name": [
-        "Emily Grant",
-        "Emily"
-      ]
-    },
-    {
-      "@id": "#person-jane-harvey",
-      "@type": "Person",
-      "name": [
-        "Jane Harvey",
-        "Jane"
-      ]
-    },
-    {
-      "@id": "#person-martin-merchant",
-      "@type": "Person",
-      "name": [
-        "Martin Merchant",
-        "Martin"
-      ]
-    },
-    {
-      "@id": "#person-north-balwyn-rsl-sub-branch",
-      "@type": "Person",
-      "name": [
-        "North Balwyn RSL Sub-Branch",
-        "North"
-      ]
-    },
-    {
-      "@id": "#person-geraldine-mcfarlane",
-      "@type": "Person",
-      "name": [
-        "Geraldine McFarlane",
-        "Geraldine"
-      ]
-    },
-    {
-      "@id": "#person-eileen-dorum",
-      "@type": "Person",
-      "name": [
-        "Eileen Dorum",
-        "Eileen"
-      ]
+      "name": "Emily Grant"
     },
     {
       "@id": "#person-megan-hall",
       "@type": "Person",
-      "name": [
-        "Megan Hall",
-        "Megan"
-      ]
+      "name": "Megan Hall"
     },
     {
       "@id": "#person-alan-reynolds",
       "@type": "Person",
-      "name": [
-        "Alan Reynolds",
-        "Alan"
-      ]
+      "name": "Alan Reynolds"
     },
     {
       "@id": "#person-georgia-juliana-charpantidou",
       "@type": "Person",
-      "name": [
-        "Georgia - Juliana Charpantidou",
-        "Georgia"
-      ]
+      "name": "Georgia Juliana Charpantidou"
     },
     {
       "@id": "#person-david-harris",
       "@type": "Person",
-      "name": [
-        "David Harris",
-        "David"
-      ]
+      "name": "David Harris"
     },
     {
       "@id": "#person-simone-sharpe",
       "@type": "Person",
-      "name": [
-        "Simone Sharpe",
-        "Simone"
-      ]
-    },
-    {
-      "@id": "#person-various-eg-collected-histories-prahran-1836-1995-mecwa-centenary-life-stories-project-memories-of-malvern-oral-history-project-memories-of-the-past-for-the-future-oral-recollections-from-prahran-oral-histories-with-prahran-residents-about-wwii-2-by-our-deeds-reflections-on-terms-in-the-mayoral-office-young-voices-of-the-pandemic-older-voices-of-the-pandemic-talking-stories-malvern",
-      "@type": "Person",
-      "name": [
-        "Various - eg, Collected histories: Prahran, 1836-1995; MECWA Centenary Life Stories Project; Memories of Malvern Oral history Project; Memories of the past for the future: oral recollections from Prahran; Oral histories with Prahran residents about WWII 2; By our Deeds: Reflections on terms in the Mayoral Office; Young Voices of the Pandemic; Older Voices of the Pandemic; Talking Stories: Malvern",
-        "Various"
-      ]
+      "name": "Simone Sharpe"
     },
     {
       "@id": "#person-judy-hughes",
       "@type": "Person",
-      "name": [
-        "Judy Hughes",
-        "Judy"
-      ]
+      "name": "Judy Hughes"
     },
     {
       "@id": "#person-anna-wilkinson",
       "@type": "Person",
-      "name": [
-        "Anna Wilkinson",
-        "Anna"
-      ]
+      "name": "Anna Wilkinson"
     },
     {
       "@id": "#person-deborah-towns",
       "@type": "Person",
-      "name": [
-        "Deborah Towns",
-        "Deborah"
-      ]
+      "name": "Deborah Towns"
     },
     {
       "@id": "#person-barbara-hoad",
       "@type": "Person",
-      "name": [
-        "Barbara Hoad",
-        "Barbara"
-      ]
+      "name": "Barbara Hoad"
     },
     {
       "@id": "#person-kaylene-james",
       "@type": "Person",
-      "name": [
-        "Kaylene James",
-        "Kaylene"
-      ]
+      "name": "Kaylene James"
     },
     {
       "@id": "#person-ella-birt",
       "@type": "Person",
-      "name": [
-        "Ella Birt",
-        "Ella"
-      ]
+      "name": "Ella Birt"
     },
     {
       "@id": "#person-will-conlan",
       "@type": "Person",
-      "name": [
-        "Will Conlan",
-        "Will"
-      ]
+      "name": "Will Conlan"
     },
     {
       "@id": "#person-gretel-evans",
       "@type": "Person",
-      "name": [
-        "Gretel Evans",
-        "Gretel"
-      ]
+      "name": "Gretel Evans"
     },
     {
       "@id": "#person-elizabeth-milford",
       "@type": "Person",
-      "name": [
-        "Elizabeth Milford",
-        "Elizabeth"
-      ]
-    },
-    {
-      "@id": "#person-helen-laffin",
-      "@type": "Person",
-      "name": [
-        "Helen Laffin",
-        "Helen"
-      ]
+      "name": "Elizabeth Milford"
     },
     {
       "@id": "#person-stacey-coenders",
       "@type": "Person",
-      "name": [
-        "Stacey Coenders",
-        "Stacey"
-      ]
-    },
-    {
-      "@id": "#person-multiple-creators",
-      "@type": "Person",
-      "name": [
-        "Multiple creators",
-        "Multiple"
-      ]
+      "name": "Stacey Coenders"
     },
     {
       "@id": "#person-kay-ball",
       "@type": "Person",
-      "name": [
-        "Kay Ball",
-        "Kay"
-      ]
-    },
-    {
-      "@id": "#person-kathleen-kay-jennifer-ball",
-      "@type": "Person",
-      "name": [
-        "Kathleen (Kay) Jennifer Ball",
-        "Kathleen"
-      ]
-    },
-    {
-      "@id": "#person-a-a",
-      "@type": "Person",
-      "name": "a/a"
+      "name": "Kay Ball"
     },
     {
       "@id": "#person-lisa-heinrichs",
       "@type": "Person",
-      "name": [
-        "Lisa Heinrichs",
-        "Lisa"
-      ]
+      "name": "Lisa Heinrichs"
     },
     {
       "@id": "#person-robert-innes",
       "@type": "Person",
-      "name": [
-        "Robert Innes",
-        "Robert"
-      ]
+      "name": "Robert Innes"
     },
     {
       "@id": "#person-matthew-wilson",
       "@type": "Person",
-      "name": [
-        "Matthew Wilson",
-        "Matthew"
-      ]
+      "name": "Matthew Wilson"
     },
     {
       "@id": "#person-katrin-strohl",
       "@type": "Person",
-      "name": [
-        "Katrin Strohl",
-        "Katrin"
-      ]
+      "name": "Katrin Strohl"
     },
     {
       "@id": "#person-liz-dillon-hensby",
       "@type": "Person",
-      "name": [
-        "Liz Dillon-Hensby",
-        "Liz"
-      ]
+      "name": "Liz Dillon Hensby"
     },
     {
       "@id": "#person-helen-hobbs",
       "@type": "Person",
-      "name": [
-        "Helen Hobbs",
-        "Helen"
-      ]
+      "name": "Helen Hobbs"
     },
     {
       "@id": "#person-greg-hunter",
       "@type": "Person",
-      "name": [
-        "Greg Hunter",
-        "Greg"
-      ]
+      "name": "Greg Hunter"
     },
     {
       "@id": "#person-janine-rizzetti",
       "@type": "Person",
-      "name": [
-        "Janine Rizzetti",
-        "Janine"
-      ]
+      "name": "Janine Rizzetti"
     },
     {
       "@id": "#person-esther-yeoman",
       "@type": "Person",
-      "name": [
-        "Esther Yeoman",
-        "Esther"
-      ]
+      "name": "Esther Yeoman"
     },
     {
       "@id": "#person-janine-jackson",
       "@type": "Person",
-      "name": [
-        "Janine Jackson",
-        "Janine"
-      ]
+      "name": "Janine Jackson"
     },
     {
       "@id": "#person-delia-kerr",
       "@type": "Person",
-      "name": [
-        "Delia Kerr",
-        "Delia"
-      ]
+      "name": "Delia Kerr"
     },
     {
       "@id": "#person-ashley-merbach",
       "@type": "Person",
-      "name": [
-        "Ashley Merbach",
-        "Ashley"
-      ]
+      "name": "Ashley Merbach"
     },
     {
       "@id": "#person-barbara-kowalski",
       "@type": "Person",
-      "name": [
-        "Barbara Kowalski",
-        "Barbara"
-      ]
+      "name": "Barbara Kowalski"
     },
     {
       "@id": "#person-catherine-hall",
       "@type": "Person",
-      "name": [
-        "Catherine Hall",
-        "Catherine"
-      ]
+      "name": "Catherine Hall"
     },
     {
       "@id": "#person-katie-wand",
       "@type": "Person",
-      "name": [
-        "Katie Wand",
-        "Katie"
-      ]
+      "name": "Katie Wand"
     },
     {
       "@id": "#person-carollyn-williams",
       "@type": "Person",
-      "name": [
-        "Carollyn Williams",
-        "Carollyn"
-      ]
+      "name": "Carollyn Williams"
     },
     {
       "@id": "#person-allison-moloney",
       "@type": "Person",
-      "name": [
-        "Allison Moloney",
-        "Allison"
-      ]
+      "name": "Allison Moloney"
     },
     {
       "@id": "#person-phil-murray",
       "@type": "Person",
-      "name": [
-        "Phil Murray",
-        "Phil"
-      ]
-    },
-    {
-      "@id": "#person-karen-mcintyre",
-      "@type": "Person",
-      "name": [
-        "Karen McIntyre",
-        "Karen"
-      ]
+      "name": "Phil Murray"
     },
     {
       "@id": "#person-jacqui-baker",
       "@type": "Person",
-      "name": [
-        "Jacqui Baker",
-        "Jacqui"
-      ]
-    },
-    {
-      "@id": "#person-lucy-davies",
-      "@type": "Person",
-      "name": [
-        "Lucy Davies",
-        "Lucy"
-      ]
+      "name": "Jacqui Baker"
     },
     {
       "@id": "#person-helen-wolff",
       "@type": "Person",
-      "name": [
-        "Helen Wolff",
-        "Helen"
-      ]
+      "name": "Helen Wolff"
     },
     {
       "@id": "#person-russ-haines-oam",
       "@type": "Person",
-      "name": [
-        "Russ Haines OAM",
-        "Russ"
-      ]
+      "name": "Russ Haines OAM"
     },
     {
       "@id": "#person-jill-a-vard",
       "@type": "Person",
-      "name": [
-        "Jill A'Vard",
-        "Jill"
-      ]
+      "name": "Jill A'Vard"
     },
     {
       "@id": "#person-robyn-rosenboom",
       "@type": "Person",
-      "name": [
-        "Robyn Rosenboom",
-        "Robyn"
-      ]
+      "name": "Robyn Rosenboom"
     },
     {
       "@id": "#person-florence-livery",
       "@type": "Person",
-      "name": [
-        "Florence Livery",
-        "Florence"
-      ]
+      "name": "Florence Livery"
     },
     {
       "@id": "#person-marion-rose-mcadie",
       "@type": "Person",
-      "name": [
-        "Marion Rose McAdie",
-        "Marion"
-      ]
+      "name": "Marion Rose McAdie"
     },
     {
       "@id": "#person-christine-windle",
       "@type": "Person",
-      "name": [
-        "Christine Windle",
-        "Christine"
-      ]
-    },
-    {
-      "@id": "#person-maureen-donnellon",
-      "@type": "Person",
-      "name": [
-        "Maureen Donnellon",
-        "Maureen"
-      ]
-    },
-    {
-      "@id": "#person-interested-persons-most-now-deceased-in-1983",
-      "@type": "Person",
-      "name": [
-        "Interested persons, most now deceased in 1983",
-        "Interested"
-      ]
+      "name": "Christine Windle"
     },
     {
       "@id": "#person-maureen-donnellon-secretary-or-elaine-mccallum-archivist",
       "@type": "Person",
-      "name": [
-        "Maureen Donnellon Secretary or Elaine McCallum Archivist",
-        "Maureen"
-      ]
+      "name": "Maureen Donnellon, Secretary, or Elaine McCallum, Archivist"
     },
     {
       "@id": "#person-andrew-markus",
       "@type": "Person",
-      "name": [
-        "Andrew Markus",
-        "Andrew"
-      ]
+      "name": "Andrew Markus"
     },
     {
       "@id": "#person-roslyn-margaret-carstairs",
       "@type": "Person",
-      "name": [
-        "Roslyn Margaret Carstairs",
-        "Roslyn"
-      ]
+      "name": "Roslyn Margaret Carstairs"
     },
     {
       "@id": "#person-warren-maloney",
       "@type": "Person",
-      "name": [
-        "Warren Maloney",
-        "Warren"
-      ]
+      "name": "Warren Maloney"
     },
     {
       "@id": "#person-deb-verhoeven",
       "@type": "Person",
-      "name": [
-        "Deb Verhoeven",
-        "Deb"
-      ]
+      "name": "Deb Verhoeven"
     },
     {
       "@id": "#person-jessica-berry",
       "@type": "Person",
-      "name": [
-        "Jessica Berry",
-        "Jessica"
-      ]
+      "name": "Jessica Berry"
     },
     {
       "@id": "#person-hugh-st-l-sloane",
       "@type": "Person",
-      "name": [
-        "Hugh St.L. Sloane",
-        "Hugh"
-      ]
+      "name": "Hugh  St. L. Sloane"
     },
     {
       "@id": "#person-kellie-robilliard-community-support-officer",
       "@type": "Person",
-      "name": [
-        "Kellie Robilliard, Community Support Officer",
-        "Kellie"
-      ]
-    },
-    {
-      "@id": "#person-heather-kelly",
-      "@type": "Person",
-      "name": [
-        "Heather Kelly",
-        "Heather"
-      ]
-    },
-    {
-      "@id": "#person-mrs-shirley-kishere",
-      "@type": "Person",
-      "name": [
-        "Mrs Shirley Kishere",
-        "Mrs"
-      ]
-    },
-    {
-      "@id": "#person-john-spring",
-      "@type": "Person",
-      "name": [
-        "John Spring",
-        "John"
-      ]
+      "name": "Kellie Robilliard, Community Support Officer"
     },
     {
       "@id": "#person-mrs-shirley-kishere-society-secretary",
       "@type": "Person",
-      "name": [
-        "Mrs Shirley Kishere Society Secretary",
-        "Mrs"
-      ]
+      "name": "Mrs Shirley Kishere, Social Secretary"
     },
     {
       "@id": "#person-barbara-judith-nielsen",
       "@type": "Person",
-      "name": [
-        "Barbara Judith Nielsen",
-        "Barbara"
-      ]
-    },
-    {
-      "@id": "#person-cultural-heritage-unit-dept-of-history-uni-of-melb-for-dept-of-sustainability-environment",
-      "@type": "Person",
-      "name": [
-        "Cultural Heritage Unit, Dept of History, Uni of Melb. (for Dept of Sustainability & Environment)",
-        "Cultural"
-      ]
+      "name": "Barbara Judith Nielsen"
     },
     {
       "@id": "#person-melinda-mockridge",
       "@type": "Person",
-      "name": [
-        "Melinda Mockridge",
-        "Melinda"
-      ]
-    },
-    {
-      "@id": "#person-eva-de-jong-duldig-and-duldig-family",
-      "@type": "Person",
-      "name": [
-        "Eva de Jong-Duldig and Duldig family",
-        "Eva"
-      ]
+      "name": "Melinda Mockridge"
     },
     {
       "@id": "#person-douglas-waugh",
       "@type": "Person",
-      "name": [
-        "Douglas Waugh",
-        "Douglas"
-      ]
-    },
-    {
-      "@id": "#person-christine-dianne-grayden",
-      "@type": "Person",
-      "name": [
-        "Christine Dianne Grayden",
-        "Christine"
-      ]
+      "name": "Douglas Waugh"
     },
     {
       "@id": "#person-mary-kehoe",
       "@type": "Person",
-      "name": [
-        "Mary Kehoe",
-        "Mary"
-      ]
+      "name": "Mary Kehoe"
     },
     {
       "@id": "#person-alan-bluhm",
       "@type": "Person",
-      "name": [
-        "Alan Bluhm",
-        "Alan"
-      ]
-    },
-    {
-      "@id": "#person-duncan-king-smith-shire-of-eltham",
-      "@type": "Person",
-      "name": [
-        "Duncan King-Smith, Shire of Eltham",
-        "Duncan"
-      ]
-    },
-    {
-      "@id": "#person-wellers-of-kangaroo-ground",
-      "@type": "Person",
-      "name": [
-        "Wellers of Kangaroo Ground",
-        "Wellers"
-      ]
-    },
-    {
-      "@id": "#person-sandy-saxon",
-      "@type": "Person",
-      "name": [
-        "Sandy Saxon",
-        "Sandy"
-      ]
-    },
-    {
-      "@id": "#person-various-tbc",
-      "@type": "Person",
-      "name": [
-        "various, tbc",
-        "various,"
-      ]
+      "name": "Alan Bluhm"
     },
     {
       "@id": "#person-sandy-saxon-head-of-curatorial-and-collections",
       "@type": "Person",
-      "name": [
-        "Sandy Saxon Head of Curatorial and Collections",
-        "Sandy"
-      ]
+      "name": "Sandy Saxon, Head of Curatorial and Collections"
     },
     {
       "@id": "#person-colin-james-mitchell",
       "@type": "Person",
-      "name": [
-        "Colin James MITCHELL",
-        "Colin"
-      ]
+      "name": "Colin James Mitchell"
     },
     {
       "@id": "#person-clare-wright",
       "@type": "Person",
-      "name": [
-        "Clare Wright",
-        "Clare"
-      ]
-    },
-    {
-      "@id": "#person-professor-clare-wright",
-      "@type": "Person",
-      "name": [
-        "Professor Clare Wright",
-        "Professor"
-      ]
-    },
-    {
-      "@id": "#person-prof-clare-wright",
-      "@type": "Person",
-      "name": [
-        "Prof Clare Wright",
-        "Prof"
-      ]
+      "name": "Clare Wright"
     },
     {
       "@id": "#person-georgina-bevan-jones",
       "@type": "Person",
-      "name": [
-        "Georgina Bevan-Jones",
-        "Georgina"
-      ]
-    },
-    {
-      "@id": "#person-plenty-valley-fm",
-      "@type": "Person",
-      "name": [
-        "Plenty Valley FM",
-        "Plenty"
-      ]
+      "name": "Georgina Bevan Jones"
     },
     {
       "@id": "#person-susan-mary-clarke-curator-a-dhs",
       "@type": "Person",
-      "name": [
-        "Susan Mary Clarke, Curator A&DHS",
-        "Susan"
-      ]
-    },
-    {
-      "@id": "#person-susan-mary-clarke",
-      "@type": "Person",
-      "name": [
-        "Susan Mary Clarke",
-        "Susan"
-      ]
+      "name": "Susan Mary Clarke, Curator A&DHS"
     },
     {
       "@id": "#org-precarious-victorian-oral-history-collections",
@@ -1845,12 +899,6 @@
       "name": "Forests Commission Retired Personnel Association",
       "url": "https://www.victoriasforestryheritage.org.au",
       "additionalType": "Association, Club or Society"
-    },
-    {
-      "@id": "#org-bryan-john-power",
-      "@type": "Organization",
-      "name": "Bryan John Power",
-      "additionalType": "Individual"
     },
     {
       "@id": "#org-arc-up-australia",
@@ -1971,13 +1019,6 @@
       "additionalType": "Educational Institution including Schools and Universities"
     },
     {
-      "@id": "#org-joseph-ribarow",
-      "@type": "Organization",
-      "name": "Joseph Ribarow",
-      "url": "http://historyofstalbans.com.au",
-      "additionalType": "Individual"
-    },
-    {
       "@id": "#org-deanna-boulos-social-support-events-officer-city-of-boroondara",
       "@type": "Organization",
       "name": "Deanna Boulos, Social Support & Events Officer, City of Boroondara",
@@ -2094,7 +1135,7 @@
     {
       "@id": "#org-elizabeth-mcinerney",
       "@type": "Organization",
-      "name": "ELIZABETH MCINERNEY",
+      "name": "Elizabeth McInerney",
       "additionalType": "Individual"
     },
     {
@@ -2952,7 +1993,7 @@
     {
       "@id": "#org-colin-james-mitchell",
       "@type": "Organization",
-      "name": "Colin James MITCHELL",
+      "name": "Colin James Mitchell",
       "url": "https://www.2nd2ndpioneerhistory.com/",
       "additionalType": "Individual"
     },
@@ -4669,7 +3710,7 @@
     {
       "@id": "#subject-ned-kelly",
       "@type": "PropertyValue",
-      "name": "NED KELLY"
+      "name": "Ned Kelly"
     },
     {
       "@id": "#subject-yiddish-culture-and-the-history-of-the-kadimah",
@@ -4679,20 +3720,17 @@
     {
       "@id": "#subject-research-institutions",
       "@type": "PropertyValue",
-      "name": "research institutions"
+      "name": "Research Institutions"
     },
     {
       "@id": "#subject-media",
       "@type": "PropertyValue",
-      "name": "media"
+      "name": "Media"
     },
     {
       "@id": "#subject-chinese-australian-history",
-      "@type": "DefinedTerm",
-      "name": "Chinese Australian history",
-      "inDefinedTermSet": {
-        "@id": "#subject-vocabulary"
-      }
+      "@type": "PropertyValue",
+      "name": "Chinese Australian History"
     },
     {
       "@id": "#subject-environment",
@@ -4718,7 +3756,7 @@
     {
       "@id": "#subject-building-views-and-local-panorama-views",
       "@type": "PropertyValue",
-      "name": "building views and local panorama views."
+      "name": "Building views and local panorama views"
     },
     {
       "@id": "https://w3id.org/ldac/profile#Collection",
@@ -4865,9 +3903,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-phi-vabre"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -4934,9 +3969,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-marcus-mulcahy"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -4999,9 +4031,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-nicole-hilder"
       },
       "inLanguage": {
         "@id": "#language-not-specified"
@@ -5132,9 +4161,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-stuart-hamilton"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -5207,7 +4233,7 @@
       "name": "Return to Vietnam: Oral Histories of American and Australian Veterans' Journeys, 1981-2016",
       "description": "Oral history interviews with 54 Vietnam veterans (US and Aus) who returned to Vietnam after the war",
       "accountablePerson": {
-        "@id": "#org-mia-martin-hobbs"
+        "@id": "#person-mia-martin-hobbs"
       },
       "holdingArchive": {
         "@id": "#org-mia-martin-hobbs"
@@ -5220,9 +4246,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-mia-martin-hobbs"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -5274,7 +4297,7 @@
       "name": "Catholic hibakusha (atomic bombing survivors) and community of Nagasaki",
       "description": "12 interviews with hibakusha (atomic bombing survivors) between 2008 and 2016, some multiple interviews; all in Japanese 8 interviews with other members of community, including Paul Glynn, Australian missionary priest, Renzo deLuca in English; interview with historian Chie Shijo; Nagai Tokusaburo, grandson of Nagai Takashi; and Takazane Yasunori (Japanese).",
       "accountablePerson": {
-        "@id": "#org-gwyn-mcclelland"
+        "@id": "#person-gwyn-mcclelland"
       },
       "holdingArchive": {
         "@id": "#org-gwyn-mcclelland"
@@ -5287,9 +4310,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-gwyn-mcclelland"
       },
       "inLanguage": [
         {
@@ -5377,9 +4397,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-rebecca-dauti"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -5494,9 +4511,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-jeffrey-atkinson"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -5554,7 +4568,7 @@
       "name": "We live here too: gender, class and ethnicity in an oral history of women in the Latrobe Valley",
       "description": "A series of life history interviews with Latrobe Valley women born between the 1930s and the 1960s. Interviews conducted in 2015 and 2016.",
       "accountablePerson": {
-        "@id": "#org-nicolette-snowden"
+        "@id": "#person-nicolette-snowden"
       },
       "holdingArchive": {
         "@id": "#org-nicolette-snowden"
@@ -5567,9 +4581,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-nicolette-snowden"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -5669,7 +4680,7 @@
       "name": "Geraldine Fela's Australian nurses oral history collection",
       "description": "Interviews with nurses who working during the HIV and AIDS crisis. A significant portion from Sydney and Melbourne, but the collection represents each state and territory.",
       "accountablePerson": {
-        "@id": "#org-geraldine-fela"
+        "@id": "#person-geraldine-fela"
       },
       "holdingArchive": {
         "@id": "#org-geraldine-fela"
@@ -5682,9 +4693,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-geraldine-fela"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -5762,9 +4770,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-malcolm-mckinty"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -5838,9 +4843,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-bryan-john-power"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -5919,9 +4921,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-katrina-lolicato"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -5994,9 +4993,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "Photographs of interviewees",
       "custom:catalogueListing": "Partially",
-      "author": {
-        "@id": "#person-gracie-lolicato-katrina-loliato"
-      },
+      "author": "\"#person-gracie-lolicato-katrina-loliato\"",
       "custom:avgInterviewLength": "45 minutes",
       "custom:outputs": "Zines, educational material, podcasts, exhibitions, short films."
     },
@@ -6022,9 +5019,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-kate-davis"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -6129,9 +5123,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-deborah-mould"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -6210,7 +5201,7 @@
       "name": "PhD Research Project - Victorian Clothing Manufacturing",
       "description": "16 interviews with people involved in Victoria's clothing manufacturing industry from 1945 - 1990. Interviewees included former business owners as well as former workers.",
       "accountablePerson": {
-        "@id": "#org-pauline-hastings"
+        "@id": "#person-pauline-hastings"
       },
       "holdingArchive": {
         "@id": "#org-pauline-hastings"
@@ -6223,9 +5214,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-pauline-hastings"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -6308,9 +5296,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-sue-phillips"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -6371,7 +5356,7 @@
       "name": "Wonthaggi & District Historical Society Oral History",
       "description": "The collection include early years at the Powlett Rivers Coalfields 1909 and Wonthaggi's initial development from tents to buildings. But then life in the decades including Mine Disasters, Strikes and Women's Groups. Migrants arriving to work in the coal mines\nArts, social, family, sport, shops, farming, local towns, and much more capturing the life from the first town's mining roots to today.",
       "accountablePerson": {
-        "@id": "#org-fay-quilford"
+        "@id": "#person-fay-quilford"
       },
       "holdingArchive": {
         "@id": "#org-fay-quilford"
@@ -6384,9 +5369,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-fay-quilford"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -6464,9 +5446,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "Other: Some from the Society collections fit the interviews eg newspaper and photographs and publications",
       "custom:catalogueListing": "Yes",
-      "author": {
-        "@id": "#person-various-volunteer-members-over-the-past-50-years"
-      },
+      "author": "\"#person-various-volunteer-members-over-the-past-50-years\"",
       "custom:numInterviews": "300",
       "custom:outputs": "Currently due to a PROV grant - we ae working on some of the oral histories - editing them and putting visuals to have them accessible on our touchscreen kiosk and to be added to a YouTube Channel once completed."
     },
@@ -6479,7 +5459,7 @@
       "name": "Student Chronicles oral history interview collection",
       "description": "This is a set of interviews I recorded with people (mostly friends) who attended Melbourne University in the late 80s / early 90s as undergraduates.",
       "accountablePerson": {
-        "@id": "#org-alice-garner"
+        "@id": "#person-alice-garner"
       },
       "holdingArchive": {
         "@id": "#org-alice-garner"
@@ -6492,9 +5472,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alice-garner"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -6557,7 +5534,7 @@
       "name": "Italian Federation of Emigrant Workers and their Families (Melbourne)",
       "description": "The collection comprises some 27 oral history interviews with former and active members or associates of the Italian Federation of Emigrant Workers and their Families, chiefly of the Melbourne branch. The interviews were recorded between May 2002 and May 2004. They took place in Australia (13 in Victoria and 5 in South Australia), Italy (6 in Rome and 2 in Modena) and United States (1 in New York).",
       "accountablePerson": {
-        "@id": "#org-simone-battiston"
+        "@id": "#person-simone-battiston"
       },
       "holdingArchive": {
         "@id": "#org-simone-battiston"
@@ -6570,9 +5547,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-simone-battiston"
       },
       "inLanguage": [
         {
@@ -6652,9 +5626,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-graeme-reilly"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -6729,9 +5700,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-dell-winser"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -6809,9 +5777,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-meghan-grech"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -6897,9 +5862,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-marlene-greiner"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -7019,9 +5981,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-shane-homan"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -7082,9 +6041,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-monica-cronin"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -7141,9 +6097,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-robert-grant"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -7220,9 +6173,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-miranda-francis"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -7263,9 +6213,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "Photographs of interviewees, Other photographs, Written sources (e.g. diaries, letters)",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-anthony-john-dare"
-      },
+      "author": "\"#person-anthony-john-dare\"",
       "custom:numInterviews": "117",
       "custom:outputs": "Murray-Smith, Stephen, and A. J Dare. The Tech : A Centenary History of the Royal Melbourne Institute of Technology. South Yarra: Hyland House, 1987.",
       "custom:otherInfo": "Collection was digitised in 2025 for preservation (as recording were on cassette tapes). However these are access copies and not open to the general public until we have clarified copyright and permissions."
@@ -7292,9 +6240,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-joseph-ribarow"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -7365,22 +6310,13 @@
       "name": "City of Boroondara Centenarians Oral History Project",
       "description": "Way Back When worked with the City of Boroondara on an oral history project for centenarians living in the municipality. Ten centenarians were interviewed, and their personal stories were written into narrative profiles based on the transcripts of their interviews. Eight profiles were exhibited at the Hawthorn Town Hall during the Boroondara Seniors Festival in October 2018, alongside sketch portraits of each centenarian, drawn by artist (and later Archibald Prize winner) Peter Wegner.",
       "accountablePerson": {
-        "@id": "#org-deanna-boulos-social-support-and-events-officer"
+        "@id": "#person-deanna-boulos-social-support-and-events-officer-city-of-boroondara"
       },
-      "holdingArchive": {
-        "@id": "#org-deanna-boulos-social-support-events-officer-city-of-boroondara"
-      },
-      "dct:rightsHolder": {
-        "@id": "#org-deanna-boulos-social-support-events-officer-city-of-boroondara"
-      },
-      "publisher": {
-        "@id": "#org-deanna-boulos-social-support-events-officer-city-of-boroondara"
-      },
+      "holdingArchive": "\"#org-deanna-boulos-social-support-and-events-officer-city-of-boroondara\"",
+      "dct:rightsHolder": "\"#org-deanna-boulos-social-support-and-events-officer-city-of-boroondara\"",
+      "publisher": "\"#org-deanna-boulos-social-support-and-events-officer-city-of-boroondara\"",
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-fiona-poulton"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -7459,7 +6395,7 @@
       "name": "Dr Deborah Jordan's Vance Oral History Collection",
       "description": "Interviews  \nwith leading Australian writers and intellectuals in their homes. Discussion related to their knowledge of the Palmers. \nfor example with \nJudah Waten, \nKathleen Fitzpatrick, \nHelen and Aileen Palmer\nWalter Adamson, \nJohn Barnes, \nJean Blackburn, \nJean Campbell, \nA.R. Chisholm, \nNina and Clem Christesen, \nMarie Davison, \nBrian Elliot, \nHugh Esson,  \nEllsa Haus, \nEsther Levy, \nFrederick Macartney, \nJessie MacLeod, \nStephen Murray Smith, \nArthur Phillips,\nChristina Stead, \nJudah and Hyrell Waten.",
       "accountablePerson": {
-        "@id": "#org-dr-deborah-jordan"
+        "@id": "#person-dr-deborah-jordan"
       },
       "holdingArchive": {
         "@id": "#org-dr-deborah-jordan"
@@ -7472,9 +6408,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-dr-deborah-jordan"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -7543,9 +6476,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-dan-haumschild"
       },
       "inLanguage": [
         {
@@ -7668,9 +6598,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-elizabeth-libby-anne-scott"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -7746,9 +6673,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-heather-mckay-cassandra-smith-and-erika-gronbach"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -7885,7 +6809,7 @@
       "name": "Hannah Viney's anti-nuclear activism oral history collection",
       "description": "Four interviews undertaken in 2019 as part of PhD research on women's anti-nuclear activism.",
       "accountablePerson": {
-        "@id": "#org-hannah-viney"
+        "@id": "#person-hannah-viney"
       },
       "holdingArchive": {
         "@id": "#org-hannah-viney"
@@ -7898,9 +6822,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-hannah-viney"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -7966,7 +6887,7 @@
       "name": "Jordana Silverstein's Oral History Collection",
       "description": "I am noting three collections:\n1) my PhD interviews with teachers of the Holocaust in a selection of Jewish schools in Melbourne and New York; \n2) a small project on Australian Jewish sexuality involving an interview with a Jewish lesbian couple who were wedded in a synagogue (before Marriage Equality was legalised) and the rabbi who conducted the wedding ceremony; \n3) my postdoctoral interviews with people who have worked in Australian child refugee policy-making",
       "accountablePerson": {
-        "@id": "#org-jordana-silverstein"
+        "@id": "#person-jordana-silverstein"
       },
       "holdingArchive": {
         "@id": "#org-jordana-silverstein"
@@ -7979,9 +6900,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jordana-silverstein"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8058,7 +6976,7 @@
       "name": "First Friday in February AFLW oral history interviews",
       "description": "The collections comprises 37 oral history interviews conducted in 2017 with people who had been to the inaugural game of the AFLW - the Australian Football League Women's.",
       "accountablePerson": {
-        "@id": "#org-kirby-fenwick"
+        "@id": "#person-kirby-fenwick"
       },
       "holdingArchive": {
         "@id": "#org-kirby-fenwick"
@@ -8071,9 +6989,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-kirby-fenwick"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8156,9 +7071,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-ken-purdham"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -8223,9 +7135,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-janet-wilson"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -8281,9 +7190,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-marian-matta"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8355,7 +7261,7 @@
       "name": "Interviews to celebrate Mordialloc Primary School's 125th Anniversary",
       "description": "Interviews of past students, parents and teachers at Mordialloc Primary School recorded on cassettes in 1993, beginning with the then oldest surviving student 90 year old Alf Groves and ending with an interview of the first female Principal Joy Gale 1975-1981. The cut off date coincided with the first Federal Government money given\nto public primary schools by the Whitlam Government.\nQuestions related to Mordialloc Primary School and life at particular times. Each person signed a release that the interviews could be used for educational purposes to preserve the history of the school.",
       "accountablePerson": {
-        "@id": "#org-mairi-christina-neil"
+        "@id": "#person-mairi-christina-neil"
       },
       "holdingArchive": {
         "@id": "#org-mairi-christina-neil"
@@ -8368,9 +7274,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-mairi-christina-neil"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8444,9 +7347,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-juliet-fox"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8530,9 +7430,7 @@
       "custom:overviews": "Some interviews have interview overviews",
       "custom:relatedMaterials": "Other photographs",
       "custom:catalogueListing": "Partially",
-      "author": {
-        "@id": "#person-3cr-community-radio"
-      },
+      "author": "\"#person-3cr-community-radio\"",
       "custom:numInterviews": "100",
       "custom:totalHours": "50",
       "custom:avgInterviewLength": "30 minutes",
@@ -8548,7 +7446,7 @@
       "name": "Transcript of Interview with Sir Gustav Nossal, 13 April 2023.",
       "description": "Interview with Sir Gus Nossal on his time as a director of Conzinc Riotinto of Australia;\n Notes from interview with the following individuals as part of reserach on a biography of Sir Paul Hasluck (the interviews undertaken in 1989 and 1990) with notes of the discussion made afterwards:\nCol Adams, Former Director of Mines, Northern Territory;\n David Anderson, Former Ambassador, South Vietnam;\n Gordon Bryant, Former Labor member of the House of Representatives;\n Des Clancy, Former Patrol Officer and District Commissioner, Territory of Papua and New Guinea;\n Hugh Clarke (two discussions), Former officer of Department of Territories;\n Dame Rachel Cleland;\n Tom Critchley;\n Sir Allen Fairhall, MHR;\n W.D. Forsyth, Former officer of the Department of External Affairs;\n Harry Giese (by phone from Darwin on 27 January 1990), Former Director of native Welfare Branch, Northern Territory;\n Peter Hastings, former journalist;\n Gordon Jockel, Former officer of the Department of External Affairs;\n Les Johnson, Former Director of Education, P&NG;\n Reg Marsh (two sessions, including a meeting in Sydney). Former Assistant Secretary, Department of territories and Assistant Administrator, Northern Territory;\n Tony Newman. Former patrol officer, PNG;\n Sir Horace Niall, Former District Commissioner Morobe, Member of House of Assembly, P&NG;\n Douglass Parrish. Former patrol office rising to District Officer, P&NG;\n W. Pritchett, Former Officer Department of External Affairs;\n Alan Renouf, Former officer of Department of External Affair, colleague of Hasluck at the United Nations;\n Claude Reseigh. Former Assistant Secretary, Finance and Economics, Department of Territories;\n Ronald Rose;\n Sir David Smith, Former Official Secretary to Sir Paul Hasluck as Governor-General;\n Robert Swift, former officer Department of Territories;\n Sir Arthur Tange. Former secretary, Department of External Affairs;\n Gerry Toogood, Former representative on the Trusteeship Council of the United Nations;\n Harry West, Former District Commissioner, TPNG.",
       "accountablePerson": {
-        "@id": "#org-robert-porter"
+        "@id": "#person-robert-porter"
       },
       "holdingArchive": {
         "@id": "#org-robert-porter"
@@ -8561,9 +7459,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-robert-porter"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8625,9 +7520,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-graham-e-goulding"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8696,9 +7588,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-elizabeth-mcinerney"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -8760,9 +7649,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-henry-pleming"
-      },
+      "author": "\"#person-henry-pleming\"",
       "custom:numInterviews": "40",
       "custom:otherInfo": "I ELIZABETH MCINERNEY WAS LEFT THIS COLLECTION BY MY FATHER ON HIS DEATH IN 2019. ALTHOUGH I CURRENTLY HOLD THIS COLLECTION I AM IN THE PROCESS OF DONATING THE COLLECTION TO THE CHILTERN ATHENAEUM.\nHOWEVER, MY PRIORITY IS TO HAVE THESE TAPES URGENTLY PRESERVED. THEY GIVE AN INCREDIBLE HISTORIC INSIGHT INTO MINING, FARMING, WW1, AND LIFE IN NORTH-EAST VICTORIA."
     },
@@ -8788,9 +7675,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-hayden-williams"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8853,9 +7737,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-maureen-everitt"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -8930,9 +7811,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-del-atkinson"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -9013,9 +7891,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-john-kumm"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -9085,9 +7960,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-maree-janet-belyea"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -9169,9 +8041,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-damien-kennedy"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -9247,9 +8116,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jean-rotherham"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -9362,9 +8228,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-diana-cork"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -9447,9 +8310,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-george-milford"
-      },
+      "author": "\"#person-george-milford\"",
       "custom:numInterviews": "13",
       "custom:avgInterviewLength": "30 minutes"
     },
@@ -9475,9 +8336,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-judy-farmer"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -9566,9 +8424,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-ellen-burrows"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -9600,9 +8455,7 @@
       "custom:overviews": "Unsure",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-jim-crosthwaite"
-      },
+      "author": "\"#person-jim-crosthwaite\"",
       "custom:numInterviews": "48"
     },
     {
@@ -9614,7 +8467,7 @@
       "name": "Anthony McAleer oral history collection",
       "description": "Anthony McAleer OAM has written 25 books over 30 years. These are mainly to do with the history of the area formerly known as the Shire of Lillydale and includes the following townships. Wonga Park, Lilydale, Coldstream, Yering, Gruyere, Wandin, Seville, Silvan, Monbulk, Olinda, Kalorama, Mt Dandenong, Montrose, Kilsyth, Mooroolbark, Mt Evelyn. This large collection includes interviews with residents, former resident or those involved in the area. Includes many interviews with veterans from the WWI to the Gulf War.",
       "accountablePerson": {
-        "@id": "#org-anthony-mcaleer-oam"
+        "@id": "#person-anthony-mcaleer-oam"
       },
       "holdingArchive": {
         "@id": "#org-anthony-mcaleer-oam"
@@ -9627,9 +8480,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-anthony-mcaleer-oam"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -9703,7 +8553,7 @@
       "name": "MHS Archives",
       "description": "Various interviews with former students and staff of the School, mostly collected during the research for the 2005 Centenary History of the School, but also includes older interviews.",
       "accountablePerson": {
-        "@id": "#org-luke-savage"
+        "@id": "#person-luke-savage"
       },
       "holdingArchive": {
         "@id": "#org-melbourne-high-school"
@@ -9716,9 +8566,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-luke-savage"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -9774,9 +8621,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-stephen-gillespie"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -9843,9 +8687,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-lynda-tieman"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -9924,9 +8765,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-renata-singer"
       },
       "inLanguage": [
         {
@@ -10033,9 +8871,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-erin-wilson"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -10096,9 +8931,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Partially",
-      "author": {
-        "@id": "#person-n-a"
-      },
+      "author": "\"#person-n-a\"",
       "custom:numInterviews": "41",
       "custom:outputs": "None known.",
       "custom:otherInfo": "To date 25 interviews have been digitised, and the Museum has recently developed a process to start transcribing interviews, write interview summaries and provide time code summaries."
@@ -10112,7 +8945,7 @@
       "name": "Pioneer Radiographers",
       "description": "Records of early pioneer radiographers in Victoria.",
       "accountablePerson": {
-        "@id": "#org-margaret-gibson"
+        "@id": "#person-margaret-gibson"
       },
       "holdingArchive": {
         "@id": "#org-margaret-gibson"
@@ -10125,9 +8958,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-margaret-gibson"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -10195,9 +9025,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-jennifer-rose"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -10258,7 +9085,7 @@
       "name": "Making Multicultural Australia",
       "description": "The collection contains a number of interviews with public figures, community leaders, educators, bureaucrats, unions and others who played a role in the development of multiculturalism as policy and practice in Australia. They represent a part of a larger collection, created in the 1990s as an academic study of this topic.",
       "accountablePerson": {
-        "@id": "#org-jennifer-rose"
+        "@id": "#person-jennifer-rose"
       },
       "holdingArchive": {
         "@id": "#org-jennifer-rose"
@@ -10271,9 +9098,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jennifer-rose"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -10323,9 +9147,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Yes",
-      "author": {
-        "@id": "#person-emeritus-professor-andrew-jakubowicz"
-      },
+      "author": "\"#person-emeritus-professor-andrew-jakubowicz\"",
       "custom:numInterviews": "20",
       "custom:avgInterviewLength": "2 hours",
       "custom:outputs": "Making Multicultural Australia Website (https://www.multiculturalaustralia.edu.au/).\nMultiple academic publications."
@@ -10352,9 +9174,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-larina-strauch"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -10465,7 +9284,7 @@
       "name": "Family collection",
       "description": "This collection is of three interviews taken with relatives and friends in order to record family history.",
       "accountablePerson": {
-        "@id": "#org-jennifer-rose"
+        "@id": "#person-jennifer-rose"
       },
       "holdingArchive": {
         "@id": "#org-jennifer-rose"
@@ -10478,9 +9297,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jennifer-rose"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -10538,7 +9354,7 @@
       "name": "Interviews for PhD thesis - Asserting the rights of migrant children and young people in Melbourne – a social and urban history",
       "description": "The collection has been developed to inform my PhD research titled 'Asserting the rights of migrant children and young people in Melbourne – a social and urban history'. It contains interview with former teachers, migrants' rights activists and youth workers, exploring their role in challenging assimilationism and promoting multicultural practice in the fields of education and youth work.",
       "accountablePerson": {
-        "@id": "#org-jennifer-rose"
+        "@id": "#person-jennifer-rose"
       },
       "holdingArchive": {
         "@id": "#org-jennifer-rose"
@@ -10551,9 +9367,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jennifer-rose"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -10639,9 +9452,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-tonya-lewis"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -10751,9 +9561,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-anna-donne"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -10819,9 +9626,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jennifer-rose"
       },
       "inLanguage": [
         {
@@ -10897,7 +9701,7 @@
       "name": "Walhalla Heritage & Development League Inc Collection",
       "description": "Substantial collection of hardcopy imagery, framed images, photo albums, books, oral history and ephemera relating to the former goldmining town of Walhalla (now a World Heritage candidate location). A substantial portion images have been digitized, but many hundreds have not.",
       "accountablePerson": {
-        "@id": "#org-robert-ashworth"
+        "@id": "#person-robert-ashworth"
       },
       "holdingArchive": {
         "@id": "#org-robert-ashworth"
@@ -10910,9 +9714,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-robert-ashworth"
       },
       "inLanguage": [
         {
@@ -10965,9 +9766,7 @@
       "custom:overviews": "Some interviews have interview overviews",
       "custom:relatedMaterials": "Photographs of interviewees, Other photographs, Written sources (e.g. diaries, letters)",
       "custom:catalogueListing": "Partially",
-      "author": {
-        "@id": "#person-numerous-previous-office-bearers"
-      },
+      "author": "\"#person-numerous-previous-office-bearers\"",
       "custom:outputs": "None.",
       "custom:otherInfo": "We hold some items (images & books) of other Gippsland and North East Victorian locations. As an example we have a very fragile cassette recording of speeches and recording of the Last Train to Mirboo North (1974)."
     },
@@ -10980,7 +9779,7 @@
       "name": "Rebecca Houlihan's Australian computing and internet oral history collection",
       "description": "Interviews with Australians/people who lived in Australia in the 1990s and 2000s about their experiences with, understandings of, and relationships to the internet, computers, and computer networking. The main focus is on the period from 1989 to 2010, however, interviewees spoke about experiences from the 1960s/70s until present (the 1980s in particular are also discussed). They discuss the internet as a technology, a social space, a useful site of communication and information (among other things), as well as the place it found within their lives at various points in time.",
       "accountablePerson": {
-        "@id": "#org-rebecca-houlihan"
+        "@id": "#person-rebecca-houlihan"
       },
       "holdingArchive": {
         "@id": "#org-rebecca-houlihan"
@@ -10993,9 +9792,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-rebecca-houlihan"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -11049,7 +9845,7 @@
       "name": "Ian Moyle's Oral History Collection",
       "description": "Over 200 recorded interviews done over 50 years.\nIncluding audio tape, VHS and now 4k video.\nMajority is video of some form.",
       "accountablePerson": {
-        "@id": "#org-ian-moyle"
+        "@id": "#person-ian-moyle"
       },
       "holdingArchive": {
         "@id": "#org-ian-moyle"
@@ -11062,9 +9858,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-ian-moyle"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -11129,7 +9922,7 @@
       "name": "Stories from Kiewa Valley Communities",
       "description": "A collection of reminiscences of older community members of their lives and family stories from previous generations",
       "accountablePerson": {
-        "@id": "#org-sarah-crooke"
+        "@id": "#person-sarah-crooke"
       },
       "holdingArchive": {
         "@id": "#org-sarah-crooke"
@@ -11142,9 +9935,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-sarah-crooke"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -11235,9 +10025,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-janine-smith"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -11313,9 +10100,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-janine-smith"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -11387,9 +10171,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-robert-graeme-kennedy"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -11458,9 +10239,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-amanda-steen"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -11510,9 +10288,7 @@
       "custom:overviews": "Unsure",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Yes",
-      "author": {
-        "@id": "#person-latrobe-valley-cultural-heritage-project"
-      },
+      "author": "\"#person-latrobe-valley-cultural-heritage-project\"",
       "custom:numInterviews": "23",
       "custom:totalHours": "23"
     },
@@ -11538,9 +10314,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-julia-lees"
       },
       "inLanguage": {
         "@id": "#language-not-specified"
@@ -11595,9 +10368,7 @@
       "custom:overviews": "Some interviews have interview overviews",
       "custom:relatedMaterials": "Other photographs",
       "custom:catalogueListing": "Unsure",
-      "author": {
-        "@id": "#person-memento-media"
-      },
+      "author": "\"#person-memento-media\"",
       "custom:numInterviews": "16"
     },
     {
@@ -11622,9 +10393,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-colleen-margaret-forbes"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -11664,9 +10432,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Partially",
-      "author": {
-        "@id": "#person-unknown"
-      },
+      "author": "\"#person-unknown\"",
       "custom:numInterviews": "7",
       "custom:outputs": "nothing"
     },
@@ -11692,9 +10458,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-teishan-ahearne"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -11752,7 +10515,7 @@
       "name": "Vietnamese in the Australian Defence Force",
       "description": "This oral history collection is a key outcome of Associate Professor Nathalie Huynh Chau Nguyen's project on \"Vietnamese in the Australian Defence Force\" (2017-18) that was funded by a Monash Faculty of Arts Seed Scheme. It contains oral history interviews with male and female current and former service personnel of the Australian Army, the Royal Australian Air Force and the Royal Australian Navy.",
       "accountablePerson": {
-        "@id": "#org-nathalie-nguyen"
+        "@id": "#person-nathalie-nguyen"
       },
       "holdingArchive": {
         "@id": "#org-nathalie-nguyen"
@@ -11765,9 +10528,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-nathalie-nguyen"
       },
       "inLanguage": [
         {
@@ -11865,9 +10625,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-becca-smith-pgs-archivist"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -11947,9 +10704,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-gaelle-pain"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -12025,9 +10779,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-barbara-poustie"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -12087,7 +10838,7 @@
       "name": "Vietnamese veterans and spouses and children of veterans (informal title)",
       "description": "This collection contains interviews that were conducted with Vietnamese veterans, and spouses and children of Vietnamese veterans in 2010-11 as part of an oral history project conducted by Dr Nathalie Huynh Chau Nguyen at the University of Melbourne. Interviews were conducted by Dr Nguyen's Research Assistant Dr Boitran Huynh-Beattie and by Dr Nguyen, and interviewees were located in New South Wales, Queensland and Victoria.",
       "accountablePerson": {
-        "@id": "#org-nathalie-nguyen"
+        "@id": "#person-nathalie-nguyen"
       },
       "holdingArchive": {
         "@id": "#org-nathalie-nguyen"
@@ -12100,9 +10851,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-nathalie-nguyen"
       },
       "inLanguage": [
         {
@@ -12210,9 +10958,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-tonya-lewis-adult-information-services-librarian"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -12324,9 +11069,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-terry-young"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -12388,9 +11130,7 @@
       "custom:overviews": "Some interviews have interview overviews",
       "custom:relatedMaterials": "Other photographs, Other: Databases",
       "custom:catalogueListing": "Unsure",
-      "author": {
-        "@id": "#person-barbara-nichol"
-      },
+      "author": "\"#person-barbara-nichol\"",
       "custom:outputs": "THESIS\nAuthor Nichol, Barbara.\nTitle The breath of the wok : Melbourne's early Chinese restaurants : community, culture and entrepreneurialism in the city, late nineteenth century to 1950s / Barbara Nichol.\nURL: https://cat.lib.unimelb.edu.au/search/?searchtype=X&SORT=D&searcharg=THE+BREATH+OF+THE+WOK%3A+ MELBOURNE%E2%80%99S++EARLY+CHINESE+RESTAURANTS&searchscope=30",
       "custom:otherInfo": "As of August 2025, this collection is currently in the process of being donated the the Museum of Chinese History. Barbara Nichol and Terry Young are facilitating the archiving of this oral history material at the Chinese Museum. They plan to have the collection completely archived by the end of 2025.\nAny inquiries about the status of this process should be directed to Terry Young."
     },
@@ -12416,9 +11156,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-dr-russell-g-smith"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -12482,7 +11219,7 @@
       "name": "SunRRA podcasts",
       "description": "These monthly podcasts (~ 10 - 15 mins ea) were created on behalf of the Sunshine Residents and Ratepayers Association Inc (SunRRA). They contain lead articles about local issues of the time, voxpops, letters and local arts and music segments.\nWhile not oral history in standard interview format, they nevertheless outline community concerns expressed by local voices and represent a snapshot of the turbulent times leading to Ombudsman Vic's 2009 Investigation into the alleged improper conduct of councillors at Brimbank City Council.",
       "accountablePerson": {
-        "@id": "#org-rainer-linz"
+        "@id": "#person-rainer-linz"
       },
       "holdingArchive": {
         "@id": "#org-rainer-linz"
@@ -12495,9 +11232,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-rainer-linz"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -12570,9 +11304,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-tonya-lewis"
       },
       "inLanguage": [
         {
@@ -12669,9 +11400,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-thomas-kehoe"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -12752,7 +11480,7 @@
       "name": "Gospel Hall Masters thesis interviews; family recordings",
       "description": "1. History of Little Bourke Street Ancient Times House (Melbourne's Gospel Hall) - 2016 interviews with 4 past Board members of the Trust (Peter Hearne; Howard Wilkins; Brian Bayston; Ian Angus -- at least three now deceased) on recollections stretching back to 1940s.\n2. Some sound recordings of stories told by family members, specifically recollections of Belgian post-war migrants to Melbourne.",
       "accountablePerson": {
-        "@id": "#org-stefanie-pearce"
+        "@id": "#person-stefanie-pearce"
       },
       "holdingArchive": {
         "@id": "#org-stefanie-pearce"
@@ -12765,9 +11493,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-stefanie-pearce"
       },
       "inLanguage": [
         {
@@ -12853,9 +11578,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-mark-moore"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -12954,9 +11676,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-edward-stuckey"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -13053,9 +11772,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-grace-kathryn-trist"
-      },
       "inLanguage": {
         "@id": "#language-not-specified"
       },
@@ -13126,7 +11842,7 @@
       "name": "Radical New Left Activists of the Sixties (Australian)",
       "description": "The protest activity of students and youth against Australia's involvement in the Vietnam War 1964-1975, including opposition to conscription and establishment of New Left groups and headquarters.",
       "accountablePerson": {
-        "@id": "#org-ken-mansell"
+        "@id": "#person-ken-mansell"
       },
       "holdingArchive": {
         "@id": "#org-ken-mansell"
@@ -13139,9 +11855,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-ken-mansell"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -13213,9 +11926,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-katie-junor"
-      },
       "inLanguage": [
         {
           "@id": "https://glottolog.org/resource/languoid/id/ital1282"
@@ -13284,7 +11994,7 @@
       "name": "Australian track and road cyclists of the forties and fifties",
       "description": "The sporting lives and performances of Australian competitive track and road cyclists (male and female) in golden era of Australian cycling (1940-1960). 'Wizards of the Wheel' is title of book produced.",
       "accountablePerson": {
-        "@id": "#org-ken-mansell"
+        "@id": "#person-ken-mansell"
       },
       "holdingArchive": {
         "@id": "#org-ken-mansell"
@@ -13297,9 +12007,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-ken-mansell"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -13362,9 +12069,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-josephine-anne-sangster"
-      },
       "inLanguage": {
         "@id": "https://collection.aiatsis.gov.au/austlang/language/S17"
       },
@@ -13421,7 +12125,7 @@
       "name": "Memories of members of Communist Party of Australia who were members in period 1930-1956",
       "description": "Interviews with Australian Communists who were members of the Communist Party in 1930-1956 period.\nThe collection I am referring to here are copies (cassette tapes) of all the original taped interviews now housed in the State Library of NSW Oral History Collection.\nThese copies of the original tapes were provided to me (as I gradually deposited the original tapes) by the State Library of NSW over a period of about ten years in the nineties .",
       "accountablePerson": {
-        "@id": "#org-ken-mansell"
+        "@id": "#person-ken-mansell"
       },
       "holdingArchive": {
         "@id": "#org-ken-mansell"
@@ -13434,9 +12138,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-ken-mansell"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -13509,9 +12210,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-zoe-velonis"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -13602,9 +12300,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-shannon-mccartney"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -13662,9 +12357,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "Photographs of interviewees",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-na"
-      },
+      "author": "\"#person-na\"",
       "custom:numInterviews": "6",
       "custom:avgInterviewLength": "10",
       "custom:outputs": "Audio interps onsite"
@@ -13691,9 +12384,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-mirela-cufurovic"
       },
       "inLanguage": [
         {
@@ -13788,9 +12478,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-jane-harvey"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -13880,9 +12567,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-jane-harvey"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -13922,9 +12606,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-martin-merchant"
-      },
+      "author": "\"#person-martin-merchant\"",
       "custom:numInterviews": "3",
       "custom:totalHours": "27",
       "custom:avgInterviewLength": "1.5 hours"
@@ -13951,9 +12633,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jane-harvey"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -14004,9 +12683,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Unsure",
-      "author": {
-        "@id": "#person-north-balwyn-rsl-sub-branch"
-      },
+      "author": "\"#person-north-balwyn-rsl-sub-branch\"",
       "custom:numInterviews": "22"
     },
     {
@@ -14031,9 +12708,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jane-harvey"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -14075,9 +12749,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-geraldine-mcfarlane"
-      },
+      "author": "\"#person-geraldine-mcfarlane\"",
       "custom:numInterviews": "20",
       "custom:totalHours": "25"
     },
@@ -14103,9 +12775,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jane-harvey"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -14146,9 +12815,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-eileen-dorum"
-      },
+      "author": "\"#person-eileen-dorum\"",
       "custom:numInterviews": "11",
       "custom:totalHours": "12",
       "custom:avgInterviewLength": "1 hour"
@@ -14175,9 +12842,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jane-harvey"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -14252,9 +12916,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-megan-hall"
       },
       "inLanguage": [
         {
@@ -14366,9 +13027,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-alan-reynolds"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -14455,9 +13113,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-jane-harvey"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -14496,9 +13151,7 @@
       "custom:overviews": "Some interviews have interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Partially",
-      "author": {
-        "@id": "#person-geraldine-mcfarlane"
-      },
+      "author": "\"#person-geraldine-mcfarlane\"",
       "custom:numInterviews": "13",
       "custom:totalHours": "9.5",
       "custom:outputs": "Geraldine McFarlane published the re-enacted oral histories as a talking book, and the transcriptions were published in to a publication. \nhttps://boroondara.spydus.com/cgi-bin/spydus.exe/FULL/WPAC/BIBENQ/98969256/48343914,1 ;\nhttps://boroondara.spydus.com/cgi-bin/spydus.exe/FULL/WPAC/BIBENQ/98969256/48303517,2"
@@ -14525,9 +13178,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-jane-harvey"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -14593,9 +13243,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-jane-harvey"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -14653,9 +13300,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-georgia-juliana-charpantidou"
       },
       "inLanguage": [
         {
@@ -14754,7 +13398,7 @@
       "name": "Time and Place",
       "description": "The collection is a series of cassette recordings of a 30 minute program called 'Time and Place' that went to air on a Monday night between 9.00 and 9.30 on Radio 3RRR. It ran between 1985 and 1987 having grown out of a program called 'The History Show' which moved from 3RRR to 3CR during 1985. Time and Place was less academic in style and presentation than 'The History Show' and it included interviews with authors from a range of backgrounds, reviews of books and magazines, discussions of current issues in history education, archive and heritage preservation and short interviews connected with the oral history of places and sites in Melbourne. The quality of each show varied considerably but it allegedly out-rated ABC radio on a Monday night in the 9.00-9.30 time slot. The tapes are generally in good condition and some have been digitised. Aside from significant interviews the tapes also provide an insight into an aspect of public radio in Melbourne during the 1980s.",
       "accountablePerson": {
-        "@id": "#org-david-harris"
+        "@id": "#person-david-harris"
       },
       "holdingArchive": {
         "@id": "#org-david-harris"
@@ -14767,9 +13411,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-david-harris"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -14847,9 +13488,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-simone-sharpe"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -14929,9 +13567,7 @@
       "custom:overviews": "Some interviews have interview overviews",
       "custom:relatedMaterials": "Photographs of interviewees, Other photographs, Written sources (e.g. diaries, letters)",
       "custom:catalogueListing": "Yes",
-      "author": {
-        "@id": "#person-various-eg-collected-histories-prahran-1836-1995-mecwa-centenary-life-stories-project-memories-of-malvern-oral-history-project-memories-of-the-past-for-the-future-oral-recollections-from-prahran-oral-histories-with-prahran-residents-about-wwii-2-by-our-deeds-reflections-on-terms-in-the-mayoral-office-young-voices-of-the-pandemic-older-voices-of-the-pandemic-talking-stories-malvern"
-      },
+      "author": "\"#person-various-eg-collected-histories-prahran-1836-1995-mecwa-centenary-life-stories-project-memories-of-malvern-oral-history-project-memories-of-the-past-for-the-future-oral-recollections-from-prahran-oral-histories-with-prahran-residents-about-wwii-2-by-our-deeds-reflections-on-terms-in-the-mayoral-office-young-voices-of-the-pandemic-older-voices-of-the-pandemic-talking-stories-malvern\"",
       "custom:outputs": "Short films of recent oral history projects about COVID-19 are on our website at https://www.stonnington.vic.gov.au/Library/Visit-us/Stonnington-History-Centre/Young-Voices-of-the-Pandemic   and    https://www.stonnington.vic.gov.au/Library/Visit-us/Stonnington-History-Centre/Older-Voices-of-the-Pandemic ; \nSally Wilde, The History of Prahran Volume II: 1925-1990 (1993)",
       "custom:otherInfo": "The Stonnington History Centre has recently digitised all oral histories and other recordings in our collection which were originally created in now-obsolete formats (eg. tape). These can all be accessed by appointment at the Stonnington History Centre. As an archive and repository, we will strive to ensure that they remain accessible in digital format/s in future, in accordance with best practice."
     },
@@ -14944,7 +13580,7 @@
       "name": "Judy Hughes' journalist oral history collection",
       "description": "The collection includes two sets of whole-of-life oral history interviews with Australian journalists. The first group of interviews were conducted from 2014 to 2015 and the second from 2022 to 2024. The interviews mostly relate to print newspaper journalism and the 1980 national journalists strike. A significant number of the interviewees had worked for extended periods as special industrial relations reporters.",
       "accountablePerson": {
-        "@id": "#org-judy-hughes"
+        "@id": "#person-judy-hughes"
       },
       "holdingArchive": {
         "@id": "#org-judy-hughes"
@@ -14957,9 +13593,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-judy-hughes"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -15033,7 +13666,7 @@
       "name": "Anna Wilkinson's Japanese war brides oral history collection",
       "description": "Small collection of interviews with Japanese war brides and their children",
       "accountablePerson": {
-        "@id": "#org-anna-wilkinson"
+        "@id": "#person-anna-wilkinson"
       },
       "holdingArchive": {
         "@id": "#org-anna-wilkinson"
@@ -15046,9 +13679,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-anna-wilkinson"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -15121,7 +13751,7 @@
       "name": "Deborah Towns' Education Department of Victoria Oral History Collection",
       "description": "It is a collection of 21 interviews with mainly the women who were the subjects or witnesses in my PhD thesis, which was a history of women teachers in the Education Department of Victoria over time (1880s to 1980s). They were chosen as they added to Victoria's social capital, as they were also feminists, fought for equal pay,\npioneering principals and inspectors, first women Ministers of Education, politicians, one of whom was Joan Kirner for her leadership of parents organisations and the first women premier, unionists, exchange teachers, patriotic fund raisers, physical education leaders, curriculum writers, pioneering teachers college principal, and domestic arts teachers. Others were involved in the creation of the Australian Bicentenary's 1988 Business and Professional Women's Stained Glass Window, which I was commissioned to write about.\nI also interviewed women politicians for a film, made in 1988. They have been edited and are on a video, Women in Parliament (1988), that I also directed. It was funded by the Australian Bicentenary Program.",
       "accountablePerson": {
-        "@id": "#org-deborah-towns"
+        "@id": "#person-deborah-towns"
       },
       "holdingArchive": {
         "@id": "#org-deborah-towns"
@@ -15134,9 +13764,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-deborah-towns"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -15222,9 +13849,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-barbara-hoad"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -15294,9 +13918,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-kaylene-james"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -15353,9 +13974,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-ella-birt"
       },
       "inLanguage": [
         {
@@ -15432,7 +14050,7 @@
       "name": "Audio recordings of various interviews by Michele Matthews.",
       "description": "Audio cassette recordings of interviews of ex-Bendigo Building Society staff by Michele Matthews.  \nList of interviewees: Edith Lunn, Evelyn Leamon, Doug Laity, Brian Thomas, John Perrow, Joy White, John McVey, Harold Davey, Dawn Hopcott, Chris De Araugo, Daivd Ray, Peter Opie, Lucio Dana and Rob Hunt.",
       "accountablePerson": {
-        "@id": "#org-will-conlan"
+        "@id": "#person-will-conlan"
       },
       "holdingArchive": {
         "@id": "#org-bendigo-and-adelaide-bank-limited"
@@ -15445,9 +14063,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-will-conlan"
       },
       "inLanguage": {
         "@id": "#language-not-specified"
@@ -15499,7 +14114,7 @@
       "name": "Gretel Evan's Migrant Oral History Interviews about Bushfire and Flood for PhD thesis",
       "description": "This is a cohort of interviews conducted for a PhD thesis in history at the University of Melbourne. It includes interviews with approximately 20 people.",
       "accountablePerson": {
-        "@id": "#org-gretel-evans"
+        "@id": "#person-gretel-evans"
       },
       "holdingArchive": {
         "@id": "#org-gretel-evans"
@@ -15512,9 +14127,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-gretel-evans"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -15594,9 +14206,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-helen-laffin"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -15672,9 +14281,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-stacey-coenders"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -15722,9 +14328,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "Other photographs",
       "custom:catalogueListing": "Partially",
-      "author": {
-        "@id": "#person-multiple-creators"
-      },
+      "author": "\"#person-multiple-creators\"",
       "custom:numInterviews": "40",
       "custom:outputs": "A handful of the interviews were featured in the Old Collegians' Club Centenary video that was shared with the alumnae community."
     },
@@ -15750,9 +14354,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-kathleen-kay-jennifer-ball"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -15799,9 +14400,7 @@
       "custom:overviews": "Some interviews have interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Yes",
-      "author": {
-        "@id": "#person-a-a"
-      },
+      "author": "\"#person-a-a\"",
       "custom:numInterviews": "75",
       "custom:avgInterviewLength": "30 minutes"
     },
@@ -15827,9 +14426,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-lisa-heinrichs"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -15897,9 +14493,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-robert-innes"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -16029,9 +14622,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-matthew-wilson"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -16096,9 +14686,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-katrin-strohl"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -16160,9 +14747,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-liz-dillon-hensby"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -16211,7 +14795,7 @@
       "name": "Wiregrass project",
       "description": "You Tube video clips featuring Percy Leason's cartoons offering a snapshot of life in the 1920s - 1960s, capturing the spirit of rural Australian utilising Kaniva's main street, social life and local characters.",
       "accountablePerson": {
-        "@id": "#org-helen-hobbs"
+        "@id": "#person-helen-hobbs"
       },
       "holdingArchive": {
         "@id": "#org-helen-hobbs"
@@ -16224,9 +14808,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-helen-hobbs"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -16303,9 +14884,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-greg-hunter"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -16384,9 +14962,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-janine-rizzetti"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -16460,9 +15035,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-esther-yeoman"
       },
       "inLanguage": {
         "@id": "#language-not-specified"
@@ -16550,9 +15122,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-janine-jackson"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -16615,9 +15184,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-delia-kerr"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -16676,7 +15242,7 @@
       "name": "Living In Harmony - Our Migrant Stories",
       "description": "Oral History from local people who migrated to Australia",
       "accountablePerson": {
-        "@id": "#org-ashley-merbach"
+        "@id": "#person-ashley-merbach"
       },
       "holdingArchive": {
         "@id": "#org-high-country-library-network"
@@ -16689,9 +15255,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-ashley-merbach"
       },
       "inLanguage": {
         "@id": "#language-not-specified"
@@ -16742,9 +15305,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-barbara-kowalski"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -16825,9 +15385,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-catherine-hall"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -16903,9 +15460,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-katie-wand"
-      },
       "inLanguage": {
         "@id": "#language-not-specified"
       },
@@ -16958,9 +15512,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-barbara-kowalski"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -17030,9 +15581,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-allison-moloney"
       },
       "inLanguage": [
         {
@@ -17128,9 +15676,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-karen-mcintyre"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -17199,9 +15744,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-lucy-davies"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -17333,9 +15875,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-helen-wolff"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -17402,9 +15941,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-russ-haines-oam"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -17528,9 +16064,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-jill-a-vard"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -17601,9 +16134,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-robyn-rosenboom"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -17671,9 +16201,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-florence-livery"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/mode1248"
@@ -17751,9 +16278,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-marion-rose-mcadie"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -17816,9 +16340,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-christine-windle"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -17895,9 +16416,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-maureen-donnellon"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -17964,9 +16482,7 @@
       "custom:overviews": "Unsure",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-interested-persons-most-now-deceased-in-1983"
-      }
+      "author": "\"#person-interested-persons-most-now-deceased-in-1983\""
     },
     {
       "@id": "#collection-160",
@@ -17977,7 +16493,7 @@
       "name": "Andrew Markus' history of migrant settlement in Springvale oral history collection",
       "description": "The history of migrant settlement, focusing on several waves of arrivals, in the Springvale region.  The nationality of migrants interviewed include British, southern European, and south-east Asian (including refugees from Vietnam and Cambodia). There are more than 200 detailed interviews conducted between 1990-1993, and a second series of interviews, totalling nearly 30 conducted in 2023. All of the second series of interviews have been professionally transcribed, also close to 100 of the first series.",
       "accountablePerson": {
-        "@id": "#org-andrew-markus"
+        "@id": "#person-andrew-markus"
       },
       "holdingArchive": {
         "@id": "#org-andrew-markus"
@@ -17990,9 +16506,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-andrew-markus"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -18075,9 +16588,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-roslyn-margaret-carstairs"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -18134,7 +16644,7 @@
       "name": "Hepburn Voices",
       "description": "Approx 60 one-on-one interviews of local residents",
       "accountablePerson": {
-        "@id": "#org-warren-maloney"
+        "@id": "#person-warren-maloney"
       },
       "holdingArchive": {
         "@id": "#org-warren-maloney"
@@ -18147,9 +16657,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-warren-maloney"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -18204,7 +16711,7 @@
       "name": "Deb Verhoeven's Mapping the Movies Oral History Collection",
       "description": "The collection comprises interviews with owners, workers and audiences who were part of Greek and Italian language cinema circuits based in Melbourne during the period 1945-1985. Some interviews are in English, some in Italian and Greek respectively. Transcriptions and translations exist for most interviews. A further series of interviews were conducted with personnel involved in the Myrtleford Italian cinema. Some of these interviews formed a publication titled: Parlato in Italiano: The Heyday of Italian Cinema in Myrtleford in the 1960s (eds) John Taylor and Cynthia Troup, Myrtleford and District Historical Society.",
       "accountablePerson": {
-        "@id": "#org-deb-verhoeven"
+        "@id": "#person-deb-verhoeven"
       },
       "holdingArchive": {
         "@id": "#org-deb-verhoeven"
@@ -18217,9 +16724,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-deb-verhoeven"
       },
       "inLanguage": [
         {
@@ -18300,9 +16804,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-jessica-berry"
-      },
       "inLanguage": {
         "@id": "#language-not-specified"
       },
@@ -18351,7 +16852,7 @@
       "name": "Hugh St.L. Sloane's Oral History Collection",
       "description": "Private collection of reel to real tape recordings, cassette recordings and some vinyl discs.\n\nThe collection has not been catalogued but this can be done if requested.",
       "accountablePerson": {
-        "@id": "#org-hugh-st-l-sloane"
+        "@id": "#person-hugh-st-l-sloane"
       },
       "holdingArchive": {
         "@id": "#org-hugh-st-l-sloane"
@@ -18364,9 +16865,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-hugh-st-l-sloane"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -18435,9 +16933,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-heather-kelly"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -18531,9 +17026,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-mrs-shirley-kishere"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -18566,9 +17058,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-john-spring"
-      },
+      "author": "\"#person-john-spring\"",
       "custom:numInterviews": "9",
       "custom:totalHours": "15",
       "custom:outputs": "see above references",
@@ -18596,9 +17086,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-barbara-judith-nielsen"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -18657,9 +17144,7 @@
       "custom:overviews": "Yes, all interviews have interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Yes",
-      "author": {
-        "@id": "#person-cultural-heritage-unit-dept-of-history-uni-of-melb-for-dept-of-sustainability-environment"
-      },
+      "author": "\"#person-cultural-heritage-unit-dept-of-history-uni-of-melb-for-dept-of-sustainability-environment\"",
       "custom:numInterviews": "80"
     },
     {
@@ -18684,9 +17169,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-melinda-mockridge"
       },
       "inLanguage": [
         {
@@ -18750,9 +17232,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "Yes",
-      "author": {
-        "@id": "#person-eva-de-jong-duldig-and-duldig-family"
-      },
+      "author": "\"#person-eva-de-jong-duldig-and-duldig-family\"",
       "custom:numInterviews": "6",
       "custom:totalHours": "9",
       "custom:outputs": "Four of the interviews have been used as source material for publications and one was conducted as preparation for an exhibition held at Duldig Studio in 2020-2022, 'Karl Duldig: A Living legacy'.\n\nPublications:\nKen Bandman,1989, A Palette of Artists - a History of the Bezalel Fellowship of Artists, (Melbourne: Bezalel Fellowship of Arts in Melbourne); \n Peter Stasny (ed.), 2003, Karl Duldig: Sculpture, Drawings - catalogue of an exhibition (Vienna: Jewish Museum of the City of Vienna)."
@@ -18779,9 +17259,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-christine-dianne-grayden"
       },
       "inLanguage": [
         {
@@ -18912,9 +17389,7 @@
       "custom:overviews": "Some interviews have interview overviews",
       "custom:relatedMaterials": "Photographs of interviewees, Other photographs, Written sources (e.g. diaries, letters)",
       "custom:catalogueListing": "Partially",
-      "author": {
-        "@id": "#person-na"
-      },
+      "author": "\"#person-na\"",
       "custom:numInterviews": "80",
       "custom:avgInterviewLength": "2 hours",
       "custom:outputs": "Radio program: Coastal Radio South Gippsland/Bass Coast Phillip Island local history series, 2016.\n Included in two books of historical talks and information available as free download pdfs from the society's website: 'Phillip Island History and Memories' and 'Phillip Island Life: 1920 - 2022'. \n YouTube video series about Phillip Island during WWII and experiences of some local WWII servicemen, chicory growing, wreck of the SS Speke poem based on eye-witness accounts. \n Used by the local newspaper Phillip Island & San Remo Advertiser for various articles, and in their book: 'Once Upon and Island'."
@@ -18941,9 +17416,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-mary-kehoe"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -19011,9 +17483,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -19089,9 +17558,7 @@
       "custom:overviews": "Yes, all interviews have interview overviews",
       "custom:relatedMaterials": "Other: Program guide",
       "custom:catalogueListing": "Yes",
-      "author": {
-        "@id": "#person-duncan-king-smith-shire-of-eltham"
-      },
+      "author": "\"#person-duncan-king-smith-shire-of-eltham\"",
       "custom:numInterviews": "118",
       "custom:avgInterviewLength": "0.03333 hours",
       "custom:otherInfo": "The collection comprises 3 audio cassettes clipped into a plastic case with a front slick listing the title and a photo.\n\nAndrew Ross Museum holds 5 copies of the collection."
@@ -19118,9 +17585,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -19161,9 +17625,7 @@
       "custom:overviews": "No interview overviews",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-wellers-of-kangaroo-ground"
-      },
+      "author": "\"#person-wellers-of-kangaroo-ground\"",
       "custom:numInterviews": "0",
       "custom:totalHours": "0",
       "custom:avgInterviewLength": "0.08 hours",
@@ -19191,9 +17653,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-sandy-saxon"
       },
       "inLanguage": [
         {
@@ -19272,9 +17731,7 @@
       "custom:overviews": "Unsure",
       "custom:relatedMaterials": "Photographs of interviewees, Other photographs, Written sources (e.g. diaries, letters), Other: personal family or historical objects",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-various-tbc"
-      },
+      "author": "\"#person-various-tbc\"",
       "custom:numInterviews": "50",
       "custom:avgInterviewLength": "1",
       "custom:outputs": "This question requires further research from the museum/collection holder. However it's understood that each recording project was aligned with a specific event and that there may have been pamphlets or catalogues printed in conjunction with the event. This requires further investigation into the archives."
@@ -19288,7 +17745,7 @@
       "name": "Collection of interviews of former soldiers in the Australian 2/2nd Pioneer Battalion",
       "description": "A collection of interviews conducted by Jim Mitchell in the 1990s to facilitate his writing of a battalion history of the Australian 2/2nd Pioneer Battalion. The soldiers enlisted in 1940-41, trained in Australia and Palestine (1940-41), fought the Vichy French in Syria (1941), fought the Japanese on Java (1942), became prisoners of war and a labouring force of the Japanese in South-East Asia (where they worked on the Burma-Thailand Railway) and in Japan (1942-45). \nRecordings vary from cassette tapes to DAT; some are also made into mp3 files preparatory to being transcribed.\nTranscriptions are typed versions of the interviews, but without time indications.",
       "accountablePerson": {
-        "@id": "#org-colin-james-mitchell"
+        "@id": "#person-colin-james-mitchell"
       },
       "holdingArchive": {
         "@id": "#org-colin-james-mitchell"
@@ -19301,9 +17758,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-colin-james-mitchell"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -19387,9 +17841,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -19462,9 +17913,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-professor-clare-wright"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -19532,9 +17980,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-prof-clare-wright"
       },
       "inLanguage": [
         {
@@ -19619,9 +18064,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -19691,9 +18133,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -19766,9 +18205,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -19844,9 +18280,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -19910,9 +18343,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-georgina-bevan-jones"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -19994,9 +18424,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -20069,9 +18496,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -20153,9 +18577,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -20211,9 +18632,7 @@
       "custom:overviews": "Unsure",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-plenty-valley-fm"
-      },
+      "author": "\"#person-plenty-valley-fm\"",
       "custom:numInterviews": "1"
     },
     {
@@ -20238,9 +18657,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -20294,9 +18710,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-susan-mary-clarke"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -20366,9 +18779,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
-      },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
       },
@@ -20400,9 +18810,7 @@
       "custom:overviews": "Unsure",
       "custom:relatedMaterials": "No",
       "custom:catalogueListing": "No",
-      "author": {
-        "@id": "#person-unknown"
-      },
+      "author": "\"#person-unknown\"",
       "custom:numInterviews": "0"
     },
     {
@@ -20427,9 +18835,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
       },
       "inLanguage": {
         "@id": "https://glottolog.org/resource/languoid/id/stan1293"
@@ -20485,9 +18890,6 @@
       "pcdm:memberOf": {
         "@id": "./"
       },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
-      },
       "inLanguage": {
         "@id": "#language-not-specified"
       },
@@ -20540,9 +18942,6 @@
       },
       "pcdm:memberOf": {
         "@id": "./"
-      },
-      "contributor": {
-        "@id": "#person-alan-bluhm"
       },
       "inLanguage": {
         "@id": "#language-not-specified"

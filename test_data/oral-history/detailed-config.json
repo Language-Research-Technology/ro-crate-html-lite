@@ -83,6 +83,7 @@
     "searchEnabled": true,
     "columnSearchEnabled": false,
     "includeFallbackColumns": true,
+    "sortyBy": "http://schema.org/familyName",
     "hideColumns": []
   },
   "termMapping": {
@@ -97,6 +98,12 @@
       "customLabel": "Has Member",
       "customReverseLabel": "Member of",
       "hide": false
+    },
+     "http://schema.org/hasPart": {
+      "defaultLabel": "hasPart",
+      "customLabel": "Has Part",
+      "customReverseLabel": "Part of",
+      "hide": true
     },
     "http://pcdm.org/models#memberOf": {
       "defaultLabel": "memberOf",
@@ -571,7 +578,7 @@
     },
     {
       "name": "Structure",
-      "help": "For groups of elements, such as DefinedTerms.",
+      "help": "For groups of elements, sutch as DefinedTerms.",
       "inputs": [
         "http://pcdm.org/models#memberOf",
         "http://pcdm.org/models#hasMember",

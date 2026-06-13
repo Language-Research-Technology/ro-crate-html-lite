@@ -1,0 +1,217 @@
+<html lang="en">
+  <head>
+    {# Facebook sharing image (Open Graph) #}
+    <meta property="og:url" content="https://bird-apps.com/ro-crate-preview.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Birds" />
+    <meta property="og:description" content="bird stories" />
+    <meta property="og:image" content="http://bird-apps.com/files/keyimage.jpg" />
+    <meta property="og:image:secure_url" content="https://bird-apps.com/files/keyimage.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birds</title>
+    <link rel="icon" type="image/png" href="files/images/favicon.png" />
+    <style>
+        html, body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
+            background-color: #d8ffe2;
+            background-image: url(files/images/clouds-background.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin: 0;
+        }
+        .page-title, .footer-row {
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-weight: normal;
+            padding-top: 1em;
+            padding-bottom: 1em;
+            margin: 0;
+        }
+        .footer-row a {
+            color: white;
+            font-size: 1.2em;
+        }
+        .main-container {
+            width:100%;
+        }
+        .section-heading {
+            text-align: center;
+            margin: 2rem 1rem 0.5rem;
+            color: #17301f;
+            font-size: 1.6rem;
+        }
+        .section-copy {
+            text-align: center;
+            max-width: 60rem;
+            margin: 0 auto 1.5rem;
+            color: #22422b;
+            line-height: 1.5;
+            padding: 0 1rem;
+        }
+        .object-grid {
+            width:100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .article-grid {
+            width: 100%;
+            max-width: 72rem;
+            margin: 0 auto 2.5rem;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            box-sizing: border-box;
+        }
+        .article-card {
+            background: rgba(255,255,255,0.92);
+            border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .article-card a {
+            display: block;
+            padding: 1rem 1.1rem;
+            color: #17301f;
+            text-decoration: none;
+            min-height: 100%;
+            box-sizing: border-box;
+        }
+        .article-card a:hover {
+            background: rgba(255,255,255,0.98);
+        }
+        .article-card-title {
+            font-size: 1.1rem;
+            line-height: 1.35;
+            font-weight: 600;
+        }
+        .article-card-summary {
+            margin-top: 0.6rem;
+            color: #3b5642;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow: hidden;
+        }
+        .object-grid-person {
+            width:100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        @media (max-width: 700px) {
+            .object-grid {
+                flex-direction: column;
+            }
+            div.bird {
+                width: 90vw !important;
+                height: auto;
+            }
+        }
+        div.bird {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            margin: 1em;
+            background-size: cover;
+            background-position: center;
+            transition: box-shadow 0.1s, transform 0.1s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            cursor: pointer;
+        }
+        .object-grid div.bird:active {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.12) inset;
+            transform: translateY(2px) scale(0.97);
+            border-color: #888;
+        }
+        div.bird {
+            position: relative;
+            overflow: hidden;
+        }
+        div.bird > a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+        .bird-name {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 0.3em 0.8em;
+            border-radius: 0 0 8px 8px;
+            font-size: 1em;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        </style>
+</head>
+<body>
+
+{% macro display(data, class) %}
+    {% set item = data.ids[data.entryPoint] %}
+
+    <div id="{{item.id}}" class="{{class}}">
+        <div class="header-row">
+            <h2 class="page-title">
+                {% if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
+                {{ item.props["http://schema.org/name"].fwd[0].value }}
+                {% endif %}
+            </h2>
+        </div>
+
+        {% if item.props["http://schema.org/hasPart"] and item.props["http://schema.org/hasPart"].fwd.length > 0 %}
+        <h3 class="section-heading">SubCollections in this RO-Crate</h3>
+        <p class="section-copy">Browse the subCollections described by this root dataset.</p>
+        <div class="article-grid">
+            {% for part in item.props["http://schema.org/hasPart"].fwd %}
+                {% set entity = data.ids[part.target_id] %}
+                {% if entity and "Collection" in entity.type and entity.props and "http://schema.org/name" in entity.props and entity.props["http://schema.org/name"].fwd %}
+                {% set pagePath = data.pages[part.target_id].path if data.pages[part.target_id] else '' %}
+                {% set memberCount = entity.props["http://schema.org/hasPart"].fwd.length if entity.props["http://schema.org/hasPart"] else 0 %}
+                <div class="article-card">
+                    {% if pagePath %}
+                    <a href="{{ pagePath }}">
+                        <div class="article-card-title">{{ entity.props["http://schema.org/name"].fwd[0].value }}</div>
+                        <div class="article-card-summary">{{ memberCount }} item{{ "s" if memberCount != 1 else "" }}</div>
+                    </a>
+                    {% else %}
+                    <div style="padding: 1rem 1.1rem;">
+                        <div class="article-card-title">{{ entity.props["http://schema.org/name"].fwd[0].value }}</div>
+                        <div class="article-card-summary">{{ memberCount }} item{{ "s" if memberCount != 1 else "" }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+    </div>
+{% endmacro %}
+
+{{ display(data, "root") }}
+
+</body>
+</html>

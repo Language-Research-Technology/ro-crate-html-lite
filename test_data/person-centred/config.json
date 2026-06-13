@@ -1,0 +1,9 @@
+{
+    "types": {
+      "Collection": {"template": "test_data/person-centred/templates/collection-template.html"},
+      "Article": {"template": "test_data/person-centred/templates/article-template.html"},
+      "RepositoryObject": {"template": "test_data/person-centred/templates/subobject-template.html"},
+      "AboutPage": {"template": "test_data/person-centred/templates/about-template.html"}
+    },
+    "root" : {"template": "test_data/person-centred/templates/root-template.html"}
+}

@@ -131,3 +131,6 @@ dist
 
 .DS_Store
 **/.DS_Store
+
+# Generated person-centred preview output
+test_data/person-centred/data/

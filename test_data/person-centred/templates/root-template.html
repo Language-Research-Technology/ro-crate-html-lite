@@ -189,12 +189,6 @@
                 {% if entity and "Collection" in entity.type and entity.props and "http://schema.org/name" in entity.props and entity.props["http://schema.org/name"].fwd %}
                 {% set pagePath = data.pages[part.target_id].path if data.pages[part.target_id] else '' %}
                 {% set memberCount = entity.props["http://schema.org/hasPart"].fwd.length if entity.props["http://schema.org/hasPart"] else 0 %}
-                {% if memberCount == 1 and entity.props["http://schema.org/hasPart"] and entity.props["http://schema.org/hasPart"].fwd %}
-                    {% set onlyMemberId = entity.props["http://schema.org/hasPart"].fwd[0].target_id %}
-                    {% if onlyMemberId and data.pages[onlyMemberId] %}
-                        {% set pagePath = data.pages[onlyMemberId].path %}
-                    {% endif %}
-                {% endif %}
                 <div class="article-card">
                     {% if pagePath %}
                     <a href="{{ pagePath }}">

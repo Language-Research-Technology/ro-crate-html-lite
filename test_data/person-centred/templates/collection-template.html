@@ -86,6 +86,12 @@
               {% set target = data.ids[part.target_id] %}
               {% set targetName = target.props["http://schema.org/name"].fwd[0].value if target and target.props["http://schema.org/name"] and target.props["http://schema.org/name"].fwd else part.target_id %}
               {% set pagePath = data.pages[part.target_id].path if data.pages[part.target_id] else '' %}
+              {% if target and "Collection" in target.type and target.props["http://schema.org/hasPart"] and target.props["http://schema.org/hasPart"].fwd.length == 1 %}
+                {% set onlyMemberId = target.props["http://schema.org/hasPart"].fwd[0].target_id %}
+                {% if onlyMemberId and data.pages[onlyMemberId] %}
+                  {% set pagePath = data.pages[onlyMemberId].path %}
+                {% endif %}
+              {% endif %}
               <li>
                 {% if pagePath %}
                 <a href="../../../../../{{ pagePath }}">{{ targetName }}</a>

@@ -37,6 +37,7 @@
       "@id": "#magpie",
       "@type": "RepositoryObject",
       "name": "magpie",
+      "description": "a story in language",
       "pcdm:memberOf": {
         "@id": "./"
       },

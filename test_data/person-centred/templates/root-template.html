@@ -198,7 +198,9 @@
 
         {% if item.props["http://schema.org/hasPart"] and item.props["http://schema.org/hasPart"].fwd.length > 0 %}
         <h3 class="section-heading">SubCollections in this RO-Crate</h3>
-        <p class="section-copy">Browse the subCollections described by this root dataset.</p>
+        
+        <!-- <p class="section-copy">Browse the subCollections described by this root dataset.</p> -->
+
         <div class="article-grid">
             {% for part in item.props["http://schema.org/hasPart"].fwd %}
                 {% set entity = data.ids[part.target_id] %}

@@ -79,7 +79,8 @@
       </header>
 
       <main class="content">
-        <p class="lede">Items in this subCollection.</p>
+        <!-- <p class="lede">Items in this subCollection.</p> -->
+         
         <ul class="list">
           {% if item.props["http://schema.org/hasPart"] and item.props["http://schema.org/hasPart"].fwd.length > 0 %}
             {% for part in item.props["http://schema.org/hasPart"].fwd %}

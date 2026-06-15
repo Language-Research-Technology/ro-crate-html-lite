@@ -183,9 +183,9 @@
 {% macro mediaPath(item, pathValue) %}
     {% set resolved = pathValue %}
     {% if item and item.id and pathValue and pathValue.startsWith("media/") %}
-        {% set idParts = item.id.split("/") %}
-        {% if idParts and idParts|length > 2 and idParts[0] == "data" %}
-            {% set resolved = idParts[1] + "/" + pathValue %}
+        {% set basePath = item.id.split("#")[0] | replace(r/\/[^\/]*$/, "") %}
+        {% if basePath and basePath.startsWith("data/") %}
+            {% set resolved = basePath + "/" + pathValue %}
         {% endif %}
     {% endif %}
     {{ resolved }}

@@ -2,8 +2,7 @@
   <head>
     {% set item = data.ids[data.entryPoint] %}
     {% set itemName = item.props["http://schema.org/name"].fwd[0].value if item.props["http://schema.org/name"] and item.props["http://schema.org/name"].fwd else item.id %}
-        {% set idParts = item.id.split("/") %}
-        {% set subCollection = idParts[1] if idParts and idParts|length > 2 else "" %}
+                {% set subCollection = item.id.split("#")[0] | replace(r/\/[^\/]*$/, "") if item and item.id else "" %}
         {% set backPath = "../../../../../ro-crate-preview.html" %}
         {% set backCollectionId = "" %}
         {% if item.parentCollections and item.parentCollections.length > 0 %}

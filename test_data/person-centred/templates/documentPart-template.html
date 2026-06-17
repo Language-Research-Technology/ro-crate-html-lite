@@ -13,7 +13,7 @@
                 {% set parentParts = parentCollection.props["http://schema.org/hasPart"] %}
                 {% if parentParts and parentParts.fwd and parentParts.fwd.length == 1 %}
                     {% set onlyChildId = parentParts.fwd[0].target_id %}
-                    {% if onlyChildId and data.ids[onlyChildId] and "Article" in data.ids[onlyChildId].type %}
+                    {% if onlyChildId and data.ids[onlyChildId] and "bibo:DocumentPart" in data.ids[onlyChildId].type %}
                         {% if parentCollection.parentCollections and parentCollection.parentCollections.length > 0 %}
                             {% set backCollectionId = parentCollection.parentCollections[0] %}
                         {% else %}
@@ -136,8 +136,8 @@
                 {% set chapter = data.ids[part.target_id] %}
                 {% if chapter %}
                 <section class="chapter">
-                    {% if chapter.props["http://schema.org/headline"] and chapter.props["http://schema.org/headline"].fwd %}
-                    <h2>{{ chapter.props["http://schema.org/headline"].fwd[0].value }}</h2>
+                    {% if chapter.props["http://schema.org/name"] and chapter.props["http://schema.org/name"].fwd %}
+                    <h2>{{ chapter.props["http://schema.org/name"].fwd[0].value }}</h2>
                     {% endif %}
 
                     {% if chapter.props["http://schema.org/text"] and chapter.props["http://schema.org/text"].fwd %}

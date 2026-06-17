@@ -15,7 +15,8 @@
     "test": "mocha",
     "visualize": "node test/test-bounding-box.js",
     "format": "prettier --write template.html",
-    "build": "node precompile.js template.html > template.js"
+    "build": "node precompile.js template.html > template.js",
+    "build-person": "npx roc-html -m test_data/person-centred/config.json test_data/person-centred/data"
   },
   "author": "Peter Sefton",
   "contributors": [

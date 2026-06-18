@@ -41,10 +41,6 @@
         padding: 1.5rem;
         box-sizing: border-box;
       }
-      .lede {
-        margin-top: 0;
-        color: #32523a;
-      }
       .list {
         list-style: none;
         padding: 0;
@@ -79,21 +75,12 @@
       </header>
 
       <main class="content">
-        <!-- <p class="lede">Items in this subCollection.</p> -->
-         
         <ul class="list">
           {% if item.props["http://schema.org/hasPart"] and item.props["http://schema.org/hasPart"].fwd.length > 0 %}
             {% for part in item.props["http://schema.org/hasPart"].fwd %}
               {% set target = data.ids[part.target_id] %}
               {% set targetName = target.props["http://schema.org/name"].fwd[0].value if target and target.props["http://schema.org/name"] and target.props["http://schema.org/name"].fwd else part.target_id %}
               {% set pagePath = data.pages[part.target_id].path if data.pages[part.target_id] else '' %}
-              {% if target and "Collection" in target.type and target.props["http://schema.org/hasPart"] and target.props["http://schema.org/hasPart"].fwd.length == 1 %}
-                {% set onlyMemberId = target.props["http://schema.org/hasPart"].fwd[0].target_id %}
-                {% set onlyMember = data.ids[onlyMemberId] %}
-                {% if onlyMember and "Article" in onlyMember.type and data.pages[onlyMemberId] %}
-                  {% set pagePath = data.pages[onlyMemberId].path %}
-                {% endif %}
-              {% endif %}
               <li>
                 {% if pagePath %}
                 <a href="../../../../../{{ pagePath }}">{{ targetName }}</a>

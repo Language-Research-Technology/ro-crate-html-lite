@@ -39,7 +39,7 @@
             background-position: center center;
             margin: 0;
         }
-        .page-title, .footer-row {
+        .page-title {
             text-align: center;
             background-color: black;
             color: white;
@@ -48,26 +48,8 @@
             padding-bottom: 1em;
             margin: 0;
         }
-        .footer-row a {
-            color: white;
-            font-size: 1.2em;
-        }
         .main-container {
             width:100%;
-        }
-        .section-heading {
-            text-align: center;
-            margin: 2rem 1rem 0.5rem;
-            color: #17301f;
-            font-size: 1.6rem;
-        }
-        .section-copy {
-            text-align: center;
-            max-width: 60rem;
-            margin: 0 auto 1.5rem;
-            color: #22422b;
-            line-height: 1.5;
-            padding: 0 1rem;
         }
         .object-grid {
             width:100%;
@@ -120,15 +102,6 @@
             -webkit-line-clamp: 4;
             overflow: hidden;
         }
-        .object-grid-person {
-            width:100%;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
-        }
         @media (max-width: 700px) {
             .object-grid {
                 flex-direction: column;
@@ -166,20 +139,6 @@
             text-decoration: none;
             color: inherit;
         }
-        .bird-name {
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            padding: 0.3em 0.8em;
-            border-radius: 0 0 8px 8px;
-            font-size: 1em;
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-        }
         </style>
 </head>
 <body>
@@ -197,23 +156,12 @@
         </div>
 
         {% if item.props["http://schema.org/hasPart"] and item.props["http://schema.org/hasPart"].fwd.length > 0 %}
-        <!-- <h3 class="section-heading">SubCollections in this RO-Crate</h3> -->
-        
-        <!-- <p class="section-copy">Browse the subCollections described by this root dataset.</p> -->
-
         <div class="article-grid">
             {% for part in item.props["http://schema.org/hasPart"].fwd %}
                 {% set entity = data.ids[part.target_id] %}
                 {% if entity and "Collection" in entity.type and entity.props and "http://schema.org/name" in entity.props and entity.props["http://schema.org/name"].fwd %}
                 {% set pagePath = data.pages[part.target_id].path if data.pages[part.target_id] else '' %}
                 {% set memberCount = entity.props["http://schema.org/hasPart"].fwd.length if entity.props["http://schema.org/hasPart"] else 0 %}
-                {% if memberCount == 1 %}
-                    {% set onlyMemberId = entity.props["http://schema.org/hasPart"].fwd[0].target_id %}
-                    {% set onlyMember = data.ids[onlyMemberId] %}
-                    {% if onlyMember and "Article" in onlyMember.type and data.pages[onlyMemberId] %}
-                        {% set pagePath = data.pages[onlyMemberId].path %}
-                    {% endif %}
-                {% endif %}
                 <div class="article-card">
                     {% if pagePath %}
                     <a href="{{ pagePath }}">

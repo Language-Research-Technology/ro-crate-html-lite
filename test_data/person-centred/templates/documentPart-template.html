@@ -68,11 +68,6 @@
             padding: 1.5rem;
             box-sizing: border-box;
         }
-        .lede {
-            color: #32523a;
-            margin-top: 0;
-            line-height: 1.5;
-        }
         .chapter {
             border-top: 1px solid rgba(0,0,0,0.08);
             padding-top: 1.5rem;
@@ -202,8 +197,6 @@
       </header>
 
       <main class="content">
-        <!-- <p class="lede">Generated article page from the RO-Crate metadata.</p> -->
-
         {% if item.props["http://schema.org/hasPart"] and item.props["http://schema.org/hasPart"].fwd.length > 0 %}
             {% for part in item.props["http://schema.org/hasPart"].fwd %}
                 {% set chapter = data.ids[part.target_id] %}

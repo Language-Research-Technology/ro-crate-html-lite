@@ -97,6 +97,23 @@
         .media-block {
             margin-top: 1rem;
         }
+        .document-part-row {
+            margin: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        }
+        .document-part-row:last-child {
+            margin-bottom: 0;
+        }
+        .document-part-children {
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(0, 0, 0, 0.12);
+        }
+        .part-title {
+            margin: 0 0 0.5rem;
+            color: #17301f;
+            font-size: 1.1rem;
+        }
         .media-block img {
             max-width: 100%;
             height: auto;
@@ -118,6 +135,62 @@
     </style>
   </head>
   <body>
+    {% macro renderMediaEntity(mediaEntity, subCollection) %}
+        <div class="media-block">
+            {% if mediaEntity.props["http://schema.org/image"] and mediaEntity.props["http://schema.org/image"].fwd %}
+                {% set imageTarget = mediaEntity.props["http://schema.org/image"].fwd[0].target_id %}
+                {% set imageSrc = imageTarget %}
+                {% if subCollection and imageTarget and imageTarget.startsWith("media/") %}
+                    {% set imageSrc = subCollection + "/" + imageTarget %}
+                {% endif %}
+                <img src="../../../../../{{ imageSrc }}" alt="{{ mediaEntity.props['http://schema.org/caption'].fwd[0].value if mediaEntity.props['http://schema.org/caption'] and mediaEntity.props['http://schema.org/caption'].fwd else '' }}">
+            {% endif %}
+            {% if mediaEntity.props["http://schema.org/audio"] and mediaEntity.props["http://schema.org/audio"].fwd %}
+                {% set audioTarget = mediaEntity.props["http://schema.org/audio"].fwd[0].target_id %}
+                {% set audioSrc = audioTarget %}
+                {% if subCollection and audioTarget and audioTarget.startsWith("media/") %}
+                    {% set audioSrc = subCollection + "/" + audioTarget %}
+                {% endif %}
+                <audio controls>
+                    <source src="../../../../../{{ audioSrc }}" type="audio/mpeg">
+                </audio>
+            {% endif %}
+            {% if mediaEntity.props["http://schema.org/caption"] and mediaEntity.props["http://schema.org/caption"].fwd %}
+                <p class="caption">{{ mediaEntity.props["http://schema.org/caption"].fwd[0].value | safe }}</p>
+            {% endif %}
+            {% if mediaEntity.props["http://schema.org/creditText"] and mediaEntity.props["http://schema.org/creditText"].fwd %}
+                <p class="credit">{{ mediaEntity.props["http://schema.org/creditText"].fwd[0].value }}</p>
+            {% endif %}
+        </div>
+    {% endmacro %}
+
+    {% macro renderDocumentPart(partEntity, subCollection, data) %}
+        <div class="document-part-row">
+            {% if partEntity.props["http://schema.org/name"] and partEntity.props["http://schema.org/name"].fwd %}
+                <h3 class="part-title">{{ partEntity.props["http://schema.org/name"].fwd[0].value }}</h3>
+            {% endif %}
+
+            {% if partEntity.props["http://schema.org/text"] and partEntity.props["http://schema.org/text"].fwd %}
+                <div class="chapter-copy">{{ partEntity.props["http://schema.org/text"].fwd[0].value | safe }}</div>
+            {% endif %}
+
+            {% if partEntity.props["http://schema.org/hasPart"] and partEntity.props["http://schema.org/hasPart"].fwd.length > 0 %}
+                <div class="document-part-children">
+                    {% for childRef in partEntity.props["http://schema.org/hasPart"].fwd %}
+                        {% set childEntity = data.ids[childRef.target_id] %}
+                        {% if childEntity %}
+                            {% if "bibo:DocumentPart" in childEntity.type or "bibo:Chapter" in childEntity.type %}
+                                {{ renderDocumentPart(childEntity, subCollection, data) }}
+                            {% else %}
+                                {{ renderMediaEntity(childEntity, subCollection) }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endmacro %}
+
     <div class="page-shell">
       <header class="page-header">
                 <a href="{{ backPath }}" aria-label="Back to collection">
@@ -145,35 +218,14 @@
                     {% endif %}
 
                     {% if chapter.props["http://schema.org/hasPart"] and chapter.props["http://schema.org/hasPart"].fwd.length > 0 %}
-                        {% for media in chapter.props["http://schema.org/hasPart"].fwd %}
-                            {% set mediaEntity = data.ids[media.target_id] %}
-                            {% if mediaEntity %}
-                            <div class="media-block">
-                                {% if mediaEntity.props["http://schema.org/image"] and mediaEntity.props["http://schema.org/image"].fwd %}
-                                    {% set imageTarget = mediaEntity.props["http://schema.org/image"].fwd[0].target_id %}
-                                    {% set imageSrc = imageTarget %}
-                                    {% if subCollection and imageTarget and imageTarget.startsWith("media/") %}
-                                        {% set imageSrc = subCollection + "/" + imageTarget %}
-                                    {% endif %}
-                                    <img src="../../../../../{{ imageSrc }}" alt="{{ mediaEntity.props['http://schema.org/caption'].fwd[0].value if mediaEntity.props['http://schema.org/caption'] and mediaEntity.props['http://schema.org/caption'].fwd else '' }}">
+                        {% for partRef in chapter.props["http://schema.org/hasPart"].fwd %}
+                            {% set partEntity = data.ids[partRef.target_id] %}
+                            {% if partEntity %}
+                                {% if "bibo:DocumentPart" in partEntity.type or "bibo:Chapter" in partEntity.type %}
+                                    {{ renderDocumentPart(partEntity, subCollection, data) }}
+                                {% else %}
+                                    {{ renderMediaEntity(partEntity, subCollection) }}
                                 {% endif %}
-                                {% if mediaEntity.props["http://schema.org/audio"] and mediaEntity.props["http://schema.org/audio"].fwd %}
-                                    {% set audioTarget = mediaEntity.props["http://schema.org/audio"].fwd[0].target_id %}
-                                    {% set audioSrc = audioTarget %}
-                                    {% if subCollection and audioTarget and audioTarget.startsWith("media/") %}
-                                        {% set audioSrc = subCollection + "/" + audioTarget %}
-                                    {% endif %}
-                                    <audio controls>
-                                        <source src="../../../../../{{ audioSrc }}" type="audio/mpeg">
-                                    </audio>
-                                {% endif %}
-                                {% if mediaEntity.props["http://schema.org/caption"] and mediaEntity.props["http://schema.org/caption"].fwd %}
-                                    <p class="caption">{{ mediaEntity.props["http://schema.org/caption"].fwd[0].value | safe }}</p>
-                                {% endif %}
-                                {% if mediaEntity.props["http://schema.org/creditText"] and mediaEntity.props["http://schema.org/creditText"].fwd %}
-                                    <p class="credit">{{ mediaEntity.props["http://schema.org/creditText"].fwd[0].value }}</p>
-                                {% endif %}
-                            </div>
                             {% endif %}
                         {% endfor %}
                     {% endif %}

@@ -35,9 +35,7 @@
       .content {
         width: min(54rem, calc(100vw - 2rem));
         margin: 2rem auto;
-        background: rgba(255,255,255,0.93);
         border-radius: 16px;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.12);
         padding: 1.5rem;
         box-sizing: border-box;
       }
@@ -45,21 +43,36 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        display: grid;
+        gap: 0.85rem;
       }
       .list li {
-        border-top: 1px solid rgba(0,0,0,0.1);
-      }
-      .list li:first-child {
-        border-top: 0;
+        background: rgba(255,255,255,0.96);
+        border: 1px solid rgba(0,0,0,0.12);
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        overflow: hidden;
       }
       .list a, .list .label {
         display: block;
-        padding: 0.9rem 0;
         color: #17301f;
         text-decoration: none;
+        min-height: 100%;
+        box-sizing: border-box;
       }
-      .list a:hover {
-        text-decoration: underline;
+      .list-thumb {
+        aspect-ratio: 16 / 9;
+        background: rgba(216,255,226,0.6);
+        overflow: hidden;
+      }
+      .list-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .list-body {
+        padding: 1rem 1.1rem;
       }
     </style>
   </head>
@@ -81,11 +94,22 @@
               {% set target = data.ids[part.target_id] %}
               {% set targetName = target.props["http://schema.org/name"].fwd[0].value if target and target.props["http://schema.org/name"] and target.props["http://schema.org/name"].fwd else part.target_id %}
               {% set pagePath = data.pages[part.target_id].path if data.pages[part.target_id] else '' %}
+              {% set thumbnailPath = target.previewImage if target and target.previewImage else '' %}
+              {% set thumbnailAlt = target.previewImageAlt if target and target.previewImageAlt else targetName %}
               <li>
                 {% if pagePath %}
-                <a href="../../../../../{{ pagePath }}">{{ targetName }}</a>
+                <a href="../../../../../{{ pagePath }}">
+                  {% if thumbnailPath %}
+                  <div class="list-thumb">
+                    <img src="../../../../../{{ thumbnailPath }}" alt="{{ thumbnailAlt }}">
+                  </div>
+                  {% endif %}
+                  <div class="list-body">{{ targetName }}</div>
+                </a>
                 {% else %}
-                <div class="label">{{ targetName }}</div>
+                <div class="label">
+                  <div class="list-body">{{ targetName }}</div>
+                </div>
                 {% endif %}
               </li>
             {% endfor %}

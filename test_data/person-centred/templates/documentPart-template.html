@@ -119,6 +119,11 @@
             width: 100%;
             max-width: 28rem;
         }
+        .audio-filename {
+            margin: 0.25rem 0 0;
+            font-size: 0.85rem;
+            color: #44614c;
+        }
         .caption, .credit {
             margin: 0.5rem 0 0;
             line-height: 1.5;
@@ -149,6 +154,7 @@
                 <audio controls>
                     <source src="../../../../../{{ audioSrc }}" type="audio/mpeg">
                 </audio>
+                <p class="audio-filename">{{ audioTarget | replace(r/^.*\//, "") }}</p>
             {% endif %}
             {% if mediaEntity.props["http://schema.org/caption"] and mediaEntity.props["http://schema.org/caption"].fwd %}
                 <p class="caption">{{ mediaEntity.props["http://schema.org/caption"].fwd[0].value | safe }}</p>

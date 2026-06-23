@@ -280,6 +280,11 @@ function buildGeneratedConfig(crate, propertyGroups = []) {
   return {
     multipage: false,
     style: "",
+    settings: {
+      maxListItemsWithoutSearch: 10,
+      showInfoLinks: true,
+      tabular: false,
+    },
     root: {
       template: "template.html",
     },
@@ -381,9 +386,14 @@ program
     
     // Load optional config (preferred --config, deprecated --multipage-config)
     const defaultConfig = {
+      multipage: false,
+      root: {
+        template: "template.html",
+      },
       settings: {
         maxListItemsWithoutSearch: 10, 
         showInfoLinks: true,
+        tabular: false,
       },
     };
     let configData = cloneJson(defaultConfig);

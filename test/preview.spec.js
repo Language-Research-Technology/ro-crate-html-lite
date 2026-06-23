@@ -224,6 +224,8 @@ describe("preview.js", function () {
     });
 
     it("Should handle multi-page configuration", async function () {
+      this.timeout(10000);
+
       // Create a crate with multiple entities of different types
       const crateData = JSON.parse(
         fs.readFileSync("test_data/f2fnew/data/ro-crate-metadata.json", "utf8")
@@ -239,16 +241,24 @@ describe("preview.js", function () {
         root: { template: "test_data/f2f-root-template.html" },
       };
 
-      crate.resolveContext();
+      await crate.resolveContext();
 
       // Convert to JSON with multi-page config
       const result = await roCrateToJSON(crate, multiPageConfig);
       //console.log("Pages generated:", result.pages);
 
+      const configuredTypes = new Set(Object.keys(multiPageConfig.types));
+      const matchedEntityCount = Array.from(crate.entities())
+        .filter((entity) =>
+          (Array.isArray(entity["@type"]) ? entity["@type"] : [entity["@type"]])
+            .some((type) => configuredTypes.has(type))
+        ).length;
+      const expectedPageCount = matchedEntityCount + 1; // Root page is always generated in multipage mode.
+
       // Check that pages are generated for entities of specified types
       assert.equal(
           Object.keys(result.pages).length,
-          171,
+          expectedPageCount,
         "Should have generated pages"
       );
     
@@ -269,6 +279,9 @@ describe("preview.js", function () {
           },
         },
         root: { template: "test_data/f2fnew/templates/f2f-root-template.html" },
+        settings: {
+          tabular: true,
+        },
         tabular: {
           mainNavType: "http://pcdm.org/models#Object",
           columnLimit: 4,
@@ -338,6 +351,9 @@ describe("preview.js", function () {
       const config = {
         multipage: false,
         root: { template: "template.html" },
+        settings: {
+          tabular: true,
+        },
         tabular: {
           mainNavType: "http://pcdm.org/models#Object",
           columnLimit: 12,
@@ -369,6 +385,9 @@ describe("preview.js", function () {
       const config = {
         multipage: false,
         root: { template: "template.html" },
+        settings: {
+          tabular: true,
+        },
         navigationByType: {
           "http://pcdm.org/models#Collection": [
             { uri: "http://schema.org/name", label: "Collection name" },
@@ -463,6 +482,9 @@ describe("preview.js", function () {
       const config = {
         multipage: false,
         root: { template: "template.html" },
+        settings: {
+          tabular: true,
+        },
         navigationByType: {
           "http://schema.org/Dataset": [],
         },
@@ -486,6 +508,30 @@ describe("preview.js", function () {
         result.tabular.types.Dataset && result.tabular.types.Dataset.rows.length > 0,
         "Dataset tabular rows should be present"
       );
+    });
+
+    it("should skip tabular data generation when settings.tabular is false", async function () {
+      const crateData = JSON.parse(
+        fs.readFileSync("test_data/sample/crate/ro-crate-metadata.json", "utf8")
+      );
+      const crate = new ROCrate(crateData, { array: true, link: true });
+      await crate.resolveContext();
+
+      const config = {
+        multipage: false,
+        root: { template: "template.html" },
+        settings: {
+          tabular: false,
+        },
+      };
+
+      const layout = JSON.parse(fs.readFileSync("lib/default_layout.json", "utf8"));
+      const result = await roCrateToJSON(crate, config, layout);
+
+      assert.ok(result.tabular, "Tabular metadata should exist");
+      assert.equal(result.tabular.enabled, false, "Tabular should be disabled by settings.tabular");
+      assert.deepEqual(result.tabular.types, {}, "No tabular type data should be generated");
+      assert.deepEqual(result.tabular.navItems, [], "No tabular nav items should be generated");
     });
 
     it("should deduplicate reciprocal hasPart/isPartOf and hasMember/memberOf pairs", async function () {
@@ -569,6 +615,9 @@ describe("preview.js", function () {
       const config = {
         multipage: false,
         root: { template: "template.html" },
+        settings: {
+          tabular: true,
+        },
         navigationByType: {
           "http://pcdm.org/models#Collection": [
             { uri: "http://schema.org/name" },

@@ -191,6 +191,7 @@ Top-level config keys currently supported:
 
 - `maxListItemsWithoutSearch` (number): list size threshold before inline find boxes are shown.
 - `showInfoLinks` (boolean): show/hide definition info icons (`ⓘ`) across the UI.
+- `tabular` (boolean): enable/disable generation of tabular summary data (default: `false`).
 
 Example:
 
@@ -198,7 +199,8 @@ Example:
 {
     "settings": {
         "maxListItemsWithoutSearch": 10,
-        "showInfoLinks": false
+        "showInfoLinks": false,
+        "tabular": true
     }
 }
 ```

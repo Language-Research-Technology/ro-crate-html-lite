@@ -3,10 +3,11 @@
   "style": "",
   "settings": {
     "maxListItemsWithoutSearch": 20,
-    "showInfoLinks": false
+    "showInfoLinks": false,
+    "tabular": true
   },
   "root": {
-    "template": "template.html"
+    "template": "tabular-template.html"
   },
   "navigationByType": {
     "http://pcdm.org/models#Collection": [
@@ -29,16 +30,6 @@
       {
         "uri": "http://schema.org/accountablePerson",
         "label": "Accountable Person"
-      }
-    ],
-    "http://schema.org/DefinedTerm": [
-      {
-        "uri": "http://schema.org/name",
-        "label": "Subject"
-      },
-      {
-        "uri": "http://schema.org/description",
-        "label": "Description"
       }
     ],
     "http://schema.org/Person": [

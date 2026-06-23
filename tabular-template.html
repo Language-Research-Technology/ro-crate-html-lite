@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] }}
+    </title>
+    <style>
+{{ css | safe }}
+    </style>
+
+    <script>
+      function escapeRegExp(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }
+
+      function clearSearchHighlights(container) {
+        if (!container) {
+          return;
+        }
+        container.querySelectorAll("span.search-highlight").forEach(function (node) {
+          var parent = node.parentNode;
+          if (!parent) {
+            return;
+          }
+          parent.replaceChild(document.createTextNode(node.textContent), node);
+          parent.normalize();
+        });
+      }
+
+      function highlightSearchTerm(container, term) {
+        if (!container || !term) {
+          return;
+        }
+
+        var regex = new RegExp(escapeRegExp(term), "gi");
+        var walker = document.createTreeWalker(
+          container,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function (node) {
+              if (!node.nodeValue || !node.nodeValue.trim()) {
+                return NodeFilter.FILTER_REJECT;
+              }
+              var parentEl = node.parentElement;
+              if (parentEl && parentEl.closest(".search-highlight")) {
+                return NodeFilter.FILTER_REJECT;
+              }
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          }
+        );
+
+        var textNodes = [];
+        var current;
+        while ((current = walker.nextNode())) {
+          textNodes.push(current);
+        }
+
+        textNodes.forEach(function (textNode) {
+          var text = textNode.nodeValue;
+          regex.lastIndex = 0;
+          if (!regex.test(text)) {
+            return;
+          }
+
+          regex.lastIndex = 0;
+          var fragment = document.createDocumentFragment();
+          var lastIndex = 0;
+          var match;
+
+          while ((match = regex.exec(text)) !== null) {
+            if (match.index > lastIndex) {
+              fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+            }
+
+            var highlight = document.createElement("span");
+            highlight.className = "search-highlight";
+            highlight.textContent = match[0];
+            fragment.appendChild(highlight);
+
+            lastIndex = match.index + match[0].length;
+          }
+
+          if (lastIndex < text.length) {
+            fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+          }
+
+          textNode.parentNode.replaceChild(fragment, textNode);
+        });
+      }
+
+      function applyTabularFilters() {
+        var globalSearchInput = document.getElementById("tabularSearchInput");
+        var globalTerm = globalSearchInput ? (globalSearchInput.value || "") : "";
+        var globalQuery = globalSearchInput ? globalSearchInput.value.toLowerCase() : "";
+
+        // Find current active table's body
+        var activeTableWrap = document.querySelector(".tabular-table-wrap.tabular-table-active");
+        if (!activeTableWrap) {
+          return;
+        }
+
+        // Only use column filters from the active table
+        var colInputs = Array.from(activeTableWrap.querySelectorAll(".tabular-col-search"));
+        var colTerms = colInputs.map(function (input) {
+          return input.value || "";
+        });
+        var colQueries = colInputs.map(function (input) {
+          return (input.value || "").toLowerCase();
+        });
+
+        var activeTableBody = activeTableWrap.querySelector("tbody");
+        if (!activeTableBody) {
+          return;
+        }
+
+        activeTableBody.querySelectorAll("tr").forEach(function (row) {
+          clearSearchHighlights(row);
+
+          var matchesGlobal = !globalQuery || ((row.dataset.fullText || "").indexOf(globalQuery) > -1);
+          var matchesColumns = colQueries.every(function (q, idx) {
+            if (!q) {
+              return true;
+            }
+            var cellText = row.dataset["col" + idx] || "";
+            return cellText.indexOf(q) > -1;
+          });
+
+          row.style.display = matchesGlobal && matchesColumns ? "" : "none";
+
+          if (row.style.display !== "none") {
+            if (globalTerm) {
+              highlightSearchTerm(row, globalTerm);
+            }
+            colTerms.forEach(function (term, idx) {
+              if (!term) {
+                return;
+              }
+              var cell = row.cells[idx];
+              if (cell) {
+                highlightSearchTerm(cell, term);
+              }
+            });
+          }
+        });
+
+        updateTabularCount();
+      }
+
+      function updateTabularCount() {
+        var count = document.getElementById("tabularCount");
+        if (!count) {
+          return;
+        }
+        var activeTableBody = document.querySelector(".tabular-table-active tbody");
+        if (!activeTableBody) {
+          return;
+        }
+        var rows = Array.from(activeTableBody.querySelectorAll("tr"));
+        var visible = rows.filter(function (row) {
+          return row.style.display !== "none";
+        }).length;
+        count.textContent = visible + " / " + rows.length;
+      }
+
+      function filterTableCell(input) {
+        var container = input.closest(".table-cell-long");
+        if (!container) return;
+        
+        var searchText = input.value.toLowerCase();
+        var itemsContainer = container.querySelector(".table-cell-values");
+        var items = itemsContainer.querySelectorAll(".table-cell-item");
+        var visibleCount = 0;
+        
+        items.forEach(function(item) {
+          clearSearchHighlights(item);
+          var itemText = item.textContent.toLowerCase();
+          if (itemText.indexOf(searchText) > -1) {
+            item.style.display = "";
+            if (searchText) {
+              highlightSearchTerm(item, searchText);
+            }
+            visibleCount++;
+          } else {
+            item.style.display = "none";
+          }
+        });
+        
+        var countSpan = container.querySelector(".table-cell-visible");
+        if (countSpan) {
+          countSpan.textContent = visibleCount;
+        }
+      }
+
+      function search(input) {
+        li = input.parentNode.getElementsByTagName("div");
+        filter = input.value.toUpperCase();
+        count = li.length;
+        found = 0;
+        for (i = 0; i < li.length; i++) {
+          clearSearchHighlights(li[i]);
+          txtValue = li[i].textContent.toUpperCase() || "";
+          if (txtValue.indexOf(filter) > -1) {
+            li[i].style.display = "";
+            if (filter) {
+              highlightSearchTerm(li[i], input.value);
+            }
+            found++;
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+        input.parentNode.getElementsByClassName("count")[0].innerText =
+          `${found - 1} /  ${count - 1}`;
+      }
+
+      window.addEventListener("beforeunload", function () {
+        try {
+          sessionStorage.setItem("showRootOverlayOnNextLoad", "1");
+        } catch (e) {
+          // Ignore storage errors in restricted browser contexts.
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var rootOverlay = document.getElementById("root_entity_overlay");
+        var shouldShowRootFromReload = false;
+        try {
+          shouldShowRootFromReload = sessionStorage.getItem("showRootOverlayOnNextLoad") === "1";
+          sessionStorage.removeItem("showRootOverlayOnNextLoad");
+        } catch (e) {
+          // Ignore storage errors in restricted browser contexts.
+        }
+
+        if (rootOverlay && (shouldShowRootFromReload || !window.location.hash)) {
+          window.location.hash = "#root_entity_overlay";
+        }
+
+        var select = document.getElementById("tabularTypeSelect");
+        var searchInput = document.getElementById("tabularSearchInput");
+
+        // Handle type switching (show/hide pre-rendered tables)
+        if (select) {
+          select.addEventListener("change", function () {
+            // Hide all tables
+            document.querySelectorAll(".tabular-table-wrap").forEach(function (wrap) {
+              wrap.classList.remove("tabular-table-active");
+            });
+            // Show selected table
+            var selectedTable = document.querySelector(".tabular-table-wrap[data-type='" + select.value + "']");
+            if (selectedTable) {
+              selectedTable.classList.add("tabular-table-active");
+            }
+            // Clear search when switching types
+            if (searchInput) {
+              searchInput.value = "";
+            }
+            updateTabularCount();
+          });
+          // Show the initial selected type
+          var initialTable = document.querySelector(".tabular-table-wrap[data-type='" + select.value + "']");
+          if (initialTable) {
+            initialTable.classList.add("tabular-table-active");
+          }
+        } else {
+          // Single type - no dropdown, just show the table
+          var singleTable = document.querySelector(".tabular-table-wrap");
+          if (singleTable) {
+            singleTable.classList.add("tabular-table-active");
+          }
+        }
+
+        // Handle search filtering
+        if (searchInput) {
+          searchInput.addEventListener("input", function () {
+            applyTabularFilters();
+          });
+        }
+
+        // Handle per-column searches
+        document.querySelectorAll(".tabular-col-search").forEach(function (input) {
+          input.addEventListener("input", applyTabularFilters);
+        });
+
+        // Close summary overlay when clicking outside the panel, matching close-button behavior.
+        document.querySelectorAll(".entity").forEach(function (overlay) {
+          overlay.addEventListener("click", function (event) {
+            if (event.target.closest(".entity-panel")) {
+              return;
+            }
+            var closeTarget = overlay.getAttribute("data-close-target");
+            if (!closeTarget) {
+              return;
+            }
+            window.location.hash = "#" + encodeURIComponent(closeTarget);
+          });
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    {%- macro infoLink(url) %}
+      {%- set showInfoLinks = config.settings.showInfoLinks if config and config.settings and config.settings.showInfoLinks is not none else true %}
+      {%- if url and showInfoLinks %}
+        {%- set normalizedUrl = url | replace(r/^#/, "") %}
+        {%- set linkTarget = data.infoLinks[url] or data.infoLinks[normalizedUrl] %}
+        
+        {%- if linkTarget %}
+            <span class="info"><a href="#{{ linkTarget | urlencode }}" title="See definition for {{ url }} in this RO-Crate">ⓘ</a></span>
+          {%- elif url[0] == "#" -%}
+             <span class="info"><a href="#{{ normalizedUrl | urlencode }}" title="See definition for {{ normalizedUrl }} in this RO-Crate">ⓘ</a></span>
+          {%- else -%}
+             <span class="info"><a href="{{ url }}" title="Look up definition for {{ url }}" target="_blank">ⓘ</a></span>
+          {%- endif %}
+       
+      {%- endif %}
+    {%- endmacro %}
+
+    {%- macro diplayLabel(propData) %}
+      {{ propData.label | replace(r/.*:/, "") }}
+      {{ infoLink(propData.url) }}
+    {%- endmacro %}
+
+    {%- macro displayProp(prop, propData) %}
+      <div class="property-row">
+        {%- if propData.fwd.length > 0 %}
+          <div class="property-name">{{ diplayLabel(propData) }}</div>
+          <div class="property-value">
+            {%- set searchThreshold = config.settings.maxListItemsWithoutSearch if config and config.settings and config.settings.maxListItemsWithoutSearch is not none else 10 %}
+            {%- set isLong = propData.fwd.length + propData.rev.length > searchThreshold %}
+            {%- if isLong %}
+              <input class="border" onkeyup="res = search(this)" />
+              <span class="count">
+                ({{ propData.fwd.length + propData.rev.length }} /
+                {{ propData.fwd.length + propData.rev.length }})</span
+              >
+            {%- endif %}
+            <div class="{{ 'long' if isLong else 'short' }}">
+              {%- for val in propData.fwd %}
+                <div>
+                  {%- if val is string %}
+                    {{ val | urlize | nl2br  | safe }}
+                  {%- elif val["url"] %}
+                    <a href="{{ val["url"] }}"> {{ val["url"] }}</a>
+                  {%- else %}
+                    {%- if val["target_id"] %}
+                      <span{%- if not data.hasLayout %} class="button-right"{% endif %}>
+                        <a href="#{{ val["target_id"] | urlencode }}" title="{{ val["target_name"] }}">
+                          {{ val["target_name"] }}
+                        </a>
+                      </span>
+                    {%- elif val.value is string %}
+                      {{ val.value | urlize | nl2br  | safe }}
+                    {%- elif val.value %}
+                      {{ val.value }}
+                    {%- else %}
+                      WARNING SOMETHING WENT WRONG {{ val | dump }}
+                    {%- endif %}
+                  {%- endif %}
+                  
+                </div>
+              {%- endfor %}
+            </div>
+          </div>
+        {%- endif %}
+        {%- if propData.rev.length > 0 %}
+          <div class="property-name">{{ propData.reverseLabel | replace(r/.*:/, "") }}{{ infoLink(propData.url) }}</div>
+          <div class="property-value">
+            {%- set searchThreshold = config.settings.maxListItemsWithoutSearch if config and config.settings and config.settings.maxListItemsWithoutSearch is not none else 10 %}
+            {%- set isLong = propData.fwd.length + propData.rev.length > searchThreshold %}
+            {%- if isLong %}
+              <input class="border" onkeyup="res = search(this)" />
+              <span class="count">
+                ({{ propData.fwd.length + propData.rev.length }} /
+                {{ propData.fwd.length + propData.rev.length }})</span
+              >
+            {%- endif %}
+            <div class="{{ 'long' if isLong else 'short' }}">
+              {%- for val in propData.rev %}
+                <div>
+                  {%- if val["target_id"] %}
+                    <span{%- if not data.hasLayout %} class="button-left"{% endif %}>
+                      <a href="#{{ val["target_id"] | urlencode }}" title="{{ val["target_name"] }}">
+                        {{ val["target_name"] }}
+                      </a>
+                    </span>
+                  {%- else %}
+                    WARNING SOMETHING WENT WRONG {{ val | dump }} ⬅
+                  {%- endif %}
+                </div>
+              {%- endfor %}
+            </div>
+          </div>
+        {%- endif %}
+      </div>
+    {%- endmacro %}
+
+    {%- macro typeNav() %}
+      <select onchange="location.href=this.value">
+        <option value="disabled selected">Select a type</option>
+        {%- for type, list in data.types %}
+          {%- if type != "File" %}
+            <option value="#types_{{ type }}">{{ data.typeLabels[type] or type }}</option>
+          {%- endif %}
+        {%- endfor %}
+      </select>
+    {%- endmacro %}
+
+    {%- macro crateNav() %}
+      <div class="nav">
+        <p>Browse by type:</p>
+        {%- if data.tabular and data.tabular.enabled %}
+          {%- set navItems = data.tabular.navItems if data.tabular.navItems else [] %}
+          {%- if navItems.length == 1 %}
+            <p>{{ navItems[0].label }}</p>
+          {%- else %}
+          <select id="tabularTypeSelect">
+            {%- for navItem in navItems %}
+              <option value="{{ navItem.type }}" {{ "selected" if data.tabular.mainNavType == navItem.type else "" }}>{{ navItem.label }}</option>
+            {%- endfor %}
+          </select>
+          {%- endif %}
+        {%- elif data.tabular and data.tabular.navOnly %}
+          <select id="tabularTypeSelect">
+            {%- for type in data.tabular.navTypes %}
+              <option value="{{ type }}" {{ "selected" if data.tabular.mainNavType == type else "" }}>{{ type }}</option>
+            {%- endfor %}
+          </select>
+        {%- else %}
+          {{ typeNav() }}
+        {%- endif %}
+        <!--
+{%- if data.types["Dataset"] and data.types["Dataset"].length > 2 %}
+          <a href="#types_Dataset">Datasets in this crate</a>
+        {%- endif %}
+    -->
+      </div>
+    {%- endmacro %}
+
+    {%- macro renderTableCell(cell, isNameColumn, row) %}
+      {%- if cell is string and cell %}
+        {{ cell }}
+      {%- elif cell is mapping and cell.isLong and cell.items %}
+        {# Multi-value cell with scrollable container #}
+        <div class="table-cell-long">
+          {%- set searchThreshold = config.settings.maxListItemsWithoutSearch if config and config.settings and config.settings.maxListItemsWithoutSearch is not none else 4 %}
+          {%- if (cell.items | length) > searchThreshold %}
+            <div class="table-cell-controls">
+              <input type="text" class="table-cell-search" placeholder="Find..." onkeyup="filterTableCell(this)" />
+              <span class="table-cell-count">
+                <span class="table-cell-visible">{{ cell.items | length }}</span> / {{ cell.items | length }}
+              </span>
+            </div>
+          {%- endif %}
+          <div class="table-cell-values">
+            {%- for item in cell.items %}
+              {%- if item.target_id and item.text %}
+                <div class="table-cell-item" data-text="{{ item.text | lower }}">
+                  {%- set buttonClass = "button-left" if item.isReverse else "button-right" %}
+                  <span{%- if not data.hasLayout %} class="{{ buttonClass }}"{% endif %}>
+                    <a href="#{{ item.target_id | urlencode }}">
+                      {{ item.text }}
+                    </a>
+                  </span>
+                </div>
+              {%- elif item.text %}
+                <div class="table-cell-item" data-text="{{ item.text | lower }}">
+                  {{ item.text }}
+                </div>
+              {%- endif %}
+            {%- endfor %}
+          </div>
+        </div>
+      {%- elif cell is iterable and cell is not string and cell is not mapping %}
+        {# Array of 2 values - inline #}
+        {%- for item in cell %}
+          {%- if not loop.first %}, {% endif %}
+          {%- if item.target_id and item.text %}
+            {%- set buttonClass = "button-left" if item.isReverse else "button-right" %}
+            <span{%- if not data.hasLayout %} class="{{ buttonClass }}"{% endif %}>
+              <a href="#{{ item.target_id | urlencode }}">
+                {{ item.text }}
+              </a>
+            </span>
+          {%- elif item.text %}
+            {{ item.text }}
+          {%- endif %}
+        {%- endfor %}
+      {%- elif cell is mapping and cell.target_id and cell.text %}
+        {%- set buttonClass = "button-left" if cell.isReverse else "button-right" %}
+        <span{%- if not data.hasLayout %} class="{{ buttonClass }}"{% endif %}>
+          <a href="#{{ cell.target_id | urlencode }}">
+            {{ cell.text }}
+          </a>
+        </span>
+      {%- elif isNameColumn and row.pagePath %}
+        <a href="{{ row.pagePath }}">
+          {% if cell and cell.text %}
+            {{ cell.text }}
+          {% else %}
+            {{ row.displayName or row.id }}
+          {%- endif %}
+        </a>
+      {%- elif isNameColumn and row.id %}
+        <a href="#{{ row.id | urlencode }}">
+          {% if cell and cell.text %}
+            {{ cell.text }}
+          {% else %}
+            {{ row.displayName or row.id }}
+          {%- endif %}
+        </a>
+      {%- else %}
+        {% if cell and cell.text %}
+          {{ cell.text }}
+        {% elif cell is string %}
+          {{ cell }}
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
+
+    {%- macro tabularSummary() %}
+      {%- if data.tabular and data.tabular.enabled %}
+        <div class="tabular-wrap">
+          {%- if data.tabular.searchEnabled %}
+            <div class="tabular-controls">
+              <label for="tabularSearchInput">Find</label>
+              <input id="tabularSearchInput" type="text" />
+              <span class="tabular-count" id="tabularCount"></span>
+            </div>
+          {%- endif %}
+
+          {%- for typeName, typeData in data.tabular.types %}
+            {%- set nameUri = "http://schema.org/name" %}
+            <div class="tabular-table-wrap" data-type="{{ typeName }}">
+              <table class="tabular-table">
+                <thead>
+                  <tr>
+                    {%- for col in typeData.columns %}
+                      <th>{{ col.label or col.uri }}</th>
+                    {%- endfor %}
+                  </tr>
+                  {%- if data.tabular.columnSearchEnabled %}
+                    <tr>
+                      {%- for col in typeData.columns %}
+                        <th>
+                          <input type="text" class="tabular-col-search" placeholder="Find..." />
+                        </th>
+                      {%- endfor %}
+                    </tr>
+                  {%- endif %}
+                </thead>
+                <tbody>
+                  {%- for row in typeData.rows %}
+                    <tr data-full-text="{{ (row.displayName | default(row.id, true)) | lower }} {{ row.cellSearchTexts | join(" ") | lower }}"
+                        {%- for i in range(row.cellSearchTexts|length) %}
+                          data-col{{ i }}="{{ row.cellSearchTexts[i] | default("", true) | lower }}"
+                        {%- endfor %}>
+                      {%- for cell in row.cells %}
+                        <td>
+                          {{- renderTableCell(cell, typeData.columns[loop.index0].uri == nameUri, row) -}}
+                        </td>
+                      {%- endfor %}
+                    </tr>
+                  {%- endfor %}
+                </tbody>
+              </table>
+            </div>
+          {%- endfor %}
+        </div>
+      {%- endif %}
+    {%- endmacro %}
+    <!--
+    {%- macro schemaElements() %}
+      {%- if data.types["DefinedTerm"] or data.types["rdf:Property"] or  data.types["rdfs:Class"] %}
+        <h3>Custom schema elements</h3>
+        {%- if data.types["rdf:Property"] %}
+          <a href="#types_rdf:Property">Properties</a>
+        {%- endif %}
+
+        {%- if data.types["rdfs:Class"] %}
+          <p>|</p>
+          <a href="#types_rdfs:Class">Classes</a>
+        {%- endif %}
+
+        {%- if data.types["DefinedTerm"] %}
+          <p>|</p>
+          <a href="#types_DefinedTerm">DefinedTerms</a>
+        {%- endif %}
+      {%- endif %}
+    {%- endmacro %}
+    -->
+
+    {%- macro root() %}
+    <!--
+      <div class="home-link">
+        <a href="#{{ data.entryPoint | urlencode }}" class="home-close-button" onclick="if (window.history.length > 1) { window.history.back(); return false; }">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            fill="currentColor"
+            class="bi bi-arrow-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8"
+            />
+          </svg>
+          Back
+        </a>
+      </div>
+      -->
+    {%- endmacro %}
+
+    {%- macro showType(type) %}
+      {{ config.termMapping[data.typeUrls[type]].customLabel or type | replace(r/.*:/) }}
+      {{ infoLink(data.typeUrls[type]) }}
+    {%- endmacro %}
+
+    {%- macro setProp(prop) %}
+      {%- if prop is string %}
+        {{ prop }}
+      {% else %}
+        {{ prop | merge({ prop: true }) }}
+      {%- endif %}
+    {%- endmacro %}
+
+    {%- macro display(item, class, anchorId, closeTargetId) %}
+      <!-- Heading Section -->
+      {%- set effectiveAnchorId = anchorId if anchorId else item.id %}
+      {%- set effectiveCloseTargetId = closeTargetId if closeTargetId else data.entryPoint %}
+      <div id="{{ effectiveAnchorId | urlencode }}" class="{{ class }}" data-close-target="{{ effectiveCloseTargetId }}">
+        {%- if class == "entity" %}<div class="entity-panel">{%- endif %}
+        <div class="entity-header-row">
+          {%- if class == "entity" %}
+            <a
+              href="#{{ effectiveCloseTargetId | urlencode }}"
+              class="entity-close"
+              aria-label="Close summary"
+              title="Close"
+            >
+              ×
+            </a>
+          {%- endif %}
+          <div class="entity-header-top">
+            <div class="entity-header-home">
+              {%- if class == "entity" %}
+                {{ root () }}
+              {%- endif %}
+            </div>
+          </div>
+          <div class="entity-header-types">
+            {%- for type in item.type %}
+              <span class="type">{{ showType(type) }}</span
+              >{%- if not loop.last %}<p>|</p>{%- endif %}
+            {%- endfor %}
+          </div>
+          <h2>
+            {%- if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
+              {{ item.props["http://schema.org/name"].fwd[0].value   }}
+            {% else %}
+              <!-- Use ID if name isn't available, e.g. files -->
+              {{ item.id }}
+            {%- endif %}
+          </h2>
+          {%- if item == data.ids[data.entryPoint] and class == "root" and item.props and "http://schema.org/description" in item.props and item.props["http://schema.org/description"].fwd and item.props["http://schema.org/description"].fwd.length > 0 %}
+            {%- set rootDescription = item.props["http://schema.org/description"].fwd[0].value if item.props["http://schema.org/description"].fwd[0].value else item.props["http://schema.org/description"].fwd[0] %}
+            {%- if rootDescription %}
+              <p class="root-description">  {{ rootDescription | nl2br | safe }}</p>
+            {%- endif %}
+            <p class="root-more-link"><a href="#root_entity_overlay">More about this data</a></p>
+          {%- endif %}
+          {%- if not (item == data.ids[data.entryPoint]) %}
+            <h2 class="id">{{ item.id }}</h2>
+          {%- endif %}
+          {%- if item == data.ids[data.entryPoint] and class == "root" %}
+          {%- endif %}
+        </div>
+
+        {%- if item == data.ids[data.entryPoint] and class == "root" %}
+          <section class="browse">
+            {{ crateNav() }}
+            {%- if data.tabular and data.tabular.enabled %}
+              {{ tabularSummary() }}
+            {%- elif data.tabular and data.tabular.navOnly %}
+              <!-- Navigation-only mode: show selector only, no summary tables -->
+            {%- else %}
+              {%- for type, list in data.types %}
+                <div id="types_{{ type }}" class="drop-down">
+                  <div class="entity-grid">
+                    <h2>{{ type }} ({{ list.length }})</h2>
+
+                    {%- set searchThreshold = config.settings.maxListItemsWithoutSearch if config and config.settings and config.settings.maxListItemsWithoutSearch is not none else 10 %}
+                    {%- set isLong = list.length > searchThreshold %}
+                    {%- if isLong %}
+                      <input class="border" onkeyup="res = search(this)" />
+                      <span class="count">
+                        ({{ list.length }} / {{ list.length }})</span
+                      >
+                    {%- endif %}
+                    <div class="{{ 'long' if isLong else 'short' }}">
+                      {%- for id in list %}
+                        {%- if id != data.entryPoint %}
+                          <div>
+                            <a href="#{{ id | urlencode }}">
+                              {%- if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
+                                {{ data.ids[id].props["http://schema.org/name"].fwd[0].value }}
+                              {%- else %}
+                                {{ id }}
+                              {%- endif %}
+                            </a>
+                          </div>
+                        {%- endif %}
+                      {%- endfor %}
+                    </div>
+                  </div>
+                </div>
+              {%- endfor %}
+            {%- endif %}
+          </section>
+        {%- endif %}
+
+        <!--Section for files if they are avails-->
+        {%- set htmlRegex = r/(\.txt)$|(\.html?)$/i %}
+        {%- set mdRegex = r/\.md$/i %}
+        {%- set audioRegex = r/(\.mp3)|(\.ogg?)|(\.wav)$/i %}
+        {%- set imgRegex = r/(\.jpe?g)|(\.png|(\.giff?))$/i %}
+        {%- set vidRegex = r/(\.mp4)|(\.mov)$/i %}
+
+        {%- set pdfRegex = r/pdf$/i %}
+
+        {%- if item.type.includes("File") %}
+          <div class="centered-files">
+            {%- if htmlRegex.test(item.id) %}
+              <!-- TODO: fix these width="80%"s, they are not valid -->
+              <iframe
+                src="{{ item.id }}"
+                type="text/plain"
+                width="80%"
+                height="500"
+                loading="lazy"
+              ></iframe>
+            {% elif audioRegex.test(item.id) %}
+              <audio controls width="80%">
+                <source src="{{ item.id }}" />
+              </audio>
+            {% elif vidRegex.test(item.id) %}
+              <video io controls>
+                <source src="{{ item.id }}" />
+              </video>
+            {% elif imgRegex.test(item.id) %}
+              <img
+                width="100%"
+                style="object-fit: contain"
+                src="{{ item.id }}"
+                loading="lazy"
+              />
+            {% elif mdRegex.test(item.id) %}
+              {%- if item.content %}
+                {{ item.content | renderMarkdown | safe }}
+              {%- else %}
+                <p>Markdown content not available. <a href="{{ item.id | urlencode }}">View file</a></p>
+              {%- endif %}
+            {% elif pdfRegex.test(item.id) %}
+              <!--          <iframe   src="{{ item.id }}" type="application/pdf" width="100%" height="600px" loading="lazy" />-->
+            {%- endif %}
+            <a href="{{ item.id | urlencode }}">Open file location</a>
+          </div>
+        {%- endif %}
+
+        {%- if not (item == data.ids[data.entryPoint] and class == "root" and data.tabular and data.tabular.hideRootSummary) %}
+        <div class="property-grid">
+          {%- set seenProps = {"@id": true,"@type": true} %}
+          {%- set propertyGroups = config.propertyGroups if config and config.propertyGroups else [] %}
+          {%- for group in propertyGroups %}
+            {%- set hasContent = false %}
+            {%- for input in group.inputs %}
+              {%- if item.props[input] %}
+                {%- set hasContent = true %}
+                {%- set seenProps = seenProps | setProp(input) %}
+              {%- endif %}
+            {%- endfor %}
+            {%- if hasContent %}
+              <div class="property-header-row">{{ group.name }}</div>
+            {%- endif %}
+            {%- for input in group.inputs %}
+              {%- if item.props[input] %}
+                {{ displayProp(input, item.props[input]) }}
+              {%- endif %}
+            {%- endfor %}
+          {%- endfor %}
+
+          {%- set hasContent = false %}
+          {%- for input, val in item.props %}
+            {%- if not seenProps[input] %}
+              {%- set hasContent = true %}
+            {%- endif %}
+          {%- endfor %}
+
+          {%- if hasContent %}
+            <div class="property-header-row">Other properties</div>
+          {%- endif %}
+
+          {%- for input, val in item.props %}
+            {%- if not seenProps[input] %}
+              {{ displayProp(input, item.props[input]) }}
+            {%- endif %}
+          {%- endfor %}
+        </div>
+        {%- endif %}
+        {%- if class == "entity" %}</div>{%- endif %}
+      </div>
+    {%- endmacro %}
+
+    {{ display(data.ids[data.entryPoint], "root") }}
+
+    {%- if data.tabular and data.tabular.hideRootSummary %}
+      {{ display(data.ids[data.entryPoint], "entity", "root_entity_overlay", data.entryPoint) }}
+    {%- endif %}
+
+    {%- for id, entity in data.ids %}
+      {%- if id != data.entryPoint %}
+        {{ display(entity, "entity") }}
+      {%- endif %}
+    {%- endfor %}
+  </body>
+</html>

@@ -1,12 +1,21 @@
 {
   "name": "ro-crate-html-lite",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.8",
   "description": "A tool to create static HTML-only ro-crate-preview-html files for an RO-Crate",
   "main": "index.js",
+  "bin": {
+    "roc-html": "roc-html.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Language-Research-Technology/ro-crate-html-lite"
+  },
   "scripts": {
     "test": "mocha",
-    "format": "prettier --write template.html"
+    "visualize": "node test/test-bounding-box.js",
+    "format": "prettier --write template.html",
+    "build": "node precompile.js template.html > template.js"
   },
   "author": "Peter Sefton",
   "contributors": [
@@ -25,19 +34,24 @@
   ],
   "license": "GPL-3.0",
   "dependencies": {
-    "canvas": "^3.1.0",
     "commander": "^12.1.0",
-    "maplibre-gl": "^4.7.1",
-    "markdown-it": "^14.1.0",
+    "markdown-it": "^14.1.1",
     "nunjucks": "^3.2.4",
-    "puppeteer": "^23.7.1",
-    "ro-crate": "^3.7.0",
-    "terraformer-wkt-parser": "^1.2.1",
-    "wellknown": "^0.5.0"
+    "ro-crate": "^3.7.2"
   },
   "devDependencies": {
     "mocha": "^11.7.5",
     "prettier": "^3.6.2",
     "prettier-plugin-jinja-template": "^2.1.0"
+  },
+  "files": [
+    "index.js",
+    "roc-html.js",
+    "template.html",
+    "template.js",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=20"
   }
 }

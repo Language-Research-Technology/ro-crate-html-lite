@@ -234,11 +234,11 @@ describe("preview.js", function () {
       const multiPageConfig = {
         types: {
           RepositoryObject: {
-            template: "test_data/f2f-subobject-template.html",
+            template: "test_data/templates/f2f-subobject-template.html",
           },
-          Person: { template: "test_data/f2f-subobject-template.html" },
+          Person: { template: "test_data/templates/f2f-subobject-template.html" },
         },
-        root: { template: "test_data/f2f-root-template.html" },
+        root: { template: "test_data/templates/f2f-root-template.html" },
       };
 
       await crate.resolveContext();

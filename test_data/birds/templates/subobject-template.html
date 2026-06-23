@@ -1,27 +1,38 @@
 <html lang="en">
   <head>
+    {% set domain = data.pages[data.entryPoint].domain %}
+    {% set path = data.pages[data.entryPoint].path %}
+    {% set rootName = data.ids["./"].props["http://schema.org/name"].fwd[0].value if data.ids["./"] and data.ids["./"].props["http://schema.org/name"] %}
+    {% set name = data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] %}
+    {% set description = data.ids[data.entryPoint].props["http://schema.org/description"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/description"] %}
+
+    {# Facebook sharing image (Open Graph) #}
+    {% if domain %}
+    {# normalize URL parts and collapse duplicate slashes in the combined paths #}
+    {% set domain = domain | replace("https://", "") | replace("http://", "") | trim %}
+    {% set pagePath = path | trim %}
+    {% set ogUrlPath = (domain ~ "/" ~ pagePath) | replace("//", "/") %}
+    {% set ogImagePath = (domain ~ "/files/og-image.jpg") | replace("//", "/") %}
+    <meta property="og:url" content="https://{{ ogUrlPath }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="http://{{ ogImagePath }}" />
+    <meta property="og:image:secure_url" content="https://{{ ogImagePath }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {% if name and rootName %}<meta property="og:title" content="{{ rootName }} | {{ name }}" />{% elif name %}<meta property="og:title" content="{{ name }}" />{% elif rootName %}<meta property="og:title" content="{{ rootName }}" />{% endif %}
+    {% if description %}<meta property="og:description" content="{{ description }}" />{% endif %}
+    {% endif %}
+    {# // Facebook sharing image (Open Graph) #}
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    {# Facebook sharing image (Open Graph) #}
-    <meta property="og:url" content="{{ url }}" />
-    <meta property="og:type" content="website" />
-        <meta property="og:title" content="{{ data.ids[data.entryPoint].props['http://schema.org/name'].fwd[0].value }}" />
-        <meta property="og:description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
-        <meta name="description" content="{{ data.ids[data.entryPoint].props.sentence.fwd[0].value }}" />
-    {% if data.ids[data.entryPoint].props["http://schema.org/hasPart"] %}
-        {% for val in data.ids[data.entryPoint].props["http://schema.org/hasPart"].fwd %}
-            {% if val.target_name and (val.target_name.endsWith(".jpg") or val.target_name.endsWith(".png")) %}
-                <meta property="og:image" content="http://ayeye-thipe-akerte.bird-apps.com/{{ val.target_name }}" />
-                <meta property="og:image:secure_url" content="https://ayeye-thipe-akerte.bird-apps.com/{{ val.target_name }}" />
-            {% endif %}
-        {% endfor %}
-    {% endif %}
+    {% if name and rootName %}<title>{{ rootName }} | {{ name }}</title>{% elif name %}<title>{{ name }}</title>{% elif rootName %}<title>{{ rootName }}</title>{% else %}<title></title>{% endif %}
+    <link rel="icon" type="image/png" href="files/images/favicon.png" />
 
     <style>
         html, body {
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
-            background-color: #d3f4fe;
+            background-color: #d8ffe2;
             background-image: url(../../../../../files/images/clouds-background.png);
             background-size: cover;
             background-repeat: no-repeat;
@@ -406,12 +417,25 @@
                 </div>
                 <div class="right">
                     {{ showHasPartImage(item) }}
+                    <p>Photographer: {{ item.props["arcp://name,custom/terms#photographerName"].fwd[0].value }}</p>
                 </div>
             </div>
+
+            {% if item.props["arcp://name,custom/terms#videoLink"] %}
+                <div class="grid">
+                    <div class="left"></div>
+                    <div class="right">
+                        <a href='{{ item.props["arcp://name,custom/terms#videoLink"].fwd[0].value }}'>Watch a video</a>
+                    </div>
+                </div>
+            {% endif %}
 
             <div class="grid">
                 <div class="left"></div>
                 <div class="right">
+                    {% if item.props["http://schema.org/alternateName"] %}
+                        <p> Alternate name: {{ item.props["http://schema.org/alternateName"].fwd[0].value }}</p>
+                    {% endif %}
                     <p>
                         {{ item.props["arcp://name,custom/terms#translation"].fwd[0].value }}
                     </p>
@@ -434,6 +458,15 @@
                     <span class="translation">
                         {{ item.props["arcp://name,custom/terms#sentenceTranslation"].fwd[0].value }}
                     </span>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="left"></div>
+                <div class="right">
+                    {% if item.props["arcp://name,custom/terms#speaker"] %}
+                        <p> Speaker: {{ item.props["arcp://name,custom/terms#speaker"].fwd[0].target_name }}</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

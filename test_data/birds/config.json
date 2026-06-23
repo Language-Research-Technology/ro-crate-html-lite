@@ -1,0 +1,9 @@
+{
+    "types": {
+      "RepositoryObject": {"template": "test_data/birds/templates/subobject-template.html"},
+      "Person": {"template": "test_data/birds/templates/person-template.html"},
+      "AboutPage": {"template": "test_data/birds/templates/about-template.html"}
+    },
+    "root" : {"template": "test_data/birds/templates/root-template.html"},
+    "domain": "http://example.com/birds"
+}

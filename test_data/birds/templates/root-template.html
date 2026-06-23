@@ -1,22 +1,38 @@
 <html lang="en">
   <head>
+    {% set domain = data.pages[data.entryPoint].domain %}
+    {% set path = data.pages[data.entryPoint].path %}
+    {% set rootName = data.ids["./"].props["http://schema.org/name"].fwd[0].value if data.ids["./"] and data.ids["./"].props["http://schema.org/name"] %}
+
+    {% set description = data.ids[data.entryPoint].props["http://schema.org/description"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/description"] %}
+
     {# Facebook sharing image (Open Graph) #}
-    <meta property="og:url" content="https://ayeye-thipe-akerte.bird-apps.com/ro-crate-preview.html" />
+    {% if domain %}
+    {# normalize URL parts and collapse duplicate slashes in the combined paths #}
+    {% set domain = domain | replace("https://", "") | replace("http://", "") | trim %}
+    {% set pagePath = path | trim %}
+    {% set ogUrlPath = (domain ~ "/" ~ pagePath) | replace("//", "/") %}
+    {% set ogImagePath = (domain ~ "/files/og-image.jpg") | replace("//", "/") %}
+    <meta property="og:url" content="https://{{ ogUrlPath }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Ayeye Thipe Akerte" />
-    <meta property="og:description" content="Arrernte stories about birds" />
-    <meta property="og:image" content="http://ayeye-thipe-akerte.bird-apps.com/files/images/og-img.jpg" />
-    <meta property="og:image:secure_url" content="https://ayeye-thipe-akerte.bird-apps.com/files/images/og-img.jpg" />
+    <meta property="og:image" content="http://{{ ogImagePath }}" />
+    <meta property="og:image:secure_url" content="https://{{ ogImagePath }}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    {% if rootName %}<meta property="og:title" content="{{ rootName }}" />{% endif %}
+    {% if description %}<meta property="og:description" content="{{ description }}" />{% endif %}
+    {% endif %}
+    {# // Facebook sharing image (Open Graph) #}
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    {% if rootName %}<title>{{ rootName }}</title>{% else %}<title></title>{% endif %}
     <link rel="icon" type="image/png" href="files/images/favicon.png" />
+    
     <style>
         html, body {
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
-            background-color: #d3f4fe;
+            background-color: #d8ffe2;
             background-image: url(files/images/clouds-background.png);
             background-size: cover;
             background-repeat: no-repeat;
@@ -28,7 +44,8 @@
             background-color: black;
             color: white;
             font-weight: normal;
-            padding: 1em;
+            padding-top: 1em;
+            padding-bottom: 1em;
             margin: 0;
         }
         .footer-row a {
@@ -45,6 +62,15 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+        }
+        .object-grid-person {
+            width:100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
         }
         @media (max-width: 700px) {
             .object-grid {
@@ -135,6 +161,24 @@
                 <div style="text-align:center; margin: 1em;">
                     <a href="{{ data.pages[entity_id].path }}" class="about-link">
                         About this project
+                    </a>
+                    <br><br><p style="font-size: large;">Speakers:</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="object-grid-person">
+            {% set sorted_ids = data.types.Person | sort %}
+            {% for entity_id in sorted_ids %}
+                {% set entity = data.ids[entity_id] %}
+                {% set imagePath = entity.props["arcp://name,custom/terms#image"].fwd[0].target_id %}
+                {% set pagePath= data.pages[entity_id].path if data.pages[entity_id] else '' %}
+
+                <div class="bird" style="background-image: url('{{ imagePath }}');">
+                    <a href="{{ pagePath }}">
+                        <div class="bird-name">
+                            {{ entity.props["http://schema.org/name"].fwd[0].value }}
+                        </div>
                     </a>
                 </div>
             {% endfor %}

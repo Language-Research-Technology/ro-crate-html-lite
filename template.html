@@ -11,6 +11,37 @@
         font-family: Arial, Helvetica, sans-serif;
         font-size: 1vw;
         margin: 0;
+        background: #f5f5f5;
+      }
+
+      .landing-shell {
+        min-height: 100vh;
+        padding: 24px 0 48px;
+      }
+
+      .landing-title {
+        width: 100%;
+        margin: 0 auto;
+        padding: 18px 24px;
+        background: #000;
+        color: #fff;
+        text-align: center;
+        font-size: 2.1em;
+        line-height: 1.2;
+      }
+
+      .landing-details-link {
+        width: 100%;
+        text-align: center;
+        margin: 8px 0 16px;
+      }
+
+      .landing-details-link a {
+        display: inline-block;
+        color: #000;
+        font-size: 1.1em;
+        text-decoration: underline dotted 2px;
+        text-underline-offset: 4px;
       }
       h3 {
         font-size: 0.6em;
@@ -30,18 +61,28 @@
       }
       .entity {
         display: none;
-        position: static;
-        top: 0;
+        position: fixed;
+        inset: 0;
         width: 100%;
-        z-index: 1000;
-        padding: 0px;
-        scroll-margin-top: 600px;
+        z-index: 3000;
+        padding: 2vh 3.5vw;
+        overflow: auto;
+        background: rgba(0, 0, 0, 0.15);
       }
       .entity:target {
         display: block;
       }
 
-      .entity a {
+      .entity-panel {
+        background: #fff;
+        min-height: 96vh;
+        max-width: 1800px;
+        margin: 150px auto 0;
+        overflow-x: hidden;
+        box-shadow: 0 10px 26px rgba(17, 17, 17, 0.14);
+      }
+
+      .entity a:not(.entity-close) {
         text-decoration: underline dotted 2px;
         line-height: 2em;
         text-underline-offset: 5px;
@@ -63,7 +104,6 @@
 
       .entity:target {
         display: block;
-        scroll-margin-top: 0; /* Ensures the entity is at the top of the viewport */
       }
 
       span.type {
@@ -77,6 +117,21 @@
       span.type::after {
         content: "\a";
         white-space: pre;
+      }
+
+      .entity-meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .entity-identifier {
+        font-size: 0.55em;
+        font-weight: 400;
+        opacity: 0.9;
       }
 
       .entity-header-row span.type::after {
@@ -154,13 +209,49 @@
 
       .entity-header-row {
         width: 100%;
+        box-sizing: border-box;
         padding: 15px;
+        padding-right: 72px;
         padding-bottom: 25px;
         background-color: rgb(0, 0, 0);
         color: #fff;
         font-size: 2em;
         font-weight: bold;
         text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+
+      .entity-header-row .entity-close {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        color: #111;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1;
+        border: 1px solid #aebbb5;
+        background: #fff;
+        border-radius: 999px;
+        width: 34px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        z-index: 5;
+      }
+
+      .entity-header-row .entity-close:hover {
+        background: #f2f2f2;
+        border-color: #8f9c96;
+      }
+
+      .entity-header-row .entity-close:focus-visible {
+        outline: 2px solid #111;
+        outline-offset: 2px;
       }
 
       .entity-header-row h2 {
@@ -169,6 +260,7 @@
         line-height: 1.1em;
         margin-bottom: 0px;
         justify-content: center; /* Center horizontally */
+        font-size: 0.72em;
       }
 
       .entity-header-row .info {
@@ -399,6 +491,43 @@
         input.parentNode.getElementsByClassName("count")[0].innerText =
           `${found - 1} /  ${count - 1}`;
       }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var rootOverlay = document.getElementById("{{ data.entryPoint | urlencode }}");
+        var shouldShowRootFromReload = false;
+        try {
+          shouldShowRootFromReload =
+            sessionStorage.getItem("showRootOverlayOnNextLoad") === "1";
+          sessionStorage.removeItem("showRootOverlayOnNextLoad");
+        } catch (e) {
+          // Ignore storage errors in restricted browser contexts.
+        }
+
+        if (rootOverlay && (shouldShowRootFromReload || !window.location.hash)) {
+          window.location.hash = "#{{ data.entryPoint | urlencode }}";
+        }
+
+        document.querySelectorAll(".entity").forEach(function (overlay) {
+          overlay.addEventListener("click", function (event) {
+            if (event.target.closest(".entity-panel")) {
+              return;
+            }
+            var closeTarget = overlay.getAttribute("data-close-target");
+            if (!closeTarget) {
+              closeTarget = "{{ data.entryPoint | urlencode }}";
+            }
+            window.location.hash = "#" + closeTarget;
+          });
+        });
+      });
+
+      window.addEventListener("beforeunload", function () {
+        try {
+          sessionStorage.setItem("showRootOverlayOnNextLoad", "1");
+        } catch (e) {
+          // Ignore storage errors in restricted browser contexts.
+        }
+      });
     </script>
   </head>
 
@@ -534,25 +663,6 @@
       </div>
     {%- endmacro %}
 
-    {%- macro schemaElements() %}
-      {%- if data.types["DefinedTerm"] or data.types["rdf:Property"] or  data.types["rdfs:Class"] %}
-        <h3>Custom schema elements</h3>
-        {%- if data.types["rdf:Property"] %}
-          <a href="#types_rdf:Property">Properties</a>
-        {%- endif %}
-
-        {%- if data.types["rdfs:Class"] %}
-          <p>|</p>
-          <a href="#types_rdfs:Class">Classes</a>
-        {%- endif %}
-
-        {%- if data.types["DefinedTerm"] %}
-          <p>|</p>
-          <a href="#types_DefinedTerm">DefinedTerms</a>
-        {%- endif %}
-      {%- endif %}
-    {%- endmacro %}
-
     {%- macro root() %}
       <div class="home-link">
         <a href="#{{ data.entryPoint | urlencode }}" class="root">
@@ -588,10 +698,16 @@
       {%- endif %}
     {%- endmacro %}
 
-    {%- macro display(item, class) %}
+    {%- macro display(item, class, anchorId, closeTargetId) %}
       <!-- Heading Section -->
-      <div id="{{ item.id | urlencode }}" class="{{ class }}">
+      {%- set effectiveAnchorId = anchorId if anchorId else item.id %}
+      {%- set effectiveCloseTargetId = closeTargetId if closeTargetId else data.entryPoint %}
+      <div id="{{ effectiveAnchorId | urlencode }}" class="{{ class }}" data-close-target="{{ effectiveCloseTargetId | urlencode }}">
+        <div class="{{ 'entity-panel' if class == 'entity' else '' }}">
         <div class="entity-header-row">
+          {%- if class == "entity" %}
+            <a class="entity-close" href="#{{ effectiveCloseTargetId | urlencode }}" title="Close">×</a>
+          {%- endif %}
           {{ root () }}
           <h2>
             {%- if item.props and "http://schema.org/name" in item.props and item.props["http://schema.org/name"].fwd %}
@@ -601,57 +717,14 @@
               {{ item.id }}
             {%- endif %}
           </h2>
-          {%- for type in item.type %}
-            <span class="type">{{ showType(type) }}</span
-            >{%- if not loop.last %}<p>|</p>{%- endif %}
-          {%- endfor %}
-
-          <h3>Identifier</h3>
-          <h2 class="id">{{ item.id }}</h2>
-          {{ schemaElements() }}
-        </div>
-
-        <!-- Browse Collection section -->
-        <div class="section_head">
-          <h2>Browse collection</h2>
-        </div>
-
-        <section class="browse">
-          {{ crateNav() }}
-          <!-- Think this is where the function for displaying selected item of drop down list should go but not sure -->
-          {%- if item == data.ids[data.entryPoint] %}
-            {%- for type, list in data.types %}
-              <div id="types_{{ type }}" class="drop-down">
-                <div class="entity-grid">
-                  <h2>{{ type }} ({{ list.length }})</h2>
-
-                  {%- set isLong = list.length  > 9 %}
-                  {%- if isLong %}
-                    <input class="border" onkeyup="res = search(this)" />
-                    <span class="count">
-                      ({{ list.length }} / {{ list.length }})</span
-                    >
-                  {%- endif %}
-                  <div class="{{ 'long' if isLong else 'short' }}">
-                    {%- for id in list %}
-                      {%- if id != data.entryPoint %}
-                        <div>
-                          <a href="#{{ id | urlencode }}">
-                            {%- if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
-                              {{ data.ids[id].props["http://schema.org/name"].fwd[0].value }}
-                            {%- else %}
-                              {{ id }}
-                            {%- endif %}
-                          </a>
-                        </div>
-                      {%- endif %}
-                    {%- endfor %}
-                  </div>
-                </div>
-              </div>
+          <div class="entity-meta-row">
+            {%- for type in item.type %}
+              <span class="type">{{ showType(type) }}</span
+              >{%- if not loop.last %}<p>|</p>{%- endif %}
             {%- endfor %}
-          {%- endif %}
-        </section>
+            <span class="entity-identifier">ID: {{ item.id }}</span>
+          </div>
+        </div>
 
         <!--Section for files if they are avails-->
         {%- set htmlRegex = r/(\.txt)$|(\.html?)$/i %}
@@ -701,11 +774,6 @@
           </div>
         {%- endif %}
 
-        <!-- Properties section -->
-        <div class="section_head">
-          <h2>Details</h2>
-        </div>
-
         <div class="property-grid">
           {%- set seenProps = {"@id": true,"@type": true} %}
           {%- for group in layout %}
@@ -743,15 +811,55 @@
             {%- endif %}
           {%- endfor %}
         </div>
+
+        </div>
       </div>
     {%- endmacro %}
 
-    {{ display(data.ids[data.entryPoint], "root") }}
+    <div id="__home__" class="landing-shell">
+      <h1 class="landing-title">
+        {{ data.ids[data.entryPoint].props["http://schema.org/name"].fwd[0].value if data.ids[data.entryPoint].props["http://schema.org/name"] else "RO-Crate" }}
+      </h1>
+      <p class="landing-details-link">
+        <a href="#{{ data.entryPoint | urlencode }}">Details</a>
+      </p>
+
+      <section class="browse">
+        {{ crateNav() }}
+        {%- for type, list in data.types %}
+          <div id="types_{{ type }}" class="drop-down">
+            <div class="entity-grid">
+              <h2>{{ type }} ({{ list.length }})</h2>
+
+              {%- set isLong = list.length > 9 %}
+              {%- if isLong %}
+                <input class="border" onkeyup="res = search(this)" />
+                <span class="count"> ({{ list.length }} / {{ list.length }})</span>
+              {%- endif %}
+
+              <div class="{{ 'long' if isLong else 'short' }}">
+                {%- for id in list %}
+                  {%- if id != data.entryPoint %}
+                    <div>
+                      <a href="#{{ id | urlencode }}">
+                        {%- if data.ids[id].props["http://schema.org/name"].fwd[0].value %}
+                          {{ data.ids[id].props["http://schema.org/name"].fwd[0].value }}
+                        {%- else %}
+                          {{ id }}
+                        {%- endif %}
+                      </a>
+                    </div>
+                  {%- endif %}
+                {%- endfor %}
+              </div>
+            </div>
+          </div>
+        {%- endfor %}
+      </section>
+    </div>
 
     {%- for id, entity in data.ids %}
-      {%- if id != data.entryPoint %}
-        {{ display(entity, "entity") }}
-      {%- endif %}
+      {{ display(entity, "entity", id, "__home__" if id == data.entryPoint else data.entryPoint) }}
     {%- endfor %}
   </body>
 </html>

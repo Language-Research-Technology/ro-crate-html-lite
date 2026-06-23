@@ -1,0 +1,36 @@
+# Publish docs to github pages and publish library to npm
+name: Publish
+
+on: 
+  workflow_run:
+    workflows: [Run Tests]
+    types: [completed]
+    branches: [master, main]
+
+permissions: write-all
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+      - uses: ButlerLogic/action-autotag@1.1.2
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          tag_prefix: "v"
+        id: create_tag
+      # - run: echo ${{ steps.create_tag.outputs.tagname }}
+      # - run: echo ${{ steps.create_tag.outputs.version }}
+      - name: Check if a new tag is created
+        run: "[[ '${{ steps.create_tag.outputs.tagname }}' ]]"
+      - run: npm ci
+      - run: npm run build
+      #- run: npm run build-docs
+      - name: Publish package on NPM
+        run: npm publish --access public

@@ -1,38 +1,38 @@
 # ro-crate-html-lite
 
-A tool to create a complete, completely static `ro-crate-preview.html` file with the same functionality as [ro-crate-html-js](https://github.com/UTS-eResearch/ro-crate-html-js) but without any dependence on online resources or JavaScript (except for some small helpers).
+A tool to create a complete, completely static `ro-crate-preview.html` file with the same functionality as [ro-crate-html-js](https://github.com/Language-Research-Technology/ro-crate-html-js) but without any dependence on online resources or JavaScript (except for some small helpers).
 
 HTML Preview Lite is available without any installation at the [RO-Crate Playground](https://ro-crate.ldaca.edu.au/).
+
+A recipe is available [here](https://github.com/Language-Research-Technology/developer-documentation/blob/main/tutorials/ro-crate-html-lite/bird-site/ro-crate-preview-doc.md) to guide a user intending to replicate the work with their own data.
+
 
 ## Install
 
 ```
-npm install .
-
+npm install ro-crate-html-lite
 ```
 
-## Usage
+## CLI Usage
 
 ```
-node index.js [options] <path_to_crate_directory>
+npx roc-html [options] <path_to_crate_directory>
 
-Load an RO-Crate from a specified directory.
+Create an HTML file preview for an RO-Crate from a specified directory.
 
 Arguments:
-path_to_crate_directory     Path to the crate directory.
+  path_to_crate_directory             Path to the crate directory.
 
 Options:
--l, --layout <layoutPath>   Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout (input groups) instead of the default or the one present in the crate. Use raw link if URL is from GitHub. (Default: "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json")
-
--c, --config <configPath>           Filepath or URL to a configuration file in JSON format.
-
--m, --multipage-config <configPath> Deprecated alias for --config.
-
--s, --style <stylePath>      Filepath or URL to a CSS file. Overrides config style and default.css.
-
---rm                         Remove ro-crate-preview.html and ro-crate-preview_html directory from the crate.
-
--h, --help                  Display help for command.
+  -l, --layout <layoutPath>           Filepath or URL to a layout file in JSON format. This forces the script to use the specified layout instead of the default or the one present in the
+                                      crate. Use a raw link if the URL is from GitHub. (Default:
+                                      "https://github.com/Language-Research-Technology/crate-o/blob/main/src/lib/components/default_layout.json")
+    -c, --config <configPath>            Filepath or URL to a configuration file in JSON format.
+    -m, --multipage-config <configPath>  Deprecated alias for --config.
+    -s, --style <stylePath>              Filepath or URL to a CSS file. Overrides config style and default.css.
+    --generate-config <configPath>       Generate a starter config file with empty structure and termMapping for crate class/property URIs.
+    --rm                                 Remove ro-crate-preview.html and ro-crate-preview_html directory from the crate.
+  -h, --help                          display help for command
 ```
 
 ### CSS loading
@@ -49,13 +49,13 @@ Examples:
 
 ```bash
 # Use default.css
-node index.js test_data/COOEE/crate
+npx roc-html test_data/COOEE/crate
 
 # Use style from config
-node index.js -c test_data/oral-history/oral-history-single-page-config.json test_data/oral-history/crate
+npx roc-html -c test_data/oral-history/oral-history-single-page-config.json test_data/oral-history/crate
 
 # Override style from CLI
-node index.js --style test_data/oral-history/oral-history-blue.css test_data/COOEE/crate
+npx roc-html --style test_data/oral-history/oral-history-blue.css test_data/COOEE/crate
 ```
 
 ### About Page
@@ -80,25 +80,38 @@ To generate an About page for the site:
 3. Associate the `AboutPage` type with a template in the multipage config.
 
 
-
-## Run with test data
+### Run with test data
 
 Sample crate:
 
 ```
-node index.js test_data/sample/crate
+npx roc-html test_data/sample
 ```
 
 Sample crate with tabular summary and no multipage output:
 
 ```
-node index.js -c test_data/sample/sample-config.json test_data/sample/crate
+npx roc-html -c test_data/sample/sample-config.json test_data/sample/crate
+```
+
+## Library Usage
+
+To use this library in your own code, import the `renderSinglePage` function, e.g.:
+```js
+import { renderSinglePage } from "ro-crate-html-lite";
+import { ROCrate } from 'ro-crate';
+import { readFile, writeFile } from 'node:fs/promises';
+
+const json = JSON.parse(await readFile('ro-crate-metadata.json', 'utf-8'));
+const crate = await ROCrate.create(json);
+const previewContent = await renderSinglePage({ crate });
+await writeFile('./preview.html', previewContent, 'utf-8');
 ```
 
 Farms to freeways -- multiple pages  
 
 ```
-node index.js -c test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
+npx roc-html -c test_data/f2fnew/f2fconfig.json test_data/f2fnew/data
 ```
 
 ### Optional tabular summary settings for multipage configs
@@ -154,7 +167,7 @@ You can also provide explicit per-type navigation and columns with `navigationBy
 
 How columns are chosen:
 
-- Column order follows `propertyGroups` from the resolved layout.
+- Column order follows `propertyGroups` from the resolved layout (or legacy `inputGroups` when present).
 - If `navigationByType` is present, dropdown order follows config order.
 - Columns with no values for that type are skipped.
 - If `includeFallbackColumns` is `true`, extra populated properties not listed in `propertyGroups` can be appended.
@@ -182,6 +195,7 @@ Top-level config keys currently supported:
 - `style`: CSS path or URL.
 - `root.template`: template path for the root page.
 - `propertyGroups`: ordered property groups used in the property panel.
+- `inputGroups`: legacy alias for `propertyGroups` (still accepted for backward compatibility).
 - `navigationByType`: optional explicit tabular columns and labels by type URI.
 - `tabular`: tabular summary behavior (`mainNavType`, `columnLimit`, `searchEnabled`, `columnSearchEnabled`, `includeFallbackColumns`, `hideColumns`).
 - `termMapping`: label and visibility overrides for classes/properties.
@@ -212,7 +226,8 @@ Example:
 
 ## Contributing
 
-To format the template run `npm run format`
+To format the template run `npm run format`.
+To test any changes to the default `template.html`, run the `npm run build` command first to generate the pre-compiled template `template.js`.
 
 ### HTML Validation continuous integration
 
